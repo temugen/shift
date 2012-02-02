@@ -1,19 +1,19 @@
 //
-//  AppDelegate.m
+//  shiftAppDelegate.m
 //  shift
 //
-//  Created by Brad Misik on 2/2/12.
-//  Copyright __MyCompanyName__ 2012. All rights reserved.
+//  Created by Brad Misik on 8/17/11.
+//  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
 #import "cocos2d.h"
 
-#import "AppDelegate.h"
+#import "shiftAppDelegate.h"
 #import "GameConfig.h"
-#import "HelloWorldLayer.h"
+#import "BoardLayer.h"
 #import "RootViewController.h"
 
-@implementation AppDelegate
+@implementation shiftAppDelegate
 
 @synthesize window;
 
@@ -110,7 +110,7 @@
 	[self removeStartupFlicker];
 	
 	// Run the intro Scene
-	[[CCDirector sharedDirector] runWithScene: [HelloWorldLayer scene]];
+	[[CCDirector sharedDirector] runWithScene: [BoardLayer scene]];
 }
 
 
@@ -151,7 +151,7 @@
 }
 
 - (void)dealloc {
-	[[CCDirector sharedDirector] end];
+	[[CCDirector sharedDirector] release];
 	[window release];
 	[super dealloc];
 }

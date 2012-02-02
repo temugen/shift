@@ -2,8 +2,8 @@
 //  RootViewController.m
 //  shift
 //
-//  Created by Brad Misik on 2/2/12.
-//  Copyright __MyCompanyName__ 2012. All rights reserved.
+//  Created by Brad Misik on 8/17/11.
+//  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
 //
@@ -108,8 +108,7 @@
 	// BUG: This won't work if the EAGLView is not fullscreen
 	///
 	CGRect screenRect = [[UIScreen mainScreen] bounds];
-	CGRect rect = CGRectZero;
-
+	CGRect rect;
 	
 	if(toInterfaceOrientation == UIInterfaceOrientationPortrait || toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)		
 		rect = screenRect;

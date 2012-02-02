@@ -2,16 +2,15 @@
 //  main.m
 //  shift
 //
-//  Created by Brad Misik on 2/2/12.
-//  Copyright __MyCompanyName__ 2012. All rights reserved.
+//  Created by Brad Misik on 8/17/11.
+//  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 int main(int argc, char *argv[]) {
-    
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
-    [pool release];
-    return retVal;
+	NSAutoreleasePool *pool = [NSAutoreleasePool new];
+	int retVal = UIApplicationMain(argc, argv, nil, @"shiftAppDelegate");
+	[pool release];
+	return retVal;
 }

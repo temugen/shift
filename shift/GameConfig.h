@@ -2,8 +2,8 @@
 //  GameConfig.h
 //  shift
 //
-//  Created by Brad Misik on 2/2/12.
-//  Copyright __MyCompanyName__ 2012. All rights reserved.
+//  Created by Brad Misik on 8/17/11.
+//  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
 #ifndef __GAME_CONFIG_H
