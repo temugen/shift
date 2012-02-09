@@ -125,7 +125,6 @@
 		8270386314DB052F008D7240 /* BoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8270386014DB052F008D7240 /* BoardLayer.m */; };
 		8270386714DB057A008D7240 /* shiftAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8270386614DB057A008D7240 /* shiftAppDelegate.m */; };
 		8270387014DB07F5008D7240 /* block_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270386A14DB07F5008D7240 /* block_blue.png */; };
-		8270387114DB07F5008D7240 /* block_brown.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270386B14DB07F5008D7240 /* block_brown.png */; };
 		8270387214DB07F5008D7240 /* block_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270386C14DB07F5008D7240 /* block_green.png */; };
 		8270387314DB07F5008D7240 /* block_purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270386D14DB07F5008D7240 /* block_purple.png */; };
 		8270387414DB07F5008D7240 /* block_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270386E14DB07F5008D7240 /* block_red.png */; };
@@ -373,7 +372,6 @@
 		8270386514DB057A008D7240 /* shiftAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shiftAppDelegate.h; sourceTree = "<group>"; };
 		8270386614DB057A008D7240 /* shiftAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shiftAppDelegate.m; sourceTree = "<group>"; };
 		8270386A14DB07F5008D7240 /* block_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_blue.png; path = Resources/block_blue.png; sourceTree = "<group>"; };
-		8270386B14DB07F5008D7240 /* block_brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_brown.png; path = Resources/block_brown.png; sourceTree = "<group>"; };
 		8270386C14DB07F5008D7240 /* block_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_green.png; path = Resources/block_green.png; sourceTree = "<group>"; };
 		8270386D14DB07F5008D7240 /* block_purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_purple.png; path = Resources/block_purple.png; sourceTree = "<group>"; };
 		8270386E14DB07F5008D7240 /* block_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_red.png; path = Resources/block_red.png; sourceTree = "<group>"; };
@@ -456,7 +454,6 @@
 			isa = PBXGroup;
 			children = (
 				8270386A14DB07F5008D7240 /* block_blue.png */,
-				8270386B14DB07F5008D7240 /* block_brown.png */,
 				8270386C14DB07F5008D7240 /* block_green.png */,
 				8270386D14DB07F5008D7240 /* block_purple.png */,
 				8270386E14DB07F5008D7240 /* block_red.png */,
@@ -846,7 +843,6 @@
 				8270370A14DB0448008D7240 /* Icon@2x.png in Resources */,
 				8270370D14DB0448008D7240 /* iTunesArtwork in Resources */,
 				8270387014DB07F5008D7240 /* block_blue.png in Resources */,
-				8270387114DB07F5008D7240 /* block_brown.png in Resources */,
 				8270387214DB07F5008D7240 /* block_green.png in Resources */,
 				8270387314DB07F5008D7240 /* block_purple.png in Resources */,
 				8270387414DB07F5008D7240 /* block_red.png in Resources */,

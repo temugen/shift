@@ -21,7 +21,6 @@ static NSArray *available_blocks;
                             @"block_blue.png",
                             @"block_red.png",
                             @"block_green.png",
-                            @"block_brown.png",
                             @"block_purple.png",
                             @"block_yellow.png",
                             nil];
