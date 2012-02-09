@@ -23,6 +23,7 @@ static NSArray *available_blocks;
                             @"block_green.png",
                             @"block_purple.png",
                             @"block_yellow.png",
+                            @"block_orange.png",
                             nil];
 	}
 	return self;
