@@ -1,0 +1,7 @@
+build/*
+*~.nib
+*.swp
+.DS_Store
+*.pbxuser
+*.xcworkspace
+xcuserdata
