@@ -6,6 +6,8 @@
 //  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
+//adding a test comment
+
 
 // Import the interfaces
 #import "BoardLayer.h"
