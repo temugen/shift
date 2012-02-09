@@ -61,8 +61,8 @@
 	Block *sampleBlock = [Block spriteWithFile:@"block_blue.png"];
 	
 	CGSize screenSize = [[CCDirector sharedDirector] winSize];
-	boardX = screenSize.width / 2 - (boardWidth * [sampleBlock blockSize].width) / 2 + [sampleBlock blockSize].width / 2;
-	boardY = screenSize.height / 2 - (boardHeight * [sampleBlock blockSize].height) / 2 + [sampleBlock blockSize].height / 2;
+	boardRect.origin.x = screenSize.width / 2 - (boardWidth * [sampleBlock blockSize].width) / 2 + [sampleBlock blockSize].width / 2;
+	boardRect.origin.y = screenSize.height / 2 - (boardHeight * [sampleBlock blockSize].height) / 2 + [sampleBlock blockSize].height / 2;
 	
 	blocks = (Block **)malloc(width * height * sizeof(Block *));
     Block *block;
@@ -79,7 +79,7 @@
             NSUInteger randomIndex = arc4random() % [available_blocks count];
             block = [Block spriteWithFile:[available_blocks objectAtIndex:randomIndex]];
 			[self setBlock:block withX:x withY:y];
-			block.position = ccp(boardX + x * [block blockSize].width, boardY + y * [block blockSize].height);
+			block.position = ccp(boardRect.origin.x + x * [block blockSize].width, boardRect.origin.y + y * [block blockSize].height);
 			block.row = y;
 			block.column = x;
 			[self addChild:block];
@@ -120,6 +120,18 @@
 	}
 	return NULL;
 }
+
+/*-(void) updateColumnWithX:(int)x
+{
+    for (int i = 0; <#condition#>; <#increment#>) {
+        <#statements#>
+    }
+}
+
+-(void) updateRowWithY:(int)y
+{
+    
+}*/
 
 -(void) updateBoard
 {
@@ -171,8 +183,8 @@
         if (isMovingRight) {
             for (int x = boardWidth - 1; x >= 0; x--) {
                 if ((block = [self blockWithX:x withY:movingBlock.row])) {
-                    if (block.position.x + xDiff + [block blockSize].width > boardX + boardWidth * [block blockSize].width) {
-                        xDiff = boardX + boardWidth * [block blockSize].width - block.position.x - [block blockSize].width;
+                    if (block.position.x + xDiff + [block blockSize].width > boardRect.origin.x + boardWidth * [block blockSize].width) {
+                        xDiff = boardRect.origin.x + boardWidth * [block blockSize].width - block.position.x - [block blockSize].width;
                     }
                     block.position = ccp(block.position.x + xDiff, block.position.y);
                 }
@@ -181,8 +193,8 @@
         else {
             for (int x = 0; x < boardWidth; x++) {
                 if ((block = [self blockWithX:x withY:movingBlock.row])) {
-                    if (block.position.x + xDiff < boardX) {
-                        xDiff = boardX - block.position.x;
+                    if (block.position.x + xDiff < boardRect.origin.x) {
+                        xDiff = boardRect.origin.x - block.position.x;
                     }
                     block.position = ccp(block.position.x + xDiff, block.position.y);
                 }
@@ -194,8 +206,8 @@
         if (isMovingUp) {
             for (int y = boardHeight - 1; y >= 0; y--) {
                 if ((block = [self blockWithX:movingBlock.column withY:y])) {
-                    if (block.position.y + yDiff + [block blockSize].height > boardY + boardHeight * [block blockSize].height) {
-                        yDiff = boardY + boardHeight * [block blockSize].height - block.position.y - [block blockSize].height;
+                    if (block.position.y + yDiff + [block blockSize].height > boardRect.origin.y + boardHeight * [block blockSize].height) {
+                        yDiff = boardRect.origin.y + boardHeight * [block blockSize].height - block.position.y - [block blockSize].height;
                     }
                     block.position = ccp(block.position.x, block.position.y + yDiff);
                 }
@@ -204,8 +216,8 @@
         else {
             for (int y = 0; y < boardHeight; y++) {
                 if ((block = [self blockWithX:movingBlock.column withY:y])) {
-                    if (block.position.y + yDiff < boardY) {
-                        yDiff = boardY - block.position.y;
+                    if (block.position.y + yDiff < boardRect.origin.y) {
+                        yDiff = boardRect.origin.y - block.position.y;
                     }
                     block.position = ccp(block.position.x, block.position.y + yDiff);
                 }
@@ -221,8 +233,8 @@
     if (isMovingRow) {
 		for (int x = 0; x < boardWidth; x++) {
 			if ((block = [self blockWithX:x withY:movingBlock.row])) {
-                newIndex = round((block.position.x - boardX) / [block blockSize].width);
-                block.position = ccp(boardX + newIndex * [block blockSize].width, block.position.y);
+                newIndex = round((block.position.x - boardRect.origin.x) / [block blockSize].width);
+                block.position = ccp(boardRect.origin.x + newIndex * [block blockSize].width, block.position.y);
                 block.column = newIndex;
             }
 		}
@@ -230,8 +242,8 @@
 	else {
 		for (int y = 0; y < boardHeight; y++) {
 			if ((block = [self blockWithX:movingBlock.column withY:y])) {
-                newIndex = round((block.position.y - boardY) / [block blockSize].height);
-                block.position = ccp(block.position.x, boardY + newIndex * [block blockSize].height);
+                newIndex = round((block.position.y - boardRect.origin.y) / [block blockSize].height);
+                block.position = ccp(block.position.x, boardRect.origin.y + newIndex * [block blockSize].height);
                 block.row = newIndex;
             }
 		}

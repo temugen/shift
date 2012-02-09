@@ -14,12 +14,12 @@
 // HelloWorldLayer
 @interface BoardLayer : CCLayer
 {
+    //Block *blocks[5][5];
 	Block **blocks;
-	int boardWidth, boardHeight;
-	int boardX, boardY;
+    int boardWidth, boardHeight;
 	bool isMovingRow;
 	Block *movingBlock;
-    CGRect boundingBox;
+    CGRect boardRect;
 }
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
