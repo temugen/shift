@@ -6,8 +6,18 @@
 //  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
-
 #import "BoardLayer.h"
+
+#define len(array) (sizeof((array))/sizeof(typeof((array[0]))))
+
+static NSString *colors[] = {
+    @"blue",
+    @"red",
+    @"green",
+    @"purple",
+    @"yellow",
+    @"orange"
+};
 
 @interface BoardLayer()
 
@@ -34,7 +44,7 @@
         rowCount = rows;
 		blocks = (BlockSprite **)malloc(columnCount * rowCount * sizeof(BlockSprite *));
         
-        blockSize = size;
+        cellSize = size;
         
         //Initially, no columns or rows are moving
         movement = kNone;
@@ -47,8 +57,8 @@
     if ((self = [self initWithNumberOfColumns:columns rows:rows blockSize:size])) {
         //Calculate the bounding box for the board.
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
-        boundingBox.size.width = columnCount * blockSize.width;
-        boundingBox.size.height = rowCount * blockSize.height;
+        boundingBox.size.width = columnCount * cellSize.width;
+        boundingBox.size.height = rowCount * cellSize.height;
         boundingBox.origin.x = (screenSize.width / 2) - (CGRectGetWidth(boundingBox) / 2);
         boundingBox.origin.y = (screenSize.height / 2) - (CGRectGetHeight(boundingBox) / 2);
         
@@ -62,8 +72,9 @@
                     continue;
                 }
                 
-                BlockSprite *block = [BlockSprite randomBlock];
-                [block resize:blockSize];
+                int randomIndex = arc4random() % len(colors);
+                BlockSprite *block = [BlockSprite blockWithName:colors[randomIndex]];
+                [block resize:cellSize];
                 [self setBlock:block x:x y:y];
                 [self addChild:block];
             }
@@ -100,8 +111,8 @@
     //Update the block's location information
     block.row = y;
     block.column = x;
-    block.position = ccp(CGRectGetMinX(boundingBox) + x * blockSize.width,
-                         CGRectGetMinY(boundingBox) + y * blockSize.height);
+    block.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width,
+                         CGRectGetMinY(boundingBox) + y * cellSize.height);
 }
 
 -(BlockSprite *) blockAtX:(int)x y:(int)y
@@ -201,9 +212,11 @@
     
     for (int y = 0; y < rowCount; y++) {
         if((block = [self blockAtX:x y:y]) != nil) {
-            int newRow = (int)roundf((CGRectGetMinY([block boundingBox]) - CGRectGetMinY(boundingBox)) / blockSize.height);
+            //Add all of the blocks in the column to an array for rearranging later
             [column addObject:block];
             [self setBlock:nil x:block.column y:block.row];
+            int newRow = (int)roundf((CGRectGetMinY([block boundingBox]) - CGRectGetMinY(boundingBox)) / cellSize.height);
+            //Choose which way to loop through the blocks to make sure we don't overwrite other blocks
             if (newRow > block.row)
                 reverse = true;
             block.row = newRow;
@@ -215,6 +228,7 @@
     else
         enumerator = [column objectEnumerator];
 
+    //Move the blocks to their new locations in the board array
     for (block in enumerator)
         [self setBlock:block x:block.column y:block.row];
 }
@@ -228,9 +242,11 @@
     
     for (int x = 0; x < columnCount; x++) {
         if((block = [self blockAtX:x y:y]) != nil) {
+            //Add all of the blocks in the row to an array for rearranging later
             [row addObject:block];
             [self setBlock:nil x:block.column y:block.row];
-            int newColumn = (int)roundf((CGRectGetMinX([block boundingBox]) - CGRectGetMinX(boundingBox)) / blockSize.width);
+            int newColumn = (int)roundf((CGRectGetMinX([block boundingBox]) - CGRectGetMinX(boundingBox)) / cellSize.width);
+            //Choose which way to loop through the blocks to make sure we don't overwrite other blocks
             if (newColumn > block.column)
                 reverse = true;
             block.column = newColumn;
@@ -242,6 +258,7 @@
     else
         enumerator = [row objectEnumerator];
     
+    //Move the blocks to their new locations in the board array
     for (block in enumerator)
         [self setBlock:block x:block.column y:block.row];
 }
@@ -267,11 +284,11 @@
             //When we start moving, remember which column or row we touched originally
             if (ABS(dx) >= ABS(dy)) {
                 movement = kRow;
-                movingIndex = (int)floorf((prevLocation.y - CGRectGetMinY(boundingBox)) / blockSize.height);
+                movingIndex = (int)floorf((prevLocation.y - CGRectGetMinY(boundingBox)) / cellSize.height);
             }
             else {
                 movement = kColumn;
-                movingIndex = (int)floorf((prevLocation.x - CGRectGetMinX(boundingBox)) / blockSize.width);
+                movingIndex = (int)floorf((prevLocation.x - CGRectGetMinX(boundingBox)) / cellSize.width);
             }
             return;
             
@@ -305,6 +322,13 @@
     }
     
     movement = kNone;
+}
+
+-(void)toggleMovementLock {
+    if (movement == kLocked)
+        movement = kNone;
+    else
+        movement = kLocked;
 }
 
 @end

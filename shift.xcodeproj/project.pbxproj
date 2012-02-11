@@ -16,6 +16,8 @@
 		82386DE714E3588E00C94C1B /* goal_purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 82386DDE14E3588E00C94C1B /* goal_purple.png */; };
 		82386DE814E3588E00C94C1B /* goal_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 82386DDF14E3588E00C94C1B /* goal_red.png */; };
 		82386DE914E3588E00C94C1B /* goal_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 82386DE014E3588E00C94C1B /* goal_yellow.png */; };
+		82470CBB14E643DB00F60A7C /* CellSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CBA14E643DB00F60A7C /* CellSprite.m */; };
+		82470CBE14E6452200F60A7C /* GoalSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CBD14E6452200F60A7C /* GoalSprite.m */; };
 		827036EA14DB0448008D7240 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036E914DB0448008D7240 /* QuartzCore.framework */; };
 		827036EC14DB0448008D7240 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036EB14DB0448008D7240 /* OpenGLES.framework */; };
 		827036EE14DB0448008D7240 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036ED14DB0448008D7240 /* OpenAL.framework */; };
@@ -151,6 +153,10 @@
 		82386DDE14E3588E00C94C1B /* goal_purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goal_purple.png; path = Resources/goal_purple.png; sourceTree = "<group>"; };
 		82386DDF14E3588E00C94C1B /* goal_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goal_red.png; path = Resources/goal_red.png; sourceTree = "<group>"; };
 		82386DE014E3588E00C94C1B /* goal_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goal_yellow.png; path = Resources/goal_yellow.png; sourceTree = "<group>"; };
+		82470CB914E643DB00F60A7C /* CellSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellSprite.h; sourceTree = "<group>"; };
+		82470CBA14E643DB00F60A7C /* CellSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellSprite.m; sourceTree = "<group>"; };
+		82470CBC14E6452200F60A7C /* GoalSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoalSprite.h; sourceTree = "<group>"; };
+		82470CBD14E6452200F60A7C /* GoalSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoalSprite.m; sourceTree = "<group>"; };
 		827036E514DB0448008D7240 /* shift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827036E914DB0448008D7240 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		827036EB14DB0448008D7240 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -458,6 +464,10 @@
 				8270386614DB057A008D7240 /* shiftAppDelegate.m */,
 				8270385E14DB052F008D7240 /* BlockSprite.h */,
 				8270385F14DB052F008D7240 /* BlockSprite.m */,
+				82470CBC14E6452200F60A7C /* GoalSprite.h */,
+				82470CBD14E6452200F60A7C /* GoalSprite.m */,
+				82470CB914E643DB00F60A7C /* CellSprite.h */,
+				82470CBA14E643DB00F60A7C /* CellSprite.m */,
 				8270386014DB052F008D7240 /* BoardLayer.m */,
 				8270386114DB052F008D7240 /* BoardLayer.h */,
 				8270384E14DB044A008D7240 /* RootViewController.h */,
@@ -997,6 +1007,8 @@
 				8270386214DB052F008D7240 /* BlockSprite.m in Sources */,
 				8270386314DB052F008D7240 /* BoardLayer.m in Sources */,
 				8270386714DB057A008D7240 /* shiftAppDelegate.m in Sources */,
+				82470CBB14E643DB00F60A7C /* CellSprite.m in Sources */,
+				82470CBE14E6452200F60A7C /* GoalSprite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

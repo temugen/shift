@@ -6,22 +6,22 @@
 //  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
-
 #import "cocos2d.h"
 #import "BlockSprite.h"
 
+//Describes the current movement occurring on the board
 typedef enum {
     kColumn,
     kRow,
     kNone,
-    kStarted
+    kStarted,
+    kLocked
 } Movement;
 
-// HelloWorldLayer
 @interface BoardLayer : CCLayer
 {
 	BlockSprite **blocks;
-    CGSize blockSize;
+    CGSize cellSize;
     Movement movement;
     int movingIndex;
     
@@ -35,5 +35,7 @@ typedef enum {
 
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows blockSize:(CGSize)size;
 -(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows blockSize:(CGSize)size;
+
+-(void)toggleMovementLock;
 
 @end

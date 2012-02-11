@@ -1,22 +1,18 @@
 //
-//  Block.h
+//  BlockSprite.h
 //  shift
 //
 //  Created by Brad Misik on 10/13/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-
 #import "cocos2d.h"
+#import "CellSprite.h"
 
-@interface BlockSprite : CCSprite {
-    @public
-	int row, column;
+@interface BlockSprite : CellSprite {
+
 }
 
-@property(nonatomic, assign) int row, column;
-
-+(id) randomBlock;
--(void) resize:(CGSize)size;
++(id) blockWithName:(NSString *)name;
 
 @end
