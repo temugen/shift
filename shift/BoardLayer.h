@@ -8,6 +8,7 @@
 
 #import "cocos2d.h"
 #import "BlockSprite.h"
+#import "GoalSprite.h"
 
 //Describes the current movement occurring on the board
 typedef enum {
@@ -21,6 +22,7 @@ typedef enum {
 @interface BoardLayer : CCLayer
 {
 	BlockSprite **blocks;
+    GoalSprite **goals;
     CGSize cellSize;
     Movement movement;
     int movingIndex;

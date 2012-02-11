@@ -24,6 +24,8 @@ static NSString *colors[] = {
 /* Private Functions */
 -(BlockSprite *) blockAtX:(int)x y:(int)y;
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
+-(GoalSprite *) goalAtX:(int)x y:(int)y;
+-(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
 -(void) moveColumnAtX:(int)x distance:(float)distance;
 -(void) moveRowAtY:(int)y distance:(float)distance;
 -(void) snapColumnAtX:(int)x;
@@ -42,7 +44,9 @@ static NSString *colors[] = {
         //Make room in our board array for all of the blocks
         columnCount = columns;
         rowCount = rows;
-		blocks = (BlockSprite **)malloc(columnCount * rowCount * sizeof(BlockSprite *));
+        int cellCount = rowCount * columnCount;
+		blocks = (BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
+        goals = (GoalSprite **)malloc(cellCount * sizeof(GoalSprite *));
         
         cellSize = size;
         
@@ -73,8 +77,12 @@ static NSString *colors[] = {
                 }
                 
                 int randomIndex = arc4random() % len(colors);
+                GoalSprite *goal = [GoalSprite goalWithName:colors[randomIndex]];
+                CGPoint scalingFactors = [goal resize:cellSize];
+                [self setGoal:goal x:x y:y];
+                [self addChild:goal];
                 BlockSprite *block = [BlockSprite blockWithName:colors[randomIndex]];
-                [block resize:cellSize];
+                [block scaleWithFactors:scalingFactors];
                 [self setBlock:block x:x y:y];
                 [self addChild:block];
             }
@@ -85,8 +93,8 @@ static NSString *colors[] = {
 
 -(void) dealloc
 {
-	if (blocks != NULL)
-		free(blocks);
+    free(blocks);
+    free(goals);
     
     [super dealloc];
 }
@@ -111,13 +119,30 @@ static NSString *colors[] = {
     //Update the block's location information
     block.row = y;
     block.column = x;
-    block.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width,
-                         CGRectGetMinY(boundingBox) + y * cellSize.height);
+    block.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
+                         CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
 }
 
 -(BlockSprite *) blockAtX:(int)x y:(int)y
 {
 	return blocks[(y * columnCount) + x];
+}
+
+-(void) setGoal:(GoalSprite *)goal x:(int)x y:(int)y
+{
+    //Point the corresponding board array element to the goal
+	goals[(y * columnCount) + x] = goal;
+    
+    //Update the goal's location information
+    goal.row = y;
+    goal.column = x;
+    goal.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
+                         CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
+}
+
+-(GoalSprite *) goalAtX:(int)x y:(int)y
+{
+	return goals[(y * columnCount) + x];
 }
 
 -(void) moveColumnAtX:(int)x distance:(float)distance
@@ -215,7 +240,7 @@ static NSString *colors[] = {
             //Add all of the blocks in the column to an array for rearranging later
             [column addObject:block];
             [self setBlock:nil x:block.column y:block.row];
-            int newRow = (int)roundf((CGRectGetMinY([block boundingBox]) - CGRectGetMinY(boundingBox)) / cellSize.height);
+            int newRow = (int)roundf((block.position.y - cellSize.height / 2 - CGRectGetMinY(boundingBox)) / cellSize.height);
             //Choose which way to loop through the blocks to make sure we don't overwrite other blocks
             if (newRow > block.row)
                 reverse = true;
@@ -245,7 +270,7 @@ static NSString *colors[] = {
             //Add all of the blocks in the row to an array for rearranging later
             [row addObject:block];
             [self setBlock:nil x:block.column y:block.row];
-            int newColumn = (int)roundf((CGRectGetMinX([block boundingBox]) - CGRectGetMinX(boundingBox)) / cellSize.width);
+            int newColumn = (int)roundf((block.position.x - cellSize.width / 2 -CGRectGetMinX(boundingBox)) / cellSize.width);
             //Choose which way to loop through the blocks to make sure we don't overwrite other blocks
             if (newColumn > block.column)
                 reverse = true;

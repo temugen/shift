@@ -17,6 +17,10 @@
 
 +(id) cellWithFilename:(NSString *)name;
 
--(void) resize:(CGSize)size;
+//Returns scaling factors used to resize
+-(CGPoint) resize:(CGSize)size;
+
+//Returns size after scaling
+-(CGSize) scaleWithFactors:(CGPoint)factors;
 
 @end

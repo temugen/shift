@@ -16,14 +16,22 @@
 {
     CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:filename];
     CellSprite *cell = [self spriteWithTexture:texture];
-    cell.anchorPoint = ccp(0, 0);
+    //cell.anchorPoint = ccp(0, 0);
     return cell;
 }
 
--(void) resize:(CGSize)size
+-(CGPoint) resize:(CGSize)size
 {
     self.scaleX = size.width / CGRectGetWidth([self boundingBox]);
     self.scaleY = size.height / CGRectGetHeight([self boundingBox]);
+    return CGPointMake(self.scaleX, self.scaleY);
+}
+
+-(CGSize) scaleWithFactors:(CGPoint)factors
+{
+    self.scaleX = factors.x;
+    self.scaleY = factors.y;
+    return [self boundingBox].size;
 }
 
 @end
