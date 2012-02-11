@@ -6,16 +6,17 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+
 #import "cocos2d.h"
 
-@interface Block : CCSprite {
+@interface BlockSprite : CCSprite {
+    @public
 	int row, column;
 }
 
 @property(nonatomic, assign) int row, column;
 
-+(NSArray *) availableBlocks;
--(CGSize) blockSize;
--(bool) collidingWithPoint:(CGPoint)point;
++(id) randomBlock;
+-(void) resize:(CGSize)size;
 
 @end

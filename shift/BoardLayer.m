@@ -6,259 +6,305 @@
 //  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
-//adding a test comment
 
-
-// Import the interfaces
 #import "BoardLayer.h"
 
-// HelloWorldLayer implementation
+@interface BoardLayer()
+
+/* Private Functions */
+-(BlockSprite *) blockAtX:(int)x y:(int)y;
+-(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
+-(void) moveColumnAtX:(int)x distance:(float)distance;
+-(void) moveRowAtY:(int)y distance:(float)distance;
+-(void) snapColumnAtX:(int)x;
+-(void) snapRowAtY:(int)y;
+
+@end
+
 @implementation BoardLayer
+
+-(id) initWithNumberOfColumns:(int)columns rows:(int)rows blockSize:(CGSize)size
+{
+	if((self = [super init])) {
+        //Needed to receive touch input callbacks (ccTouchesXXX)
+        self.isTouchEnabled = YES;
+        
+        //Make room in our board array for all of the blocks
+        columnCount = columns;
+        rowCount = rows;
+		blocks = (BlockSprite **)malloc(columnCount * rowCount * sizeof(BlockSprite *));
+        
+        blockSize = size;
+        
+        //Initially, no columns or rows are moving
+        movement = kNone;
+	}
+	return self;
+}
+
+-(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows blockSize:(CGSize)size
+{	
+    if ((self = [self initWithNumberOfColumns:columns rows:rows blockSize:size])) {
+        //Calculate the bounding box for the board.
+        CGSize screenSize = [[CCDirector sharedDirector] winSize];
+        boundingBox.size.width = columnCount * blockSize.width;
+        boundingBox.size.height = rowCount * blockSize.height;
+        boundingBox.origin.x = (screenSize.width / 2) - (CGRectGetWidth(boundingBox) / 2);
+        boundingBox.origin.y = (screenSize.height / 2) - (CGRectGetHeight(boundingBox) / 2);
+        
+        //Fill the board in with new, random blocks
+        for (int x = 0; x < columnCount; x++) {
+            for (int y = 0; y < rowCount; y++) {
+                
+                //Keep some blocks clear
+                if (arc4random() % 2 == 0) {
+                    [self setBlock:nil x:x y:y];
+                    continue;
+                }
+                
+                BlockSprite *block = [BlockSprite randomBlock];
+                [block resize:blockSize];
+                [self setBlock:block x:x y:y];
+                [self addChild:block];
+            }
+        }
+    }
+    return self;
+}
+
+-(void) dealloc
+{
+	if (blocks != NULL)
+		free(blocks);
+    
+    [super dealloc];
+}
 
 +(CCScene *) scene
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
-	
-	// 'layer' is an autorelease object.
-	BoardLayer *layer = [BoardLayer node];
-	[layer randomizeBoardWithWidth:11 withHeight:7];
-	
-	// add layer as a child to scene
-	[scene addChild: layer];
-	
-	// return the scene
+	BoardLayer *board = [[[BoardLayer alloc] initRandomWithNumberOfColumns:7
+                                                                      rows:7
+                                                                 blockSize:CGSizeMake(40.0, 40.0)]
+                         autorelease];
+	[scene addChild: board];
 	return scene;
 }
 
--(void) destroyBoard
+-(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y
 {
-	if (blocks != NULL) {
-        int count = boardWidth * boardHeight;
-        for (int i = 0; i < count; i++) {
-            [blocks[i] release];
+    //Point the corresponding board array element to the block
+	blocks[(y * columnCount) + x] = block;
+    
+    //Update the block's location information
+    block.row = y;
+    block.column = x;
+    block.position = ccp(CGRectGetMinX(boundingBox) + x * blockSize.width,
+                         CGRectGetMinY(boundingBox) + y * blockSize.height);
+}
+
+-(BlockSprite *) blockAtX:(int)x y:(int)y
+{
+	return blocks[(y * columnCount) + x];
+}
+
+-(void) moveColumnAtX:(int)x distance:(float)distance
+{
+    //Represents either the topmost or bottommost block depending on movement direction
+    BlockSprite *endBlock;
+    
+    if (distance > 0) {
+        //The user moved up
+        //Find the block at the top of the column.
+        for (int y = rowCount - 1; y >= 0; y--) {
+            if((endBlock = [self blockAtX:x y:y]) != nil)
+                break;
         }
-		free(blocks);
-		blocks = NULL;
-	}
-}
-
--(void) setBlock:(Block *)block withX:(int)x withY:(int)y
-{
-	blocks[(y * boardWidth) + x] = block;
-}
-
--(Block *) blockWithX:(int)x withY:(int)y
-{
-	return blocks[(y * boardWidth) + x];
-}
-
--(void) randomizeBoardWithWidth:(int)width withHeight:(int)height
-{
-	[self destroyBoard];
-	
-	boardWidth = width;
-	boardHeight = height;
-	
-	Block *sampleBlock = [Block spriteWithFile:@"block_blue.png"];
-	
-	CGSize screenSize = [[CCDirector sharedDirector] winSize];
-	boardRect.origin.x = screenSize.width / 2 - (boardWidth * [sampleBlock blockSize].width) / 2 + [sampleBlock blockSize].width / 2;
-	boardRect.origin.y = screenSize.height / 2 - (boardHeight * [sampleBlock blockSize].height) / 2 + [sampleBlock blockSize].height / 2;
-	
-	blocks = (Block **)malloc(width * height * sizeof(Block *));
-    Block *block;
-	for (int x = 0; x < boardWidth; x++) {
-		for (int y = 0; y < boardHeight; y++) {
-            
-            //Keep random blocks clear
-            if (arc4random() % 2 == 0) {
-                [self setBlock:NULL withX:x withY:y];
-                continue;
-            }
-            
-            NSArray *available_blocks = [Block availableBlocks];
-            NSUInteger randomIndex = arc4random() % [available_blocks count];
-            block = [Block spriteWithFile:[available_blocks objectAtIndex:randomIndex]];
-			[self setBlock:block withX:x withY:y];
-			block.position = ccp(boardRect.origin.x + x * [block blockSize].width, boardRect.origin.y + y * [block blockSize].height);
-			block.row = y;
-			block.column = x;
-			[self addChild:block];
-            
-            CCLabelTTF *label = [CCLabelTTF labelWithString:@"B" fontName:@"Marker Felt" fontSize:18];
-            //label.color = ccc3(50, 50, 50);
-            label.position = block.position;
-            [self addChild:label z:2];
-		}
-	}
-}
-
--(id) init
-{
-	if((self=[super init])) {
-		self.isTouchEnabled = YES;
-		
-		CCLabelTTF *label = [CCLabelTTF labelWithString:@"Shift" fontName:@"Marker Felt" fontSize:18];
-		CGSize size = [[CCDirector sharedDirector] winSize];
-		label.position =  ccp(18, size.height - 12);
-		[self addChild: label];
-		
-		blocks = NULL;
-	}
-	return self;
-}
-
--(Block *) blockCollidingWithPoint:(CGPoint)point
-{
-    Block *block;
-	for (int x = 0; x < boardWidth; x++) {
-		for (int y = 0; y < boardHeight; y++) {
-			block = [self blockWithX:x withY:y];
-			if (block && [block collidingWithPoint:point]) {
-				return block;
-			}
-		}
-	}
-	return NULL;
-}
-
-/*-(void) updateColumnWithX:(int)x
-{
-    for (int i = 0; <#condition#>; <#increment#>) {
-        <#statements#>
     }
-}
-
--(void) updateRowWithY:(int)y
-{
-    
-}*/
-
--(void) updateBoard
-{
-    int count = boardWidth * boardHeight;
-    Block *newBlocks[count];
-    Block *block;
-    
-    //clear the new block array
-    for (int i = 0; i < count; i++) {
-        newBlocks[i] = NULL;
-    }
-    
-    //set up the new block array with blocks in the correct indices
-    for (int i = 0; i < count; i++) {
-        if ((block = blocks[i])) {
-            newBlocks[(boardWidth * block.row) + block.column] = block;
+    else {
+        //The user moved down
+        //Find the block at the bottom of the column. Return if none are found
+        for (int y = 0; y < rowCount; y++) {
+            if((endBlock = [self blockAtX:x y:y]) != nil)
+                break;
         }
     }
     
-    //copy the new blocks over
-    for (int i = 0; i < count; i++) {
-        blocks[i] = newBlocks[i];
+    //No block was found in the row, so don't move any (return)
+    if (endBlock == nil)
+        return;
+    
+    //Set the distance to be the min of the empty space between the board border
+    //and the end block, and the original touch displacement.
+    //This blocks the user from pushing a column past the border of the board
+    if (distance < 0)
+        distance = MAX(distance, CGRectGetMinY(boundingBox) - CGRectGetMinY([endBlock boundingBox]));
+    else
+        distance = MIN(distance, CGRectGetMaxY(boundingBox) - CGRectGetMaxY([endBlock boundingBox]));
+    
+    //Move all of the blocks in the column
+    for (int y = 0; y < columnCount; y++) {
+        BlockSprite *block = [self blockAtX:x y:y];
+        block.position = ccp(block.position.x, block.position.y + distance);
     }
+}
+
+-(void) moveRowAtY:(int)y distance:(float)distance
+{
+    //Represents either the leftmost or rightmost block depending on movement direction
+    BlockSprite *endBlock;
+    
+    if (distance > 0) {
+        //The user moved right
+        //Find the block at the far right of the row.
+        for (int x = columnCount - 1; x >= 0; x--) {
+            if((endBlock = [self blockAtX:x y:y]) != nil)
+                break;
+        }
+    }
+    else {
+        //The user moved left
+        //Find the block at the far left of the row. Return if none are found
+        for (int x = 0; x < columnCount; x++) {
+            if((endBlock = [self blockAtX:x y:y]) != nil)
+                break;
+        }
+    }
+    
+    //No block was found in the row, so don't move any (return)
+    if (endBlock == nil) {
+        return;
+    }
+    
+    //Set the distance to be the min of the empty space between the board border
+    //and the end block, and the original touch displacement.
+    //This blocks the user from pushing a row past the border of the board
+    if (distance < 0)
+        distance = MAX(distance, CGRectGetMinX(boundingBox) - CGRectGetMinX([endBlock boundingBox]));
+    else
+        distance = MIN(distance, CGRectGetMaxX(boundingBox) - CGRectGetMaxX([endBlock boundingBox]));
+    
+    //Move all of the blocks in the row
+    for (int x = 0; x < columnCount; x++) {
+        BlockSprite *block = [self blockAtX:x y:y];
+        block.position = ccp(block.position.x + distance, block.position.y);
+    }
+}
+
+-(void) snapColumnAtX:(int)x
+{
+    NSMutableArray *column = [NSMutableArray arrayWithCapacity:rowCount];
+    NSEnumerator *enumerator;
+    BlockSprite *block;
+    bool reverse = false;
+    
+    for (int y = 0; y < rowCount; y++) {
+        if((block = [self blockAtX:x y:y]) != nil) {
+            int newRow = (int)roundf((CGRectGetMinY([block boundingBox]) - CGRectGetMinY(boundingBox)) / blockSize.height);
+            [column addObject:block];
+            [self setBlock:nil x:block.column y:block.row];
+            if (newRow > block.row)
+                reverse = true;
+            block.row = newRow;
+        }
+    }
+    
+    if (reverse)
+        enumerator = [column reverseObjectEnumerator];
+    else
+        enumerator = [column objectEnumerator];
+
+    for (block in enumerator)
+        [self setBlock:block x:block.column y:block.row];
+}
+
+-(void) snapRowAtY:(int)y
+{
+    NSMutableArray *row = [NSMutableArray arrayWithCapacity:columnCount];
+    NSEnumerator *enumerator;
+    BlockSprite *block;
+    bool reverse = true;
+    
+    for (int x = 0; x < columnCount; x++) {
+        if((block = [self blockAtX:x y:y]) != nil) {
+            [row addObject:block];
+            [self setBlock:nil x:block.column y:block.row];
+            int newColumn = (int)roundf((CGRectGetMinX([block boundingBox]) - CGRectGetMinX(boundingBox)) / blockSize.width);
+            if (newColumn > block.column)
+                reverse = true;
+            block.column = newColumn;
+        }
+    }
+    
+    if (reverse)
+        enumerator = [row reverseObjectEnumerator];
+    else
+        enumerator = [row objectEnumerator];
+    
+    for (block in enumerator)
+        [self setBlock:block x:block.column y:block.row];
 }
 
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    //Calculate the displacement of our touch in both x and y directions
 	UITouch *touch = [touches anyObject];
 	CGPoint location = [touch locationInView:[touch view]];
 	CGPoint prevLocation = [touch previousLocationInView:[touch view]];
 	location = [[CCDirector sharedDirector] convertToGL:location];
 	prevLocation = [[CCDirector sharedDirector] convertToGL:prevLocation];
-    float xDiff = location.x - prevLocation.x, yDiff = location.y - prevLocation.y;
+    float dx = location.x - prevLocation.x, dy = location.y - prevLocation.y;
 	
-	//The first time we start moving
-	if (movingBlock == NULL) {
-		Block *collidingBlock = [self blockCollidingWithPoint:location];
-		if (collidingBlock == NULL) {
-			return;
-		}
-		movingBlock = collidingBlock;
-        
-		isMovingRow = (abs(xDiff) > abs(yDiff));
-	}
-    
-    Block *block;
-	if (isMovingRow) {
-        bool isMovingRight = xDiff > 0 ? true : false;
-        if (isMovingRight) {
-            for (int x = boardWidth - 1; x >= 0; x--) {
-                if ((block = [self blockWithX:x withY:movingBlock.row])) {
-                    if (block.position.x + xDiff + [block blockSize].width > boardRect.origin.x + boardWidth * [block blockSize].width) {
-                        xDiff = boardRect.origin.x + boardWidth * [block blockSize].width - block.position.x - [block blockSize].width;
-                    }
-                    block.position = ccp(block.position.x + xDiff, block.position.y);
-                }
+	switch (movement) {
+            
+        case kNone:
+            //On our first touch, don't do anything. Wait for one more sample to calculate direction
+            movement = kStarted;
+            return;
+            
+        case kStarted:
+            //When we start moving, remember which column or row we touched originally
+            if (ABS(dx) >= ABS(dy)) {
+                movement = kRow;
+                movingIndex = (int)floorf((prevLocation.y - CGRectGetMinY(boundingBox)) / blockSize.height);
             }
-        }
-        else {
-            for (int x = 0; x < boardWidth; x++) {
-                if ((block = [self blockWithX:x withY:movingBlock.row])) {
-                    if (block.position.x + xDiff < boardRect.origin.x) {
-                        xDiff = boardRect.origin.x - block.position.x;
-                    }
-                    block.position = ccp(block.position.x + xDiff, block.position.y);
-                }
+            else {
+                movement = kColumn;
+                movingIndex = (int)floorf((prevLocation.x - CGRectGetMinX(boundingBox)) / blockSize.width);
             }
-        }
-	}
-	else {
-        bool isMovingUp = yDiff > 0 ? true : false;
-        if (isMovingUp) {
-            for (int y = boardHeight - 1; y >= 0; y--) {
-                if ((block = [self blockWithX:movingBlock.column withY:y])) {
-                    if (block.position.y + yDiff + [block blockSize].height > boardRect.origin.y + boardHeight * [block blockSize].height) {
-                        yDiff = boardRect.origin.y + boardHeight * [block blockSize].height - block.position.y - [block blockSize].height;
-                    }
-                    block.position = ccp(block.position.x, block.position.y + yDiff);
-                }
-            }
-        }
-        else {
-            for (int y = 0; y < boardHeight; y++) {
-                if ((block = [self blockWithX:movingBlock.column withY:y])) {
-                    if (block.position.y + yDiff < boardRect.origin.y) {
-                        yDiff = boardRect.origin.y - block.position.y;
-                    }
-                    block.position = ccp(block.position.x, block.position.y + yDiff);
-                }
-            }
-        }
-	}
+            return;
+            
+        case kColumn:
+            [self moveColumnAtX:movingIndex distance:dy];
+            break;
+            
+        case kRow:
+            [self moveRowAtY:movingIndex distance:dx];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(void) ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    Block *block;
-    int newIndex;
-    if (isMovingRow) {
-		for (int x = 0; x < boardWidth; x++) {
-			if ((block = [self blockWithX:x withY:movingBlock.row])) {
-                newIndex = round((block.position.x - boardRect.origin.x) / [block blockSize].width);
-                block.position = ccp(boardRect.origin.x + newIndex * [block blockSize].width, block.position.y);
-                block.column = newIndex;
-            }
-		}
-	}
-	else {
-		for (int y = 0; y < boardHeight; y++) {
-			if ((block = [self blockWithX:movingBlock.column withY:y])) {
-                newIndex = round((block.position.y - boardRect.origin.y) / [block blockSize].height);
-                block.position = ccp(block.position.x, boardRect.origin.y + newIndex * [block blockSize].height);
-                block.row = newIndex;
-            }
-		}
-	}
+    switch (movement) {
+            
+        case kColumn:
+            [self snapColumnAtX:movingIndex];
+            break;
+            
+        case kRow:
+            [self snapRowAtY:movingIndex];
+            break;
+            
+        default:
+            break;
+    }
     
-    [self updateBoard];
-    
-    movingBlock = NULL;
+    movement = kNone;
 }
 
--(void) dealloc
-{
-	[self destroyBoard];
-	[super dealloc];
-}
 @end

@@ -7,29 +7,33 @@
 //
 
 
-// When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
-#import "Block.h"
+#import "BlockSprite.h"
+
+typedef enum {
+    kColumn,
+    kRow,
+    kNone,
+    kStarted
+} Movement;
 
 // HelloWorldLayer
 @interface BoardLayer : CCLayer
 {
-    //Block *blocks[5][5];
-	Block **blocks;
-    int boardWidth, boardHeight;
-	bool isMovingRow;
-	Block *movingBlock;
-    CGRect boardRect;
+	BlockSprite **blocks;
+    CGSize blockSize;
+    Movement movement;
+    int movingIndex;
+    
+    @public
+    CGRect boundingBox;
+    int rowCount, columnCount;
 }
 
-// returns a CCScene that contains the HelloWorldLayer as the only child
+// returns a CCScene that contains the BoardLayer as the only child
 +(CCScene *) scene;
 
--(void) updateBoard;
--(void) destroyBoard;
--(void) randomizeBoardWithWidth:(int)width withHeight:(int)height;
--(Block *) blockWithX:(int)x withY:(int)y;
--(void) setBlock:(Block *)block withX:(int)x withY:(int)y;
--(Block *) blockCollidingWithPoint:(CGPoint)point;
+-(id) initWithNumberOfColumns:(int)columns rows:(int)rows blockSize:(CGSize)size;
+-(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows blockSize:(CGSize)size;
 
 @end

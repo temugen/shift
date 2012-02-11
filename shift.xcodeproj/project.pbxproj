@@ -130,7 +130,7 @@
 		8270384A14DB044A008D7240 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8270384914DB044A008D7240 /* main.m */; };
 		8270385014DB044A008D7240 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8270384F14DB044A008D7240 /* RootViewController.m */; };
 		8270385314DB044A008D7240 /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8270385214DB044A008D7240 /* HelloWorldLayer.m */; };
-		8270386214DB052F008D7240 /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 8270385F14DB052F008D7240 /* Block.m */; };
+		8270386214DB052F008D7240 /* BlockSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 8270385F14DB052F008D7240 /* BlockSprite.m */; };
 		8270386314DB052F008D7240 /* BoardLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8270386014DB052F008D7240 /* BoardLayer.m */; };
 		8270386714DB057A008D7240 /* shiftAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8270386614DB057A008D7240 /* shiftAppDelegate.m */; };
 		8270387014DB07F5008D7240 /* block_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270386A14DB07F5008D7240 /* block_blue.png */; };
@@ -384,8 +384,8 @@
 		8270385114DB044A008D7240 /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
 		8270385214DB044A008D7240 /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		8270385414DB044A008D7240 /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
-		8270385E14DB052F008D7240 /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
-		8270385F14DB052F008D7240 /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Block.m; sourceTree = "<group>"; };
+		8270385E14DB052F008D7240 /* BlockSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockSprite.h; sourceTree = "<group>"; };
+		8270385F14DB052F008D7240 /* BlockSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockSprite.m; sourceTree = "<group>"; };
 		8270386014DB052F008D7240 /* BoardLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardLayer.m; sourceTree = "<group>"; };
 		8270386114DB052F008D7240 /* BoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardLayer.h; sourceTree = "<group>"; };
 		8270386514DB057A008D7240 /* shiftAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shiftAppDelegate.h; sourceTree = "<group>"; };
@@ -456,8 +456,8 @@
 			children = (
 				8270386514DB057A008D7240 /* shiftAppDelegate.h */,
 				8270386614DB057A008D7240 /* shiftAppDelegate.m */,
-				8270385E14DB052F008D7240 /* Block.h */,
-				8270385F14DB052F008D7240 /* Block.m */,
+				8270385E14DB052F008D7240 /* BlockSprite.h */,
+				8270385F14DB052F008D7240 /* BlockSprite.m */,
 				8270386014DB052F008D7240 /* BoardLayer.m */,
 				8270386114DB052F008D7240 /* BoardLayer.h */,
 				8270384E14DB044A008D7240 /* RootViewController.h */,
@@ -994,7 +994,7 @@
 				8270384A14DB044A008D7240 /* main.m in Sources */,
 				8270385014DB044A008D7240 /* RootViewController.m in Sources */,
 				8270385314DB044A008D7240 /* HelloWorldLayer.m in Sources */,
-				8270386214DB052F008D7240 /* Block.m in Sources */,
+				8270386214DB052F008D7240 /* BlockSprite.m in Sources */,
 				8270386314DB052F008D7240 /* BoardLayer.m in Sources */,
 				8270386714DB057A008D7240 /* shiftAppDelegate.m in Sources */,
 			);
