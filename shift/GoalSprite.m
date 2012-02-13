@@ -14,6 +14,7 @@
 {
     NSString *filename = [NSString stringWithFormat:@"goal_%@.png", name];
     GoalSprite *goal = [self cellWithFilename:filename];
+    goal.name = name;
     return goal;
 }
 

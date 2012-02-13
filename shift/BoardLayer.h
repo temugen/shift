@@ -25,7 +25,7 @@ typedef enum {
     GoalSprite **goals;
     CGSize cellSize;
     Movement movement;
-    int movingIndex;
+    int movingRow, movingColumn;
     
     @public
     CGRect boundingBox;
@@ -35,8 +35,8 @@ typedef enum {
 // returns a CCScene that contains the BoardLayer as the only child
 +(CCScene *) scene;
 
--(id) initWithNumberOfColumns:(int)columns rows:(int)rows blockSize:(CGSize)size;
--(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows blockSize:(CGSize)size;
+-(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size;
+-(id) initWithFilename:(NSString *)filename cellSize:(CGSize)size;
 
 -(void)toggleMovementLock;
 

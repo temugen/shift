@@ -14,6 +14,7 @@
 {
     NSString *filename = [NSString stringWithFormat:@"block_%@.png", name];
     BlockSprite *block = [self cellWithFilename:filename];
+    block.name = name;
     return block;
 }
 

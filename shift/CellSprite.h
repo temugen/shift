@@ -11,9 +11,13 @@
 @interface CellSprite : CCSprite {
     @public
 	int row, column;
+    Boolean comparable;
+    NSString *name;
 }
 
 @property(nonatomic, assign) int row, column;
+@property(nonatomic, assign) Boolean comparable;
+@property(nonatomic, assign) NSString *name;
 
 +(id) cellWithFilename:(NSString *)name;
 

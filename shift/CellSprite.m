@@ -11,12 +11,15 @@
 @implementation CellSprite
 
 @synthesize row, column;
+@synthesize comparable;
+@synthesize name;
 
 +(id) cellWithFilename:(NSString *)filename
 {
     CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:filename];
     CellSprite *cell = [self spriteWithTexture:texture];
-    //cell.anchorPoint = ccp(0, 0);
+    cell.comparable = true;
+    cell.name = nil;
     return cell;
 }
 

@@ -22,20 +22,22 @@ static NSString *colors[] = {
 @interface BoardLayer()
 
 /* Private Functions */
+-(id) initWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size;
 -(BlockSprite *) blockAtX:(int)x y:(int)y;
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
 -(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
--(void) moveColumnAtX:(int)x distance:(float)distance;
--(void) moveRowAtY:(int)y distance:(float)distance;
+-(void) moveColumnAtX:(int)x y:(int)y distance:(float)distance;
+-(void) moveRowAtY:(int)y x:(int)x distance:(float)distance;
 -(void) snapColumnAtX:(int)x;
 -(void) snapRowAtY:(int)y;
+-(Boolean) isComplete;
 
 @end
 
 @implementation BoardLayer
 
--(id) initWithNumberOfColumns:(int)columns rows:(int)rows blockSize:(CGSize)size
+-(id) initWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size
 {
 	if((self = [super init])) {
         //Needed to receive touch input callbacks (ccTouchesXXX)
@@ -56,9 +58,9 @@ static NSString *colors[] = {
 	return self;
 }
 
--(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows blockSize:(CGSize)size
+-(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size
 {	
-    if ((self = [self initWithNumberOfColumns:columns rows:rows blockSize:size])) {
+    if ((self = [self initWithNumberOfColumns:columns rows:rows cellSize:size])) {
         //Calculate the bounding box for the board.
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         boundingBox.size.width = columnCount * cellSize.width;
@@ -77,16 +79,27 @@ static NSString *colors[] = {
                 }
                 
                 int randomIndex = arc4random() % len(colors);
+                
+                //Add the goal block
                 GoalSprite *goal = [GoalSprite goalWithName:colors[randomIndex]];
                 CGPoint scalingFactors = [goal resize:cellSize];
                 [self setGoal:goal x:x y:y];
-                [self addChild:goal];
+                [self addChild:goal z:0];
+                
+                //Add the user block
                 BlockSprite *block = [BlockSprite blockWithName:colors[randomIndex]];
                 [block scaleWithFactors:scalingFactors];
                 [self setBlock:block x:x y:y];
-                [self addChild:block];
+                [self addChild:block z:1];
             }
         }
+    }
+    return self;
+}
+
+-(id) initWithFilename:(NSString *)filename cellSize:(CGSize)size
+{
+    if ((self = [self initRandomWithNumberOfColumns:7 rows:7 cellSize:size])) {
     }
     return self;
 }
@@ -105,7 +118,7 @@ static NSString *colors[] = {
 	CCScene *scene = [CCScene node];
 	BoardLayer *board = [[[BoardLayer alloc] initRandomWithNumberOfColumns:7
                                                                       rows:7
-                                                                 blockSize:CGSizeMake(40.0, 40.0)]
+                                                                 cellSize:CGSizeMake(40.0, 40.0)]
                          autorelease];
 	[scene addChild: board];
 	return scene;
@@ -145,7 +158,7 @@ static NSString *colors[] = {
 	return goals[(y * columnCount) + x];
 }
 
--(void) moveColumnAtX:(int)x distance:(float)distance
+-(void) moveColumnAtX:(int)x y:(int)y distance:(float)distance
 {
     //Represents either the topmost or bottommost block depending on movement direction
     BlockSprite *endBlock;
@@ -186,7 +199,7 @@ static NSString *colors[] = {
     }
 }
 
--(void) moveRowAtY:(int)y distance:(float)distance
+-(void) moveRowAtY:(int)y x:(int)x distance:(float)distance
 {
     //Represents either the leftmost or rightmost block depending on movement direction
     BlockSprite *endBlock;
@@ -256,6 +269,10 @@ static NSString *colors[] = {
     //Move the blocks to their new locations in the board array
     for (block in enumerator)
         [self setBlock:block x:block.column y:block.row];
+    
+    if ([self isComplete]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
+    }
 }
 
 -(void) snapRowAtY:(int)y
@@ -286,6 +303,10 @@ static NSString *colors[] = {
     //Move the blocks to their new locations in the board array
     for (block in enumerator)
         [self setBlock:block x:block.column y:block.row];
+    
+    if ([self isComplete]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
+    }
 }
 
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -303,26 +324,32 @@ static NSString *colors[] = {
         case kNone:
             //On our first touch, don't do anything. Wait for one more sample to calculate direction
             movement = kStarted;
-            return;
+            break;
             
         case kStarted:
             //When we start moving, remember which column or row we touched originally
+            movingRow = (int)floorf((prevLocation.y - CGRectGetMinY(boundingBox)) / cellSize.height);
+            movingColumn = (int)floorf((prevLocation.x - CGRectGetMinX(boundingBox)) / cellSize.width);
+            
+            //If the user moved something outside the board, do nothing
+            if (movingRow < 0 || movingColumn < 0 || movingRow >= rowCount || movingColumn >= columnCount) {
+                break;
+            }
+                
             if (ABS(dx) >= ABS(dy)) {
                 movement = kRow;
-                movingIndex = (int)floorf((prevLocation.y - CGRectGetMinY(boundingBox)) / cellSize.height);
             }
             else {
                 movement = kColumn;
-                movingIndex = (int)floorf((prevLocation.x - CGRectGetMinX(boundingBox)) / cellSize.width);
             }
-            return;
+            break;
             
         case kColumn:
-            [self moveColumnAtX:movingIndex distance:dy];
+            [self moveColumnAtX:movingColumn y:movingRow distance:dy];
             break;
             
         case kRow:
-            [self moveRowAtY:movingIndex distance:dx];
+            [self moveRowAtY:movingRow x:movingColumn distance:dx];
             break;
             
         default:
@@ -335,11 +362,11 @@ static NSString *colors[] = {
     switch (movement) {
             
         case kColumn:
-            [self snapColumnAtX:movingIndex];
+            [self snapColumnAtX:movingColumn];
             break;
             
         case kRow:
-            [self snapRowAtY:movingIndex];
+            [self snapRowAtY:movingRow];
             break;
             
         default:
@@ -349,11 +376,30 @@ static NSString *colors[] = {
     movement = kNone;
 }
 
--(void)toggleMovementLock {
+-(void) toggleMovementLock
+{
     if (movement == kLocked)
         movement = kNone;
     else
         movement = kLocked;
+}
+
+-(Boolean) isComplete
+{
+    for (int x = 0; x < columnCount; x++) {
+        for (int y = 0; y < rowCount; y++) {
+            GoalSprite *goal = [self goalAtX:x y:y];
+            BlockSprite *block = [self blockAtX:x y:y];
+            
+            if (goal == nil && block != nil && block.comparable)
+                return false;
+            else if (block == nil && goal != nil && goal.comparable)
+                return false;
+            else if (block != nil && goal != nil && block.comparable && goal.comparable && ![block.name isEqualToString:goal.name])
+                return false;
+        }
+    }
+    return true;
 }
 
 @end
