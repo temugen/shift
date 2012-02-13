@@ -35,8 +35,8 @@ typedef enum {
 // returns a CCScene that contains the BoardLayer as the only child
 +(CCScene *) scene;
 
--(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size;
--(id) initWithFilename:(NSString *)filename cellSize:(CGSize)size;
+-(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
+-(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;
 
 -(void)toggleMovementLock;
 

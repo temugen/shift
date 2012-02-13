@@ -22,7 +22,7 @@ static NSString *colors[] = {
 @interface BoardLayer()
 
 /* Private Functions */
--(id) initWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size;
+-(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 -(BlockSprite *) blockAtX:(int)x y:(int)y;
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
@@ -37,20 +37,26 @@ static NSString *colors[] = {
 
 @implementation BoardLayer
 
--(id) initWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size
+-(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {
 	if((self = [super init])) {
+        columnCount = columns;
+        rowCount = rows;
+        cellSize = size;
+        
+        //Calculate the bounding box for the board.
+        boundingBox.size.width = columnCount * cellSize.width;
+        boundingBox.size.height = rowCount * cellSize.height;
+        boundingBox.origin.x = center.x - (CGRectGetWidth(boundingBox) / 2);
+        boundingBox.origin.y = center.y - (CGRectGetHeight(boundingBox) / 2);
+        
         //Needed to receive touch input callbacks (ccTouchesXXX)
         self.isTouchEnabled = YES;
         
         //Make room in our board array for all of the blocks
-        columnCount = columns;
-        rowCount = rows;
         int cellCount = rowCount * columnCount;
 		blocks = (BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
         goals = (GoalSprite **)malloc(cellCount * sizeof(GoalSprite *));
-        
-        cellSize = size;
         
         //Initially, no columns or rows are moving
         movement = kNone;
@@ -58,16 +64,9 @@ static NSString *colors[] = {
 	return self;
 }
 
--(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size
+-(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {	
-    if ((self = [self initWithNumberOfColumns:columns rows:rows cellSize:size])) {
-        //Calculate the bounding box for the board.
-        CGSize screenSize = [[CCDirector sharedDirector] winSize];
-        boundingBox.size.width = columnCount * cellSize.width;
-        boundingBox.size.height = rowCount * cellSize.height;
-        boundingBox.origin.x = (screenSize.width / 2) - (CGRectGetWidth(boundingBox) / 2);
-        boundingBox.origin.y = (screenSize.height / 2) - (CGRectGetHeight(boundingBox) / 2);
-        
+    if ((self = [self initWithNumberOfColumns:columns rows:rows center:center cellSize:size])) {
         //Fill the board in with new, random blocks
         for (int x = 0; x < columnCount; x++) {
             for (int y = 0; y < rowCount; y++) {
@@ -97,9 +96,9 @@ static NSString *colors[] = {
     return self;
 }
 
--(id) initWithFilename:(NSString *)filename cellSize:(CGSize)size
+-(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
 {
-    if ((self = [self initRandomWithNumberOfColumns:7 rows:7 cellSize:size])) {
+    if ((self = [self initRandomWithNumberOfColumns:7 rows:7 center:center cellSize:size])) {
     }
     return self;
 }
@@ -116,8 +115,10 @@ static NSString *colors[] = {
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
+    CGSize screenSize = [[CCDirector sharedDirector] winSize];
 	BoardLayer *board = [[[BoardLayer alloc] initRandomWithNumberOfColumns:7
                                                                       rows:7
+                                                                    center:CGPointMake((screenSize.width / 2), (screenSize.height / 2))
                                                                  cellSize:CGSizeMake(40.0, 40.0)]
                          autorelease];
 	[scene addChild: board];
