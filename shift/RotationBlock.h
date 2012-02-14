@@ -8,7 +8,8 @@
 
 #import "BlockSprite.h"
 
-@interface RotationBlock : BlockSprite {
+@interface RotationBlock : BlockSprite
+{
     
 }
 

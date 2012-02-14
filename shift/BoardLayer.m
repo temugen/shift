@@ -34,6 +34,9 @@ static NSString *colors[] = {
 
 @implementation BoardLayer
 
+@synthesize rowCount, columnCount;
+@synthesize boundingBox;
+
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {
 	if((self = [super init])) {
@@ -311,9 +314,7 @@ static NSString *colors[] = {
     for (block in enumerator)
         [self setBlock:block x:block.column y:block.row];
     
-    if ([self isComplete]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
-    }
+    [self isComplete];
 }
 
 -(void) snapRowAtY:(int)y
@@ -345,9 +346,7 @@ static NSString *colors[] = {
     for (block in enumerator)
         [self setBlock:block x:block.column y:block.row];
     
-    if ([self isComplete]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
-    }
+    [self isComplete];
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -367,11 +366,8 @@ static NSString *colors[] = {
     }
     
     //Tell the block it was clicked.
-    //If the block requests the board to be checked for completion, do it.
     BlockSprite *block = [self blockAtX:column y:row];
-    if ([block onClick] && [self isComplete]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
-    }
+    [block onTouch];
 }
 
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -464,6 +460,9 @@ static NSString *colors[] = {
                 return NO;
         }
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
+    
     return YES;
 }
 

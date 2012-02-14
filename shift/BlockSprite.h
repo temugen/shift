@@ -9,7 +9,8 @@
 #import "cocos2d.h"
 #import "CellSprite.h"
 
-@interface BlockSprite : CellSprite {
+@interface BlockSprite : CellSprite
+{
 
 }
 

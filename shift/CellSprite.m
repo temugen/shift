@@ -40,7 +40,7 @@
     return [self boundingBox].size;
 }
 
--(BOOL) onClick
+-(BOOL) onTouch
 {
     return NO;
 }

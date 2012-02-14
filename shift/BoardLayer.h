@@ -33,6 +33,9 @@ typedef enum {
     int rowCount, columnCount;
 }
 
+@property(readonly, assign) int rowCount, columnCount;
+@property(readonly, assign) CGRect boundingBox;
+
 // returns a CCScene that contains the BoardLayer as the only child
 +(CCScene *) scene;
 

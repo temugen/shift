@@ -10,7 +10,8 @@
 
 @class BoardLayer;
 
-@interface CellSprite : CCSprite {
+@interface CellSprite : CCSprite
+{
     @public
     BoardLayer *board;
 	int row, column;
@@ -32,7 +33,7 @@
 //Returns size after scaling
 -(CGSize) scaleWithFactors:(CGPoint)factors;
 
-//Override and return YES if the board needs to be checked for 
--(BOOL) onClick;
+//Override if you want to handle touch events
+-(BOOL) onTouch;
 
 @end
