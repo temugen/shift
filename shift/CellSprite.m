@@ -11,7 +11,7 @@
 @implementation CellSprite
 
 @synthesize row, column;
-@synthesize comparable;
+@synthesize comparable, moveable;
 @synthesize name;
 
 +(id) cellWithFilename:(NSString *)filename
@@ -19,6 +19,7 @@
     CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:filename];
     CellSprite *cell = [self spriteWithTexture:texture];
     cell.comparable = YES;
+    cell.moveable = YES;
     cell.name = nil;
     return cell;
 }

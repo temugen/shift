@@ -78,6 +78,18 @@ static NSString *colors[] = {
                     continue;
                 }
                 
+                //Make some block stationary
+                if(arc4random() % 7 == 0) {
+                    BlockSprite *block = [BlockSprite blockWithName:@"stationary"];
+                    block.comparable = NO;
+                    block.moveable = NO;
+                    [block resize:cellSize];
+                    [self setBlock:block x:x y:y];
+                    [self setGoal:nil x:x y:y];
+                    [self addChild:block];
+                    continue;
+                }
+                
                 int randomIndex = arc4random() % len(colors);
                 
                 //Add the goal block
@@ -162,83 +174,102 @@ static NSString *colors[] = {
 
 -(void) moveColumnAtX:(int)x y:(int)y distance:(float)distance
 {
-    //Represents either the topmost or bottommost block depending on movement direction
-    BlockSprite *endBlock;
+    //Represents the topmost and bottommost moveable blocks around (x,y)
+    BlockSprite *firstBlock = nil, *lastBlock = nil;
+    float firstCollisionY = CGRectGetMinY(boundingBox), lastCollisionY = CGRectGetMaxY(boundingBox);
     
-    if (distance > 0) {
-        //The user moved up
-        //Find the block at the top of the column.
-        for (int y = rowCount - 1; y >= 0; y--) {
-            if((endBlock = [self blockAtX:x y:y]) != nil)
+    //Find the closest block at the beginning of the column that we can move
+    for (int i = y; i >= 0; i--) {
+        BlockSprite *block = [self blockAtX:x y:i];
+        if (block != nil) {
+            if (!block.moveable) {
+                firstCollisionY = CGRectGetMaxY([block boundingBox]);
                 break;
-        }
-    }
-    else {
-        //The user moved down
-        //Find the block at the bottom of the column. Return if none are found
-        for (int y = 0; y < rowCount; y++) {
-            if((endBlock = [self blockAtX:x y:y]) != nil)
-                break;
+            }
+            firstBlock = block;
         }
     }
     
-    //No block was found in the row, so don't move any (return)
-    if (endBlock == nil)
+    //Find the furthest block at the end of the column that we can move
+    for (int i = y; i < columnCount; i++) {
+        BlockSprite *block = [self blockAtX:x y:i];
+        if (block != nil) {
+            if (!block.moveable) {
+                lastCollisionY = CGRectGetMinY([block boundingBox]);
+                break;
+            }
+            lastBlock = block;
+        }
+    }
+    
+    //No block was found in the column, so don't move any (return)
+    if (firstBlock == nil && lastBlock == nil)
         return;
+    else if(firstBlock == nil && lastBlock != nil)
+        firstBlock = lastBlock;
+    else if(firstBlock != nil && lastBlock == nil)
+        lastBlock = firstBlock;
     
-    //Set the distance to be the min of the empty space between the board border
-    //and the end block, and the original touch displacement.
-    //This blocks the user from pushing a column past the border of the board
+    //This blocks the user from pushing a column past a barrier
     if (distance < 0)
-        distance = MAX(distance, CGRectGetMinY(boundingBox) - CGRectGetMinY([endBlock boundingBox]));
+        distance = MAX(distance, firstCollisionY - CGRectGetMinY([firstBlock boundingBox]));
     else
-        distance = MIN(distance, CGRectGetMaxY(boundingBox) - CGRectGetMaxY([endBlock boundingBox]));
+        distance = MIN(distance, lastCollisionY - CGRectGetMaxY([lastBlock boundingBox]));
     
-    //Move all of the blocks in the column
-    for (int y = 0; y < columnCount; y++) {
-        BlockSprite *block = [self blockAtX:x y:y];
+    //Move all of the blocks in the row that won't collide
+    for (int i = firstBlock.row; i <= lastBlock.row; i++) {
+        BlockSprite *block = [self blockAtX:x y:i];
         block.position = ccp(block.position.x, block.position.y + distance);
     }
 }
 
 -(void) moveRowAtY:(int)y x:(int)x distance:(float)distance
 {
-    //Represents either the leftmost or rightmost block depending on movement direction
-    BlockSprite *endBlock;
+    //Represents the leftmost and rightmost moveable blocks around (x,y)
+    BlockSprite *firstBlock = nil, *lastBlock = nil;
+    float firstCollisionX = CGRectGetMinX(boundingBox), lastCollisionX = CGRectGetMaxX(boundingBox);
     
-    if (distance > 0) {
-        //The user moved right
-        //Find the block at the far right of the row.
-        for (int x = columnCount - 1; x >= 0; x--) {
-            if((endBlock = [self blockAtX:x y:y]) != nil)
+    //Find the closest block at the beginning of the row that we can move
+    for (int i = x; i >= 0; i--) {
+        BlockSprite *block = [self blockAtX:i y:y];
+        if (block != nil) {
+            if (!block.moveable) {
+                firstCollisionX = CGRectGetMaxX([block boundingBox]);
                 break;
+            }
+            firstBlock = block;
         }
     }
-    else {
-        //The user moved left
-        //Find the block at the far left of the row. Return if none are found
-        for (int x = 0; x < columnCount; x++) {
-            if((endBlock = [self blockAtX:x y:y]) != nil)
+    
+    //Find the furthest block at the end of the row that we can move
+    for (int i = x; i < columnCount; i++) {
+        BlockSprite *block = [self blockAtX:i y:y];
+        if (block != nil) {
+            if (!block.moveable) {
+                lastCollisionX = CGRectGetMinX([block boundingBox]);
                 break;
+            }
+            lastBlock = block;
         }
     }
     
     //No block was found in the row, so don't move any (return)
-    if (endBlock == nil) {
+    if (firstBlock == nil && lastBlock == nil)
         return;
-    }
-    
-    //Set the distance to be the min of the empty space between the board border
-    //and the end block, and the original touch displacement.
-    //This blocks the user from pushing a row past the border of the board
+    else if(firstBlock == nil && lastBlock != nil)
+        firstBlock = lastBlock;
+    else if(firstBlock != nil && lastBlock == nil)
+        lastBlock = firstBlock;
+
+    //This blocks the user from pushing a row past a barrier
     if (distance < 0)
-        distance = MAX(distance, CGRectGetMinX(boundingBox) - CGRectGetMinX([endBlock boundingBox]));
+        distance = MAX(distance, firstCollisionX - CGRectGetMinX([firstBlock boundingBox]));
     else
-        distance = MIN(distance, CGRectGetMaxX(boundingBox) - CGRectGetMaxX([endBlock boundingBox]));
+        distance = MIN(distance, lastCollisionX - CGRectGetMaxX([lastBlock boundingBox]));
     
-    //Move all of the blocks in the row
-    for (int x = 0; x < columnCount; x++) {
-        BlockSprite *block = [self blockAtX:x y:y];
+    //Move all of the blocks in the row that won't collide
+    for (int i = firstBlock.column; i <= lastBlock.column; i++) {
+        BlockSprite *block = [self blockAtX:i y:y];
         block.position = ccp(block.position.x + distance, block.position.y);
     }
 }

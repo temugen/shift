@@ -12,11 +12,12 @@
     @public
 	int row, column;
     BOOL comparable;
+    BOOL moveable;
     NSString *name;
 }
 
 @property(nonatomic, assign) int row, column;
-@property(nonatomic, assign) BOOL comparable;
+@property(nonatomic, assign) BOOL comparable, moveable;
 @property(nonatomic, assign) NSString *name;
 
 +(id) cellWithFilename:(NSString *)name;
