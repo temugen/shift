@@ -10,6 +10,7 @@
 
 @implementation CellSprite
 
+@synthesize board;
 @synthesize row, column;
 @synthesize comparable, moveable;
 @synthesize name;
@@ -21,6 +22,7 @@
     cell.comparable = YES;
     cell.moveable = YES;
     cell.name = nil;
+    cell.board = nil;
     return cell;
 }
 
@@ -36,6 +38,11 @@
     self.scaleX = factors.x;
     self.scaleY = factors.y;
     return [self boundingBox].size;
+}
+
+-(BOOL) onClick
+{
+    return NO;
 }
 
 @end

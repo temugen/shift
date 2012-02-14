@@ -23,15 +23,12 @@ static NSString *colors[] = {
 
 /* Private Functions */
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
--(BlockSprite *) blockAtX:(int)x y:(int)y;
--(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
 -(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
 -(void) moveColumnAtX:(int)x y:(int)y distance:(float)distance;
 -(void) moveRowAtY:(int)y x:(int)x distance:(float)distance;
 -(void) snapColumnAtX:(int)x;
 -(void) snapRowAtY:(int)y;
--(Boolean) isComplete;
 
 @end
 
@@ -79,10 +76,21 @@ static NSString *colors[] = {
                 }
                 
                 //Make some block stationary
-                if(arc4random() % 7 == 0) {
+                if(arc4random() % 14 == 0) {
                     BlockSprite *block = [BlockSprite blockWithName:@"stationary"];
                     block.comparable = NO;
                     block.moveable = NO;
+                    [block resize:cellSize];
+                    [self setBlock:block x:x y:y];
+                    [self setGoal:nil x:x y:y];
+                    [self addChild:block];
+                    continue;
+                }
+                
+                //Make some block rotate
+                if(arc4random() % 14 == 0) {
+                    RotationBlock *block = [RotationBlock block];
+                    block.board = self;
                     [block resize:cellSize];
                     [self setBlock:block x:x y:y];
                     [self setGoal:nil x:x y:y];
@@ -342,6 +350,30 @@ static NSString *colors[] = {
     }
 }
 
+- (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //Notify a block if it was pressed
+	UITouch *touch = [touches anyObject];
+	CGPoint location = [touch locationInView:[touch view]];
+	location = [[CCDirector sharedDirector] convertToGL:location];
+
+    //Figure out the cell that the user pressed
+    int row = (int)floorf((location.y - CGRectGetMinY(boundingBox)) / cellSize.height);
+    int column = (int)floorf((location.x - CGRectGetMinX(boundingBox)) / cellSize.width);
+    
+    //If the user moved something outside the board, do nothing
+    if (row < 0 || column < 0 || row >= rowCount || column >= columnCount) {
+        return;
+    }
+    
+    //Tell the block it was clicked.
+    //If the block requests the board to be checked for completion, do it.
+    BlockSprite *block = [self blockAtX:column y:row];
+    if ([block onClick] && [self isComplete]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
+    }
+}
+
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     //Calculate the displacement of our touch in both x and y directions
@@ -417,7 +449,7 @@ static NSString *colors[] = {
         movement = kLocked;
 }
 
--(Boolean) isComplete
+-(BOOL) isComplete
 {
     for (int x = 0; x < columnCount; x++) {
         for (int y = 0; y < rowCount; y++) {
@@ -425,14 +457,14 @@ static NSString *colors[] = {
             BlockSprite *block = [self blockAtX:x y:y];
             
             if (goal == nil && block != nil && block.comparable)
-                return false;
+                return NO;
             else if (block == nil && goal != nil && goal.comparable)
-                return false;
+                return NO;
             else if (block != nil && goal != nil && block.comparable && goal.comparable && ![block.name isEqualToString:goal.name])
-                return false;
+                return NO;
         }
     }
-    return true;
+    return YES;
 }
 
 @end

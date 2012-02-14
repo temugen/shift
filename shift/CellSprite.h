@@ -8,14 +8,18 @@
 
 #import "cocos2d.h"
 
+@class BoardLayer;
+
 @interface CellSprite : CCSprite {
     @public
+    BoardLayer *board;
 	int row, column;
     BOOL comparable;
     BOOL moveable;
     NSString *name;
 }
 
+@property(nonatomic, assign) BoardLayer *board;
 @property(nonatomic, assign) int row, column;
 @property(nonatomic, assign) BOOL comparable, moveable;
 @property(nonatomic, assign) NSString *name;
@@ -27,5 +31,8 @@
 
 //Returns size after scaling
 -(CGSize) scaleWithFactors:(CGPoint)factors;
+
+//Override and return YES if the board needs to be checked for 
+-(BOOL) onClick;
 
 @end

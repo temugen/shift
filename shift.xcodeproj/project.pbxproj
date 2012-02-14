@@ -18,6 +18,7 @@
 		82386DE914E3588E00C94C1B /* goal_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 82386DE014E3588E00C94C1B /* goal_yellow.png */; };
 		82470CBB14E643DB00F60A7C /* CellSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CBA14E643DB00F60A7C /* CellSprite.m */; };
 		82470CBE14E6452200F60A7C /* GoalSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CBD14E6452200F60A7C /* GoalSprite.m */; };
+		82470CC114EA3FA900F60A7C /* RotationBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CC014EA3FA900F60A7C /* RotationBlock.m */; };
 		827036EA14DB0448008D7240 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036E914DB0448008D7240 /* QuartzCore.framework */; };
 		827036EC14DB0448008D7240 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036EB14DB0448008D7240 /* OpenGLES.framework */; };
 		827036EE14DB0448008D7240 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036ED14DB0448008D7240 /* OpenAL.framework */; };
@@ -156,6 +157,8 @@
 		82470CBA14E643DB00F60A7C /* CellSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellSprite.m; sourceTree = "<group>"; };
 		82470CBC14E6452200F60A7C /* GoalSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoalSprite.h; sourceTree = "<group>"; };
 		82470CBD14E6452200F60A7C /* GoalSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoalSprite.m; sourceTree = "<group>"; };
+		82470CBF14EA3FA900F60A7C /* RotationBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotationBlock.h; sourceTree = "<group>"; };
+		82470CC014EA3FA900F60A7C /* RotationBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotationBlock.m; sourceTree = "<group>"; };
 		827036E514DB0448008D7240 /* shift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827036E914DB0448008D7240 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		827036EB14DB0448008D7240 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -457,6 +460,8 @@
 		827036F914DB0448008D7240 /* shift */ = {
 			isa = PBXGroup;
 			children = (
+				82470CBF14EA3FA900F60A7C /* RotationBlock.h */,
+				82470CC014EA3FA900F60A7C /* RotationBlock.m */,
 				8270386514DB057A008D7240 /* shiftAppDelegate.h */,
 				8270386614DB057A008D7240 /* shiftAppDelegate.m */,
 				8270385E14DB052F008D7240 /* BlockSprite.h */,
@@ -1003,6 +1008,7 @@
 				8270386714DB057A008D7240 /* shiftAppDelegate.m in Sources */,
 				82470CBB14E643DB00F60A7C /* CellSprite.m in Sources */,
 				82470CBE14E6452200F60A7C /* GoalSprite.m in Sources */,
+				82470CC114EA3FA900F60A7C /* RotationBlock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

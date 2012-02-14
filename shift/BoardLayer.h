@@ -9,6 +9,7 @@
 #import "cocos2d.h"
 #import "BlockSprite.h"
 #import "GoalSprite.h"
+#import "RotationBlock.h"
 
 //Describes the current movement occurring on the board
 typedef enum {
@@ -37,6 +38,10 @@ typedef enum {
 
 -(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;
+
+-(BlockSprite *) blockAtX:(int)x y:(int)y;
+-(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
+-(BOOL) isComplete;
 
 -(void)toggleMovementLock;
 
