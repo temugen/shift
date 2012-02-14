@@ -18,7 +18,7 @@
 {
     CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:filename];
     CellSprite *cell = [self spriteWithTexture:texture];
-    cell.comparable = true;
+    cell.comparable = YES;
     cell.name = nil;
     return cell;
 }

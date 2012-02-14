@@ -74,7 +74,7 @@ static NSString *colors[] = {
                 //Keep some blocks clear
                 if (arc4random() % 2 == 0) {
                     [self setBlock:nil x:x y:y];
-                    [self setBlock:nil x:x y:y];
+                    [self setGoal:nil x:x y:y];
                     continue;
                 }
                 
