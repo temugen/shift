@@ -51,10 +51,10 @@
     return NO;
 }
 
--(BOOL) onCollideWithCell:(CellSprite *)cell distance:(float)distance
+-(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force
 {
-    if (distance > 20) {
-        NSLog(@"%@ collided with %@ with force %f", name, cell.name, distance);
+    if (force > 20.0) {
+        NSLog(@"%@ collided with %@ with force %f", name, cell.name, force);
     }
     return NO;
 }

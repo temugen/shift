@@ -274,8 +274,8 @@ static NSString *colors[] = {
         
         //Let blocks know if they collided with each other
         if (lowUnmoveable != nil && ABS(limitedDistance) < ABS(distance)) {
-            [lowUnmoveable onCollideWithCell:lowBlock distance:ABS(distance)];
-            [lowBlock onCollideWithCell:lowUnmoveable distance:ABS(distance)];
+            [lowUnmoveable onCollideWithCell:lowBlock force:ABS(distance)];
+            [lowBlock onCollideWithCell:lowUnmoveable force:ABS(distance)];
         }
     }
     else {
@@ -283,8 +283,8 @@ static NSString *colors[] = {
         
         //Let blocks know if they collided with each other
         if (highUnmoveable != nil && ABS(limitedDistance) < ABS(distance)) {
-            [highUnmoveable onCollideWithCell:highBlock distance:ABS(distance)];
-            [highBlock onCollideWithCell:highUnmoveable distance:ABS(distance)];
+            [highUnmoveable onCollideWithCell:highBlock force:ABS(distance)];
+            [highBlock onCollideWithCell:highUnmoveable force:ABS(distance)];
         }
     }
     
