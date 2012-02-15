@@ -16,7 +16,7 @@
     NSString *filename = [NSString stringWithFormat:@"block_rotate.png"];
     RotationBlock *block = [self cellWithFilename:filename];
     block.comparable = NO;
-    block.moveable = NO;
+    block.movable = NO;
     block.name = @"rotate";
     return block;
 }

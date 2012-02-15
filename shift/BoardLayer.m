@@ -83,7 +83,7 @@ static NSString *colors[] = {
                 if(arc4random() % 14 == 0) {
                     BlockSprite *block = [BlockSprite blockWithName:@"stationary"];
                     block.comparable = NO;
-                    block.moveable = NO;
+                    block.movable = NO;
                     [block resize:cellSize];
                     [self setBlock:block x:x y:y];
                     [self setGoal:nil x:x y:y];
@@ -211,7 +211,7 @@ static NSString *colors[] = {
     }
 
     [movingBlocks removeAllObjects];
-    lowUnmoveable = highUnmoveable = nil;
+    lowImmovable = highImmovable = nil;
     lowPositionLimit = rectMin(boundingBox), highPositionLimit = rectMax(boundingBox);
     
     int i, row, column;
@@ -227,9 +227,9 @@ static NSString *colors[] = {
         }
         
         BlockSprite *block = [self blockAtX:column y:row];
-        if (block != nil && !block.moveable) {
-            lowUnmoveable = block;
-            lowPositionLimit = rectMax([lowUnmoveable boundingBox]);
+        if (block != nil && !block.movable) {
+            lowImmovable = block;
+            lowPositionLimit = rectMax([lowImmovable boundingBox]);
             break;
         }
     }
@@ -246,12 +246,12 @@ static NSString *colors[] = {
         }
         
         BlockSprite *block = [self blockAtX:column y:row];
-        if (block != nil && !block.moveable) {
-            highUnmoveable = block;
-            highPositionLimit = rectMin([highUnmoveable boundingBox]);
+        if (block != nil && !block.movable) {
+            highImmovable = block;
+            highPositionLimit = rectMin([highImmovable boundingBox]);
             break;
         }
-        else if (block != nil && block.moveable) {
+        else if (block != nil && block.movable) {
             [movingBlocks addObject:block];
         }
     }
@@ -273,18 +273,18 @@ static NSString *colors[] = {
         limitedDistance = MAX(distance, lowPositionLimit - rectMin([lowBlock boundingBox]));
         
         //Let blocks know if they collided with each other
-        if (lowUnmoveable != nil && ABS(limitedDistance) < ABS(distance)) {
-            [lowUnmoveable onCollideWithCell:lowBlock force:ABS(distance)];
-            [lowBlock onCollideWithCell:lowUnmoveable force:ABS(distance)];
+        if (lowImmovable != nil && ABS(limitedDistance) < ABS(distance)) {
+            [lowImmovable onCollideWithCell:lowBlock force:ABS(distance)];
+            [lowBlock onCollideWithCell:lowImmovable force:ABS(distance)];
         }
     }
     else {
         limitedDistance = MIN(distance, highPositionLimit - rectMax([highBlock boundingBox]));
         
         //Let blocks know if they collided with each other
-        if (highUnmoveable != nil && ABS(limitedDistance) < ABS(distance)) {
-            [highUnmoveable onCollideWithCell:highBlock force:ABS(distance)];
-            [highBlock onCollideWithCell:highUnmoveable force:ABS(distance)];
+        if (highImmovable != nil && ABS(limitedDistance) < ABS(distance)) {
+            [highImmovable onCollideWithCell:highBlock force:ABS(distance)];
+            [highBlock onCollideWithCell:highImmovable force:ABS(distance)];
         }
     }
     

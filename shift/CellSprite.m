@@ -12,7 +12,7 @@
 
 @synthesize board;
 @synthesize row, column;
-@synthesize comparable, moveable;
+@synthesize comparable, movable;
 @synthesize name;
 
 +(id) cellWithFilename:(NSString *)filename
@@ -20,7 +20,7 @@
     CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:filename];
     CellSprite *cell = [self spriteWithTexture:texture];
     cell.comparable = YES;
-    cell.moveable = YES;
+    cell.movable = YES;
     cell.name = @"";
     cell.board = nil;
     return cell;

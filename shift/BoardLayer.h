@@ -30,7 +30,7 @@ typedef enum {
     NSMutableArray *movingBlocks;
     CGFloat (*rectMin)(CGRect), (*rectMax)(CGRect);
     float lowPositionLimit, highPositionLimit;
-    BlockSprite *lowUnmoveable, *highUnmoveable;
+    BlockSprite *lowImmovable, *highImmovable;
     
     @public
     CGRect boundingBox;

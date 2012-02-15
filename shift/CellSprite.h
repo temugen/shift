@@ -16,13 +16,13 @@
     BoardLayer *board;
 	int row, column;
     BOOL comparable;
-    BOOL moveable;
+    BOOL movable;
     NSString *name;
 }
 
 @property(nonatomic, assign) BoardLayer *board;
 @property(nonatomic, assign) int row, column;
-@property(nonatomic, assign) BOOL comparable, moveable;
+@property(nonatomic, assign) BOOL comparable, movable;
 @property(nonatomic, assign) NSString *name;
 
 +(id) cellWithFilename:(NSString *)name;
