@@ -349,6 +349,8 @@ static NSString *colors[] = {
 	float row, column;
     
 	switch (movement) {
+        case kLocked:
+            return;
             
         case kNone:
             //On our first move, don't do anything. Wait for one more sample to calculate direction
@@ -389,6 +391,9 @@ static NSString *colors[] = {
 {
     switch (movement) {
             
+        case kLocked:
+            return;
+            
         case kColumn:
             
         case kRow:
@@ -398,6 +403,7 @@ static NSString *colors[] = {
         default:
             break;
     }
+    
     
     movement = kNone;
 }
