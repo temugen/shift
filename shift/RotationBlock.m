@@ -17,6 +17,7 @@
     RotationBlock *block = [self cellWithFilename:filename];
     block.comparable = NO;
     block.moveable = NO;
+    block.name = @"rotate";
     return block;
 }
 
