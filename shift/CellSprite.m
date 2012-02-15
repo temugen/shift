@@ -21,7 +21,7 @@
     CellSprite *cell = [self spriteWithTexture:texture];
     cell.comparable = YES;
     cell.moveable = YES;
-    cell.name = nil;
+    cell.name = @"";
     cell.board = nil;
     return cell;
 }
@@ -42,6 +42,20 @@
 
 -(BOOL) onTouch
 {
+    NSLog(@"%@ was touched", name);
+    return NO;
+}
+
+-(BOOL) onMoveWithDistance:(float)distance vertically:(BOOL)vertically
+{
+    return NO;
+}
+
+-(BOOL) onCollideWithCell:(CellSprite *)cell distance:(float)distance
+{
+    if (distance > 20) {
+        NSLog(@"%@ collided with %@ with force %f", name, cell.name, distance);
+    }
     return NO;
 }
 

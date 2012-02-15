@@ -25,8 +25,12 @@ typedef enum {
 	BlockSprite **blocks;
     GoalSprite **goals;
     CGSize cellSize;
+    
     Movement movement;
-    int movingRow, movingColumn;
+    NSMutableArray *movingBlocks;
+    CGFloat (*rectMin)(CGRect), (*rectMax)(CGRect);
+    float lowPositionLimit, highPositionLimit;
+    BlockSprite *lowUnmoveable, *highUnmoveable;
     
     @public
     CGRect boundingBox;

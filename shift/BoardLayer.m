@@ -25,10 +25,10 @@ static NSString *colors[] = {
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
 -(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
--(void) moveColumnAtX:(int)x y:(int)y distance:(float)distance;
--(void) moveRowAtY:(int)y x:(int)x distance:(float)distance;
--(void) snapColumnAtX:(int)x;
--(void) snapRowAtY:(int)y;
+
+-(void) containMovementAtX:(int)x y:(int)y;
+-(void) moveBlocksWithDistance:(float)distance;
+-(void) snapMovingBlocks;
 
 @end
 
@@ -43,6 +43,7 @@ static NSString *colors[] = {
         columnCount = columns;
         rowCount = rows;
         cellSize = size;
+        movingBlocks = [[NSMutableArray alloc] initWithCapacity:MAX(rowCount, columnCount)];
         
         //Calculate the bounding box for the board.
         boundingBox.size.width = columnCount * cellSize.width;
@@ -131,6 +132,7 @@ static NSString *colors[] = {
 {
     free(blocks);
     free(goals);
+    [movingBlocks release];
     
     [super dealloc];
 }
@@ -183,170 +185,135 @@ static NSString *colors[] = {
 	return goals[(y * columnCount) + x];
 }
 
--(void) moveColumnAtX:(int)x y:(int)y distance:(float)distance
+-(void) containMovementAtX:(int)x y:(int)y
 {
-    //Represents the topmost and bottommost moveable blocks around (x,y)
-    BlockSprite *firstBlock = nil, *lastBlock = nil;
-    float firstCollisionY = CGRectGetMinY(boundingBox), lastCollisionY = CGRectGetMaxY(boundingBox);
+    int variable;
+    int maxVariable;
     
-    //Find the closest block at the beginning of the column that we can move
-    for (int i = y; i >= 0; i--) {
-        BlockSprite *block = [self blockAtX:x y:i];
-        if (block != nil) {
-            if (!block.moveable) {
-                firstCollisionY = CGRectGetMaxY([block boundingBox]);
-                break;
-            }
-            firstBlock = block;
+    //Choose the correct rect min and rect max functions for x and y directions
+    switch (movement) {
+        case kColumn:
+            rectMin = CGRectGetMinY;
+            rectMax = CGRectGetMaxY;
+            variable = y;
+            maxVariable = rowCount;
+            break;
+            
+        case kRow:
+            rectMin = CGRectGetMinX;
+            rectMax = CGRectGetMaxX;
+            variable = x;
+            maxVariable = columnCount;
+            break;
+            
+        default:
+            return;
+    }
+
+    [movingBlocks removeAllObjects];
+    lowUnmoveable = highUnmoveable = nil;
+    lowPositionLimit = rectMin(boundingBox), highPositionLimit = rectMax(boundingBox);
+    
+    int i, row, column;
+    //Find the lowest index block that we can move, and mark the first unmoveable block if it exists
+    for (i = variable; i >= 0; i--) {
+        if (movement == kColumn) {
+            row = i;
+            column = x;
+        }
+        else if (movement == kRow) {
+            row = y;
+            column = i;
+        }
+        
+        BlockSprite *block = [self blockAtX:column y:row];
+        if (block != nil && !block.moveable) {
+            lowUnmoveable = block;
+            lowPositionLimit = rectMax([lowUnmoveable boundingBox]);
+            break;
         }
     }
     
-    //Find the furthest block at the end of the column that we can move
-    for (int i = y; i < columnCount; i++) {
-        BlockSprite *block = [self blockAtX:x y:i];
-        if (block != nil) {
-            if (!block.moveable) {
-                lastCollisionY = CGRectGetMinY([block boundingBox]);
-                break;
-            }
-            lastBlock = block;
+    //Find all the blocks we can move, and mark the highest unmoveable block if it exists
+    for (i = MAX(0, i + 1); i < maxVariable; i++) {
+        if (movement == kColumn) {
+            row = i;
+            column = x;
+        }
+        else if (movement == kRow) {
+            row = y;
+            column = i;
+        }
+        
+        BlockSprite *block = [self blockAtX:column y:row];
+        if (block != nil && !block.moveable) {
+            highUnmoveable = block;
+            highPositionLimit = rectMin([highUnmoveable boundingBox]);
+            break;
+        }
+        else if (block != nil && block.moveable) {
+            [movingBlocks addObject:block];
         }
     }
-    
-    //No block was found in the column, so don't move any (return)
-    if (firstBlock == nil && lastBlock == nil)
+}
+
+-(void) moveBlocksWithDistance:(float)distance
+{
+    //There is nothing to move
+    if ([movingBlocks count] == 0) {
         return;
-    else if(firstBlock == nil && lastBlock != nil)
-        firstBlock = lastBlock;
-    else if(firstBlock != nil && lastBlock == nil)
-        lastBlock = firstBlock;
+    }
     
-    //This blocks the user from pushing a column past a barrier
-    if (distance < 0)
-        distance = MAX(distance, firstCollisionY - CGRectGetMinY([firstBlock boundingBox]));
-    else
-        distance = MIN(distance, lastCollisionY - CGRectGetMaxY([lastBlock boundingBox]));
+    //Get the first and last moving blocks
+    BlockSprite *lowBlock = [movingBlocks objectAtIndex:0], *highBlock = [movingBlocks objectAtIndex:[movingBlocks count] - 1];
     
-    //Move all of the blocks in the row that won't collide
-    for (int i = firstBlock.row; i <= lastBlock.row; i++) {
-        BlockSprite *block = [self blockAtX:x y:i];
-        block.position = ccp(block.position.x, block.position.y + distance);
+    //This blocks the user from pushing the blocks past a barrier (unmoveable block or board border)
+    float limitedDistance;
+    if (distance < 0) {
+        limitedDistance = MAX(distance, lowPositionLimit - rectMin([lowBlock boundingBox]));
+        
+        //Let blocks know if they collided with each other
+        if (lowUnmoveable != nil && ABS(limitedDistance) < ABS(distance)) {
+            [lowUnmoveable onCollideWithCell:lowBlock distance:ABS(distance)];
+            [lowBlock onCollideWithCell:lowUnmoveable distance:ABS(distance)];
+        }
+    }
+    else {
+        limitedDistance = MIN(distance, highPositionLimit - rectMax([highBlock boundingBox]));
+        
+        //Let blocks know if they collided with each other
+        if (highUnmoveable != nil && ABS(limitedDistance) < ABS(distance)) {
+            [highUnmoveable onCollideWithCell:highBlock distance:ABS(distance)];
+            [highBlock onCollideWithCell:highUnmoveable distance:ABS(distance)];
+        }
+    }
+    
+    //Move all of the moving blocks by distance in the correct direction
+    for (BlockSprite *block in movingBlocks) {
+        if (movement == kColumn)
+            block.position = ccp(block.position.x, block.position.y + limitedDistance);
+        else if (movement == kRow)
+            block.position = ccp(block.position.x + limitedDistance, block.position.y);
+        
+        //Let the block know it was moved
+        [block onMoveWithDistance:distance vertically:(movement == kColumn)];
     }
 }
 
--(void) moveRowAtY:(int)y x:(int)x distance:(float)distance
+-(void) snapMovingBlocks
 {
-    //Represents the leftmost and rightmost moveable blocks around (x,y)
-    BlockSprite *firstBlock = nil, *lastBlock = nil;
-    float firstCollisionX = CGRectGetMinX(boundingBox), lastCollisionX = CGRectGetMaxX(boundingBox);
-    
-    //Find the closest block at the beginning of the row that we can move
-    for (int i = x; i >= 0; i--) {
-        BlockSprite *block = [self blockAtX:i y:y];
-        if (block != nil) {
-            if (!block.moveable) {
-                firstCollisionX = CGRectGetMaxX([block boundingBox]);
-                break;
-            }
-            firstBlock = block;
-        }
+    NSEnumerator *enumerator = [movingBlocks objectEnumerator];
+    for (BlockSprite *block in enumerator) {
+        //Clear the block's space on the board
+        [self setBlock:nil x:block.column y:block.row];
     }
-    
-    //Find the furthest block at the end of the row that we can move
-    for (int i = x; i < columnCount; i++) {
-        BlockSprite *block = [self blockAtX:i y:y];
-        if (block != nil) {
-            if (!block.moveable) {
-                lastCollisionX = CGRectGetMinX([block boundingBox]);
-                break;
-            }
-            lastBlock = block;
-        }
-    }
-    
-    //No block was found in the row, so don't move any (return)
-    if (firstBlock == nil && lastBlock == nil)
-        return;
-    else if(firstBlock == nil && lastBlock != nil)
-        firstBlock = lastBlock;
-    else if(firstBlock != nil && lastBlock == nil)
-        lastBlock = firstBlock;
-
-    //This blocks the user from pushing a row past a barrier
-    if (distance < 0)
-        distance = MAX(distance, firstCollisionX - CGRectGetMinX([firstBlock boundingBox]));
-    else
-        distance = MIN(distance, lastCollisionX - CGRectGetMaxX([lastBlock boundingBox]));
-    
-    //Move all of the blocks in the row that won't collide
-    for (int i = firstBlock.column; i <= lastBlock.column; i++) {
-        BlockSprite *block = [self blockAtX:i y:y];
-        block.position = ccp(block.position.x + distance, block.position.y);
-    }
-}
-
--(void) snapColumnAtX:(int)x
-{
-    NSMutableArray *column = [NSMutableArray arrayWithCapacity:rowCount];
-    NSEnumerator *enumerator;
-    BlockSprite *block;
-    bool reverse = false;
-    
-    for (int y = 0; y < rowCount; y++) {
-        if((block = [self blockAtX:x y:y]) != nil) {
-            //Add all of the blocks in the column to an array for rearranging later
-            [column addObject:block];
-            [self setBlock:nil x:block.column y:block.row];
-            int newRow = (int)roundf((block.position.y - cellSize.height / 2 - CGRectGetMinY(boundingBox)) / cellSize.height);
-            //Choose which way to loop through the blocks to make sure we don't overwrite other blocks
-            if (newRow > block.row)
-                reverse = true;
-            block.row = newRow;
-        }
-    }
-    
-    if (reverse)
-        enumerator = [column reverseObjectEnumerator];
-    else
-        enumerator = [column objectEnumerator];
-
-    //Move the blocks to their new locations in the board array
-    for (block in enumerator)
+    enumerator = [movingBlocks objectEnumerator];
+    for (BlockSprite *block in enumerator) {
+        //Move the block to the closest cell's position on the board
+        block.column = (int)roundf((block.position.x - cellSize.width / 2 -CGRectGetMinX(boundingBox)) / cellSize.width);
+        block.row = (int)roundf((block.position.y - cellSize.height / 2 - CGRectGetMinY(boundingBox)) / cellSize.height);
         [self setBlock:block x:block.column y:block.row];
-    
-    [self isComplete];
-}
-
--(void) snapRowAtY:(int)y
-{
-    NSMutableArray *row = [NSMutableArray arrayWithCapacity:columnCount];
-    NSEnumerator *enumerator;
-    BlockSprite *block;
-    bool reverse = true;
-    
-    for (int x = 0; x < columnCount; x++) {
-        if((block = [self blockAtX:x y:y]) != nil) {
-            //Add all of the blocks in the row to an array for rearranging later
-            [row addObject:block];
-            [self setBlock:nil x:block.column y:block.row];
-            int newColumn = (int)roundf((block.position.x - cellSize.width / 2 -CGRectGetMinX(boundingBox)) / cellSize.width);
-            //Choose which way to loop through the blocks to make sure we don't overwrite other blocks
-            if (newColumn > block.column)
-                reverse = true;
-            block.column = newColumn;
-        }
     }
-    
-    if (reverse)
-        enumerator = [row reverseObjectEnumerator];
-    else
-        enumerator = [row objectEnumerator];
-    
-    //Move the blocks to their new locations in the board array
-    for (block in enumerator)
-        [self setBlock:block x:block.column y:block.row];
-    
-    [self isComplete];
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -360,7 +327,7 @@ static NSString *colors[] = {
     int row = (int)floorf((location.y - CGRectGetMinY(boundingBox)) / cellSize.height);
     int column = (int)floorf((location.x - CGRectGetMinX(boundingBox)) / cellSize.width);
     
-    //If the user moved something outside the board, do nothing
+    //If the user touched something outside the board, do nothing
     if (row < 0 || column < 0 || row >= rowCount || column >= columnCount) {
         return;
     }
@@ -379,38 +346,38 @@ static NSString *colors[] = {
 	location = [[CCDirector sharedDirector] convertToGL:location];
 	prevLocation = [[CCDirector sharedDirector] convertToGL:prevLocation];
     float dx = location.x - prevLocation.x, dy = location.y - prevLocation.y;
-	
+	float row, column;
+    
 	switch (movement) {
             
         case kNone:
-            //On our first touch, don't do anything. Wait for one more sample to calculate direction
+            //On our first move, don't do anything. Wait for one more sample to calculate direction
             movement = kStarted;
             break;
             
         case kStarted:
             //When we start moving, remember which column or row we touched originally
-            movingRow = (int)floorf((prevLocation.y - CGRectGetMinY(boundingBox)) / cellSize.height);
-            movingColumn = (int)floorf((prevLocation.x - CGRectGetMinX(boundingBox)) / cellSize.width);
+            row = (int)floorf((prevLocation.y - CGRectGetMinY(boundingBox)) / cellSize.height);
+            column = (int)floorf((prevLocation.x - CGRectGetMinX(boundingBox)) / cellSize.width);
             
             //If the user moved something outside the board, do nothing
-            if (movingRow < 0 || movingColumn < 0 || movingRow >= rowCount || movingColumn >= columnCount) {
+            if (row < 0 || column < 0 || row >= rowCount || column >= columnCount)
                 break;
-            }
                 
-            if (ABS(dx) >= ABS(dy)) {
+            if (ABS(dx) >= ABS(dy))
                 movement = kRow;
-            }
-            else {
+            else
                 movement = kColumn;
-            }
+            
+            [self containMovementAtX:column y:row];
             break;
             
         case kColumn:
-            [self moveColumnAtX:movingColumn y:movingRow distance:dy];
+            [self moveBlocksWithDistance:dy];
             break;
             
         case kRow:
-            [self moveRowAtY:movingRow x:movingColumn distance:dx];
+            [self moveBlocksWithDistance:dx];
             break;
             
         default:
@@ -423,11 +390,9 @@ static NSString *colors[] = {
     switch (movement) {
             
         case kColumn:
-            [self snapColumnAtX:movingColumn];
-            break;
             
         case kRow:
-            [self snapRowAtY:movingRow];
+            [self snapMovingBlocks];
             break;
             
         default:
