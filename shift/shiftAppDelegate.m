@@ -11,6 +11,7 @@
 #import "shiftAppDelegate.h"
 #import "GameConfig.h"
 #import "BoardLayer.h"
+#import "MainMenu.h"
 #import "RootViewController.h"
 
 @implementation shiftAppDelegate
@@ -110,7 +111,7 @@
 	[self removeStartupFlicker];
 	
 	// Run the intro Scene
-	[[CCDirector sharedDirector] runWithScene: [BoardLayer scene]];
+	[[CCDirector sharedDirector] runWithScene: [MainMenu scene]];
 }
 
 
