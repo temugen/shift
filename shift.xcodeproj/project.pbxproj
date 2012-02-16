@@ -1274,6 +1274,7 @@
 				82470CD814EC882A00F60A7C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		827036DF14DB0447008D7240 /* Build configuration list for PBXProject "shift" */ = {
 			isa = XCConfigurationList;

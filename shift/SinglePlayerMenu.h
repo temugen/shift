@@ -10,6 +10,9 @@
 #import "Menu.h"
 
 @interface SinglePlayerMenu : Menu
+{
+    NSInteger highestLevel;
+}
 
 -(id) init;
 +(id) scene;

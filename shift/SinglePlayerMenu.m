@@ -20,19 +20,21 @@
 {
     if( (self=[super init] )) {
         
+        //Retrieve highest completed level by user (set to 0 if user defaults are not saved)
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        highestLevel = [defaults integerForKey:@"highestLevel"];
+
         //Set up menu items
-        
         CCMenu *menu = [CCMenu menuWithItems:nil];
         CCMenuItemLabel *levelLabel;
         
         //Add an entry for every level
-        for (int i = 1; i < NUM_LEVELS+1; i++) {
-            levelLabel = [CCMenuItemLabel itemWithLabel:[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", i] fontName:@"Marker Felt" fontSize:32.0f]target:self selector:@selector(levelSelect:)];
+        for (int i = 0; i < NUM_LEVELS; i++) {
+            levelLabel = [CCMenuItemLabel itemWithLabel:[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", i+1] fontName:@"Marker Felt" fontSize:32.0f]target:self selector:@selector(levelSelect:)];
             [levelLabel setTag:i];
             
             //Set the colors based on which levels are unlocked.
-            //CURRENTLY SETTING ONLY 1 VALUE TO TEST
-            if(i==1)
+            if(i<=highestLevel)
                 [levelLabel setColor:ccWHITE];
             else
                 [levelLabel setColor:ccGRAY];
@@ -71,18 +73,15 @@
 {
     int levelNum = [sender tag];
     
-    switch (levelNum) {
-        case 1:
-            [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:0.3f scene:[BoardLayer scene]]];
-            break;
-        default:
-            break;
+    if(levelNum<=highestLevel)
+    {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:TRANS_TIME scene:[BoardLayer scene]]];
     }
 }
 
 - (void) goBack: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:0.3f scene:[MainMenu scene]]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:TRANS_TIME scene:[MainMenu scene]]];
 }
 
 -(void) dealloc
