@@ -24,6 +24,7 @@
 		82470CCB14EC882A00F60A7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036F514DB0448008D7240 /* Foundation.framework */; };
 		82470CD114EC882A00F60A7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82470CCF14EC882A00F60A7C /* InfoPlist.strings */; };
 		82470CD414EC882A00F60A7C /* shiftLogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CD314EC882A00F60A7C /* shiftLogicTests.m */; };
+		82470CDE14EC8D2B00F60A7C /* boardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CDD14EC8D2B00F60A7C /* boardTests.m */; };
 		827036EA14DB0448008D7240 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036E914DB0448008D7240 /* QuartzCore.framework */; };
 		827036EC14DB0448008D7240 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036EB14DB0448008D7240 /* OpenGLES.framework */; };
 		827036EE14DB0448008D7240 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036ED14DB0448008D7240 /* OpenAL.framework */; };
@@ -171,6 +172,8 @@
 		82470CD214EC882A00F60A7C /* shiftLogicTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shiftLogicTests.h; sourceTree = "<group>"; };
 		82470CD314EC882A00F60A7C /* shiftLogicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shiftLogicTests.m; sourceTree = "<group>"; };
 		82470CD514EC882A00F60A7C /* shiftLogicTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shiftLogicTests-Prefix.pch"; sourceTree = "<group>"; };
+		82470CDC14EC8D2B00F60A7C /* boardTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boardTests.h; sourceTree = "<group>"; };
+		82470CDD14EC8D2B00F60A7C /* boardTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = boardTests.m; sourceTree = "<group>"; };
 		827036E514DB0448008D7240 /* shift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827036E914DB0448008D7240 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		827036EB14DB0448008D7240 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -451,6 +454,8 @@
 			children = (
 				82470CD214EC882A00F60A7C /* shiftLogicTests.h */,
 				82470CD314EC882A00F60A7C /* shiftLogicTests.m */,
+				82470CDC14EC8D2B00F60A7C /* boardTests.h */,
+				82470CDD14EC8D2B00F60A7C /* boardTests.m */,
 				82470CCD14EC882A00F60A7C /* Supporting Files */,
 			);
 			path = shiftLogicTests;
@@ -996,6 +1001,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				82470CD414EC882A00F60A7C /* shiftLogicTests.m in Sources */,
+				82470CDE14EC8D2B00F60A7C /* boardTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
