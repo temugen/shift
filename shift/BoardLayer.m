@@ -169,8 +169,8 @@ static NSString *colors[] = {
                 [self setGoal:goal x:column y:row];
                 [self addChild:goal z:0];
             }
-            else if ([class isEqualToString:@"BlockSprite"]) {
-                BlockSprite *block = [BlockSprite blockWithName:name];
+            else {
+                BlockSprite *block = [NSClassFromString(class) blockWithName:name];
                 [block scaleWithFactors:scalingFactors];
                 [self setBlock:block x:column y:row];
                 [self addChild:block z:1];
@@ -455,7 +455,6 @@ cellSize:CGSizeMake(40.0, 40.0)]
         default:
             break;
     }
-    
     
     movement = kNone;
 }

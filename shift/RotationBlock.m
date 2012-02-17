@@ -11,13 +11,13 @@
 
 @implementation RotationBlock
 
-+(id) block
++(id) blockWithName:(NSString *)name
 {
     NSString *filename = [NSString stringWithFormat:@"block_rotate.png"];
     RotationBlock *block = [self cellWithFilename:filename];
     block.comparable = NO;
     block.movable = NO;
-    block.name = @"rotate";
+    block.name = name;
     return block;
 }
 
