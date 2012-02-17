@@ -23,6 +23,7 @@ static NSString *colors[] = {
 
 /* Private Functions */
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
+
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
 -(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
 
@@ -40,24 +41,27 @@ static NSString *colors[] = {
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {
 	if((self = [super init])) {
+        //Don't allow touch input until the pieces are loaded
+        self.isTouchEnabled = NO;
+        
         columnCount = columns;
         rowCount = rows;
-        cellSize = size;
         movingBlocks = [[NSMutableArray alloc] initWithCapacity:MAX(rowCount, columnCount)];
         
+        //Make room in our board array for all of the blocks
+        int cellCount = rowCount * columnCount;
+        blocks = (BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
+        goals = (GoalSprite **)malloc(cellCount * sizeof(GoalSprite *));
+        memset(blocks, 0, cellCount * sizeof(BlockSprite *));
+        memset(goals, 0, cellCount * sizeof(GoalSprite *));
+
+        cellSize = size;
+
         //Calculate the bounding box for the board.
         boundingBox.size.width = columnCount * cellSize.width;
         boundingBox.size.height = rowCount * cellSize.height;
         boundingBox.origin.x = center.x - (CGRectGetWidth(boundingBox) / 2);
         boundingBox.origin.y = center.y - (CGRectGetHeight(boundingBox) / 2);
-        
-        //Needed to receive touch input callbacks (ccTouchesXXX)
-        self.isTouchEnabled = YES;
-        
-        //Make room in our board array for all of the blocks
-        int cellCount = rowCount * columnCount;
-		blocks = (BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
-        goals = (GoalSprite **)malloc(cellCount * sizeof(GoalSprite *));
         
         //Initially, no columns or rows are moving
         movement = kNone;
@@ -117,13 +121,63 @@ static NSString *colors[] = {
                 [self addChild:block z:1];
             }
         }
+        
+        [self toggleInputLock];
     }
     return self;
 }
 
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
 {
-    if ((self = [self initRandomWithNumberOfColumns:7 rows:7 center:center cellSize:size])) {
+    //Find the path to the file
+    NSString *extension = [filename pathExtension];
+    NSString *name = [filename stringByDeletingPathExtension];
+    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:extension];
+    
+    //Open the file and put its contents into a dictionary
+    NSData *plistData = [NSData dataWithContentsOfFile:path];
+    NSString *error;
+    NSPropertyListFormat format;
+    NSDictionary *plist = [NSPropertyListSerialization propertyListFromData:plistData
+                                             mutabilityOption:NSPropertyListImmutable
+                                                       format:&format
+                                             errorDescription:&error];
+    
+    //Get the board attributes
+    NSDictionary *board = [plist objectForKey:@"board"];
+    int rows = [[board objectForKey:@"rows"] intValue], columns = [[board objectForKey:@"columns"] intValue];
+                   
+    if ((self = [self initWithNumberOfColumns:columns rows:rows center:center cellSize:size])) {
+        
+        //Calculate the scaling factors for all of our pieces.
+        GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
+        CGPoint scalingFactors = [sampleGoal resize:cellSize];
+        
+        //Loop through all of the cells
+        NSArray *cells = [board objectForKey:@"cells"];
+        NSEnumerator *enumerator = [cells objectEnumerator];
+        for (NSDictionary *cell in enumerator) {
+            
+            //Get the cell's attributes
+            NSString *class = [cell objectForKey:@"class"], *name = [cell objectForKey:@"name"];
+            int row = [[cell objectForKey:@"row"] intValue], column = [[cell objectForKey:@"column"] intValue];
+            
+            //Add the cell to the board
+            if ([class isEqualToString:@"GoalSprite"]) {
+                GoalSprite *goal = [GoalSprite goalWithName:name];
+                [goal resize:cellSize];
+                [self setGoal:goal x:column y:row];
+                [self addChild:goal z:0];
+            }
+            else if ([class isEqualToString:@"BlockSprite"]) {
+                BlockSprite *block = [BlockSprite blockWithName:name];
+                [block scaleWithFactors:scalingFactors];
+                [self setBlock:block x:column y:row];
+                [self addChild:block z:1];
+            }
+        }
+        
+        [self toggleInputLock];
     }
     return self;
 }
@@ -142,11 +196,14 @@ static NSString *colors[] = {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
-	BoardLayer *board = [[[BoardLayer alloc] initRandomWithNumberOfColumns:7
+	BoardLayer *board = /*[[[BoardLayer alloc] initRandomWithNumberOfColumns:7
                                                                       rows:7
                                                                     center:CGPointMake((screenSize.width / 2), (screenSize.height / 2))
                                                                  cellSize:CGSizeMake(40.0, 40.0)]
-                         autorelease];
+                         autorelease];*/
+    [[[BoardLayer alloc] initWithFilename:@"1.plist" center:CGPointMake((screenSize.width / 2), (screenSize.height / 2))
+cellSize:CGSizeMake(40.0, 40.0)]
+    autorelease];
 	[scene addChild: board];
 	return scene;
 }
@@ -349,8 +406,6 @@ static NSString *colors[] = {
 	float row, column;
     
 	switch (movement) {
-        case kLocked:
-            return;
             
         case kNone:
             //On our first move, don't do anything. Wait for one more sample to calculate direction
@@ -391,9 +446,6 @@ static NSString *colors[] = {
 {
     switch (movement) {
             
-        case kLocked:
-            return;
-            
         case kColumn:
             
         case kRow:
@@ -408,12 +460,9 @@ static NSString *colors[] = {
     movement = kNone;
 }
 
--(void) toggleMovementLock
+-(void) toggleInputLock
 {
-    if (movement == kLocked)
-        movement = kNone;
-    else
-        movement = kLocked;
+    self.isTouchEnabled = !self.isTouchEnabled;
 }
 
 -(BOOL) isComplete

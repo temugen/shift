@@ -16,14 +16,14 @@ typedef enum {
     kColumn,
     kRow,
     kNone,
-    kStarted,
-    kLocked
+    kStarted
 } Movement;
 
 @interface BoardLayer : CCLayer
 {
 	BlockSprite **blocks;
     GoalSprite **goals;
+    
     CGSize cellSize;
     
     Movement movement;
@@ -50,6 +50,6 @@ typedef enum {
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
 -(BOOL) isComplete;
 
--(void)toggleMovementLock;
+-(void)toggleInputLock;
 
 @end
