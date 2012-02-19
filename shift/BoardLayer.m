@@ -83,29 +83,6 @@ static NSString *colors[] = {
                     continue;
                 }
                 
-                //Make some block stationary
-                if(arc4random() % 14 == 0) {
-                    BlockSprite *block = [BlockSprite blockWithName:@"stationary"];
-                    block.comparable = NO;
-                    block.movable = NO;
-                    [block resize:cellSize];
-                    [self setBlock:block x:x y:y];
-                    [self setGoal:nil x:x y:y];
-                    [self addChild:block];
-                    continue;
-                }
-                
-                //Make some block rotate
-                if(arc4random() % 14 == 0) {
-                    RotationBlock *block = [RotationBlock block];
-                    block.board = self;
-                    [block resize:cellSize];
-                    [self setBlock:block x:x y:y];
-                    [self setGoal:nil x:x y:y];
-                    [self addChild:block];
-                    continue;
-                }
-                
                 int randomIndex = arc4random() % len(colors);
                 
                 //Add the goal block
@@ -120,6 +97,29 @@ static NSString *colors[] = {
                 [self setBlock:block x:x y:y];
                 [self addChild:block z:1];
             }
+        }
+        
+        //Shift random rows and columns a certain number of times
+        for (int i = 0; i < (rowCount * columnCount) * (rowCount * columnCount); i++) {
+            int distance;
+            int direction = arc4random() % 2;
+            if (direction == 0) {
+                movement = kRow;
+                distance = arc4random() % (int)(columnCount * cellSize.width);
+            }
+            else {
+                movement = kColumn;
+                distance = arc4random() % (int)(rowCount * cellSize.height);
+            }
+            
+            if (arc4random() % 2 == 0) {
+                distance *= -1;
+            }
+            
+            int column = arc4random() % columnCount, row = arc4random() % rowCount;
+            [self containMovementAtX:column y:row];
+            [self moveBlocksWithDistance:distance];
+            [self snapMovingBlocks];
         }
         
         [self toggleInputLock];
@@ -196,14 +196,14 @@ static NSString *colors[] = {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
-	BoardLayer *board = /*[[[BoardLayer alloc] initRandomWithNumberOfColumns:7
+	BoardLayer *board = [[[BoardLayer alloc] initRandomWithNumberOfColumns:7
                                                                       rows:7
                                                                     center:CGPointMake((screenSize.width / 2), (screenSize.height / 2))
                                                                  cellSize:CGSizeMake(40.0, 40.0)]
-                         autorelease];*/
+                         autorelease];/*
     [[[BoardLayer alloc] initWithFilename:@"1.plist" center:CGPointMake((screenSize.width / 2), (screenSize.height / 2))
 cellSize:CGSizeMake(40.0, 40.0)]
-    autorelease];
+    autorelease];*/
 	[scene addChild: board];
 	return scene;
 }
