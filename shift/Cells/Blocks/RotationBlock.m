@@ -144,8 +144,6 @@
 -(void) ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     self.isTouchEnabled = NO;
-    
-    //Does this work?
     board.isTouchEnabled = YES;
     
     //Remove ourself from the scene
@@ -169,9 +167,7 @@
 -(BOOL) onTouch
 {
     BoardLayer *board = (BoardLayer *)self.parent;
-    //Does this work?
     board.isTouchEnabled = NO;
-    
     
     //Add the input layer to the scene
     RotationBlockLayer *rotationBlockLayer = [[[RotationBlockLayer alloc] initWithRotationBlock:self] autorelease];
