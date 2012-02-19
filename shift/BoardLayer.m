@@ -87,12 +87,14 @@ static NSString *colors[] = {
                 
                 //Add the goal block
                 GoalSprite *goal = [GoalSprite goalWithName:colors[randomIndex]];
+                goal.board = self;
                 CGPoint scalingFactors = [goal resize:cellSize];
                 [self setGoal:goal x:x y:y];
                 [self addChild:goal z:0];
                 
                 //Add the user block
                 BlockSprite *block = [BlockSprite blockWithName:colors[randomIndex]];
+                block.board = self;
                 [block scaleWithFactors:scalingFactors];
                 [self setBlock:block x:x y:y];
                 [self addChild:block z:1];
@@ -165,12 +167,14 @@ static NSString *colors[] = {
             //Add the cell to the board
             if ([class isEqualToString:@"GoalSprite"]) {
                 GoalSprite *goal = [GoalSprite goalWithName:name];
+                goal.board = self;
                 [goal resize:cellSize];
                 [self setGoal:goal x:column y:row];
                 [self addChild:goal z:0];
             }
             else {
                 BlockSprite *block = [NSClassFromString(class) blockWithName:name];
+                block.board = self;
                 [block scaleWithFactors:scalingFactors];
                 [self setBlock:block x:column y:row];
                 [self addChild:block z:1];
@@ -196,14 +200,14 @@ static NSString *colors[] = {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
-	BoardLayer *board = [[[BoardLayer alloc] initRandomWithNumberOfColumns:7
+	BoardLayer *board = /*[[[BoardLayer alloc] initRandomWithNumberOfColumns:7
                                                                       rows:7
                                                                     center:CGPointMake((screenSize.width / 2), (screenSize.height / 2))
                                                                  cellSize:CGSizeMake(40.0, 40.0)]
-                         autorelease];/*
+                         autorelease];*/
     [[[BoardLayer alloc] initWithFilename:@"1.plist" center:CGPointMake((screenSize.width / 2), (screenSize.height / 2))
 cellSize:CGSizeMake(40.0, 40.0)]
-    autorelease];*/
+    autorelease];
 	[scene addChild: board];
 	return scene;
 }

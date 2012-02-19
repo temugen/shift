@@ -22,6 +22,16 @@
 			</dict>
 			<dict>
 				<key>class</key>
+				<string>RotationBlock</string>
+				<key>name</key>
+				<string>yellow</string>
+				<key>row</key>
+				<integer>2</integer>
+				<key>column</key>
+				<integer>3</integer>
+			</dict>
+			<dict>
+				<key>class</key>
 				<string>GoalSprite</string>
 				<key>name</key>
 				<string>yellow</string>
