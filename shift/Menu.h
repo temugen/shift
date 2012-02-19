@@ -10,6 +10,12 @@
 
 #define TRANS_TIME 0.3f
 
+typedef enum {
+    QUICKPLAY,
+    RANDOMMULTI,
+    FRIENDMULTI
+} gamemode;
+
 @interface Menu : CCLayer
 
 +(id) scene:(CCLayer*) layer;

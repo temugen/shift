@@ -149,6 +149,8 @@
 		985191C514EB30A7008E38FE /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985191C414EB30A7008E38FE /* MainMenu.m */; };
 		988E794F14EC863C00DFB957 /* SinglePlayerMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 988E794E14EC863C00DFB957 /* SinglePlayerMenu.m */; };
 		988E795314EC973E00DFB957 /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = 988E795214EC973E00DFB957 /* Menu.m */; };
+		988E795C14EDD27500DFB957 /* DifficultyMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 988E795B14EDD27500DFB957 /* DifficultyMenu.m */; };
+		988E795F14EDD7E100DFB957 /* MultiplayerMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 988E795E14EDD7E100DFB957 /* MultiplayerMenu.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -425,6 +427,10 @@
 		988E794E14EC863C00DFB957 /* SinglePlayerMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlayerMenu.m; sourceTree = "<group>"; };
 		988E795114EC973E00DFB957 /* Menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
 		988E795214EC973E00DFB957 /* Menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Menu.m; sourceTree = "<group>"; };
+		988E795A14EDD27500DFB957 /* DifficultyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DifficultyMenu.h; sourceTree = "<group>"; };
+		988E795B14EDD27500DFB957 /* DifficultyMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DifficultyMenu.m; sourceTree = "<group>"; };
+		988E795D14EDD7E000DFB957 /* MultiplayerMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiplayerMenu.h; sourceTree = "<group>"; };
+		988E795E14EDD7E100DFB957 /* MultiplayerMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiplayerMenu.m; sourceTree = "<group>"; };
 		FAC182E614E3723100968475 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -534,12 +540,7 @@
 				8270384E14DB044A008D7240 /* RootViewController.h */,
 				8270384F14DB044A008D7240 /* RootViewController.m */,
 				8270385414DB044A008D7240 /* GameConfig.h */,
-				985191C314EB30A7008E38FE /* MainMenu.h */,
-				985191C414EB30A7008E38FE /* MainMenu.m */,
-				988E794D14EC863C00DFB957 /* SinglePlayerMenu.h */,
-				988E794E14EC863C00DFB957 /* SinglePlayerMenu.m */,
-				988E795114EC973E00DFB957 /* Menu.h */,
-				988E795214EC973E00DFB957 /* Menu.m */,
+				988E795914EDD1D500DFB957 /* Menus */,
 				827036FA14DB0448008D7240 /* Resources */,
 				8270370E14DB0448008D7240 /* libs */,
 				8270384714DB044A008D7240 /* Supporting Files */,
@@ -889,6 +890,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		988E795914EDD1D500DFB957 /* Menus */ = {
+			isa = PBXGroup;
+			children = (
+				985191C314EB30A7008E38FE /* MainMenu.h */,
+				985191C414EB30A7008E38FE /* MainMenu.m */,
+				988E794D14EC863C00DFB957 /* SinglePlayerMenu.h */,
+				988E794E14EC863C00DFB957 /* SinglePlayerMenu.m */,
+				988E795114EC973E00DFB957 /* Menu.h */,
+				988E795214EC973E00DFB957 /* Menu.m */,
+				988E795A14EDD27500DFB957 /* DifficultyMenu.h */,
+				988E795B14EDD27500DFB957 /* DifficultyMenu.m */,
+				988E795D14EDD7E000DFB957 /* MultiplayerMenu.h */,
+				988E795E14EDD7E100DFB957 /* MultiplayerMenu.m */,
+			);
+			name = Menus;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1129,6 +1147,8 @@
 				985191C514EB30A7008E38FE /* MainMenu.m in Sources */,
 				988E794F14EC863C00DFB957 /* SinglePlayerMenu.m in Sources */,
 				988E795314EC973E00DFB957 /* Menu.m in Sources */,
+				988E795C14EDD27500DFB957 /* DifficultyMenu.m in Sources */,
+				988E795F14EDD7E100DFB957 /* MultiplayerMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

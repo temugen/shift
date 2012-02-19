@@ -79,11 +79,6 @@
     }
 }
 
-- (void) goBack: (id) sender
-{
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:TRANS_TIME scene:[MainMenu scene]]];
-}
-
 -(void) dealloc
 {
 	[super dealloc];

@@ -8,6 +8,9 @@
 
 #import "MainMenu.h"
 #import "SinglePlayerMenu.h"
+#import "MultiplayerMenu.h"
+#import "BoardLayer.h"
+#import "DifficultyMenu.h"
 
 @implementation MainMenu
 
@@ -17,13 +20,14 @@
     if( (self=[super init] )) {
 
         //Set up menu items
+        CCMenuItemFont *quickplay = [CCMenuItemFont itemFromString:@"Quickplay" target:self selector: @selector(onQuickplay:)];
         CCMenuItemFont *single = [CCMenuItemFont itemFromString:@"Single Player" target:self selector: @selector(onSinglePlayer:)];
         CCMenuItemFont *multi = [CCMenuItemFont itemFromString:@"Multiplayer" target:self selector: @selector(onMultiplayer:)];
         CCMenuItemFont *options = [CCMenuItemFont itemFromString:@"Options" target:self selector: @selector(onOptions:)];
         CCMenuItemFont *achievements= [CCMenuItemFont itemFromString:@"Achievements" target:self selector: @selector(onAchievements:)];
 
         //Add items to menu
-        CCMenu *menu = [CCMenu menuWithItems: single, multi, options, achievements, nil];
+        CCMenu *menu = [CCMenu menuWithItems: quickplay, single, multi, options, achievements, nil];
         
         [menu alignItemsVertically];
 
@@ -43,6 +47,11 @@
 
 /* Callback functions for main menu items */
 
+- (void) onQuickplay: (id) sender
+{
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[DifficultyMenu scene:QUICKPLAY]]];
+}
+
 - (void) onSinglePlayer: (id) sender
 {
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[SinglePlayerMenu scene]]];
@@ -50,6 +59,7 @@
 
 - (void) onMultiplayer: (id) sender
 {
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[MultiplayerMenu scene]]];
 }
 
 - (void) onOptions: (id) sender

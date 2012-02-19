@@ -7,6 +7,7 @@
 //
 
 #import "Menu.h"
+#import "MainMenu.h"
 
 @implementation Menu
 
@@ -25,6 +26,11 @@
     CCScene *scene = [CCScene node];
     [scene addChild: layer];
     return scene;
+}
+
+- (void) goBack: (id) sender
+{
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:TRANS_TIME scene:[MainMenu scene]]];
 }
 
 -(void) dealloc
