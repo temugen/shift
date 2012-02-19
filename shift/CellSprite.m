@@ -10,7 +10,6 @@
 
 @implementation CellSprite
 
-@synthesize board;
 @synthesize row, column;
 @synthesize comparable, movable;
 @synthesize name;
@@ -22,7 +21,6 @@
     cell.comparable = YES;
     cell.movable = YES;
     cell.name = @"";
-    cell.board = nil;
     return cell;
 }
 

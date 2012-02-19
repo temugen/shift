@@ -31,7 +31,7 @@
         valid = NO;
         rotationBlock = block;
         center = rotationBlock.position;
-        board = rotationBlock.board;
+        board = (BoardLayer *)rotationBlock.parent;
         minRadius = CGRectGetWidth([rotationBlock boundingBox]);
         int column = rotationBlock.column, row = rotationBlock.row;
         
@@ -143,11 +143,10 @@
     self.isTouchEnabled = NO;
     
     //Does this work?
-    [board toggleInputLock];
+    board.isTouchEnabled = YES;
     
-    //Remove ourself from the current scene
-    CCScene *currentScene = [[CCDirector sharedDirector] runningScene];
-    [currentScene removeChild:self cleanup:YES];
+    //Remove ourself from the scene
+    [board removeChild:self cleanup:YES];
 }
 
 @end
@@ -166,14 +165,14 @@
 
 -(BOOL) onTouch
 {
+    BoardLayer *board = (BoardLayer *)self.parent;
     //Does this work?
-    [board toggleInputLock];
+    board.isTouchEnabled = NO;
     
     
-    //Add the input layer to the current scene
-    CCScene *currentScene = [[CCDirector sharedDirector] runningScene];
+    //Add the input layer to the scene
     RotationBlockLayer *rotationBlockLayer = [[[RotationBlockLayer alloc] initWithRotationBlock:self] autorelease];
-    [currentScene addChild:rotationBlockLayer];
+    [board addChild:rotationBlockLayer];
     
     return NO;
 }

@@ -13,14 +13,12 @@
 @interface CellSprite : CCSprite
 {
     @public
-    BoardLayer *board;
 	int row, column;
     BOOL comparable;
     BOOL movable;
     NSString *name;
 }
 
-@property(nonatomic, retain) BoardLayer *board;
 @property(nonatomic, assign) int row, column;
 @property(nonatomic, assign) BOOL comparable, movable;
 @property(nonatomic, copy) NSString *name;

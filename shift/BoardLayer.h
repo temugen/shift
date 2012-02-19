@@ -50,6 +50,4 @@ typedef enum {
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
 -(BOOL) isComplete;
 
--(void)toggleInputLock;
-
 @end
