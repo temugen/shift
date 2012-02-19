@@ -8,8 +8,6 @@
 
 #import "cocos2d.h"
 
-@class BoardLayer;
-
 @interface CellSprite : CCSprite
 {
     @public

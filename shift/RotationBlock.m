@@ -13,12 +13,14 @@
     RotationBlock *rotationBlock;
     BoardLayer *board;
     CGPoint center;
+    
     NSMutableArray *blocks, *xs, *ys;
+    
     float minRadius;
     float startAngle;
     BOOL valid;
     float sectorAngle;
-    int lastShift;
+    int lastShift, currentShift;
 }
 @end
 
@@ -112,6 +114,7 @@
     
     if (distance < minRadius) {
         valid = NO;
+        lastShift = currentShift;
         return;
     }
     else if (!valid) {
@@ -120,7 +123,7 @@
     }
     
     float dangle = angle - startAngle;
-    int shiftCount = floorf(dangle / sectorAngle);
+    currentShift = ((int)roundf(dangle / sectorAngle) + lastShift) % [blocks count];
     
     for (int i = 0; i < [blocks count]; i++) {
         BlockSprite *block = [blocks objectAtIndex:i];
@@ -128,7 +131,7 @@
             block = nil;
         }
         
-        int grabIndex = (i + shiftCount) % [blocks count];
+        int grabIndex = (i + currentShift) % [blocks count];
         int x = [[xs objectAtIndex:grabIndex] intValue],
             y = [[ys objectAtIndex:grabIndex] intValue];
         
