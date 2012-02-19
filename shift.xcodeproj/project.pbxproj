@@ -147,13 +147,13 @@
 		8270387314DB07F5008D7240 /* block_purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270386D14DB07F5008D7240 /* block_purple.png */; };
 		8270387414DB07F5008D7240 /* block_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270386E14DB07F5008D7240 /* block_red.png */; };
 		8270387514DB07F5008D7240 /* block_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270386F14DB07F5008D7240 /* block_yellow.png */; };
-		985191C514EB30A7008E38FE /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985191C414EB30A7008E38FE /* MainMenu.m */; };
-		9853999C14F185DE00713F65 /* AchievementsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9853999B14F185DE00713F65 /* AchievementsMenu.m */; };
 		985399A914F18CE600713F65 /* DifficultyMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9853999F14F18CE600713F65 /* DifficultyMenu.m */; };
 		985399AA14F18CE600713F65 /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399A214F18CE600713F65 /* Menu.m */; };
 		985399AB14F18CE600713F65 /* MultiplayerMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399A414F18CE600713F65 /* MultiplayerMenu.m */; };
 		985399AC14F18CE600713F65 /* OptionsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399A614F18CE600713F65 /* OptionsMenu.m */; };
 		985399AD14F18CE600713F65 /* SinglePlayerMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399A814F18CE600713F65 /* SinglePlayerMenu.m */; };
+		985399B014F1905500713F65 /* AchievementsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399AE14F1905500713F65 /* AchievementsMenu.m */; };
+		985399B114F1905500713F65 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399AF14F1905500713F65 /* MainMenu.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -425,8 +425,6 @@
 		8270386D14DB07F5008D7240 /* block_purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_purple.png; path = Resources/block_purple.png; sourceTree = "<group>"; };
 		8270386E14DB07F5008D7240 /* block_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_red.png; path = Resources/block_red.png; sourceTree = "<group>"; };
 		8270386F14DB07F5008D7240 /* block_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_yellow.png; path = Resources/block_yellow.png; sourceTree = "<group>"; };
-		985191C414EB30A7008E38FE /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenu.m; path = Menus/MainMenu.m; sourceTree = "<group>"; };
-		9853999B14F185DE00713F65 /* AchievementsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AchievementsMenu.m; path = Menus/AchievementsMenu.m; sourceTree = "<group>"; };
 		9853999D14F18CE600713F65 /* AchievementsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AchievementsMenu.h; path = Menus/AchievementsMenu.h; sourceTree = "<group>"; };
 		9853999E14F18CE600713F65 /* DifficultyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DifficultyMenu.h; path = Menus/DifficultyMenu.h; sourceTree = "<group>"; };
 		9853999F14F18CE600713F65 /* DifficultyMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DifficultyMenu.m; path = Menus/DifficultyMenu.m; sourceTree = "<group>"; };
@@ -439,6 +437,8 @@
 		985399A614F18CE600713F65 /* OptionsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OptionsMenu.m; path = Menus/OptionsMenu.m; sourceTree = "<group>"; };
 		985399A714F18CE600713F65 /* SinglePlayerMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SinglePlayerMenu.h; path = Menus/SinglePlayerMenu.h; sourceTree = "<group>"; };
 		985399A814F18CE600713F65 /* SinglePlayerMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SinglePlayerMenu.m; path = Menus/SinglePlayerMenu.m; sourceTree = "<group>"; };
+		985399AE14F1905500713F65 /* AchievementsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AchievementsMenu.m; path = Menus/AchievementsMenu.m; sourceTree = "<group>"; };
+		985399AF14F1905500713F65 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenu.m; path = Menus/MainMenu.m; sourceTree = "<group>"; };
 		FAC182E614E3723100968475 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -902,6 +902,8 @@
 		988E795914EDD1D500DFB957 /* Menus */ = {
 			isa = PBXGroup;
 			children = (
+				985399AE14F1905500713F65 /* AchievementsMenu.m */,
+				985399AF14F1905500713F65 /* MainMenu.m */,
 				9853999D14F18CE600713F65 /* AchievementsMenu.h */,
 				9853999E14F18CE600713F65 /* DifficultyMenu.h */,
 				9853999F14F18CE600713F65 /* DifficultyMenu.m */,
@@ -914,8 +916,6 @@
 				985399A614F18CE600713F65 /* OptionsMenu.m */,
 				985399A714F18CE600713F65 /* SinglePlayerMenu.h */,
 				985399A814F18CE600713F65 /* SinglePlayerMenu.m */,
-				985191C414EB30A7008E38FE /* MainMenu.m */,
-				9853999B14F185DE00713F65 /* AchievementsMenu.m */,
 			);
 			name = Menus;
 			sourceTree = "<group>";
@@ -1158,13 +1158,13 @@
 				82470CBB14E643DB00F60A7C /* CellSprite.m in Sources */,
 				82470CBE14E6452200F60A7C /* GoalSprite.m in Sources */,
 				82470CC114EA3FA900F60A7C /* RotationBlock.m in Sources */,
-				985191C514EB30A7008E38FE /* MainMenu.m in Sources */,
-				9853999C14F185DE00713F65 /* AchievementsMenu.m in Sources */,
 				985399A914F18CE600713F65 /* DifficultyMenu.m in Sources */,
 				985399AA14F18CE600713F65 /* Menu.m in Sources */,
 				985399AB14F18CE600713F65 /* MultiplayerMenu.m in Sources */,
 				985399AC14F18CE600713F65 /* OptionsMenu.m in Sources */,
 				985399AD14F18CE600713F65 /* SinglePlayerMenu.m in Sources */,
+				985399B014F1905500713F65 /* AchievementsMenu.m in Sources */,
+				985399B114F1905500713F65 /* MainMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
