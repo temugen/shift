@@ -75,7 +75,7 @@
     
     if(levelNum<=highestLevel)
     {
-        NSString *levelFile = [NSString stringWithFormat:@"%d.plist", levelNum+1];
+        //NSString *levelFile = [NSString stringWithFormat:@"%d.plist", levelNum+1];
 
         [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:TRANS_TIME scene:[BoardLayer scene]]];
     }
