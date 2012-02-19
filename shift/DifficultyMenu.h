@@ -1,5 +1,5 @@
 //
-//  Quickplay.h
+//  DifficultyMenu.h
 //  shift
 //
 //  Created by Greg McLain on 2/16/12.

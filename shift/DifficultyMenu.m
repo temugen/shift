@@ -1,5 +1,5 @@
 //
-//  Quickplay.m
+//  DifficultyMenu.m
 //  shift
 //
 //  Created by Greg McLain on 2/16/12.
@@ -78,19 +78,29 @@ DifficultyMenu* layer;
                 break;
         }
     }
-    else
+    else //Multiplayer game
     {
-        NSLog(@"User selected Multiplayer");   
+        if(layer->mode == RANDOMMULTI)
+        {
+            //TODO: Setup Random Multiplayer Game
+            NSLog(@"User selected Random Opponent Multiplayer");   
+        }
+        else //User selected Friend Opponent
+        {               
+            //TODO: Setup Friend Multiplayer game
+            NSLog(@"User selected Friend Opponent Multiplayer");   
+
+        }
     }
 }
 
 - (void) goBack: (id) sender
 {
-    if(layer->mode==QUICKPLAY)
+    if(layer->mode==QUICKPLAY) //Return to Main Menu
     {
         [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:TRANS_TIME scene:[MainMenu scene]]];
     }
-    else
+    else //Return to Multiplayer menu
     {
         [[CCDirector sharedDirector] replaceScene:
                                         [CCTransitionSlideInL transitionWithDuration:TRANS_TIME scene:[MultiplayerMenu scene]]];

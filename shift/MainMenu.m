@@ -9,8 +9,9 @@
 #import "MainMenu.h"
 #import "SinglePlayerMenu.h"
 #import "MultiplayerMenu.h"
-#import "BoardLayer.h"
 #import "DifficultyMenu.h"
+#import "OptionsMenu.h"
+#import "AchievementsMenu.h"
 
 @implementation MainMenu
 
@@ -64,10 +65,12 @@
 
 - (void) onOptions: (id) sender
 {
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[OptionsMenu scene]]];
 }
 
 - (void) onAchievements: (id) sender
 {
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[AchievementsMenu scene]]];
 }
 
 

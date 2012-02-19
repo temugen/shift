@@ -148,6 +148,8 @@
 		8270387414DB07F5008D7240 /* block_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270386E14DB07F5008D7240 /* block_red.png */; };
 		8270387514DB07F5008D7240 /* block_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270386F14DB07F5008D7240 /* block_yellow.png */; };
 		985191C514EB30A7008E38FE /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985191C414EB30A7008E38FE /* MainMenu.m */; };
+		9853999914F1817400713F65 /* OptionsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9853999814F1817400713F65 /* OptionsMenu.m */; };
+		9853999C14F185DE00713F65 /* AchievementsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9853999B14F185DE00713F65 /* AchievementsMenu.m */; };
 		988E794F14EC863C00DFB957 /* SinglePlayerMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 988E794E14EC863C00DFB957 /* SinglePlayerMenu.m */; };
 		988E795314EC973E00DFB957 /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = 988E795214EC973E00DFB957 /* Menu.m */; };
 		988E795C14EDD27500DFB957 /* DifficultyMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 988E795B14EDD27500DFB957 /* DifficultyMenu.m */; };
@@ -425,6 +427,10 @@
 		8270386F14DB07F5008D7240 /* block_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_yellow.png; path = Resources/block_yellow.png; sourceTree = "<group>"; };
 		985191C314EB30A7008E38FE /* MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
 		985191C414EB30A7008E38FE /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
+		9853999714F1817400713F65 /* OptionsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsMenu.h; sourceTree = "<group>"; };
+		9853999814F1817400713F65 /* OptionsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsMenu.m; sourceTree = "<group>"; };
+		9853999A14F185DE00713F65 /* AchievementsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AchievementsMenu.h; sourceTree = "<group>"; };
+		9853999B14F185DE00713F65 /* AchievementsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementsMenu.m; sourceTree = "<group>"; };
 		988E794D14EC863C00DFB957 /* SinglePlayerMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlayerMenu.h; sourceTree = "<group>"; };
 		988E794E14EC863C00DFB957 /* SinglePlayerMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlayerMenu.m; sourceTree = "<group>"; };
 		988E795114EC973E00DFB957 /* Menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
@@ -906,6 +912,10 @@
 				988E795B14EDD27500DFB957 /* DifficultyMenu.m */,
 				988E795D14EDD7E000DFB957 /* MultiplayerMenu.h */,
 				988E795E14EDD7E100DFB957 /* MultiplayerMenu.m */,
+				9853999714F1817400713F65 /* OptionsMenu.h */,
+				9853999814F1817400713F65 /* OptionsMenu.m */,
+				9853999A14F185DE00713F65 /* AchievementsMenu.h */,
+				9853999B14F185DE00713F65 /* AchievementsMenu.m */,
 			);
 			name = Menus;
 			sourceTree = "<group>";
@@ -1153,6 +1163,8 @@
 				988E795314EC973E00DFB957 /* Menu.m in Sources */,
 				988E795C14EDD27500DFB957 /* DifficultyMenu.m in Sources */,
 				988E795F14EDD7E100DFB957 /* MultiplayerMenu.m in Sources */,
+				9853999914F1817400713F65 /* OptionsMenu.m in Sources */,
+				9853999C14F185DE00713F65 /* AchievementsMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
