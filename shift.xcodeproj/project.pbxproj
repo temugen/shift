@@ -25,6 +25,7 @@
 		82470CD114EC882A00F60A7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82470CCF14EC882A00F60A7C /* InfoPlist.strings */; };
 		82470CD414EC882A00F60A7C /* shiftLogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CD314EC882A00F60A7C /* shiftLogicTests.m */; };
 		82470CDE14EC8D2B00F60A7C /* boardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CDD14EC8D2B00F60A7C /* boardTests.m */; };
+		82470CF514EE252800F60A7C /* 1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82470CF414EE252800F60A7C /* 1.plist */; };
 		827036EA14DB0448008D7240 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036E914DB0448008D7240 /* QuartzCore.framework */; };
 		827036EC14DB0448008D7240 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036EB14DB0448008D7240 /* OpenGLES.framework */; };
 		827036EE14DB0448008D7240 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036ED14DB0448008D7240 /* OpenAL.framework */; };
@@ -179,6 +180,7 @@
 		82470CD514EC882A00F60A7C /* shiftLogicTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shiftLogicTests-Prefix.pch"; sourceTree = "<group>"; };
 		82470CDC14EC8D2B00F60A7C /* boardTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boardTests.h; sourceTree = "<group>"; };
 		82470CDD14EC8D2B00F60A7C /* boardTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = boardTests.m; sourceTree = "<group>"; };
+		82470CF414EE252800F60A7C /* 1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = 1.plist; path = Resources/1.plist; sourceTree = "<group>"; };
 		827036E514DB0448008D7240 /* shift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827036E914DB0448008D7240 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		827036EB14DB0448008D7240 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -427,7 +429,7 @@
 		988E794E14EC863C00DFB957 /* SinglePlayerMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlayerMenu.m; sourceTree = "<group>"; };
 		988E795114EC973E00DFB957 /* Menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
 		988E795214EC973E00DFB957 /* Menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Menu.m; sourceTree = "<group>"; };
-		988E795A14EDD27500DFB957 /* DifficultyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DifficultyMenu.h; sourceTree = "<group>"; };
+		988E795A14EDD27500DFB957 /* DifficultyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DifficultyMenu.h; sourceTree = "<group>"; };
 		988E795B14EDD27500DFB957 /* DifficultyMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DifficultyMenu.m; sourceTree = "<group>"; };
 		988E795D14EDD7E000DFB957 /* MultiplayerMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiplayerMenu.h; sourceTree = "<group>"; };
 		988E795E14EDD7E100DFB957 /* MultiplayerMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiplayerMenu.m; sourceTree = "<group>"; };
@@ -551,6 +553,7 @@
 		827036FA14DB0448008D7240 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				82470CF414EE252800F60A7C /* 1.plist */,
 				82386DD814E3588E00C94C1B /* block_orange.png */,
 				82386DD914E3588E00C94C1B /* block_rotate.png */,
 				82386DDA14E3588E00C94C1B /* block_stationary.png */,
@@ -1007,6 +1010,7 @@
 				82386DE714E3588E00C94C1B /* goal_purple.png in Resources */,
 				82386DE814E3588E00C94C1B /* goal_red.png in Resources */,
 				82386DE914E3588E00C94C1B /* goal_yellow.png in Resources */,
+				82470CF514EE252800F60A7C /* 1.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

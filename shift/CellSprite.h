@@ -20,10 +20,10 @@
     NSString *name;
 }
 
-@property(nonatomic, assign) BoardLayer *board;
+@property(nonatomic, retain) BoardLayer *board;
 @property(nonatomic, assign) int row, column;
 @property(nonatomic, assign) BOOL comparable, movable;
-@property(nonatomic, assign) NSString *name;
+@property(nonatomic, copy) NSString *name;
 
 +(id) cellWithFilename:(NSString *)name;
 

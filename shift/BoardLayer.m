@@ -23,6 +23,7 @@ static NSString *colors[] = {
 
 /* Private Functions */
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
+
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
 -(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
 
@@ -40,24 +41,27 @@ static NSString *colors[] = {
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {
 	if((self = [super init])) {
+        //Don't allow touch input until the pieces are loaded
+        self.isTouchEnabled = NO;
+        
         columnCount = columns;
         rowCount = rows;
-        cellSize = size;
         movingBlocks = [[NSMutableArray alloc] initWithCapacity:MAX(rowCount, columnCount)];
         
+        //Make room in our board array for all of the blocks
+        int cellCount = rowCount * columnCount;
+        blocks = (BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
+        goals = (GoalSprite **)malloc(cellCount * sizeof(GoalSprite *));
+        memset(blocks, 0, cellCount * sizeof(BlockSprite *));
+        memset(goals, 0, cellCount * sizeof(GoalSprite *));
+
+        cellSize = size;
+
         //Calculate the bounding box for the board.
         boundingBox.size.width = columnCount * cellSize.width;
         boundingBox.size.height = rowCount * cellSize.height;
         boundingBox.origin.x = center.x - (CGRectGetWidth(boundingBox) / 2);
         boundingBox.origin.y = center.y - (CGRectGetHeight(boundingBox) / 2);
-        
-        //Needed to receive touch input callbacks (ccTouchesXXX)
-        self.isTouchEnabled = YES;
-        
-        //Make room in our board array for all of the blocks
-        int cellCount = rowCount * columnCount;
-		blocks = (BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
-        goals = (GoalSprite **)malloc(cellCount * sizeof(GoalSprite *));
         
         //Initially, no columns or rows are moving
         movement = kNone;
@@ -79,51 +83,105 @@ static NSString *colors[] = {
                     continue;
                 }
                 
-                //Make some block stationary
-                if(arc4random() % 14 == 0) {
-                    BlockSprite *block = [BlockSprite blockWithName:@"stationary"];
-                    block.comparable = NO;
-                    block.movable = NO;
-                    [block resize:cellSize];
-                    [self setBlock:block x:x y:y];
-                    [self setGoal:nil x:x y:y];
-                    [self addChild:block];
-                    continue;
-                }
-                
-                //Make some block rotate
-                if(arc4random() % 14 == 0) {
-                    RotationBlock *block = [RotationBlock block];
-                    block.board = self;
-                    [block resize:cellSize];
-                    [self setBlock:block x:x y:y];
-                    [self setGoal:nil x:x y:y];
-                    [self addChild:block];
-                    continue;
-                }
-                
                 int randomIndex = arc4random() % len(colors);
                 
                 //Add the goal block
                 GoalSprite *goal = [GoalSprite goalWithName:colors[randomIndex]];
+                goal.board = self;
                 CGPoint scalingFactors = [goal resize:cellSize];
                 [self setGoal:goal x:x y:y];
                 [self addChild:goal z:0];
                 
                 //Add the user block
                 BlockSprite *block = [BlockSprite blockWithName:colors[randomIndex]];
+                block.board = self;
                 [block scaleWithFactors:scalingFactors];
                 [self setBlock:block x:x y:y];
                 [self addChild:block z:1];
             }
         }
+        
+        //Shift random rows and columns a certain number of times
+        for (int i = 0; i < (rowCount * columnCount) * (rowCount * columnCount); i++) {
+            int distance;
+            int direction = arc4random() % 2;
+            if (direction == 0) {
+                movement = kRow;
+                distance = arc4random() % (int)(columnCount * cellSize.width);
+            }
+            else {
+                movement = kColumn;
+                distance = arc4random() % (int)(rowCount * cellSize.height);
+            }
+            
+            if (arc4random() % 2 == 0) {
+                distance *= -1;
+            }
+            
+            int column = arc4random() % columnCount, row = arc4random() % rowCount;
+            [self containMovementAtX:column y:row];
+            [self moveBlocksWithDistance:distance];
+            [self snapMovingBlocks];
+        }
+        
+        [self toggleInputLock];
     }
     return self;
 }
 
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
 {
-    if ((self = [self initRandomWithNumberOfColumns:7 rows:7 center:center cellSize:size])) {
+    //Find the path to the file
+    NSString *extension = [filename pathExtension];
+    NSString *name = [filename stringByDeletingPathExtension];
+    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:extension];
+    
+    //Open the file and put its contents into a dictionary
+    NSData *plistData = [NSData dataWithContentsOfFile:path];
+    NSString *error;
+    NSPropertyListFormat format;
+    NSDictionary *plist = [NSPropertyListSerialization propertyListFromData:plistData
+                                             mutabilityOption:NSPropertyListImmutable
+                                                       format:&format
+                                             errorDescription:&error];
+    
+    //Get the board attributes
+    NSDictionary *board = [plist objectForKey:@"board"];
+    int rows = [[board objectForKey:@"rows"] intValue], columns = [[board objectForKey:@"columns"] intValue];
+                   
+    if ((self = [self initWithNumberOfColumns:columns rows:rows center:center cellSize:size])) {
+        
+        //Calculate the scaling factors for all of our pieces.
+        GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
+        CGPoint scalingFactors = [sampleGoal resize:cellSize];
+        
+        //Loop through all of the cells
+        NSArray *cells = [board objectForKey:@"cells"];
+        NSEnumerator *enumerator = [cells objectEnumerator];
+        for (NSDictionary *cell in enumerator) {
+            
+            //Get the cell's attributes
+            NSString *class = [cell objectForKey:@"class"], *name = [cell objectForKey:@"name"];
+            int row = [[cell objectForKey:@"row"] intValue], column = [[cell objectForKey:@"column"] intValue];
+            
+            //Add the cell to the board
+            if ([class isEqualToString:@"GoalSprite"]) {
+                GoalSprite *goal = [GoalSprite goalWithName:name];
+                goal.board = self;
+                [goal resize:cellSize];
+                [self setGoal:goal x:column y:row];
+                [self addChild:goal z:0];
+            }
+            else {
+                BlockSprite *block = [NSClassFromString(class) blockWithName:name];
+                block.board = self;
+                [block scaleWithFactors:scalingFactors];
+                [self setBlock:block x:column y:row];
+                [self addChild:block z:1];
+            }
+        }
+        
+        [self toggleInputLock];
     }
     return self;
 }
@@ -142,11 +200,14 @@ static NSString *colors[] = {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
-	BoardLayer *board = [[[BoardLayer alloc] initRandomWithNumberOfColumns:7
+	BoardLayer *board = /*[[[BoardLayer alloc] initRandomWithNumberOfColumns:7
                                                                       rows:7
                                                                     center:CGPointMake((screenSize.width / 2), (screenSize.height / 2))
                                                                  cellSize:CGSizeMake(40.0, 40.0)]
-                         autorelease];
+                         autorelease];*/
+    [[[BoardLayer alloc] initWithFilename:@"1.plist" center:CGPointMake((screenSize.width / 2), (screenSize.height / 2))
+cellSize:CGSizeMake(40.0, 40.0)]
+    autorelease];
 	[scene addChild: board];
 	return scene;
 }
@@ -349,8 +410,6 @@ static NSString *colors[] = {
 	float row, column;
     
 	switch (movement) {
-        case kLocked:
-            return;
             
         case kNone:
             //On our first move, don't do anything. Wait for one more sample to calculate direction
@@ -391,9 +450,6 @@ static NSString *colors[] = {
 {
     switch (movement) {
             
-        case kLocked:
-            return;
-            
         case kColumn:
             
         case kRow:
@@ -404,16 +460,12 @@ static NSString *colors[] = {
             break;
     }
     
-    
     movement = kNone;
 }
 
--(void) toggleMovementLock
+-(void) toggleInputLock
 {
-    if (movement == kLocked)
-        movement = kNone;
-    else
-        movement = kLocked;
+    self.isTouchEnabled = !self.isTouchEnabled;
 }
 
 -(BOOL) isComplete

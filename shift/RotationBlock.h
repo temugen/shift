@@ -13,6 +13,6 @@
     
 }
 
-+(id) block;
++(id) blockWithName:(NSString *)name;
 
 @end
