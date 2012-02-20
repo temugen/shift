@@ -10,8 +10,6 @@
 #import "SinglePlayerGame.h"
 #import "MainMenu.h"
 
-#define NUM_LEVELS 20
-
 @implementation SinglePlayerMenu
 
 //Initialize the Single Player layer

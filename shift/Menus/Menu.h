@@ -7,14 +7,9 @@
 //
 
 #import "cocos2d.h"
+#import "UniversalConstants.h"
 
 #define TRANS_TIME 0.3f
-
-typedef enum {
-    QUICKPLAY,
-    RANDOMMULTI,
-    FRIENDMULTI
-} gamemode;
 
 @interface Menu : CCLayer
 

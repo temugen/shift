@@ -14,12 +14,6 @@
 
 @implementation DifficultyMenu
 
-typedef enum {
-    EASY,
-    MEDIUM,
-    HARD
-} difficulty;
-
 DifficultyMenu* layer;
 
 //Initialize the Quickplay layer

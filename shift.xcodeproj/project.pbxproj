@@ -433,6 +433,7 @@
 		8270386114DB052F008D7240 /* BoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardLayer.h; sourceTree = "<group>"; };
 		8270386514DB057A008D7240 /* shiftAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shiftAppDelegate.h; sourceTree = "<group>"; };
 		8270386614DB057A008D7240 /* shiftAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shiftAppDelegate.m; sourceTree = "<group>"; };
+		98132BBB14F2C4F90023BD25 /* UniversalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversalConstants.h; sourceTree = "<group>"; };
 		9853999D14F18CE600713F65 /* AchievementsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AchievementsMenu.h; path = Menus/AchievementsMenu.h; sourceTree = "<group>"; };
 		9853999E14F18CE600713F65 /* DifficultyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DifficultyMenu.h; path = Menus/DifficultyMenu.h; sourceTree = "<group>"; };
 		9853999F14F18CE600713F65 /* DifficultyMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DifficultyMenu.m; path = Menus/DifficultyMenu.m; sourceTree = "<group>"; };
@@ -618,6 +619,7 @@
 		827036F914DB0448008D7240 /* shift */ = {
 			isa = PBXGroup;
 			children = (
+				98132BBB14F2C4F90023BD25 /* UniversalConstants.h */,
 				988E795914EDD1D500DFB957 /* Menus */,
 				82470D2614F1BF6700F60A7C /* Cells */,
 				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,

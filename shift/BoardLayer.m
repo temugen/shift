@@ -8,8 +8,6 @@
 
 #import "BoardLayer.h"
 
-#define len(array) (sizeof((array))/sizeof(typeof((array[0]))))
-
 static NSString * const colors[] = {
     @"blue",
     @"red",
