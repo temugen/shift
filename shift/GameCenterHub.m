@@ -72,16 +72,15 @@
   return (localPlayerClassAvailable && osVersionSupported);
 }
 
-
-- (void) authenticateLocalPlayer
+- (void) authenticateLocalUser
 {
-  GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
-  [localPlayer authenticateWithCompletionHandler:^(NSError *error) {
-    if (localPlayer.isAuthenticated)
-    {
-      // TODO:  Add tasks for authenticated player
-    }
-  }];
+  if([GKLocalPlayer localPlayer].authenticated == NO)
+  {
+    [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) 
+     {
+       [self callDelegateOnMainThread: @selector(processGameCenterAuth:) withArg: NULL error: error];
+     }];
+  }
 }
 
 - (void) reportScore: (int64_t) score forCategory: (NSString*) category
