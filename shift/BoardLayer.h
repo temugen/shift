@@ -40,8 +40,8 @@ typedef enum {
 @property(readonly, assign) int rowCount, columnCount;
 @property(readonly, assign) CGRect boundingBox;
 
-// returns a CCScene that contains the BoardLayer as the only child
-+(CCScene *) scene;
++(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
++(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;
 
 -(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;

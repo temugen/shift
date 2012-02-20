@@ -38,6 +38,16 @@ static NSString *colors[] = {
 @synthesize rowCount, columnCount;
 @synthesize boundingBox;
 
++(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
+{
+    return [[[BoardLayer alloc] initRandomWithNumberOfColumns:columns rows:rows center:center cellSize:size] autorelease];
+}
+
++(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
+{
+    return [[[BoardLayer alloc] initWithFilename:filename center:center cellSize:size] autorelease];
+}
+
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {
 	if((self = [super init])) {
@@ -189,23 +199,6 @@ static NSString *colors[] = {
     [movingBlocks release];
     
     [super dealloc];
-}
-
-+(CCScene *) scene
-{
-	// 'scene' is an autorelease object.
-	CCScene *scene = [CCScene node];
-    CGSize screenSize = [[CCDirector sharedDirector] winSize];
-	BoardLayer *board = /*[[[BoardLayer alloc] initRandomWithNumberOfColumns:7
-                                                                      rows:7
-                                                                    center:CGPointMake((screenSize.width / 2), (screenSize.height / 2))
-                                                                 cellSize:CGSizeMake(40.0, 40.0)]
-                         autorelease];*/
-    [[[BoardLayer alloc] initWithFilename:@"1.plist" center:CGPointMake((screenSize.width / 2), (screenSize.height / 2))
-cellSize:CGSizeMake(40.0, 40.0)]
-    autorelease];
-	[scene addChild: board];
-	return scene;
 }
 
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y

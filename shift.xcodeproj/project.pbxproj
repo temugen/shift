@@ -32,6 +32,7 @@
 		82470D2E14F1C02400F60A7C /* GoalSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470D2D14F1C02400F60A7C /* GoalSprite.m */; };
 		82470D3314F1C03000F60A7C /* BlockSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470D3014F1C03000F60A7C /* BlockSprite.m */; };
 		82470D3414F1C03000F60A7C /* RotationBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470D3214F1C03000F60A7C /* RotationBlock.m */; };
+		82470D3714F1C28000F60A7C /* SinglePlayerGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470D3614F1C28000F60A7C /* SinglePlayerGame.m */; };
 		827036EA14DB0448008D7240 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036E914DB0448008D7240 /* QuartzCore.framework */; };
 		827036EC14DB0448008D7240 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036EB14DB0448008D7240 /* OpenGLES.framework */; };
 		827036EE14DB0448008D7240 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036ED14DB0448008D7240 /* OpenAL.framework */; };
@@ -190,6 +191,8 @@
 		82470D3014F1C03000F60A7C /* BlockSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlockSprite.m; path = Cells/Blocks/BlockSprite.m; sourceTree = "<group>"; };
 		82470D3114F1C03000F60A7C /* RotationBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotationBlock.h; path = Cells/Blocks/RotationBlock.h; sourceTree = "<group>"; };
 		82470D3214F1C03000F60A7C /* RotationBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotationBlock.m; path = Cells/Blocks/RotationBlock.m; sourceTree = "<group>"; };
+		82470D3514F1C28000F60A7C /* SinglePlayerGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlayerGame.h; sourceTree = "<group>"; };
+		82470D3614F1C28000F60A7C /* SinglePlayerGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlayerGame.m; sourceTree = "<group>"; };
 		827036E514DB0448008D7240 /* shift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827036E914DB0448008D7240 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		827036EB14DB0448008D7240 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -609,15 +612,17 @@
 		827036F914DB0448008D7240 /* shift */ = {
 			isa = PBXGroup;
 			children = (
+				988E795914EDD1D500DFB957 /* Menus */,
 				82470D2614F1BF6700F60A7C /* Cells */,
+				82470D3514F1C28000F60A7C /* SinglePlayerGame.h */,
+				82470D3614F1C28000F60A7C /* SinglePlayerGame.m */,
+				8270386114DB052F008D7240 /* BoardLayer.h */,
+				8270386014DB052F008D7240 /* BoardLayer.m */,
 				8270386514DB057A008D7240 /* shiftAppDelegate.h */,
 				8270386614DB057A008D7240 /* shiftAppDelegate.m */,
-				8270386014DB052F008D7240 /* BoardLayer.m */,
-				8270386114DB052F008D7240 /* BoardLayer.h */,
 				8270384E14DB044A008D7240 /* RootViewController.h */,
 				8270384F14DB044A008D7240 /* RootViewController.m */,
 				8270385414DB044A008D7240 /* GameConfig.h */,
-				988E795914EDD1D500DFB957 /* Menus */,
 				827036FA14DB0448008D7240 /* Resources */,
 				8270370E14DB0448008D7240 /* libs */,
 				8270384714DB044A008D7240 /* Supporting Files */,
@@ -1221,6 +1226,7 @@
 				82470D2E14F1C02400F60A7C /* GoalSprite.m in Sources */,
 				82470D3314F1C03000F60A7C /* BlockSprite.m in Sources */,
 				82470D3414F1C03000F60A7C /* RotationBlock.m in Sources */,
+				82470D3714F1C28000F60A7C /* SinglePlayerGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

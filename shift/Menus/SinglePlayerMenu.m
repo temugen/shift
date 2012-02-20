@@ -7,9 +7,8 @@
 //
 
 #import "SinglePlayerMenu.h"
-#import "BoardLayer.h"
+#import "SinglePlayerGame.h"
 #import "MainMenu.h"
-
 
 #define NUM_LEVELS 20
 
@@ -75,9 +74,8 @@
     
     if(levelNum<=highestLevel)
     {
-        //NSString *levelFile = [NSString stringWithFormat:@"%d.plist", levelNum+1];
-
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:TRANS_TIME scene:[BoardLayer scene]]];
+        SinglePlayerGame *game = [SinglePlayerGame gameWithLevel:levelNum + 1];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:TRANS_TIME scene:game]];
     }
 }
 
