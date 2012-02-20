@@ -59,7 +59,7 @@
                  });
 }
 
-BOOL isGameCenterAPIAvailable()
++ (BOOL) isGameCenterAPIAvailable
 {
   // Check for presence of GKLocalPlayer class.
   BOOL localPlayerClassAvailable = (NSClassFromString(@"GKLocalPlayer")) != nil;
@@ -84,23 +84,19 @@ BOOL isGameCenterAPIAvailable()
   }];
 }
 
-
-- (void) loadPlayerData: (NSArray *) identifiers
+- (void) reportScore: (int64_t) score forCategory: (NSString*) category
 {
-  [GKPlayer loadPlayersForIdentifiers:identifiers withCompletionHandler:^(NSArray
-                                                      *players, NSError *error) {
+  GKScore *scoreReporter = [[[GKScore alloc] initWithCategory:category]
+                            autorelease];
+  scoreReporter.value = score;
+  [scoreReporter reportScoreWithCompletionHandler:^(NSError *error) {
     if (error != nil)
     {
-      // error handling
-      
-    }
-    if (players != nil)
-    {
-      // TODO:  Translate the player data into our display format
-      
+      // handle the reporting error
     }
   }];
 }
+
 
 - (void) reloadHighScoresForCategory: (NSString*) category
 {
@@ -114,94 +110,7 @@ BOOL isGameCenterAPIAvailable()
      [self callDelegateOnMainThread: @selector(reloadScoresComplete:error:) withArg: leaderBoard error: error];
    }];
 }
-
-- (void) retrieveFriends
-{
-  GKLocalPlayer *lp = [GKLocalPlayer localPlayer];
-  if (lp.authenticated)
-  {
-    [lp loadFriendsWithCompletionHandler:^(NSArray *friends, NSError *error) {
-      if (friends != nil)
-      {
-        [self loadPlayerData: friends];
-      }
-    }];
-  }
-}
-
-
-
-- (void) inviteFriends: (NSArray*) identifiers
-{
-
-  GKFriendRequestComposeViewController *friendRequestViewController =
-  [[GKFriendRequestComposeViewController alloc] init];
-  friendRequestViewController.composeViewDelegate = self;
-  if (identifiers)
-  {
-    [friendRequestViewController addRecipientsWithPlayerIDs: identifiers];
-  }
-  [self presentModalViewController: friendRequestViewController animated: YES];
-  [friendRequestViewController release];
-}
   
-
-
-- (void) reportScore: (int64_t) score forCategory: (NSString*) category
-{
-  GKScore *scoreReporter = [[[GKScore alloc] initWithCategory:category]
-                            autorelease];
-  scoreReporter.value = score;
-  [scoreReporter reportScoreWithCompletionHandler:^(NSError *error) {
-    if (error != nil)
-    {
-      // handle the reporting error
-    }
-  }];
-}
-  
-
-- (void) showLeaderboard
-{
-  GKLeaderboardViewController *leaderboardController =
-  [[GKLeaderboardViewController alloc] init];
-  if (leaderboardController != nil)
-  {
-    leaderboardController.leaderboardDelegate = self;
-    [self presentModalViewController: leaderboardController animated: YES];
-  }
-}
-
-
-// Method for view controllr to dismiss leaderboard
-- (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController*)viewController
-{
-  [self dismissModalViewControllerAnimated:YES];
-}
-
-
-// Retrieves the top ten scores on the leaderboard
-- (void) retrieveTopTenScores
-{
-  GKLeaderboard *leaderboardRequest = [[GKLeaderboard alloc] init];
-  if (leaderboardRequest != nil)
-  {
-    leaderboardRequest.playerScope = GKLeaderboardPlayerScopeGlobal;
-    leaderboardRequest.timeScope = GKLeaderboardTimeScopeAllTime;
-    leaderboardRequest.range = NSMakeRange(1,10);
-    [leaderboardRequest loadScoresWithCompletionHandler: ^(NSArray *scores,
-                                                           NSError *error) {
-      if (error != nil)
-      {
-        // handle the error.
-      }
-      if (scores != nil)
-      {
-        // process the score information.
-      }
-    }];
-  }
-}
 
 - (void) submitAchievement: (NSString*) identifier percentComplete: (double) percentComplete
 {

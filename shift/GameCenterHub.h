@@ -22,7 +22,6 @@
 @interface GameCenterHub : NSObject
 {
   NSMutableDictionary* earnedAchievementCache;
-  
   id <GameCenterHubDelegate, NSObject> delegate;
 }
 
@@ -32,18 +31,8 @@
 @property (nonatomic, assign) id <GameCenterHubDelegate> delegate;
 
 + (BOOL) isGameCenterAPIAvailable;
-
 - (void) authenticateLocalPlayer;
 - (void) reportScore: (int64_t) score forCategory: (NSString*) category;
-
-
-
-- (void) loadPlayerData: (NSArray *) identifiers;
-- (void) retrieveFriends;
-- (void) inviteFriends: (NSArray*) identifiers;
-- (void) showLeaderboard;
-- (void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController*)viewController;
-- (void) retrieveTopTenScores;
 - (void) reloadHighScoresForCategory: (NSString*) category;
 - (void) submitAchievement: (NSString*) identifier percentComplete: (double) percentComplete;
 - (void) resetAchievements;
