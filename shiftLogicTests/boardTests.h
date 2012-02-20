@@ -7,7 +7,10 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+//#import "BoardLayer.h"
 
 @interface boardTests : SenTestCase
-
+{
+    //BoardLayer *board;
+}
 @end

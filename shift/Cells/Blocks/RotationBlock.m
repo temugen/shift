@@ -135,8 +135,6 @@
         int x = [[xs objectAtIndex:grabIndex] intValue],
             y = [[ys objectAtIndex:grabIndex] intValue];
         
-        block.column = x;
-        block.row = y;
         [board setBlock:block x:x y:y];
     }
 }

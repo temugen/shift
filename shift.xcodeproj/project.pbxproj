@@ -35,6 +35,8 @@
 		82470D3714F1C28000F60A7C /* SinglePlayerGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470D3614F1C28000F60A7C /* SinglePlayerGame.m */; };
 		82470D3914F1C7DB00F60A7C /* 2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82470D3814F1C7DB00F60A7C /* 2.plist */; };
 		82470D3C14F1CC8B00F60A7C /* QuickPlayGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */; };
+		82470D3E14F2BED400F60A7C /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82470D3D14F2BED400F60A7C /* test.plist */; };
+		82470D3F14F2BED400F60A7C /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82470D3D14F2BED400F60A7C /* test.plist */; };
 		827036EA14DB0448008D7240 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036E914DB0448008D7240 /* QuartzCore.framework */; };
 		827036EC14DB0448008D7240 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036EB14DB0448008D7240 /* OpenGLES.framework */; };
 		827036EE14DB0448008D7240 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036ED14DB0448008D7240 /* OpenAL.framework */; };
@@ -157,6 +159,7 @@
 		985399AD14F18CE600713F65 /* SinglePlayerMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399A814F18CE600713F65 /* SinglePlayerMenu.m */; };
 		985399B014F1905500713F65 /* AchievementsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399AE14F1905500713F65 /* AchievementsMenu.m */; };
 		985399B114F1905500713F65 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399AF14F1905500713F65 /* MainMenu.m */; };
+		FA7A30FD14F2976800AF7C61 /* GameCenterHub.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A30FC14F2976800AF7C61 /* GameCenterHub.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -198,6 +201,7 @@
 		82470D3814F1C7DB00F60A7C /* 2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 2.plist; path = Resources/Levels/2.plist; sourceTree = "<group>"; };
 		82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickPlayGame.h; sourceTree = "<group>"; };
 		82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickPlayGame.m; sourceTree = "<group>"; };
+		82470D3D14F2BED400F60A7C /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = test.plist; path = Resources/Levels/test.plist; sourceTree = "<group>"; };
 		827036E514DB0448008D7240 /* shift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827036E914DB0448008D7240 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		827036EB14DB0448008D7240 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -448,6 +452,8 @@
 		985399A814F18CE600713F65 /* SinglePlayerMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SinglePlayerMenu.m; path = Menus/SinglePlayerMenu.m; sourceTree = "<group>"; };
 		985399AE14F1905500713F65 /* AchievementsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AchievementsMenu.m; path = Menus/AchievementsMenu.m; sourceTree = "<group>"; };
 		985399AF14F1905500713F65 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenu.m; path = Menus/MainMenu.m; sourceTree = "<group>"; };
+		FA7A30FB14F2976800AF7C61 /* GameCenterHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterHub.h; sourceTree = "<group>"; };
+		FA7A30FC14F2976800AF7C61 /* GameCenterHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterHub.m; sourceTree = "<group>"; };
 		FAC182E614E3723100968475 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -515,6 +521,7 @@
 		82470D0514F1BCC500F60A7C /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				82470D3D14F2BED400F60A7C /* test.plist */,
 				82470D3814F1C7DB00F60A7C /* 2.plist */,
 				82470D2414F1BF5000F60A7C /* 1.plist */,
 			);
@@ -619,22 +626,29 @@
 		827036F914DB0448008D7240 /* shift */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				98132BBB14F2C4F90023BD25 /* UniversalConstants.h */,
 				988E795914EDD1D500DFB957 /* Menus */,
 				82470D2614F1BF6700F60A7C /* Cells */,
-				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
-				82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */,
-				82470D3514F1C28000F60A7C /* SinglePlayerGame.h */,
-				82470D3614F1C28000F60A7C /* SinglePlayerGame.m */,
+=======
 				8270386114DB052F008D7240 /* BoardLayer.h */,
-				8270386014DB052F008D7240 /* BoardLayer.m */,
-				8270386514DB057A008D7240 /* shiftAppDelegate.h */,
-				8270386614DB057A008D7240 /* shiftAppDelegate.m */,
-				8270384E14DB044A008D7240 /* RootViewController.h */,
-				8270384F14DB044A008D7240 /* RootViewController.m */,
+				FA7A30FB14F2976800AF7C61 /* GameCenterHub.h */,
 				8270385414DB044A008D7240 /* GameConfig.h */,
-				827036FA14DB0448008D7240 /* Resources */,
+>>>>>>> febb51ca74c0c650210a43c5ecf5d10b234edc30
+				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
+				8270384E14DB044A008D7240 /* RootViewController.h */,
+				8270386514DB057A008D7240 /* shiftAppDelegate.h */,
+				82470D3514F1C28000F60A7C /* SinglePlayerGame.h */,
+				8270386014DB052F008D7240 /* BoardLayer.m */,
+				FA7A30FC14F2976800AF7C61 /* GameCenterHub.m */,
+				82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */,
+				8270384F14DB044A008D7240 /* RootViewController.m */,
+				8270386614DB057A008D7240 /* shiftAppDelegate.m */,
+				82470D3614F1C28000F60A7C /* SinglePlayerGame.m */,
+				82470D2614F1BF6700F60A7C /* Cells */,
 				8270370E14DB0448008D7240 /* libs */,
+				988E795914EDD1D500DFB957 /* Menus */,
+				827036FA14DB0448008D7240 /* Resources */,
 				8270384714DB044A008D7240 /* Supporting Files */,
 			);
 			path = shift;
@@ -1061,6 +1075,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				82470CD114EC882A00F60A7C /* InfoPlist.strings in Resources */,
+				82470D3F14F2BED400F60A7C /* test.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1093,6 +1108,7 @@
 				82470D2314F1BF2800F60A7C /* goal_yellow.png in Resources */,
 				82470D2514F1BF5000F60A7C /* 1.plist in Resources */,
 				82470D3914F1C7DB00F60A7C /* 2.plist in Resources */,
+				82470D3E14F2BED400F60A7C /* test.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1239,6 +1255,7 @@
 				82470D3414F1C03000F60A7C /* RotationBlock.m in Sources */,
 				82470D3714F1C28000F60A7C /* SinglePlayerGame.m in Sources */,
 				82470D3C14F1CC8B00F60A7C /* QuickPlayGame.m in Sources */,
+				FA7A30FD14F2976800AF7C61 /* GameCenterHub.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

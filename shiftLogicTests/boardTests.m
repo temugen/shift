@@ -15,16 +15,33 @@
     [super setUp];
     
     // Set-up code here.
+    //board = [[BoardLayer boardWithFilename:@"test.plist" center:CGPointMake(0, 0) cellSize:CGSizeMake(10, 10)] retain];
 }
 
 - (void)tearDown
 {
     // Tear-down code here.
+    //[board release];
     
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testShiftRowRight
+{
+    //STFail(@"Unit tests are not implemented yet in shiftLogicTests");
+}
+
+- (void)testShiftRowLeft
+{
+    //STFail(@"Unit tests are not implemented yet in shiftLogicTests");
+}
+
+- (void)testShiftColumnUp
+{
+    //STFail(@"Unit tests are not implemented yet in shiftLogicTests");
+}
+
+- (void)testShiftColumnDown
 {
     //STFail(@"Unit tests are not implemented yet in shiftLogicTests");
 }
