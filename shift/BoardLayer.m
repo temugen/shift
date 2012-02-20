@@ -132,6 +132,8 @@ static NSString * const colors[] = {
             [self snapMovingBlocks];
         }
         
+        movement = kNone;
+        
         self.isTouchEnabled = YES;
     }
     return self;
