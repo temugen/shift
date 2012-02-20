@@ -22,14 +22,17 @@
         //Retrieve highest completed level by user (set to 0 if user defaults are not saved)
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         highestLevel = [defaults integerForKey:@"highestLevel"];
+        if (highestLevel == 0) {
+            highestLevel = 1;
+        }
 
         //Set up menu items
         CCMenu *menu = [CCMenu menuWithItems:nil];
         CCMenuItemLabel *levelLabel;
         
         //Add an entry for every level
-        for (int i = 0; i < NUM_LEVELS; i++) {
-            levelLabel = [CCMenuItemLabel itemWithLabel:[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", i+1] fontName:@"Marker Felt" fontSize:32.0f]target:self selector:@selector(levelSelect:)];
+        for (int i = 1; i <= NUM_LEVELS; i++) {
+            levelLabel = [CCMenuItemLabel itemWithLabel:[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", i] fontName:@"Marker Felt" fontSize:32.0f]target:self selector:@selector(levelSelect:)];
             [levelLabel setTag:i];
             
             //Set the colors based on which levels are unlocked.
@@ -74,7 +77,7 @@
     
     if(levelNum<=highestLevel)
     {
-        SinglePlayerGame *game = [SinglePlayerGame gameWithLevel:levelNum + 1];
+        SinglePlayerGame *game = [SinglePlayerGame gameWithLevel:levelNum];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:TRANS_TIME scene:game]];
     }
 }
