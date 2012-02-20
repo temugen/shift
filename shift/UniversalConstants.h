@@ -6,8 +6,6 @@
 //  Copyright (c) 2012. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 /* This file contains constants that could potentially be used throughout the application.
  * Feel free to add additional constants, or move current constants to be defined here.
  */
