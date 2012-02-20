@@ -41,6 +41,13 @@
 {
     [self removeChild:board cleanup:YES];
     currentLevel++;
+    
+    //Save progress of game to user defaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger:currentLevel forKey:@"highestLevel"];
+    [defaults synchronize];
+
+
     board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
                                    center:boardCenter
                                  cellSize:cellSize];
