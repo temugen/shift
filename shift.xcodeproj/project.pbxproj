@@ -12,7 +12,7 @@
 		82470CCB14EC882A00F60A7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036F514DB0448008D7240 /* Foundation.framework */; };
 		82470CD114EC882A00F60A7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 82470CCF14EC882A00F60A7C /* InfoPlist.strings */; };
 		82470CD414EC882A00F60A7C /* shiftLogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CD314EC882A00F60A7C /* shiftLogicTests.m */; };
-		82470CDE14EC8D2B00F60A7C /* boardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CDD14EC8D2B00F60A7C /* boardTests.m */; };
+		82470CDE14EC8D2B00F60A7C /* boardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470CDD14EC8D2B00F60A7C /* boardTests.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		82470D1014F1BF1A00F60A7C /* block_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 82470D0814F1BF1A00F60A7C /* block_blue.png */; };
 		82470D1114F1BF1A00F60A7C /* block_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 82470D0914F1BF1A00F60A7C /* block_green.png */; };
 		82470D1214F1BF1A00F60A7C /* block_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 82470D0A14F1BF1A00F60A7C /* block_orange.png */; };
