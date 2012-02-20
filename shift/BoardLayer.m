@@ -10,7 +10,7 @@
 
 #define len(array) (sizeof((array))/sizeof(typeof((array[0]))))
 
-static NSString *colors[] = {
+static NSString * const colors[] = {
     @"blue",
     @"red",
     @"green",
@@ -365,7 +365,10 @@ static NSString *colors[] = {
         [self setBlock:block x:block.column y:block.row];
     }
     
-    [self isComplete];
+    //If the user initiated the move, check if they completed the board
+    if (self.isTouchEnabled) {
+        [self isComplete];
+    }
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

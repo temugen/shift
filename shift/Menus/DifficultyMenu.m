@@ -7,9 +7,10 @@
 //
 
 #import "DifficultyMenu.h"
-#import "BoardLayer.h"
+#import "QuickPlayGame.h"
 #import "MainMenu.h"
 #import "MultiplayerMenu.h"
+
 
 @implementation DifficultyMenu
 
@@ -61,22 +62,27 @@ DifficultyMenu* layer;
     
     if(layer->mode == QUICKPLAY)
     {
+        QuickPlayGame *game;
         switch (diff) {
             case EASY:
                 //TODO: Generate random easy puzzle
                 NSLog(@"User selected Easy Quickplay");
+                game = [QuickPlayGame gameWithNumberOfRows:3 columns:3];
                 break;
             case MEDIUM:
                 //TODO: Generate random medium puzzle
                 NSLog(@"User selected Medium Quickplay");
+                game = [QuickPlayGame gameWithNumberOfRows:5 columns:5];
                 break;
             case HARD:
                 //TODO: Generate random hard puzzle
                 NSLog(@"User selected Hard Quickplay");
+                game = [QuickPlayGame gameWithNumberOfRows:7 columns:7];
                 break;
             default:
                 break;
         }
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:TRANS_TIME scene:game]];
     }
     else //Multiplayer game
     {
