@@ -364,6 +364,8 @@ static NSString *colors[] = {
         block.row = (int)roundf((block.position.y - cellSize.height / 2 - CGRectGetMinY(boundingBox)) / cellSize.height);
         [self setBlock:block x:block.column y:block.row];
     }
+    
+    [self isComplete];
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -469,6 +471,8 @@ static NSString *colors[] = {
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
+    
+    NSLog(@"Sent complete notification!");
     
     return YES;
 }

@@ -11,6 +11,11 @@
 
 @interface SinglePlayerGame : CCScene
 {
+    BoardLayer *board;
+    CGPoint boardCenter;
+    CGSize cellSize;
+    
+    int currentLevel;
 }
 
 +(SinglePlayerGame *) gameWithLevel:(int)level;
