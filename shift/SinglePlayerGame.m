@@ -7,6 +7,8 @@
 //
 
 #import "SinglePlayerGame.h"
+#import "UniversalConstants.h"
+#import "MainMenu.h"
 
 @implementation SinglePlayerGame
 
@@ -42,16 +44,28 @@
     [self removeChild:board cleanup:YES];
     currentLevel++;
     
-    //Save progress of game to user defaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:currentLevel forKey:@"highestLevel"];
-    [defaults synchronize];
+    NSInteger highestLevel = [defaults integerForKey:@"highestLevel"];
+    
+    //If user beat a new level, save the progress
+    if(currentLevel > highestLevel)
+    {
+        [defaults setInteger:currentLevel forKey:@"highestLevel"];
+        [defaults synchronize];
+    }
 
-
-    board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
+    //If user completed all levels, return to Main Menu (for now). Maybe display some congratulatory message? Fireworks?
+    if(currentLevel > NUM_LEVELS)
+    {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:TRANS_TIME scene:[MainMenu scene]]];
+    }
+    else
+    {
+        board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
                                    center:boardCenter
                                  cellSize:cellSize];
-    [self addChild:board];
+        [self addChild:board];
+    }
 }
                              
 @end
