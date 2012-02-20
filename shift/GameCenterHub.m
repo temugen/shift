@@ -61,10 +61,10 @@
 
 + (BOOL) isGameCenterAPIAvailable
 {
-  // Check for presence of GKLocalPlayer class.
+  // Needs GKLocalPlayer class
   BOOL localPlayerClassAvailable = (NSClassFromString(@"GKLocalPlayer")) != nil;
   
-  // The device must be running iOS 4.1 or later.
+  // requires 4.1
   NSString *reqSysVer = @"4.1";
   NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
   BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch]
@@ -72,7 +72,7 @@
   return (localPlayerClassAvailable && osVersionSupported);
 }
 
-- (void) authenticateLocalUser
+- (void) authenticateLocalPlayer
 {
   if([GKLocalPlayer localPlayer].authenticated == NO)
   {
@@ -91,7 +91,7 @@
   [scoreReporter reportScoreWithCompletionHandler:^(NSError *error) {
     if (error != nil)
     {
-      // handle the reporting error
+      // TODO:  error handling
     }
   }];
 }
@@ -134,7 +134,7 @@
        }
        else
        {
-         //Something broke loading the achievement list.  Error out, and we'll try again the next time achievements submit.
+         //   achievement list broke, try again later
          [self callDelegateOnMainThread: @selector(achievementSubmitted:error:) withArg: NULL error: error];
        }
        
@@ -142,13 +142,12 @@
   }
   else
   {
-    //Search the list for the ID we're using...
+    // find current id
     GKAchievement* achievement= [self.earnedAchievementCache objectForKey: identifier];
     if(achievement != NULL)
     {
       if((achievement.percentComplete >= 100.0) || (achievement.percentComplete >= percentComplete))
       {
-        //Achievement has already been earned so we're done.
         achievement= NULL;
       }
       achievement.percentComplete= percentComplete;
