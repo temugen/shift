@@ -472,8 +472,6 @@ static NSString *colors[] = {
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
     
-    NSLog(@"Sent complete notification!");
-    
     return YES;
 }
 

@@ -39,8 +39,6 @@
 
 -(void) onBoardComplete:(NSNotification *)notification
 {
-    NSLog(@"Received complete notification!");
-    
     [self removeChild:board cleanup:YES];
     currentLevel++;
     board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
