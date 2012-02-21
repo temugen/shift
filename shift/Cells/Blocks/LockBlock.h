@@ -9,5 +9,12 @@
 #import "BlockSprite.h"
 
 @interface LockBlock : BlockSprite
+{
+    BOOL locked;
+}
+
+@property(nonatomic, assign) BOOL locked;
+
++(id) blockWithName:(NSString *)name;
 
 @end
