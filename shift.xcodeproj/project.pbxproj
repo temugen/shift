@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF053D314F338AF00177148 /* WildcardBlock.m */; };
 		82470CC914EC882A00F60A7C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82470CC814EC882A00F60A7C /* SenTestingKit.framework */; };
 		82470CCA14EC882A00F60A7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036F314DB0448008D7240 /* UIKit.framework */; };
 		82470CCB14EC882A00F60A7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036F514DB0448008D7240 /* Foundation.framework */; };
@@ -163,6 +164,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5EF053D214F338AE00177148 /* WildcardBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardBlock.h; path = Cells/Blocks/WildcardBlock.h; sourceTree = "<group>"; };
+		5EF053D314F338AF00177148 /* WildcardBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WildcardBlock.m; path = Cells/Blocks/WildcardBlock.m; sourceTree = "<group>"; };
 		82470CC714EC882A00F60A7C /* shiftLogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shiftLogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82470CC814EC882A00F60A7C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		82470CCE14EC882A00F60A7C /* shiftLogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "shiftLogicTests-Info.plist"; sourceTree = "<group>"; };
@@ -571,6 +574,8 @@
 			children = (
 				82470D2F14F1C03000F60A7C /* BlockSprite.h */,
 				82470D3014F1C03000F60A7C /* BlockSprite.m */,
+				5EF053D214F338AE00177148 /* WildcardBlock.h */,
+				5EF053D314F338AF00177148 /* WildcardBlock.m */,
 				82470D3114F1C03000F60A7C /* RotationBlock.h */,
 				82470D3214F1C03000F60A7C /* RotationBlock.m */,
 			);
@@ -1251,6 +1256,7 @@
 				82470D3C14F1CC8B00F60A7C /* QuickPlayGame.m in Sources */,
 				FA04FF1A14F2E457001D6536 /* GameCenterHub.m in Sources */,
 				FA7DB0CF14F2F02B005305C9 /* GameCenterController.m in Sources */,
+				5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
