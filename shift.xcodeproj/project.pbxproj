@@ -158,6 +158,8 @@
 		985399AD14F18CE600713F65 /* SinglePlayerMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399A814F18CE600713F65 /* SinglePlayerMenu.m */; };
 		985399B014F1905500713F65 /* AchievementsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399AE14F1905500713F65 /* AchievementsMenu.m */; };
 		985399B114F1905500713F65 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399AF14F1905500713F65 /* MainMenu.m */; };
+		98657FD314F40A2300584BD1 /* KeyBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FD214F40A2300584BD1 /* KeyBlock.m */; };
+		98657FD714F40A5A00584BD1 /* LockBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FD614F40A5A00584BD1 /* LockBlock.m */; };
 		FA04FF1A14F2E457001D6536 /* GameCenterHub.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04FF1914F2E457001D6536 /* GameCenterHub.m */; };
 		FA7DB0CF14F2F02B005305C9 /* GameCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7DB0CE14F2F02B005305C9 /* GameCenterController.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
@@ -452,6 +454,10 @@
 		985399A814F18CE600713F65 /* SinglePlayerMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SinglePlayerMenu.m; path = Menus/SinglePlayerMenu.m; sourceTree = "<group>"; };
 		985399AE14F1905500713F65 /* AchievementsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AchievementsMenu.m; path = Menus/AchievementsMenu.m; sourceTree = "<group>"; };
 		985399AF14F1905500713F65 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenu.m; path = Menus/MainMenu.m; sourceTree = "<group>"; };
+		98657FD114F40A2300584BD1 /* KeyBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyBlock.h; sourceTree = "<group>"; };
+		98657FD214F40A2300584BD1 /* KeyBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyBlock.m; sourceTree = "<group>"; };
+		98657FD514F40A5A00584BD1 /* LockBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LockBlock.h; sourceTree = "<group>"; };
+		98657FD614F40A5A00584BD1 /* LockBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LockBlock.m; sourceTree = "<group>"; };
 		9892C5AB14F2D0E100775034 /* UniversalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversalConstants.h; sourceTree = "<group>"; };
 		FA04FF1814F2E457001D6536 /* GameCenterHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterHub.h; sourceTree = "<group>"; };
 		FA04FF1914F2E457001D6536 /* GameCenterHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterHub.m; sourceTree = "<group>"; };
@@ -578,6 +584,10 @@
 				5EF053D314F338AF00177148 /* WildcardBlock.m */,
 				82470D3114F1C03000F60A7C /* RotationBlock.h */,
 				82470D3214F1C03000F60A7C /* RotationBlock.m */,
+				98657FD114F40A2300584BD1 /* KeyBlock.h */,
+				98657FD214F40A2300584BD1 /* KeyBlock.m */,
+				98657FD514F40A5A00584BD1 /* LockBlock.h */,
+				98657FD614F40A5A00584BD1 /* LockBlock.m */,
 			);
 			name = Blocks;
 			sourceTree = "<group>";
@@ -1257,6 +1267,8 @@
 				FA04FF1A14F2E457001D6536 /* GameCenterHub.m in Sources */,
 				FA7DB0CF14F2F02B005305C9 /* GameCenterController.m in Sources */,
 				5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */,
+				98657FD314F40A2300584BD1 /* KeyBlock.m in Sources */,
+				98657FD714F40A5A00584BD1 /* LockBlock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
