@@ -10,6 +10,8 @@
 #import "BlockSprite.h"
 #import "GoalSprite.h"
 #import "RotationBlock.h"
+#import "LockBlock.h"
+#import "KeyBlock.h"
 #import "UniversalConstants.h"
 
 //Describes the current movement occurring on the board
@@ -50,5 +52,7 @@ typedef enum {
 -(BlockSprite *) blockAtX:(int)x y:(int)y;
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
 -(BOOL) isComplete;
+-(void) removeBlock:(BlockSprite *)block;
+
 
 @end

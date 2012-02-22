@@ -10,4 +10,9 @@
 
 @interface KeyBlock : BlockSprite
 
++(id) blockWithName:(NSString *)name;
+
+-(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force;
+-(void) removeKey;
+
 @end

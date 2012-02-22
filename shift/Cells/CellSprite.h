@@ -31,6 +31,7 @@
 
 //Override if you want to handle touch events
 -(BOOL) onTouch;
+-(BOOL) onDoubleTap;
 -(BOOL) onMoveWithDistance:(float)distance vertically:(BOOL)vertically;
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force;
 

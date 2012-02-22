@@ -387,9 +387,17 @@ static NSString * const colors[] = {
         return;
     }
     
-    //Tell the block it was clicked.
+    //Tell the block it was clicked or double-tapped.
     BlockSprite *block = [self blockAtX:column y:row];
-    [block onTouch];
+    
+    if(touch.tapCount == 2)
+    {
+        [block onDoubleTap];
+    }
+    else
+    {
+        [block onTouch];
+    }
 }
 
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -476,6 +484,13 @@ static NSString * const colors[] = {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
     
     return YES;
+}
+
+-(void) removeBlock:(BlockSprite*) block
+{
+    //Need to remove block from blocks array.
+    [self removeChild:block cleanup:YES];
+    NSLog(@"Removing block");
 }
 
 @end

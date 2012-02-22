@@ -44,6 +44,12 @@
     return NO;
 }
 
+-(BOOL) onDoubleTap
+{
+    NSLog(@"%@ was double-tapped", name);
+    return NO;
+}
+
 -(BOOL) onMoveWithDistance:(float)distance vertically:(BOOL)vertically
 {
     return NO;
