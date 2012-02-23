@@ -23,7 +23,8 @@
 
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force
 {
-    if([cell.name isEqualToString:@"red_lock"])
+    //Only remove the key if it collided with a LockBlock
+    if([cell isKindOfClass:[LockBlock class]])
     {
         [self removeKey];
     }
@@ -33,11 +34,7 @@
 -(void) removeKey
 {
     BoardLayer *board = (BoardLayer *)self.parent;
-    board.isTouchEnabled = NO;
-    //[board snapMovingBlocks];
     [board removeBlock: self];
-    board.isTouchEnabled = YES;
-
 }
 
 @end

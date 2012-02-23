@@ -207,10 +207,12 @@ static NSString * const colors[] = {
 	blocks[(y * columnCount) + x] = block;
     
     //Update the block's location information
-    block.row = y;
-    block.column = x;
-    block.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
-                         CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
+    if (block != nil) {
+        block.row = y;
+        block.column = x;
+        block.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
+                             CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
+    }
 }
 
 -(BlockSprite *) blockAtX:(int)x y:(int)y
@@ -488,9 +490,14 @@ static NSString * const colors[] = {
 
 -(void) removeBlock:(BlockSprite*) block
 {
-    //Need to remove block from blocks array.
+    //If block was in the process of being moved, remove it from the movingBlocks array
+    if ([movingBlocks containsObject:block]) 
+    {
+        [movingBlocks removeObject:block];
+    }
+    
+    [self setBlock:nil x:block.column y:block.row];
     [self removeChild:block cleanup:YES];
-    NSLog(@"Removing block");
 }
 
 @end
