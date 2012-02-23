@@ -172,6 +172,16 @@
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		82470D6714F5DF2A00F60A7C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 827036DC14DB0447008D7240 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 827036E414DB0448008D7240;
+			remoteInfo = shift;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		5EF053D214F338AE00177148 /* WildcardBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardBlock.h; path = Cells/Blocks/WildcardBlock.h; sourceTree = "<group>"; };
 		5EF053D314F338AF00177148 /* WildcardBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WildcardBlock.m; path = Cells/Blocks/WildcardBlock.m; sourceTree = "<group>"; };
@@ -1056,6 +1066,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				82470D6814F5DF2A00F60A7C /* PBXTargetDependency */,
 			);
 			name = shiftLogicTests;
 			productName = shiftLogicTests;
@@ -1306,6 +1317,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		82470D6814F5DF2A00F60A7C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 827036E414DB0448008D7240 /* shift */;
+			targetProxy = 82470D6714F5DF2A00F60A7C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		82470CCF14EC882A00F60A7C /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -1322,6 +1341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/shift.app/shift";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1339,6 +1359,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "shiftLogicTests/shiftLogicTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -1347,6 +1368,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/shift.app/shift";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1359,6 +1381,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				INFOPLIST_FILE = "shiftLogicTests/shiftLogicTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = octest;
 			};
