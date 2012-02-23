@@ -32,7 +32,7 @@
 
 -(void) unlock
 {    
-    NSString *filename = [NSString stringWithFormat:@"block_%@.png",name];
+    NSString *filename = [NSString stringWithFormat:@"%@_key.png",name];
     [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
     self.movable = YES;
 }

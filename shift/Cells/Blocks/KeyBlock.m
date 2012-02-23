@@ -13,7 +13,7 @@
 
 +(id) blockWithName:(NSString *)name
 {
-    NSString *filename = [NSString stringWithFormat:@"block_green.png"];
+    NSString *filename = [NSString stringWithFormat:@"key.png"];
     KeyBlock *block = [self cellWithFilename:filename];
     block.comparable = NO;
     block.movable = YES;
