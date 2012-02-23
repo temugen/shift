@@ -11,13 +11,13 @@
 @interface CellSprite : CCSprite
 {
     @public
-	int row, column;
+	int row, column, health;
     BOOL comparable;
     BOOL movable;
     NSString *name;
 }
 
-@property(nonatomic, assign) int row, column;
+@property(nonatomic, assign) int row, column, health;
 @property(nonatomic, assign) BOOL comparable, movable;
 @property(nonatomic, copy) NSString *name;
 

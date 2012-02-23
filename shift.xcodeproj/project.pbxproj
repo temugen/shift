@@ -165,6 +165,8 @@
 		985399B114F1905500713F65 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399AF14F1905500713F65 /* MainMenu.m */; };
 		98657FDC14F412EF00584BD1 /* KeyBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FD914F412EE00584BD1 /* KeyBlock.m */; };
 		98657FDD14F412EF00584BD1 /* LockBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FDB14F412EE00584BD1 /* LockBlock.m */; };
+		A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */; };
+		A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61B014F5D1370024A2EC /* StationaryBlock.m */; };
 		FA04FF1A14F2E457001D6536 /* GameCenterHub.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04FF1914F2E457001D6536 /* GameCenterHub.m */; };
 		FA7DB0CF14F2F02B005305C9 /* GameCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7DB0CE14F2F02B005305C9 /* GameCenterController.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
@@ -469,6 +471,10 @@
 		98657FDA14F412EE00584BD1 /* LockBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LockBlock.h; path = Cells/Blocks/LockBlock.h; sourceTree = "<group>"; };
 		98657FDB14F412EE00584BD1 /* LockBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LockBlock.m; path = Cells/Blocks/LockBlock.m; sourceTree = "<group>"; };
 		9892C5AB14F2D0E100775034 /* UniversalConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversalConstants.h; sourceTree = "<group>"; };
+		A33E61AD14F5D1360024A2EC /* DestructiveBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DestructiveBlock.h; path = Cells/Blocks/DestructiveBlock.h; sourceTree = "<group>"; };
+		A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DestructiveBlock.m; path = Cells/Blocks/DestructiveBlock.m; sourceTree = "<group>"; };
+		A33E61AF14F5D1370024A2EC /* StationaryBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationaryBlock.h; path = Cells/Blocks/StationaryBlock.h; sourceTree = "<group>"; };
+		A33E61B014F5D1370024A2EC /* StationaryBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationaryBlock.m; path = Cells/Blocks/StationaryBlock.m; sourceTree = "<group>"; };
 		FA04FF1814F2E457001D6536 /* GameCenterHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterHub.h; sourceTree = "<group>"; };
 		FA04FF1914F2E457001D6536 /* GameCenterHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterHub.m; sourceTree = "<group>"; };
 		FA7DB0CD14F2F02B005305C9 /* GameCenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterController.h; sourceTree = "<group>"; };
@@ -593,6 +599,10 @@
 		82470D2714F1BF6F00F60A7C /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				A33E61AD14F5D1360024A2EC /* DestructiveBlock.h */,
+				A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */,
+				A33E61AF14F5D1370024A2EC /* StationaryBlock.h */,
+				A33E61B014F5D1370024A2EC /* StationaryBlock.m */,
 				98657FD814F412EE00584BD1 /* KeyBlock.h */,
 				98657FD914F412EE00584BD1 /* KeyBlock.m */,
 				98657FDA14F412EE00584BD1 /* LockBlock.h */,
@@ -1289,6 +1299,8 @@
 				5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */,
 				98657FDC14F412EF00584BD1 /* KeyBlock.m in Sources */,
 				98657FDD14F412EF00584BD1 /* LockBlock.m in Sources */,
+				A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */,
+				A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
