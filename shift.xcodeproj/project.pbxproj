@@ -36,6 +36,7 @@
 		82470D3714F1C28000F60A7C /* SinglePlayerGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470D3614F1C28000F60A7C /* SinglePlayerGame.m */; };
 		82470D3914F1C7DB00F60A7C /* 2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82470D3814F1C7DB00F60A7C /* 2.plist */; };
 		82470D3C14F1CC8B00F60A7C /* QuickPlayGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */; };
+		82470D6B14F5E25A00F60A7C /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82470D6A14F5E25A00F60A7C /* test.plist */; };
 		827036EA14DB0448008D7240 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036E914DB0448008D7240 /* QuartzCore.framework */; };
 		827036EC14DB0448008D7240 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036EB14DB0448008D7240 /* OpenGLES.framework */; };
 		827036EE14DB0448008D7240 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036ED14DB0448008D7240 /* OpenAL.framework */; };
@@ -222,6 +223,7 @@
 		82470D3814F1C7DB00F60A7C /* 2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 2.plist; path = Resources/Levels/2.plist; sourceTree = "<group>"; };
 		82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickPlayGame.h; sourceTree = "<group>"; };
 		82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickPlayGame.m; sourceTree = "<group>"; };
+		82470D6A14F5E25A00F60A7C /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = test.plist; path = Resources/Levels/test.plist; sourceTree = "<group>"; };
 		827036E514DB0448008D7240 /* shift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827036E914DB0448008D7240 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		827036EB14DB0448008D7240 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -556,6 +558,7 @@
 		82470D0514F1BCC500F60A7C /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				82470D6A14F5E25A00F60A7C /* test.plist */,
 				82470D3814F1C7DB00F60A7C /* 2.plist */,
 				82470D2414F1BF5000F60A7C /* 1.plist */,
 			);
@@ -1159,6 +1162,7 @@
 				985265D914F5ACA800353F61 /* orange_lock.png in Resources */,
 				985265DA14F5ACA800353F61 /* purple_lock.png in Resources */,
 				985265DB14F5ACA800353F61 /* red_lock.png in Resources */,
+				82470D6B14F5E25A00F60A7C /* test.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
