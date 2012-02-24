@@ -17,6 +17,15 @@ static NSString * const colors[] = {
     @"orange"
 };
 
+typedef enum{
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN ,
+    NONE
+    
+}blockMovement;
+
 @interface BoardLayer()
 
 /* Private Functions */
@@ -354,12 +363,45 @@ static NSString * const colors[] = {
         //Clear the block's space on the board
         [self setBlock:nil x:block.column y:block.row];
     }
+    
+    blockMovement shift = NONE;
+    int row,column;
     enumerator = [movingBlocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
         //Move the block to the closest cell's position on the board
-        block.column = (int)roundf((block.position.x - cellSize.width / 2 -CGRectGetMinX(boundingBox)) / cellSize.width);
-        block.row = (int)roundf((block.position.y - cellSize.height / 2 - CGRectGetMinY(boundingBox)) / cellSize.height);
-        [self setBlock:block x:block.column y:block.row];
+        row = (int)roundf((block.position.x - cellSize.width / 2 -CGRectGetMinX(boundingBox)) / cellSize.width);
+        column = (int)roundf((block.position.y - cellSize.height / 2 - CGRectGetMinY(boundingBox)) / cellSize.height);
+        
+        //If there is a block in the cell we want to snap to, shift the row back 1 space.
+        if([self blockAtX:column y:row])
+        {
+            if(block.row > row)
+                shift = UP;
+            else if (block.row < row)
+                shift = DOWN;
+            else if (block.column > column)
+                shift = RIGHT;
+            else
+                shift = LEFT;
+        }
+        
+        block.row = row;
+        block.column = column;
+    }
+    
+    //Place the blocks on the board based on the shift direction.
+    enumerator = [movingBlocks objectEnumerator];
+    for (BlockSprite *block in enumerator) {
+        if(shift == UP)
+            [self setBlock:block x:block.row y:block.column+1];
+        else if (shift == DOWN)
+            [self setBlock:block x:block.row y:block.column-1];
+        else if (shift == RIGHT)
+            [self setBlock:block x:block.row+1 y:block.column];
+        else if (shift == LEFT)
+            [self setBlock:block x:block.row-1 y:block.column];
+        else
+            [self setBlock:block x:block.row y:block.column];
     }
     
     //If the user initiated the move, check if they completed the board
