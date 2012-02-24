@@ -13,6 +13,7 @@
 #import "BoardLayer.h"
 #import "MainMenu.h"
 #import "RootViewController.h"
+#import "GameCenterHub.h"
 
 @implementation shiftAppDelegate
 
@@ -112,6 +113,8 @@
 	
 	// Run the intro Scene
 	[[CCDirector sharedDirector] runWithScene: [MainMenu scene]];
+  
+//  [[GameCenterHub sharedInstance] authenticateLocalPlayer];
 }
 
 
