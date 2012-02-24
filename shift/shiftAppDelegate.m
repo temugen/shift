@@ -114,7 +114,7 @@
 	// Run the intro Scene
 	[[CCDirector sharedDirector] runWithScene: [MainMenu scene]];
   
-//  [[GameCenterHub sharedInstance] authenticateLocalPlayer];
+    [[GameCenterHub sharedInstance] authenticateLocalPlayer];
 }
 
 

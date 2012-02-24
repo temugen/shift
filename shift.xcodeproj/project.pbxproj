@@ -176,6 +176,7 @@
 		A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */; };
 		A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61B014F5D1370024A2EC /* StationaryBlock.m */; };
 		FA04FF1A14F2E457001D6536 /* GameCenterHub.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04FF1914F2E457001D6536 /* GameCenterHub.m */; };
+		FA4BC33D14F7518C000B466A /* Leaderboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4BC33C14F7518C000B466A /* Leaderboard.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -502,6 +503,8 @@
 		A33E61B014F5D1370024A2EC /* StationaryBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationaryBlock.m; path = Cells/Blocks/StationaryBlock.m; sourceTree = "<group>"; };
 		FA04FF1814F2E457001D6536 /* GameCenterHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterHub.h; sourceTree = "<group>"; };
 		FA04FF1914F2E457001D6536 /* GameCenterHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterHub.m; sourceTree = "<group>"; };
+		FA4BC33B14F7518C000B466A /* Leaderboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Leaderboard.h; sourceTree = "<group>"; };
+		FA4BC33C14F7518C000B466A /* Leaderboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Leaderboard.m; sourceTree = "<group>"; };
 		FAC182E614E3723100968475 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -696,6 +699,8 @@
 		827036F914DB0448008D7240 /* shift */ = {
 			isa = PBXGroup;
 			children = (
+				FA4BC33B14F7518C000B466A /* Leaderboard.h */,
+				FA4BC33C14F7518C000B466A /* Leaderboard.m */,
 				FA04FF1814F2E457001D6536 /* GameCenterHub.h */,
 				FA04FF1914F2E457001D6536 /* GameCenterHub.m */,
 				9892C5AB14F2D0E100775034 /* UniversalConstants.h */,
@@ -1338,6 +1343,7 @@
 				98657FDD14F412EF00584BD1 /* LockBlock.m in Sources */,
 				A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */,
 				A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */,
+				FA4BC33D14F7518C000B466A /* Leaderboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
