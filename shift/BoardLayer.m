@@ -17,15 +17,6 @@ static NSString * const colors[] = {
     @"orange"
 };
 
-typedef enum{
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN ,
-    NONE
-    
-}blockMovement;
-
 @interface BoardLayer()
 
 /* Private Functions */
@@ -364,46 +355,33 @@ typedef enum{
         [self setBlock:nil x:block.column y:block.row];
     }
     
-    blockMovement shift = NONE;
     int row,column;
     enumerator = [movingBlocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
         //Move the block to the closest cell's position on the board
-        row = (int)roundf((block.position.x - cellSize.width / 2 -CGRectGetMinX(boundingBox)) / cellSize.width);
-        column = (int)roundf((block.position.y - cellSize.height / 2 - CGRectGetMinY(boundingBox)) / cellSize.height);
+        column = (int)roundf((block.position.x - cellSize.width / 2 -CGRectGetMinX(boundingBox)) / cellSize.width);
+        row = (int)roundf((block.position.y - cellSize.height / 2 - CGRectGetMinY(boundingBox)) / cellSize.height);
         
-        //If there is a block in the cell we want to snap to, shift the row back 1 space.
+        //If there is a block in the cell we want to snap to, shift the tiles back 1 space.
+        int vertShift = 0, horizShift = 0;
         if([self blockAtX:column y:row])
         {
             if(block.row > row)
-                shift = UP;
+                vertShift = 1;
             else if (block.row < row)
-                shift = DOWN;
+                vertShift = -1;
             else if (block.column > column)
-                shift = RIGHT;
+                horizShift = 1;
             else
-                shift = LEFT;
+                horizShift = -1;
         }
         
-        block.row = row;
-        block.column = column;
+        block.row = row+vertShift;
+        block.column = column+horizShift;
+
+        [self setBlock:block x:block.column y:block.row];
     }
-    
-    //Place the blocks on the board based on the shift direction.
-    enumerator = [movingBlocks objectEnumerator];
-    for (BlockSprite *block in enumerator) {
-        if(shift == UP)
-            [self setBlock:block x:block.row y:block.column+1];
-        else if (shift == DOWN)
-            [self setBlock:block x:block.row y:block.column-1];
-        else if (shift == RIGHT)
-            [self setBlock:block x:block.row+1 y:block.column];
-        else if (shift == LEFT)
-            [self setBlock:block x:block.row-1 y:block.column];
-        else
-            [self setBlock:block x:block.row y:block.column];
-    }
-    
+        
     //If the user initiated the move, check if they completed the board
     if (self.isTouchEnabled) {
         [self isComplete];

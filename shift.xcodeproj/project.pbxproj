@@ -176,7 +176,6 @@
 		A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */; };
 		A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61B014F5D1370024A2EC /* StationaryBlock.m */; };
 		FA04FF1A14F2E457001D6536 /* GameCenterHub.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04FF1914F2E457001D6536 /* GameCenterHub.m */; };
-		FA7DB0CF14F2F02B005305C9 /* GameCenterController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7DB0CE14F2F02B005305C9 /* GameCenterController.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -503,8 +502,6 @@
 		A33E61B014F5D1370024A2EC /* StationaryBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationaryBlock.m; path = Cells/Blocks/StationaryBlock.m; sourceTree = "<group>"; };
 		FA04FF1814F2E457001D6536 /* GameCenterHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterHub.h; sourceTree = "<group>"; };
 		FA04FF1914F2E457001D6536 /* GameCenterHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterHub.m; sourceTree = "<group>"; };
-		FA7DB0CD14F2F02B005305C9 /* GameCenterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterController.h; sourceTree = "<group>"; };
-		FA7DB0CE14F2F02B005305C9 /* GameCenterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterController.m; sourceTree = "<group>"; };
 		FAC182E614E3723100968475 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -718,8 +715,6 @@
 				827036FA14DB0448008D7240 /* Resources */,
 				8270370E14DB0448008D7240 /* libs */,
 				8270384714DB044A008D7240 /* Supporting Files */,
-				FA7DB0CD14F2F02B005305C9 /* GameCenterController.h */,
-				FA7DB0CE14F2F02B005305C9 /* GameCenterController.m */,
 			);
 			path = shift;
 			sourceTree = "<group>";
@@ -1338,7 +1333,6 @@
 				82470D3714F1C28000F60A7C /* SinglePlayerGame.m in Sources */,
 				82470D3C14F1CC8B00F60A7C /* QuickPlayGame.m in Sources */,
 				FA04FF1A14F2E457001D6536 /* GameCenterHub.m in Sources */,
-				FA7DB0CF14F2F02B005305C9 /* GameCenterController.m in Sources */,
 				5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */,
 				98657FDC14F412EF00584BD1 /* KeyBlock.m in Sources */,
 				98657FDD14F412EF00584BD1 /* LockBlock.m in Sources */,
