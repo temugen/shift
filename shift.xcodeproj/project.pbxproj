@@ -176,6 +176,7 @@
 		A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */; };
 		A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61B014F5D1370024A2EC /* StationaryBlock.m */; };
 		FA04FF1A14F2E457001D6536 /* GameCenterHub.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04FF1914F2E457001D6536 /* GameCenterHub.m */; };
+		FA3C36C714F75AEE00CB3A35 /* MatchMakingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3C36C614F75AEE00CB3A35 /* MatchMakingLayer.m */; };
 		FA4BC33D14F7518C000B466A /* Leaderboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4BC33C14F7518C000B466A /* Leaderboard.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
 /* End PBXBuildFile section */
@@ -503,6 +504,8 @@
 		A33E61B014F5D1370024A2EC /* StationaryBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationaryBlock.m; path = Cells/Blocks/StationaryBlock.m; sourceTree = "<group>"; };
 		FA04FF1814F2E457001D6536 /* GameCenterHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterHub.h; sourceTree = "<group>"; };
 		FA04FF1914F2E457001D6536 /* GameCenterHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterHub.m; sourceTree = "<group>"; };
+		FA3C36C514F75AEE00CB3A35 /* MatchMakingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMakingLayer.h; sourceTree = "<group>"; };
+		FA3C36C614F75AEE00CB3A35 /* MatchMakingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchMakingLayer.m; sourceTree = "<group>"; };
 		FA4BC33B14F7518C000B466A /* Leaderboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Leaderboard.h; sourceTree = "<group>"; };
 		FA4BC33C14F7518C000B466A /* Leaderboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Leaderboard.m; sourceTree = "<group>"; };
 		FAC182E614E3723100968475 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -720,6 +723,8 @@
 				827036FA14DB0448008D7240 /* Resources */,
 				8270370E14DB0448008D7240 /* libs */,
 				8270384714DB044A008D7240 /* Supporting Files */,
+				FA3C36C514F75AEE00CB3A35 /* MatchMakingLayer.h */,
+				FA3C36C614F75AEE00CB3A35 /* MatchMakingLayer.m */,
 			);
 			path = shift;
 			sourceTree = "<group>";
@@ -1344,6 +1349,7 @@
 				A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */,
 				A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */,
 				FA4BC33D14F7518C000B466A /* Leaderboard.m in Sources */,
+				FA3C36C714F75AEE00CB3A35 /* MatchMakingLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

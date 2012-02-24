@@ -17,7 +17,7 @@
   if(( self=[super init] )) 
   {
     vc =[[UIViewController alloc] init];
-    [self schedule:@selector(showLeaderboard:) interval:2];
+    [self schedule:@selector(showLeaderboard:) interval:3];
   }
   return self;
 }

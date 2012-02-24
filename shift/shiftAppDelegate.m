@@ -18,6 +18,7 @@
 @implementation shiftAppDelegate
 
 @synthesize window;
+@synthesize viewController;
 
 - (void) removeStartupFlicker
 {
