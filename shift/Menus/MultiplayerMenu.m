@@ -9,6 +9,8 @@
 #import "MultiplayerMenu.h"
 #import "MainMenu.h"
 #import "DifficultyMenu.h"
+#import "MatchMakingLayer.h"
+#import "Leaderboard.h"
 
 @implementation MultiplayerMenu
 
@@ -20,7 +22,7 @@
         //Set up menu items
         CCMenuItemFont *friend = [CCMenuItemFont itemFromString:@"Friend Opponent" target:self selector: @selector(onOppSelection:)];
         [friend setTag:FRIENDMULTI];
-        CCMenuItemFont *random = [CCMenuItemFont itemFromString:@"Random Opponent" target:self selector: @selector(onOppSelection:)];
+        CCMenuItemFont *random = [CCMenuItemFont itemFromString:@"Random Opponent" target:self selector: @selector(onRandSelection:)];
         [random setTag:RANDOMMULTI];
         CCMenuItemFont *leaderboard= [CCMenuItemFont itemFromString:@"Leaderboard" target:self selector: @selector(onLeaderboard:)];
         CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
@@ -51,9 +53,14 @@
                                     [CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[DifficultyMenu scene:selection]]];
 }
 
+- (void) onRandSelection: (id) sender
+{
+  [[CCDirector sharedDirector] replaceScene:[MatchMakingLayer scene]];
+}
+
 - (void) onLeaderboard: (id) sender
 {
-    NSLog(@"User selected Leaderboard");
+    [[CCDirector sharedDirector] replaceScene:[Leaderboard scene]];
 }
 
 -(void) dealloc
