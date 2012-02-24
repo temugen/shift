@@ -35,6 +35,7 @@ static NSString * const colors[] = {
 
 @synthesize rowCount, columnCount;
 @synthesize boundingBox;
+@synthesize cellSize;
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {
@@ -109,28 +110,22 @@ static NSString * const colors[] = {
         
         //Shift random rows and columns a certain number of times
         for (int i = 0; i < (rowCount * columnCount) * (rowCount * columnCount); i++) {
-            int distance;
             int direction = arc4random() % 2;
+            int column = arc4random() % columnCount, row = arc4random() % rowCount;
+            
+            int reverse = 1;
+            if (arc4random() % 2 == 0)
+                reverse = -1;
+            
             if (direction == 0) {
-                movement = kRow;
-                distance = arc4random() % (int)(columnCount * cellSize.width);
+                int cells = arc4random() % columnCount;
+                [self shiftColumnAtX:column y:row numberOfCells:cells];
             }
             else {
-                movement = kColumn;
-                distance = arc4random() % (int)(rowCount * cellSize.height);
+                int cells = arc4random() % rowCount;
+                [self shiftRowAtY:row x:column numberOfCells:cells];
             }
-            
-            if (arc4random() % 2 == 0) {
-                distance *= -1;
-            }
-            
-            int column = arc4random() % columnCount, row = arc4random() % rowCount;
-            [self containMovementAtX:column y:row];
-            [self moveBlocksWithDistance:distance];
-            [self snapMovingBlocks];
         }
-        
-        movement = kNone;
         
         self.isTouchEnabled = YES;
     }
@@ -207,10 +202,12 @@ static NSString * const colors[] = {
 	blocks[(y * columnCount) + x] = block;
     
     //Update the block's location information
-    block.row = y;
-    block.column = x;
-    block.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
-                         CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
+    if (block != nil) {
+        block.row = y;
+        block.column = x;
+        block.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
+                             CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
+    }
 }
 
 -(BlockSprite *) blockAtX:(int)x y:(int)y
@@ -488,9 +485,34 @@ static NSString * const colors[] = {
 
 -(void) removeBlock:(BlockSprite*) block
 {
-    //Need to remove block from blocks array.
+    //If block was in the process of being moved, remove it from the movingBlocks array
+    if ([movingBlocks containsObject:block]) 
+    {
+        [movingBlocks removeObject:block];
+    }
+    
+    [self setBlock:nil x:block.column y:block.row];
     [self removeChild:block cleanup:YES];
-    NSLog(@"Removing block");
+}
+
+-(void) shiftColumnAtX:(int)x y:(int)y numberOfCells:(int)cells
+{
+    movement = kColumn;
+    float distance = cells * cellSize.height;
+    [self containMovementAtX:x y:y];
+    [self moveBlocksWithDistance:distance];
+    [self snapMovingBlocks];
+    movement = kNone;
+}
+
+-(void) shiftRowAtY:(int)y x:(int)x numberOfCells:(int)cells
+{
+    movement = kRow;
+    float distance = cells * cellSize.width;
+    [self containMovementAtX:x y:y];
+    [self moveBlocksWithDistance:distance];
+    [self snapMovingBlocks];
+    movement = kNone;
 }
 
 @end

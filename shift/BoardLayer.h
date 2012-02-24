@@ -27,8 +27,6 @@ typedef enum {
 	BlockSprite **blocks;
     GoalSprite **goals;
     
-    CGSize cellSize;
-    
     Movement movement;
     NSMutableArray *movingBlocks;
     CGFloat (*rectMin)(CGRect), (*rectMax)(CGRect);
@@ -42,6 +40,7 @@ typedef enum {
 
 @property(readonly, assign) int rowCount, columnCount;
 @property(readonly, assign) CGRect boundingBox;
+@property(readonly, assign) CGSize cellSize;
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 +(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;
@@ -54,5 +53,8 @@ typedef enum {
 -(BOOL) isComplete;
 -(void) removeBlock:(BlockSprite *)block;
 
+
+-(void) shiftColumnAtX:(int)x y:(int)y numberOfCells:(int)dist;
+-(void) shiftRowAtY:(int)y x:(int)x numberOfCells:(int)dist;
 
 @end

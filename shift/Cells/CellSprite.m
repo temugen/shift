@@ -10,7 +10,7 @@
 
 @implementation CellSprite
 
-@synthesize row, column;
+@synthesize row, column, health;
 @synthesize comparable, movable;
 @synthesize name;
 

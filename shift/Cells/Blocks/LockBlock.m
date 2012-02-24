@@ -7,12 +7,13 @@
 //
 
 #import "LockBlock.h"
+#import "BoardLayer.h"
 
 @implementation LockBlock
 
 +(id) blockWithName:(NSString *)name
 {
-    NSString *filename = [NSString stringWithFormat:@"block_red.png"];
+    NSString *filename = [NSString stringWithFormat:@"%@_lock.png",name];
     LockBlock *block = [self cellWithFilename:filename];
     block.comparable = YES;
     block.movable = NO;
@@ -30,8 +31,9 @@
 }
 
 -(void) unlock
-{
-    [self setTexture:[[CCTextureCache sharedTextureCache] addImage:@"block_blue.png"]];
+{    
+    NSString *filename = [NSString stringWithFormat:@"%@_key.png",name];
+    [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
     self.movable = YES;
 }
 
@@ -40,7 +42,8 @@
     //If the block is unlocked, lock it and create a key
     if(self.movable)
     {
-        [self setTexture:[[CCTextureCache sharedTextureCache] addImage:@"block_red.png"]];
+        NSString *filename = [NSString stringWithFormat:@"%@_lock.png",name];
+        [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
         self.movable = NO;
     }
     return NO;

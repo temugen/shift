@@ -11,6 +11,7 @@
 
 @interface boardTests : SenTestCase
 {
-    //BoardLayer *board;
+    BoardLayer *board;
+    BlockSprite *block;
 }
 @end
