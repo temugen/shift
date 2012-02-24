@@ -7,8 +7,7 @@
 //
 
 #import "MatchMakingLayer.h"
-#import "shiftAppDelegate.h"
-#import "RootViewController.h"
+#import "GameCenterHub.h"
 
 @implementation MatchMakingLayer
 
@@ -24,8 +23,9 @@
 {
   if ((self = [super init]))
   {
-    shiftAppDelegate* delegate = (shiftAppDelegate*) [UIApplication sharedApplication].delegate;
-    [[GameCenterHub sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:delegate.viewController delegate: self];
+    GameCenterHub* gch = [[[GameCenterHub alloc] init] autorelease];
+    [gch showMatchmakerView];
+    [gch findMatchWithMinPlayers:2 maxPlayers:2 viewController:gch.presentingViewController delegate:self];
   }
   return self;
 }
@@ -40,6 +40,11 @@
 
 - (void) match:(GKMatch*)match didReceiveData:(NSData*)data fromPlayer:(NSString*)playerID
 {  
+}
+
+- (void) onMatchmakingViewDismissed
+{
+  
 }
 
 @end

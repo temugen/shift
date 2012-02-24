@@ -11,10 +11,13 @@
 
 @implementation GameCenterHub
 
-@synthesize gameCenterAvailable;
 @synthesize presentingViewController;
+@synthesize gameCenterAvailable;
+@synthesize achievements;
+@synthesize lastError;
+@synthesize lbd;
+@synthesize mmd;
 @synthesize match;
-@synthesize delegate;
 
 static GameCenterHub* sharedHelper = nil;
 
@@ -27,13 +30,21 @@ static GameCenterHub* sharedHelper = nil;
   return sharedHelper;
 }
 
++ (id) alloc{
+  @synchronized(self)
+  {
+    NSAssert(sharedHelper == nil, @"Attempted to alloc second GCHub");
+    sharedHelper = [[super alloc] retain];
+    return sharedHelper;
+  }
+  return nil;
+}
+
 - (id) init
 {
-  self = [super init];
-  if (self != NULL)
+  if ((self = [super init] ))
   {
     gameCenterAvailable = [self isGameCenterAvailable];
-
     if (gameCenterAvailable)
     {
       NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
@@ -41,6 +52,18 @@ static GameCenterHub* sharedHelper = nil;
     }
   }
   return self;
+}
+
+- (void) dealloc
+{
+  [sharedHelper release];
+  sharedHelper = nil;
+  [cachedAchievements release];
+  [achievements release];
+  [match release];
+  [lastError release];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [super dealloc];
 }
 
 - (BOOL) isGameCenterAvailable
@@ -53,7 +76,18 @@ static GameCenterHub* sharedHelper = nil;
   NSString* currSysVer = [[UIDevice currentDevice] systemVersion];
   BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch]
                              != NSOrderedAscending);
+  NSLog(@"GameCenter: %@", gameCenterAvailable ? @"Available" : @"Unavailable");
   return (localPlayerClassAvailable && osVersionSupported);
+}
+
+- (void) setError:(NSError*) error
+{
+  [lastError release];
+  lastError = [error copy];
+  if (lastError)
+  {
+    NSLog(@"GCHub Error: %@", [[lastError userInfo] description]);
+  }
 }
 
 - (void) authenticationChanged 
@@ -79,24 +113,97 @@ static GameCenterHub* sharedHelper = nil;
   }
 }
 
-- (void) findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(UIViewController *)viewController delegate:(id<GameCenterHubDelegate>)theDelegate
+- (void) findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(UIViewController *)viewController delegate:(id<GameCenterMatchmakingDelegate>)theDelegate
 {
   if (!gameCenterAvailable) return;
   
   matchStarted = NO;
   self.match = nil;
   self.presentingViewController = viewController;
-  delegate = theDelegate;
+  mmd = theDelegate;
   [presentingViewController dismissModalViewControllerAnimated:NO];
   
   GKMatchRequest* request = [[[GKMatchRequest alloc] init] autorelease];
-  request.minPlayers;
-  request.maxPlayers;
+//  request.minPlayers;
+//  request.maxPlayers;
   
   GKMatchmakerViewController* matchvc = [[[GKMatchmakerViewController alloc] initWithMatchRequest:request] autorelease];
   matchvc.matchmakerDelegate = self;
   
   [presentingViewController presentModalViewController:matchvc animated:YES];
+}
+
+- (void) submitScore:(int64_t)score category:(NSString *)category
+{
+  if (!gameCenterAvailable) return;
+  GKScore* myScore = [[[GKScore alloc] init] autorelease];
+  myScore.value = score;
+  [myScore reportScoreWithCompletionHandler:^(NSError* error)
+  {
+    [self setError:error];
+//    BOOL success = (error == nil);
+//    [delegate onScoresSubmitted:success];
+  }];
+}
+
+- (void) retrieveScoresForPlayers:(NSArray *)players category:(NSString *)category range:(NSRange)range playerScope:(GKLeaderboardPlayerScope)playerScope timeScope:(GKLeaderboardTimeScope)timeScope
+{
+  if (!gameCenterAvailable) return;
+  GKLeaderboard* leaderboard = nil;
+  if ([players count] > 0)
+  {
+    leaderboard = [[[GKLeaderboard alloc] init] autorelease];
+  }
+  else 
+  {
+    leaderboard = [[[GKLeaderboard alloc] initWithPlayerIDs:players] autorelease];
+    leaderboard.playerScope = playerScope;
+  }
+  
+  if (leaderboard != nil)
+  {
+    leaderboard.timeScope = timeScope;
+    leaderboard.category = category;
+    leaderboard.range = range;
+    [leaderboard loadScoresWithCompletionHandler:^(NSArray* scores, NSError* error)
+     {
+       [self setError:error];
+//       [delegate onScoresReceived:scores];
+     }];
+  }
+}
+
+- (void) retrieveTopTenAllTimeGlobalScores
+{
+  [self retrieveScoresForPlayers:nil category:nil range:NSMakeRange(1, 10) playerScope:GKLeaderboardPlayerScopeGlobal timeScope:GKLeaderboardTimeScopeAllTime];
+}
+
+- (void) showLeaderboard
+{
+  if (!gameCenterAvailable) return;
+  GKLeaderboardViewController* lbvc = [[[GKLeaderboardViewController alloc] init] autorelease];
+  if (lbvc != nil)
+  {
+    lbvc.leaderboardDelegate = self;
+    [presentingViewController presentModalViewController:lbvc animated:YES];
+  }
+}
+
+- (void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
+{
+  [presentingViewController dismissModalViewControllerAnimated:YES];
+//  [delegate onLeaderboardViewDismissed];
+}
+
+- (void) showMatchmakerView
+{
+  if (!gameCenterAvailable) return;
+  GKMatchmakerViewController* mmvc = [[[GKMatchmakerViewController alloc] init] autorelease];
+  if (mmvc != nil)
+  {
+    mmvc.matchmakerDelegate = self;
+    [presentingViewController presentModalViewController:mmvc animated:YES];
+  }
 }
 
 // ====== Callback methods for GKMatchViewController
@@ -132,7 +239,7 @@ static GameCenterHub* sharedHelper = nil;
 - (void) match: (GKMatch*) myMatch didReceiveData:(NSData*)data fromPlayer:(NSString*)playerID
 {
   if (match != myMatch) return;
-  [delegate match:myMatch didReceiveData:data fromPlayer:playerID];
+  [mmd match:myMatch didReceiveData:data fromPlayer:playerID];
 }
 
 //  Makes sure all players are connected
@@ -151,7 +258,7 @@ static GameCenterHub* sharedHelper = nil;
     case GKPlayerStateDisconnected:
       NSLog(@"Player disconnected");
       matchStarted = NO;
-      [delegate matchEnded];
+      [mmd matchEnded];
       break;
   }
 }
@@ -161,7 +268,7 @@ static GameCenterHub* sharedHelper = nil;
 {
   if (match != myMatch) return;
   NSLog(@"Failed to connect: %@", error.localizedDescription);
-  [delegate matchEnded];
+  [mmd matchEnded];
 }
 
 // Failure due to error
@@ -170,7 +277,7 @@ static GameCenterHub* sharedHelper = nil;
   if (match != myMatch) return;
   NSLog(@"Match failed with error: %@", error.localizedDescription);
   matchStarted = NO;
-  [delegate matchEnded];
+  [mmd matchEnded];
 }
 
 @end

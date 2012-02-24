@@ -9,10 +9,8 @@
 #import "cocos2d.h"
 #import "GameCenterHub.h"
 
-@interface MatchMakingLayer : CCLayer <GameCenterHubDelegate>
-{
-  
-}
+@interface MatchMakingLayer : CCLayer <GameCenterMatchmakingDelegate>
 
+- (id) init;
 + (CCScene*) scene;
 @end

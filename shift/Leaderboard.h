@@ -7,16 +7,11 @@
 //
 
 #import "cocos2d.h"
-#import <GameKit/GameKit.h>
+#import "GameCenterHub.h"
 
-@interface Leaderboard : CCLayer <GKLeaderboardViewControllerDelegate>
-{
-  UIViewController* vc;
-}
+@interface Leaderboard : CCLayer
 
 + (id) scene;
 - (id) init;
-- (void) showLeaderboard:(ccTime)dt;
-- (void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController;
 
 @end
