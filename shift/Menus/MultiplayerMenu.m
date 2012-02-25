@@ -55,12 +55,10 @@
 
 - (void) onRandSelection: (id) sender
 {
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[MatchMakingLayer scene]]];
 }
 
 - (void) onLeaderboard: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[Leaderboard scene]]];
 }
 
 -(void) dealloc
