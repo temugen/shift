@@ -10,6 +10,7 @@
 #import "BlockSprite.h"
 #import "GoalSprite.h"
 #import "RotationBlock.h"
+#import "StationaryBlock.h"
 #import "LockBlock.h"
 #import "KeyBlock.h"
 #import "UniversalConstants.h"
