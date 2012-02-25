@@ -74,8 +74,7 @@ static GameCenterHub* sharedHelper = nil;
   // requires 4.1
   NSString* reqSysVer = @"4.1";
   NSString* currSysVer = [[UIDevice currentDevice] systemVersion];
-  BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch]
-                             != NSOrderedAscending);
+  BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
   NSLog(@"GameCenter: %@", gameCenterAvailable ? @"Available" : @"Unavailable");
   return (localPlayerClassAvailable && osVersionSupported);
 }
@@ -141,8 +140,6 @@ static GameCenterHub* sharedHelper = nil;
   [myScore reportScoreWithCompletionHandler:^(NSError* error)
   {
     [self setError:error];
-//    BOOL success = (error == nil);
-//    [delegate onScoresSubmitted:success];
   }];
 }
 
@@ -168,7 +165,6 @@ static GameCenterHub* sharedHelper = nil;
     [leaderboard loadScoresWithCompletionHandler:^(NSArray* scores, NSError* error)
      {
        [self setError:error];
-//       [delegate onScoresReceived:scores];
      }];
   }
 }
