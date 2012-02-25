@@ -673,7 +673,6 @@
 		827036DA14DB0447008D7240 = {
 			isa = PBXGroup;
 			children = (
-				FAD50AD914F98B8F0008CF7C /* New Group */,
 				827036F914DB0448008D7240 /* shift */,
 				82470CCC14EC882A00F60A7C /* shiftLogicTests */,
 				827036E814DB0448008D7240 /* Frameworks */,
@@ -710,6 +709,7 @@
 		827036F914DB0448008D7240 /* shift */ = {
 			isa = PBXGroup;
 			children = (
+				FAD50AD914F98B8F0008CF7C /* New Group */,
 				8270386114DB052F008D7240 /* BoardLayer.h */,
 				8270385414DB044A008D7240 /* GameConfig.h */,
 				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
@@ -1095,6 +1095,7 @@
 				FA04FF1914F2E457001D6536 /* GameCenterHub.m */,
 			);
 			name = "New Group";
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
