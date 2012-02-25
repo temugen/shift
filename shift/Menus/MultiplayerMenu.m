@@ -9,7 +9,6 @@
 #import "MultiplayerMenu.h"
 #import "MainMenu.h"
 #import "DifficultyMenu.h"
-#import "shiftAppDelegate.h"
 #import "GameCenterHub.h"
 
 @implementation MultiplayerMenu
@@ -55,9 +54,7 @@
 
 - (void) onRandSelection: (id) sender
 {
-  gamemode selection = [sender tag];
-  [[CCDirector sharedDirector] replaceScene:
-   [CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[DifficultyMenu scene:selection]]];
+  [[GameCenterHub sharedInstance] showMatchmakerView];
 }
 
 - (void) onLeaderboard: (id) sender

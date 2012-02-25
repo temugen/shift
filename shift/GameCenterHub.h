@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
+#import "RootViewController.h"
 
 @protocol GameCenterMatchmakingDelegate
 - (void) matchStarted;
@@ -25,7 +26,7 @@
 @interface GameCenterHub : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GKLeaderboardViewControllerDelegate>
 { 
   
-  UIViewController* presentingViewController;
+  RootViewController* rootViewController;
   id <GameCenterMatchmakingDelegate> mmd;
   id <GameCenterLeaderboardDelegate> lbd;
   
@@ -42,7 +43,7 @@
 }
 
 @property (assign, readonly) BOOL gameCenterAvailable;
-@property (retain) UIViewController* presentingViewController;
+@property (retain) RootViewController* rootViewController;
 @property (nonatomic, retain) GKMatch* match;
 @property (nonatomic, retain) id <GameCenterMatchmakingDelegate> mmd;
 @property (nonatomic, retain) id <GameCenterLeaderboardDelegate> lbd;
@@ -52,11 +53,11 @@
 // Authentication and initializing functions
 + (GameCenterHub*) sharedInstance;
 + (id) alloc;
-- (BOOL) isGameCenterAvailable;
 - (id) init;
 - (void) authenticateLocalPlayer;
 - (void) authenticationChanged;
 - (void) setError:(NSError*) error;
+- (BOOL) isGameCenterAvailable;
 
 - (void) findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int) maxPlayers viewController:(UIViewController*)viewController delegate:(id<GameCenterMatchmakingDelegate>)theDelegate;
 

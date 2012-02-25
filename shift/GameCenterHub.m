@@ -11,7 +11,7 @@
 
 @implementation GameCenterHub
 
-@synthesize presentingViewController;
+@synthesize rootViewController;
 @synthesize gameCenterAvailable;
 @synthesize achievements;
 @synthesize lastError;
@@ -68,10 +68,7 @@ static GameCenterHub* sharedHelper = nil;
 
 - (BOOL) isGameCenterAvailable
 {
-  // Needs GKLocalPlayer class
   BOOL localPlayerClassAvailable = (NSClassFromString(@"GKLocalPlayer")) != nil;
-  
-  // requires 4.1
   NSString* reqSysVer = @"4.1";
   NSString* currSysVer = [[UIDevice currentDevice] systemVersion];
   BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
@@ -112,24 +109,22 @@ static GameCenterHub* sharedHelper = nil;
   }
 }
 
-- (void) findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(UIViewController *)viewController delegate:(id<GameCenterMatchmakingDelegate>)theDelegate
+- (void) findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(RootViewController *)viewController delegate:(id<GameCenterMatchmakingDelegate>)theDelegate
 {
   if (!gameCenterAvailable) return;
   
   matchStarted = NO;
   self.match = nil;
-  self.presentingViewController = viewController;
+  self.rootViewController = viewController;
   mmd = theDelegate;
-  [presentingViewController dismissModalViewControllerAnimated:NO];
+  [rootViewController dismissModalViewControllerAnimated:NO];
   
   GKMatchRequest* request = [[[GKMatchRequest alloc] init] autorelease];
-//  request.minPlayers;
-//  request.maxPlayers;
   
   GKMatchmakerViewController* matchvc = [[[GKMatchmakerViewController alloc] initWithMatchRequest:request] autorelease];
   matchvc.matchmakerDelegate = self;
   
-  [presentingViewController presentModalViewController:matchvc animated:YES];
+  [rootViewController presentModalViewController:matchvc animated:YES];
 }
 
 - (void) submitScore:(int64_t)score category:(NSString *)category
@@ -181,14 +176,13 @@ static GameCenterHub* sharedHelper = nil;
   if (lbvc != nil)
   {
     lbvc.leaderboardDelegate = self;
-    [presentingViewController presentModalViewController:lbvc animated:YES];
+    [rootViewController presentModalViewController:lbvc animated:YES];
   }
 }
 
 - (void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
 {
-  [presentingViewController dismissModalViewControllerAnimated:YES];
-//  [delegate onLeaderboardViewDismissed];
+  [rootViewController dismissModalViewControllerAnimated:YES];
 }
 
 - (void) showMatchmakerView
@@ -198,7 +192,7 @@ static GameCenterHub* sharedHelper = nil;
   if (mmvc != nil)
   {
     mmvc.matchmakerDelegate = self;
-    [presentingViewController presentModalViewController:mmvc animated:YES];
+    [rootViewController presentModalViewController:mmvc animated:YES];
   }
 }
 
@@ -207,20 +201,20 @@ static GameCenterHub* sharedHelper = nil;
 // Player cancels MM
 - (void) matchmakerViewControllerWasCancelled:(GKMatchmakerViewController *)viewController
 {
-  [presentingViewController dismissModalViewControllerAnimated:YES];
+  [rootViewController dismissModalViewControllerAnimated:YES];
 }
 
 // Failed with an error
 - (void) matchmakerViewController:(GKMatchmakerViewController *)viewController didFailWithError:(NSError *)error
 {
-  [presentingViewController dismissModalViewControllerAnimated:YES];
+  [rootViewController dismissModalViewControllerAnimated:YES];
   NSLog(@"Error:  Couldn't find match: %@", error.localizedDescription);
 }
 
 // An opponent has been found
 - (void) matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch *)myMatch
 {
-  [presentingViewController dismissModalViewControllerAnimated:YES];
+  [rootViewController dismissModalViewControllerAnimated:YES];
   self.match = myMatch;
   myMatch.delegate = self;
   if (!matchStarted && myMatch.expectedPlayerCount == 0)
