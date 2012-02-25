@@ -12,9 +12,9 @@
 		<array>
 			<dict>
 				<key>class</key>
-				<string>BlockSprite</string>
+				<string>WildcardBlock</string>
 				<key>name</key>
-				<string>green</string>
+				<string>wild</string>
 				<key>row</key>
 				<integer>2</integer>
 				<key>column</key>
