@@ -506,14 +506,14 @@
 		A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DestructiveBlock.m; path = Cells/Blocks/DestructiveBlock.m; sourceTree = "<group>"; };
 		A33E61AF14F5D1370024A2EC /* StationaryBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationaryBlock.h; path = Cells/Blocks/StationaryBlock.h; sourceTree = "<group>"; };
 		A33E61B014F5D1370024A2EC /* StationaryBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationaryBlock.m; path = Cells/Blocks/StationaryBlock.m; sourceTree = "<group>"; };
-		FA04FF1814F2E457001D6536 /* GameCenterHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterHub.h; sourceTree = "<group>"; };
-		FA04FF1914F2E457001D6536 /* GameCenterHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterHub.m; sourceTree = "<group>"; };
-		FA3C36C514F75AEE00CB3A35 /* MatchMakingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMakingLayer.h; sourceTree = "<group>"; };
-		FA3C36C614F75AEE00CB3A35 /* MatchMakingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchMakingLayer.m; sourceTree = "<group>"; };
-		FA4BC33B14F7518C000B466A /* Leaderboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Leaderboard.h; sourceTree = "<group>"; };
-		FA4BC33C14F7518C000B466A /* Leaderboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Leaderboard.m; sourceTree = "<group>"; };
-		FAA46DB614F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GKMatchMakerViewController-LandscapeOnly.h"; sourceTree = "<group>"; };
-		FAA46DB714F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GKMatchMakerViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
+		FA04FF1814F2E457001D6536 /* GameCenterHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameCenterHub.h; path = shift/GameCenterHub.h; sourceTree = "<group>"; };
+		FA04FF1914F2E457001D6536 /* GameCenterHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameCenterHub.m; path = shift/GameCenterHub.m; sourceTree = "<group>"; };
+		FA3C36C514F75AEE00CB3A35 /* MatchMakingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchMakingLayer.h; path = shift/MatchMakingLayer.h; sourceTree = "<group>"; };
+		FA3C36C614F75AEE00CB3A35 /* MatchMakingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchMakingLayer.m; path = shift/MatchMakingLayer.m; sourceTree = "<group>"; };
+		FA4BC33B14F7518C000B466A /* Leaderboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Leaderboard.h; path = shift/Leaderboard.h; sourceTree = "<group>"; };
+		FA4BC33C14F7518C000B466A /* Leaderboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Leaderboard.m; path = shift/Leaderboard.m; sourceTree = "<group>"; };
+		FAA46DB614F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GKMatchMakerViewController-LandscapeOnly.h"; path = "shift/GKMatchMakerViewController-LandscapeOnly.h"; sourceTree = "<group>"; };
+		FAA46DB714F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GKMatchMakerViewController-LandscapeOnly.m"; path = "shift/GKMatchMakerViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
 		FAC182E614E3723100968475 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -673,6 +673,7 @@
 		827036DA14DB0447008D7240 = {
 			isa = PBXGroup;
 			children = (
+				FAD50AD914F98B8F0008CF7C /* New Group */,
 				827036F914DB0448008D7240 /* shift */,
 				82470CCC14EC882A00F60A7C /* shiftLogicTests */,
 				827036E814DB0448008D7240 /* Frameworks */,
@@ -710,21 +711,13 @@
 			isa = PBXGroup;
 			children = (
 				8270386114DB052F008D7240 /* BoardLayer.h */,
-				FA04FF1814F2E457001D6536 /* GameCenterHub.h */,
 				8270385414DB044A008D7240 /* GameConfig.h */,
-				FAA46DB614F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.h */,
-				FA4BC33B14F7518C000B466A /* Leaderboard.h */,
-				FA3C36C514F75AEE00CB3A35 /* MatchMakingLayer.h */,
 				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
 				8270384E14DB044A008D7240 /* RootViewController.h */,
 				8270386514DB057A008D7240 /* shiftAppDelegate.h */,
 				82470D3514F1C28000F60A7C /* SinglePlayerGame.h */,
 				9892C5AB14F2D0E100775034 /* UniversalConstants.h */,
 				8270386014DB052F008D7240 /* BoardLayer.m */,
-				FA04FF1914F2E457001D6536 /* GameCenterHub.m */,
-				FAA46DB714F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m */,
-				FA4BC33C14F7518C000B466A /* Leaderboard.m */,
-				FA3C36C614F75AEE00CB3A35 /* MatchMakingLayer.m */,
 				82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */,
 				8270384F14DB044A008D7240 /* RootViewController.m */,
 				8270386614DB057A008D7240 /* shiftAppDelegate.m */,
@@ -1087,6 +1080,21 @@
 				985399A814F18CE600713F65 /* SinglePlayerMenu.m */,
 			);
 			name = Menus;
+			sourceTree = "<group>";
+		};
+		FAD50AD914F98B8F0008CF7C /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				FA4BC33B14F7518C000B466A /* Leaderboard.h */,
+				FA4BC33C14F7518C000B466A /* Leaderboard.m */,
+				FA3C36C514F75AEE00CB3A35 /* MatchMakingLayer.h */,
+				FA3C36C614F75AEE00CB3A35 /* MatchMakingLayer.m */,
+				FAA46DB614F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.h */,
+				FAA46DB714F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m */,
+				FA04FF1814F2E457001D6536 /* GameCenterHub.h */,
+				FA04FF1914F2E457001D6536 /* GameCenterHub.m */,
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
