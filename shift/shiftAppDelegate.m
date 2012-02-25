@@ -116,6 +116,7 @@
 	[[CCDirector sharedDirector] runWithScene: [MainMenu scene]];
   
   [[GameCenterHub sharedInstance] authenticateLocalPlayer];
+  [GameCenterHub sharedInstance].rootViewController = viewController;
 }
 
 
