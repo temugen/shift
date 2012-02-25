@@ -9,5 +9,6 @@
 #import "BlockSprite.h"
 
 @interface WildcardBlock : BlockSprite
-
++(id) blockWithName:(NSString *)name;
+-(BOOL)onDoubleTap;
 @end

@@ -36,3 +36,12 @@ typedef enum {
 
 
 @end
+
+static NSString * const colors[] = {
+    @"blue",
+    @"red",
+    @"green",
+    @"purple",
+    @"yellow",
+    @"orange"
+};
