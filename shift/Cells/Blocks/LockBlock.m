@@ -42,9 +42,15 @@
     //If the block is unlocked, lock it and create a key
     if(self.movable)
     {
-        NSString *filename = [NSString stringWithFormat:@"%@_lock.png",name];
-        [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
-        self.movable = NO;
+        BoardLayer *board = (BoardLayer *)self.parent;
+        
+        //If a key is able to be added, lock the block
+        if([board addKey:self])
+        {
+            NSString *filename = [NSString stringWithFormat:@"%@_lock.png",name];
+            [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
+            self.movable = NO;
+        }
     }
     return NO;
 }
