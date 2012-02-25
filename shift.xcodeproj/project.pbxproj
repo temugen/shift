@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5ED0202514F98A1F0070387C /* block_wild.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202414F98A1E0070387C /* block_wild.png */; };
+		5ED0202714F98BBA0070387C /* 19.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202614F98BBA0070387C /* 19.plist */; };
 		5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF053D314F338AF00177148 /* WildcardBlock.m */; };
 		82470CC914EC882A00F60A7C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82470CC814EC882A00F60A7C /* SenTestingKit.framework */; };
 		82470CCA14EC882A00F60A7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036F314DB0448008D7240 /* UIKit.framework */; };
@@ -195,6 +197,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5ED0202414F98A1E0070387C /* block_wild.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_wild.png; path = Resources/Cells/Blocks/block_wild.png; sourceTree = "<group>"; };
+		5ED0202614F98BBA0070387C /* 19.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 19.plist; path = Resources/Levels/19.plist; sourceTree = "<group>"; };
 		5EF053D214F338AE00177148 /* WildcardBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardBlock.h; path = Cells/Blocks/WildcardBlock.h; sourceTree = "<group>"; };
 		5EF053D314F338AF00177148 /* WildcardBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WildcardBlock.m; path = Cells/Blocks/WildcardBlock.m; sourceTree = "<group>"; };
 		82470CC714EC882A00F60A7C /* shiftLogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shiftLogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -581,6 +585,7 @@
 		82470D0514F1BCC500F60A7C /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				5ED0202614F98BBA0070387C /* 19.plist */,
 				98C218F014F96BAA002177F9 /* completeBoard.plist */,
 				9852660214F6DAE900353F61 /* 20.plist */,
 				82470D6A14F5E25A00F60A7C /* test.plist */,
@@ -593,6 +598,7 @@
 		82470D0614F1BE7700F60A7C /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				5ED0202414F98A1E0070387C /* block_wild.png */,
 				985265F514F6D94800353F61 /* blue_key.png */,
 				985265F614F6D94800353F61 /* green_key.png */,
 				985265F714F6D94800353F61 /* key.png */,
@@ -1207,6 +1213,8 @@
 				9852660014F6D94800353F61 /* red_key.png in Resources */,
 				9852660314F6DAE900353F61 /* 20.plist in Resources */,
 				98C218F114F96BAA002177F9 /* completeBoard.plist in Resources */,
+				5ED0202514F98A1F0070387C /* block_wild.png in Resources */,
+				5ED0202714F98BBA0070387C /* 19.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

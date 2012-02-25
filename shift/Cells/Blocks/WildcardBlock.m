@@ -25,10 +25,9 @@
 -(BOOL) onDoubleTap
 {
     int rand = arc4random_uniform(6);
-    NSString* const rand_color = [colors objectAtIndex:rand];
+    NSString* rand_color = colors[rand];
     NSString *filename = [NSString stringWithFormat:@"block_%@.png",rand_color];
     [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
-    
     return NO;
 }
 

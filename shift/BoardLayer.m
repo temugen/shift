@@ -7,16 +7,6 @@
 //
 
 #import "BoardLayer.h"
-
-static NSString * const colors[] = {
-    @"blue",
-    @"red",
-    @"green",
-    @"purple",
-    @"yellow",
-    @"orange"
-};
-
 @interface BoardLayer()
 
 /* Private Functions */
