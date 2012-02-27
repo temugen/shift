@@ -28,6 +28,7 @@
     NSString* const rand_color = colors[rand];
     NSString *filename = [NSString stringWithFormat:@"block_%@.png",rand_color];
     [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
+    [self setName:rand_color];
     return NO;
 }
 
