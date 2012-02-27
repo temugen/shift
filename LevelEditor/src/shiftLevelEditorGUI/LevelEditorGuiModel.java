@@ -6,30 +6,22 @@ public class LevelEditorGuiModel {
 
 	private LevelEditorGuiView view;
 	private Board gameBoard;
-	private int boardSize;
 	private int currentXcoord;
 	private int currentYcoord;
-	private int selectedElement;
-	private int selectedColor;
+	private int currentElement;
+	private int currentColor;
+	private int numSaves;
 	
 	
 	public LevelEditorGuiModel(LevelEditorGuiView view){
 		this.view = view;
-		boardSize = 7;
-		currentXcoord = 0;
-		currentYcoord = 0;
-		selectedElement = 0;
-		selectedColor = 0;
+		numSaves = 0;
+		gameBoard = new Board(7);
 	}
 	
 	
 	public int getBoardSize() {
-		return boardSize;
-	}
-
-
-	public void setBoardSize(int boardSize) {
-		this.boardSize = boardSize;
+		return gameBoard.getSize();
 	}
 
 
@@ -54,22 +46,22 @@ public class LevelEditorGuiModel {
 
 
 	public int getSelectedElement() {
-		return selectedElement;
+		return currentElement;
 	}
 
 
 	public void setSelectedElement(int selectedElement) {
-		this.selectedElement = selectedElement;
+		this.currentElement = selectedElement;
 	}
 
 
 	public int getSelectedColor() {
-		return selectedColor;
+		return currentColor;
 	}
 
 
 	public void setSelectedColor(int selectedColor) {
-		this.selectedColor = selectedColor;
+		this.currentColor = selectedColor;
 	}
 	
 	
@@ -105,19 +97,30 @@ public class LevelEditorGuiModel {
 	
 	public void drawCurrent() {
 		
+		if(currentElement == 1)
+			gameBoard.setBlockAt(currentXcoord, currentYcoord, currentColor);
+		else if(currentElement == 2)
+			gameBoard.setGoalAt(currentXcoord, currentYcoord, currentColor);
+		else
+		{
+			clearCell();
+			gameBoard.setBlockAt(currentXcoord, currentYcoord, currentColor); 
+		}
+		
+		view.drawElement(currentXcoord, currentYcoord, currentElement, currentColor);
 	}
 	
 	
 	public void clearCell() {
 		gameBoard.setBlockAt(currentXcoord, currentYcoord, 0);
 		gameBoard.setGoalAt(currentXcoord, currentYcoord, 0);
-		gameBoard.setSpecialAt(currentXcoord, currentYcoord, 0);
-		
+		view.clearElement(currentXcoord, currentYcoord);
 	}
 	
 	
 	public void saveCurrent() {
-		gameBoard.saveBoard();
+		gameBoard.saveBoard(numSaves);
+		numSaves++;
 	}
 	
 }

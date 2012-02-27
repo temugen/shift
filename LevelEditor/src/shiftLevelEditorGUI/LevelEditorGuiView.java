@@ -25,11 +25,6 @@ import javax.swing.SpinnerNumberModel;
 
 public class LevelEditorGuiView {
 	
-	
-	
-	
-	
-	
 	private LevelEditorGuiModel model;
 	private LevelEditorController controller;
 	private JPanel buttonPanel;
@@ -153,12 +148,14 @@ public class LevelEditorGuiView {
 	private void initializeColors() {
 		colorIndex = new ArrayList<Color>();
 		colorIndex.add(Color.BLACK);
-		colorIndex.add(Color.BLUE);
-		colorIndex.add(Color.RED);
-		colorIndex.add(Color.ORANGE);
-		colorIndex.add(Color.GREEN);
-		colorIndex.add(Color.PINK);
-		colorIndex.add(Color.YELLOW);
+		colorIndex.add(new Color(37,93,159));
+		colorIndex.add(new Color(226,39,34));
+		colorIndex.add(new Color(249,145,62));
+		colorIndex.add(new Color(0,159,50));
+		colorIndex.add(new Color(162,128,143));
+		colorIndex.add(new Color(229,221,85));
+		colorIndex.add(Color.BLACK);
+		colorIndex.add(Color.BLACK);
 	}
 	
 	
@@ -189,17 +186,17 @@ public class LevelEditorGuiView {
 				boardPanel.add(b);
 				currentButtons.add(b);
 			}
-		currentButtons.get(0).setBackground(Color.GRAY);
         window.setVisible(true);
 	}
 	
-	public void drawElement(int x, int y, int element, int color) {
+	
+	public void drawElement(int x, int y, int element, int index) {
+		if(element == 2)
+			currentButtons.get(model.getBoardSize()*x + y).setBackground(colorIndex.get(index));
+		else
+			currentButtons.get(model.getBoardSize()*x + y).setIcon(iconIndex.get(index));
 		return;
 	}
-	
-	
-	
-
 	
 	
 	public void clearElement(int x, int y) {
@@ -211,7 +208,7 @@ public class LevelEditorGuiView {
 	
 			
     private void setUpMenu(JFrame window) {
-        JMenuBar menubar = new JMenuBar();
+        JMenuBar menubar = new JMenuBar();	
         JMenu file = new JMenu("File");
         JMenuItem open = new JMenuItem("Help");
         open.addActionListener(controller);
