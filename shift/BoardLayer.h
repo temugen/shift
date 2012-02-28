@@ -58,8 +58,6 @@ typedef enum {
 
 -(void) shiftColumnAtX:(int)x y:(int)y numberOfCells:(int)dist;
 -(void) shiftRowAtY:(int)y x:(int)x numberOfCells:(int)dist;
--(BOOL) addKey:(BlockSprite*)lock;
--(BOOL) setKeyAtX:(int)x y:(int)y;
 -(BOOL) isOutOfBoundsAtX:(int)x y:(int)y;
 
 @end

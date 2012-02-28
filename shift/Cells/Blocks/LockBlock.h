@@ -16,6 +16,8 @@
 
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force;
 -(void) unlock;
+-(BOOL) dropKey;
 -(BOOL) onDoubleTap;
+-(BOOL) setKeyAtX:(int)x y:(int)y;
 
 @end

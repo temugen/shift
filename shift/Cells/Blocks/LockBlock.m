@@ -43,10 +43,8 @@
     //If the block is unlocked, lock it and create a key
     if(self.movable)
     {
-        BoardLayer *board = (BoardLayer *)self.parent;
-        
         //If a key is able to be added, lock the block
-        if([board addKey:self])
+        if([self dropKey])
         {
             NSString *filename = [NSString stringWithFormat:@"%@_lock.png",name];
             [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
@@ -56,5 +54,43 @@
     return NO;
 }
 
+-(BOOL) dropKey
+{
+    //Attempt to set key at one of the adjacent 8 cells
+    if ([self setKeyAtX:row y:column-1] ||
+        [self setKeyAtX:row+1 y:column] ||
+        [self setKeyAtX:row y:column+1] ||
+        [self setKeyAtX:row-1 y:column] ||
+        [self setKeyAtX:row+1 y:column-1] ||
+        [self setKeyAtX:row+1 y:column+1] ||
+        [self setKeyAtX:row-1 y:column-1] ||
+        [self setKeyAtX:row-1 y:column+1]) {
+        
+        //We created a key
+        return true;
+    }
+    else
+    { 
+        //We couldn't create a key
+        return false;
+    }
+}
+
+-(BOOL) setKeyAtX:(int)x y:(int)y
+{
+    BoardLayer *board = (BoardLayer *)self.parent;
+    //Make sure new position is not out of bounds, and there is not already a block there.
+    if(![board isOutOfBoundsAtX:x y:y] && [board blockAtX:x y:y] == nil)
+    {
+        GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
+        CGPoint scalingFactors = [sampleGoal resize:board.cellSize];
+        BlockSprite *block = [KeyBlock blockWithName:@"key"];
+        [block scaleWithFactors:scalingFactors];
+        [board setBlock:block x:x y:y];
+        [board addChild:block z:1];
+        return true;
+    }
+    return false;
+}
 
 @end

@@ -526,46 +526,6 @@
     movement = kNone;
 }
 
--(BOOL) addKey:(BlockSprite*)lock
-{
-    int row = lock.row;
-    int column = lock.column;
-
-    //Attempt to set key at one of the adjacent 8 cells
-    if([self setKeyAtX:row y:column-1]){}
-    else if([self setKeyAtX:row+1 y:column]){}
-    else if([self setKeyAtX:row y:column+1]){}
-    else if([self setKeyAtX:row-1 y:column]){}
-    else if([self setKeyAtX:row+1 y:column-1]){}
-    else if([self setKeyAtX:row+1 y:column+1]){}
-    else if([self setKeyAtX:row-1 y:column-1]){}
-    else if([self setKeyAtX:row-1 y:column+1]){}
-    else
-    { 
-        return false;
-    }
-    //We created a key, so return true
-    return true;
-
-
-}
-
--(BOOL) setKeyAtX:(int)row y:(int)column
-{
-    //Make sure new position is not out of bounds, and there is not already a block there.
-    if(![self isOutOfBoundsAtX:column y:row] && [self blockAtX:column y:row] == nil)
-    {
-        GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
-        CGPoint scalingFactors = [sampleGoal resize:cellSize];
-        BlockSprite *block = [KeyBlock blockWithName:@"key"];
-        [block scaleWithFactors:scalingFactors];
-        [self setBlock:block x:column y:row];
-        [self addChild:block z:1];
-        return true;
-    }
-    return false;
-}
-
 -(BOOL) isOutOfBoundsAtX:(int)x y:(int)y
 {
     return x<0||y<0||x>=columnCount||y>=rowCount;
