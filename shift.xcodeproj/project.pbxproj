@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3893739814FC6A4300397E8E /* ControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3893739714FC6A4300397E8E /* ControlLayer.m */; };
 		3893739D14FC6B6E00397E8E /* button_menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 3893739B14FC6B6E00397E8E /* button_menu.png */; };
 		3893739E14FC6B6E00397E8E /* button_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 3893739C14FC6B6E00397E8E /* button_reset.png */; };
 		5ED0202514F98A1F0070387C /* block_wild.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202414F98A1E0070387C /* block_wild.png */; };
 		5ED0202714F98BBA0070387C /* 19.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202614F98BBA0070387C /* 19.plist */; };
 		5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF053D314F338AF00177148 /* WildcardBlock.m */; };
+		8235A41F14FCA9350058C21F /* ControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A41E14FCA9350058C21F /* ControlLayer.m */; };
+		8235A42214FCA94C0058C21F /* BlockTrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A42114FCA94C0058C21F /* BlockTrain.m */; };
 		82470CC914EC882A00F60A7C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82470CC814EC882A00F60A7C /* SenTestingKit.framework */; };
 		82470CCA14EC882A00F60A7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036F314DB0448008D7240 /* UIKit.framework */; };
 		82470CCB14EC882A00F60A7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036F514DB0448008D7240 /* Foundation.framework */; };
@@ -198,14 +199,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3893739614FC6A4300397E8E /* ControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ControlLayer.h; path = ../ControlLayer.h; sourceTree = "<group>"; };
-		3893739714FC6A4300397E8E /* ControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ControlLayer.m; path = ../ControlLayer.m; sourceTree = "<group>"; };
 		3893739B14FC6B6E00397E8E /* button_menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_menu.png; sourceTree = "<group>"; };
 		3893739C14FC6B6E00397E8E /* button_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_reset.png; sourceTree = "<group>"; };
 		5ED0202414F98A1E0070387C /* block_wild.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_wild.png; path = Resources/Cells/Blocks/block_wild.png; sourceTree = "<group>"; };
 		5ED0202614F98BBA0070387C /* 19.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 19.plist; path = Resources/Levels/19.plist; sourceTree = "<group>"; };
 		5EF053D214F338AE00177148 /* WildcardBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardBlock.h; path = Cells/Blocks/WildcardBlock.h; sourceTree = "<group>"; };
 		5EF053D314F338AF00177148 /* WildcardBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WildcardBlock.m; path = Cells/Blocks/WildcardBlock.m; sourceTree = "<group>"; };
+		8235A41D14FCA9350058C21F /* ControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlLayer.h; sourceTree = "<group>"; };
+		8235A41E14FCA9350058C21F /* ControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlLayer.m; sourceTree = "<group>"; };
+		8235A42014FCA94C0058C21F /* BlockTrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTrain.h; sourceTree = "<group>"; };
+		8235A42114FCA94C0058C21F /* BlockTrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTrain.m; sourceTree = "<group>"; };
 		82470CC714EC882A00F60A7C /* shiftLogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shiftLogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82470CC814EC882A00F60A7C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		82470CCE14EC882A00F60A7C /* shiftLogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "shiftLogicTests-Info.plist"; sourceTree = "<group>"; };
@@ -729,8 +732,10 @@
 				8270385414DB044A008D7240 /* GameConfig.h */,
 				8270386114DB052F008D7240 /* BoardLayer.h */,
 				8270386014DB052F008D7240 /* BoardLayer.m */,
-				3893739614FC6A4300397E8E /* ControlLayer.h */,
-				3893739714FC6A4300397E8E /* ControlLayer.m */,
+				8235A42014FCA94C0058C21F /* BlockTrain.h */,
+				8235A42114FCA94C0058C21F /* BlockTrain.m */,
+				8235A41D14FCA9350058C21F /* ControlLayer.h */,
+				8235A41E14FCA9350058C21F /* ControlLayer.m */,
 				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
 				82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */,
 				82470D3514F1C28000F60A7C /* SinglePlayerGame.h */,
@@ -1387,7 +1392,8 @@
 				A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */,
 				A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */,
 				FAA46DB814F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m in Sources */,
-				3893739814FC6A4300397E8E /* ControlLayer.m in Sources */,
+				8235A41F14FCA9350058C21F /* ControlLayer.m in Sources */,
+				8235A42214FCA94C0058C21F /* BlockTrain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
