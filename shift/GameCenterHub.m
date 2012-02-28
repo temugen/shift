@@ -11,16 +11,15 @@
 
 @implementation GameCenterHub
 
+@synthesize notificationCenter;
 @synthesize rootViewController;
 @synthesize gameCenterAvailable;
-@synthesize achievements;
 @synthesize lastError;
-@synthesize lbd;
-@synthesize mmd;
 @synthesize match;
 
 static GameCenterHub* sharedHelper = nil;
 
+// Singleton instance of gchub
 + (GameCenterHub*) sharedInstance
 {
   if (!sharedHelper) 
@@ -47,8 +46,8 @@ static GameCenterHub* sharedHelper = nil;
     gameCenterAvailable = [self isGameCenterAvailable];
     if (gameCenterAvailable)
     {
-      NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-      [nc addObserver:self selector:@selector(authenticationChanged) name:GKPlayerAuthenticationDidChangeNotificationName object:nil];
+      notificationCenter = [NSNotificationCenter defaultCenter];
+      [notificationCenter addObserver:self selector:@selector(authenticationChanged) name:GKPlayerAuthenticationDidChangeNotificationName object:nil];
     }
   }
   return self;
@@ -58,47 +57,16 @@ static GameCenterHub* sharedHelper = nil;
 {
   [sharedHelper release];
   sharedHelper = nil;
-  [cachedAchievements release];
-  [achievements release];
   [match release];
   [lastError release];
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   [super dealloc];
 }
 
-- (BOOL) isGameCenterAvailable
-{
-  BOOL localPlayerClassAvailable = (NSClassFromString(@"GKLocalPlayer")) != nil;
-  NSString* reqSysVer = @"4.1";
-  NSString* currSysVer = [[UIDevice currentDevice] systemVersion];
-  BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
-  NSLog(@"GameCenter: %@", gameCenterAvailable ? @"Available" : @"Unavailable");
-  return (localPlayerClassAvailable && osVersionSupported);
-}
 
-- (void) setError:(NSError*) error
-{
-  [lastError release];
-  lastError = [error copy];
-  if (lastError)
-  {
-    NSLog(@"GCHub Error: %@", [[lastError userInfo] description]);
-  }
-}
-
-- (void) authenticationChanged 
-{
-  if ([GKLocalPlayer localPlayer].isAuthenticated && !userAuthenticated)
-  {
-    NSLog(@"Auth changed; player authenticated.");
-    userAuthenticated = YES;
-  }
-  else if (![GKLocalPlayer localPlayer].isAuthenticated && userAuthenticated)
-  {
-    NSLog(@"Auth changed; player not authenticated.");
-    userAuthenticated = NO;
-  }
-}
+/*
+ ********** User Account Functions **********
+ */
 
 - (void) authenticateLocalPlayer
 {
@@ -107,35 +75,77 @@ static GameCenterHub* sharedHelper = nil;
   {
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:nil];
   }
+  [self getPlayerFriends];
 }
 
-- (void) findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(RootViewController *)viewController delegate:(id<GameCenterMatchmakingDelegate>)theDelegate
+- (void) authenticationChanged 
 {
-  if (!gameCenterAvailable) return;
-  
-  matchStarted = NO;
-  self.match = nil;
-  self.rootViewController = viewController;
-  mmd = theDelegate;
-  [rootViewController dismissModalViewControllerAnimated:NO];
-  
-  GKMatchRequest* request = [[[GKMatchRequest alloc] init] autorelease];
-  
-  GKMatchmakerViewController* matchvc = [[[GKMatchmakerViewController alloc] initWithMatchRequest:request] autorelease];
-  matchvc.matchmakerDelegate = self;
-  
-  [rootViewController presentModalViewController:matchvc animated:YES];
-}
-
-- (void) submitScore:(int64_t)score category:(NSString *)category
-{
-  if (!gameCenterAvailable) return;
-  GKScore* myScore = [[[GKScore alloc] init] autorelease];
-  myScore.value = score;
-  [myScore reportScoreWithCompletionHandler:^(NSError* error)
+  if ([GKLocalPlayer localPlayer].isAuthenticated && !userAuthenticated)
   {
-    [self setError:error];
-  }];
+    NSLog(@"Auth changed; player authenticated.");
+    userAuthenticated = YES;
+    [self getPlayerFriends];
+    
+  }
+  else if (![GKLocalPlayer localPlayer].isAuthenticated && userAuthenticated)
+  {
+    NSLog(@"Auth changed; player not authenticated.");
+    userAuthenticated = NO;
+  }
+}
+
+- (void) getPlayerFriends
+{
+  GKLocalPlayer* me = [GKLocalPlayer localPlayer];
+  if (me.authenticated)
+  {
+    [me loadFriendsWithCompletionHandler:^(NSArray* friends, NSError* error) {
+      if (friends != nil)
+      {
+        [self loadPlayerData: friends];
+      }
+    }];
+  }
+}
+
+- (void) inviteFriends: (NSArray*) identifiers
+{
+  GKFriendRequestComposeViewController* friendRequestVc = [[[GKFriendRequestComposeViewController alloc] init] autorelease];
+  friendRequestVc.composeViewDelegate = self;
+  if (identifiers)
+  {
+    [friendRequestVc addRecipientsWithPlayerIDs: identifiers];
+  }
+  [rootViewController presentModalViewController: friendRequestVc animated: YES];
+}
+
+- (void)friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController*)viewController
+{
+  [rootViewController dismissModalViewControllerAnimated:YES];
+}
+
+
+/*
+ ********** Leaderboard Functions **********
+ */
+
+- (void) showLeaderboard:(NSString*) category
+{
+  if (!gameCenterAvailable) return;
+  GKLeaderboardViewController* leaderboardVc = [[[GKLeaderboardViewController alloc] init] autorelease];
+  if (leaderboardVc != nil)
+  {
+    leaderboardVc.leaderboardDelegate = self;
+    leaderboardVc.category = category;
+    leaderboardVc.timeScope = GKLeaderboardTimeScopeAllTime;
+    
+    [rootViewController presentModalViewController:leaderboardVc animated:YES];
+  }
+}
+
+- (void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
+{
+  [rootViewController dismissModalViewControllerAnimated:YES];
 }
 
 - (void) retrieveScoresForPlayers:(NSArray *)players category:(NSString *)category range:(NSRange)range playerScope:(GKLeaderboardPlayerScope)playerScope timeScope:(GKLeaderboardTimeScope)timeScope
@@ -165,46 +175,54 @@ static GameCenterHub* sharedHelper = nil;
   }
 }
 
+- (void) submitScore:(int64_t)score category:(NSString *)category
+{
+  if (!gameCenterAvailable) return;
+  GKScore* myScore = [[[GKScore alloc] init] autorelease];
+  myScore.value = score;
+  [myScore reportScoreWithCompletionHandler:^(NSError* error)
+   {
+     [self setError:error];
+   }];
+}
+
 - (void) retrieveTopTenAllTimeGlobalScores
 {
   [self retrieveScoresForPlayers:nil category:nil range:NSMakeRange(1, 10) playerScope:GKLeaderboardPlayerScopeGlobal timeScope:GKLeaderboardTimeScopeAllTime];
 }
 
-- (void) showLeaderboard:(NSString*) category
+
+/*
+ ********** Matchmaking functions **********
+ */
+
+
+- (void) findRandomMatch
 {
   if (!gameCenterAvailable) return;
-  GKLeaderboardViewController* lbvc = [[[GKLeaderboardViewController alloc] init] autorelease];
-  if (lbvc != nil)
-  {
-    lbvc.leaderboardDelegate = self;
-    GKLeaderboard* leaderboard = nil;
-   
-    leaderboard = [[[GKLeaderboard alloc] init] autorelease];
-    leaderboard.category = category;
-    leaderboard.timeScope = GKLeaderboardTimeScopeAllTime;
-    leaderboard.playerScope = GKLeaderboardPlayerScopeGlobal;
-    
-    [rootViewController presentModalViewController:lbvc animated:YES];
-  }
+  
+  matchStarted = NO;
+  match = nil;
+  [rootViewController dismissModalViewControllerAnimated:NO];
+  
+  GKMatchRequest* request = [[[GKMatchRequest alloc] init] autorelease];
+  request.minPlayers = 2;
+  request.maxPlayers = 2;
+  
+  GKMatchmakerViewController* matchmakerVc = [[[GKMatchmakerViewController alloc] initWithMatchRequest:request] autorelease];
+  matchmakerVc.matchmakerDelegate = self;
+  
+  [rootViewController presentModalViewController:matchmakerVc animated:YES];
 }
 
-- (void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
+- (void) matchEnded
 {
-  [rootViewController dismissModalViewControllerAnimated:YES];
+  
 }
 
-- (void) showMatchmakerView
-{
-  if (!gameCenterAvailable) return;
-  GKMatchmakerViewController* mmvc = [[[GKMatchmakerViewController alloc] init] autorelease];
-  if (mmvc != nil)
-  {
-    mmvc.matchmakerDelegate = self;
-    [rootViewController presentModalViewController:mmvc animated:YES];
-  }
-}
-
-// ====== Callback methods for GKMatchViewController
+/*
+ ********** Callback methods for GKMatchViewController **********
+ */
 
 // Player cancels MM
 - (void) matchmakerViewControllerWasCancelled:(GKMatchmakerViewController *)viewController
@@ -231,13 +249,16 @@ static GameCenterHub* sharedHelper = nil;
   }
 }
 
-// ====== Callback methods for GKMatchDelegate
+
+/*
+ ********** Callback methods for GKMatchDelegate **********
+ */
 
 // Another player sends data to game
 - (void) match: (GKMatch*) myMatch didReceiveData:(NSData*)data fromPlayer:(NSString*)playerID
 {
   if (match != myMatch) return;
-  [mmd match:myMatch didReceiveData:data fromPlayer:playerID];
+  [self match:myMatch didReceiveData:data fromPlayer:playerID];
 }
 
 //  Makes sure all players are connected
@@ -256,7 +277,7 @@ static GameCenterHub* sharedHelper = nil;
     case GKPlayerStateDisconnected:
       NSLog(@"Player disconnected");
       matchStarted = NO;
-      [mmd matchEnded];
+      [self matchEnded];
       break;
   }
 }
@@ -266,7 +287,7 @@ static GameCenterHub* sharedHelper = nil;
 {
   if (match != myMatch) return;
   NSLog(@"Failed to connect: %@", error.localizedDescription);
-  [mmd matchEnded];
+  [self matchEnded];
 }
 
 // Failure due to error
@@ -275,7 +296,46 @@ static GameCenterHub* sharedHelper = nil;
   if (match != myMatch) return;
   NSLog(@"Match failed with error: %@", error.localizedDescription);
   matchStarted = NO;
-  [mmd matchEnded];
+  [self matchEnded];
+}
+
+
+/*
+ ********** Helper Functions **********
+ */
+
+- (BOOL) isGameCenterAvailable
+{
+  BOOL localPlayerClassAvailable = (NSClassFromString(@"GKLocalPlayer")) != nil;
+  NSString* reqSysVer = @"4.1";
+  NSString* currSysVer = [[UIDevice currentDevice] systemVersion];
+  BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
+  NSLog(@"GameCenter: %@", gameCenterAvailable ? @"Available" : @"Unavailable");
+  return (localPlayerClassAvailable && osVersionSupported);
+}
+
+- (void) setError:(NSError*) error
+{
+  [lastError release];
+  lastError = [error copy];
+  if (lastError)
+  {
+    NSLog(@"GCHub Error: %@", [[lastError userInfo] description]);
+  }
+}
+
+- (void) loadPlayerData: (NSArray *) identifiers
+{
+  [GKPlayer loadPlayersForIdentifiers:identifiers withCompletionHandler:^(NSArray *players, NSError *error) {
+    if (error != nil)
+    {
+      [self setError:error];
+    }
+    if (players != nil)
+    {
+      // Process the array of GKPlayer objects.
+    }
+  }];
 }
 
 @end

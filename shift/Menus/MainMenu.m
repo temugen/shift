@@ -12,6 +12,7 @@
 #import "DifficultyMenu.h"
 #import "OptionsMenu.h"
 #import "AchievementsMenu.h"
+#import "GameCenterHub.h"
 
 @implementation MainMenu
 
@@ -60,7 +61,14 @@
 
 - (void) onMultiplayer: (id) sender
 {
+  if ([GameCenterHub sharedInstance].gameCenterAvailable) 
+  { 
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[MultiplayerMenu scene]]];
+  }
+  else
+  {
+    [[[UIAlertView alloc] initWithTitle:@"GameCenter Error" message:@"GameCenter is required to use any of the multiplayer features" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+  }
 }
 
 - (void) onOptions: (id) sender

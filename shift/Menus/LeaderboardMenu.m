@@ -8,24 +8,25 @@
 
 #import "LeaderboardMenu.h"
 #import "GameCenterHub.h"
+#import "MultiplayerMenu.h"
 #import "MainMenu.h"
 
 @implementation LeaderboardMenu
 
-LeaderboardMenu* layer;
 
 - (id) init
 {
-  if( (self=[super init] )) {
-    
-    //Set up menu items
+  if ((self=[super init])) {
+    // Menu Items
     CCMenuItemFont* hardTime = [CCMenuItemFont itemFromString:@"Hard Times" target:self selector: @selector(onHardTimeSelection:)];
-//    [hardTime setTag:HTIMELB];
     CCMenuItemFont *hardMoves = [CCMenuItemFont itemFromString:@"Hard Moves" target:self selector: @selector(onHardMoves:)];
-//    [random setTag:HMOVESLB];
     CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
     
-    //Add items to menu
+    // Set tags
+    [hardMoves setTag:HARDMOVELB];
+    [hardTime setTag:HARDTIMELB];
+    
+    // Set items
     CCMenu *menu = [CCMenu menuWithItems: hardTime, hardMoves, back, nil];
     
     [menu alignItemsVertically];
@@ -37,7 +38,7 @@ LeaderboardMenu* layer;
 
 + (id) scene:(gamemode) gameSelection 
 {
-  layer = [LeaderboardMenu node];
+  LeaderboardMenu* layer = [LeaderboardMenu node];
   layer->mode = gameSelection;
   return [super scene:layer]; 
 }
@@ -50,6 +51,11 @@ LeaderboardMenu* layer;
 - (void) onHardMoves: (id) sender
 {
   [[GameCenterHub sharedInstance] showLeaderboard:@"hard_moves"];
+}
+
+- (void) goBack: (id) sender
+{
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:TRANS_TIME scene:[MultiplayerMenu scene]]];
 }
 
 -(void) dealloc

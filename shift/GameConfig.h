@@ -51,7 +51,10 @@ typedef enum {
     QUICKPLAY,
     SINGLE,
     RANDOMMULTI,
-    FRIENDMULTI
+    FRIENDMULTI,
+    LEADERBOARD,
+    HARDTIMELB,
+    HARDMOVELB
 } gamemode;
 
 //NOTE: if you change this value, you must change the way the levels are displayed in SinglePlayerMenu.m to correspond with

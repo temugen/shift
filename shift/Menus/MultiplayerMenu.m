@@ -17,18 +17,18 @@
 //Initialize the Multiplayer Menu layer
 -(id) init
 {
-    if( (self=[super init] )) {
+    if ((self=[super init])) {
         
         //Set up menu items
-        CCMenuItemFont *friend = [CCMenuItemFont itemFromString:@"Friend Opponent" target:self selector: @selector(onOppSelection:)];
-        [friend setTag:FRIENDMULTI];
-        CCMenuItemFont *random = [CCMenuItemFont itemFromString:@"Random Opponent" target:self selector: @selector(onRandSelection:)];
-        [random setTag:RANDOMMULTI];
-        CCMenuItemFont *leaderboard= [CCMenuItemFont itemFromString:@"Leaderboard" target:self selector: @selector(onLeaderboard:)];
+        CCMenuItemFont *play = [CCMenuItemFont itemFromString:@"Find Opponent" target:self selector: @selector(onOppSelection:)];
+        CCMenuItemFont *leaderboard= [CCMenuItemFont itemFromString:@"Leaderboard" target:self selector: @selector(onLeaderboard:)];  
         CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
-        
+
+        [play setTag:FRIENDMULTI];
+        [leaderboard setTag:LEADERBOARD];
+      
         //Add items to menu
-        CCMenu *menu = [CCMenu menuWithItems: friend,random,leaderboard,back, nil];
+        CCMenu *menu = [CCMenu menuWithItems: play, leaderboard, back, nil];
         
         [menu alignItemsVertically];
         
@@ -37,8 +37,8 @@
     return self;
 }
 
-//Create scene with quickplay menu
-+(id) scene
+//Create scene with multiplayer menu
++ (id) scene
 {
     MultiplayerMenu *layer = [MultiplayerMenu node];
     return [super scene:layer];
@@ -48,14 +48,7 @@
 
 - (void) onOppSelection: (id) sender
 {
-    gamemode selection = [sender tag];
-    [[CCDirector sharedDirector] replaceScene:
-                                    [CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[DifficultyMenu scene:selection]]];
-}
-
-- (void) onRandSelection: (id) sender
-{
-  [[GameCenterHub sharedInstance] showMatchmakerView];
+  [[GameCenterHub sharedInstance] findRandomMatch];
 }
 
 - (void) onLeaderboard: (id) sender
@@ -65,7 +58,7 @@
 }
 
 
--(void) dealloc
+- (void) dealloc
 {
 	[super dealloc];
 }

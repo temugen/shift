@@ -10,62 +10,48 @@
 #import <GameKit/GameKit.h>
 #import "RootViewController.h"
 
-@protocol GameCenterMatchmakingDelegate
-- (void) matchStarted;
-- (void) matchEnded;
-- (void) match: (GKMatch*) match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
-- (void) onMatchmakingViewDismissed;
-@end
-
-@protocol GameCenterLeaderboardDelegate
-- (void) onScoresSubmitted:(BOOL) success;
-- (void) onScoresReceived:(NSArray*) players;
-- (void) onLeaderboardViewDismissed;
-@end
-
-@interface GameCenterHub : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GKLeaderboardViewControllerDelegate>
+@interface GameCenterHub : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GKLeaderboardViewControllerDelegate, GKFriendRequestComposeViewControllerDelegate>
 { 
-  
   RootViewController* rootViewController;
-  id <GameCenterMatchmakingDelegate> mmd;
-  id <GameCenterLeaderboardDelegate> lbd;
-  
-  NSMutableDictionary* achievements;
-  NSMutableDictionary* cachedAchievements;
-  
   BOOL gameCenterAvailable;
-  BOOL userAuthenticated;
-  
+  BOOL userAuthenticated;  
+  NSNotificationCenter* notificationCenter;
   NSError* lastError;
   
   GKMatch* match;
-  BOOL matchStarted;
+  BOOL matchStarted;  
 }
 
+@property (nonatomic, readonly) NSNotificationCenter* notificationCenter;
 @property (assign, readonly) BOOL gameCenterAvailable;
 @property (retain) RootViewController* rootViewController;
 @property (nonatomic, retain) GKMatch* match;
-@property (nonatomic, retain) id <GameCenterMatchmakingDelegate> mmd;
-@property (nonatomic, retain) id <GameCenterLeaderboardDelegate> lbd;
-@property (nonatomic, readonly) NSMutableDictionary* achievements;
 @property (nonatomic, readonly) NSError* lastError;
 
-// Authentication and initializing functions
-+ (GameCenterHub*) sharedInstance;
+// Initialization functions
++ (GameCenterHub*)sharedInstance;
 + (id) alloc;
 - (id) init;
+
+// Authentication functions
 - (void) authenticateLocalPlayer;
 - (void) authenticationChanged;
-- (void) setError:(NSError*) error;
-- (BOOL) isGameCenterAvailable;
-
-- (void) findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int) maxPlayers viewController:(UIViewController*)viewController delegate:(id<GameCenterMatchmakingDelegate>)theDelegate;
+- (void) getPlayerFriends;
+- (void) inviteFriends:(NSArray*)identifiers;
 
 // LeaderBoard functions
+- (void) showLeaderboard:(NSString*)category;
 - (void) submitScore:(int64_t)score category:(NSString*)category;
 - (void) retrieveScoresForPlayers:(NSArray*)players category:(NSString*)category range:(NSRange)range playerScope:(GKLeaderboardPlayerScope)playerScope timeScope:(GKLeaderboardTimeScope)timeScope;
 - (void) retrieveTopTenAllTimeGlobalScores;
-- (void) showLeaderboard:(NSString*)category;
-- (void) showMatchmakerView;
+
+// Matchmaking functions
+- (void) findRandomMatch;
+- (void) matchEnded;
+
+// Helper functions
+- (void) setError:(NSError*)error;
+- (BOOL) isGameCenterAvailable;
+- (void) loadPlayerData:(NSArray*)identifiers;
 
 @end
