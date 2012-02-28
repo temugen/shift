@@ -41,5 +41,36 @@
 #error(unknown architecture)
 #endif
 
+typedef enum{
+    EASY,
+    MEDIUM,
+    HARD
+} difficulty;
+
+typedef enum {
+    QUICKPLAY,
+    SINGLE,
+    RANDOMMULTI,
+    FRIENDMULTI
+} gamemode;
+
+//NOTE: if you change this value, you must change the way the levels are displayed in SinglePlayerMenu.m to correspond with
+//the number of levels. Look for the line [menu alignItemsInColumns ....
+#define NUM_LEVELS 20
+
+#define len(array) (sizeof((array))/sizeof(typeof((array[0]))))
+
+//Scene transition time
+#define TRANS_TIME 0.3f
+
+static NSString * const colors[] = {
+    @"blue",
+    @"red",
+    @"green",
+    @"purple",
+    @"yellow",
+    @"orange"
+};
+
 #endif // __GAME_CONFIG_H
 

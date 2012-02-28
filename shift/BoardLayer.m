@@ -553,7 +553,7 @@
 -(BOOL) setKeyAtX:(int)row y:(int)column
 {
     //Make sure new position is not out of bounds, and there is not already a block there.
-    if(![self outOfBoundsAtX:column y:row] && [self blockAtX:column y:row] == nil)
+    if(![self isOutOfBoundsAtX:column y:row] && [self blockAtX:column y:row] == nil)
     {
         GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
         CGPoint scalingFactors = [sampleGoal resize:cellSize];
@@ -566,7 +566,7 @@
     return false;
 }
 
--(BOOL) outOfBoundsAtX:(int)x y:(int)y
+-(BOOL) isOutOfBoundsAtX:(int)x y:(int)y
 {
     return x<0||y<0||x>=columnCount||y>=rowCount;
 }

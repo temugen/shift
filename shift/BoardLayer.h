@@ -9,11 +9,12 @@
 #import "cocos2d.h"
 #import "BlockSprite.h"
 #import "GoalSprite.h"
+
 #import "RotationBlock.h"
 #import "StationaryBlock.h"
 #import "LockBlock.h"
 #import "KeyBlock.h"
-#import "UniversalConstants.h"
+#import "GameConfig.h"
 
 //Describes the current movement occurring on the board
 typedef enum {
@@ -59,6 +60,6 @@ typedef enum {
 -(void) shiftRowAtY:(int)y x:(int)x numberOfCells:(int)dist;
 -(BOOL) addKey:(BlockSprite*)lock;
 -(BOOL) setKeyAtX:(int)x y:(int)y;
--(BOOL) outOfBoundsAtX:(int)x y:(int)y;
+-(BOOL) isOutOfBoundsAtX:(int)x y:(int)y;
 
 @end

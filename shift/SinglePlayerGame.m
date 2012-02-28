@@ -7,7 +7,7 @@
 //
 
 #import "SinglePlayerGame.h"
-#import "UniversalConstants.h"
+#import "GameConfig.h"
 #import "MainMenu.h"
 
 @implementation SinglePlayerGame

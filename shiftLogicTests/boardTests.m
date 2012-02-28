@@ -99,23 +99,23 @@
 -(void)testInBounds
 {
     BOOL result;
-    result = [board outOfBoundsAtX:1 y:1];
+    result = [board isOutOfBoundsAtX:1 y:1];
     STAssertFalse(result, @"Location should be in bounds");    
 }
 
 -(void)testOutOfBounds
 {
     BOOL result;
-    result = [board outOfBoundsAtX:board.columnCount+10 y:1];
+    result = [board isOutOfBoundsAtX:board.columnCount+10 y:1];
     STAssertTrue(result, @"Location should be out of bounds %d, %d",board.columnCount+10,1);
     
-    result = [board outOfBoundsAtX:1 y:board.rowCount+10];
+    result = [board isOutOfBoundsAtX:1 y:board.rowCount+10];
     STAssertTrue(result, @"Location should be out of bounds %d, %d",1,board.rowCount+10);
     
-    result = [board outOfBoundsAtX:-1 y:1];
+    result = [board isOutOfBoundsAtX:-1 y:1];
     STAssertTrue(result, @"Location should be out of bounds %d, %d",-1,1);
     
-    result = [board outOfBoundsAtX:1 y:-1];
+    result = [board isOutOfBoundsAtX:1 y:-1];
     STAssertTrue(result, @"Location should be out of bounds %d %d",1,-1);
 }
 
