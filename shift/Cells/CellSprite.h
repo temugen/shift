@@ -15,10 +15,12 @@
     int health;
     BOOL comparable;
     BOOL movable;
+    BOOL destructible;
     NSString *name;
 }
 
-@property(nonatomic, assign) int row, column, health;
+@property(nonatomic, assign) int row, column;
+@property(nonatomic, assign) int health;
 @property(nonatomic, assign) BOOL comparable, movable;
 @property(nonatomic, copy) NSString *name;
 

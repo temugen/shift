@@ -10,7 +10,8 @@
 
 @implementation CellSprite
 
-@synthesize row, column, health;
+@synthesize row, column;
+@synthesize health;
 @synthesize comparable, movable;
 @synthesize name;
 
@@ -20,6 +21,7 @@
     if ((self = [super initWithTexture:texture])) {
         comparable = YES;
         movable = YES;
+        destructible = NO;
         name = @"";
     }
     return self;
