@@ -26,7 +26,7 @@ typedef enum {
 
 @interface BoardLayer : CCLayer
 {
-	BlockSprite **blocks;
+	BlockSprite **blocks, **initialBlocks;
     GoalSprite **goals;
     
     Movement movement;
@@ -46,6 +46,8 @@ typedef enum {
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 +(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;
+
+-(void) resetBoard;
 
 -(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;

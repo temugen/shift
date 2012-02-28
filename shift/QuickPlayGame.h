@@ -8,12 +8,15 @@
 
 #import "cocos2d.h"
 #import "BoardLayer.h"
+#import "ControlLayer.h"
 
 @interface QuickPlayGame : CCScene
 {
     BoardLayer *board;
     CGPoint boardCenter;
     CGSize cellSize;
+    
+    ControlLayer *cLayer;
     
     int rowCount, columnCount;
 }

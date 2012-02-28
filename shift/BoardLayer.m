@@ -13,6 +13,8 @@
 /* Private Functions */
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 
+-(void) saveSnapshot;
+
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
 -(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
 
@@ -65,6 +67,7 @@
         
         //Initially, no columns or rows are moving
         movement = kNone;
+        [self saveSnapshot];
 	}
 	return self;
 }
@@ -119,8 +122,32 @@
         }
         
         self.isTouchEnabled = YES;
+        [self saveSnapshot];
     }
     return self;
+}
+
+-(void) saveSnapshot
+{
+    int cellCount = self.columnCount * self.rowCount;
+    
+    if (!initialBlocks) 
+        initialBlocks = (BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
+    
+    memcpy(initialBlocks, blocks, cellCount * sizeof(BlockSprite *));
+}
+
+-(void) resetBoard
+{
+    int cellCount = self.columnCount * self.rowCount;
+    
+    memcpy(blocks, initialBlocks, cellCount * sizeof(BlockSprite *));
+    
+    for (int col = 0; col < self.columnCount; col++) {
+        for (int row = 0; row < self.rowCount; row++) {
+            [self setBlock:[self blockAtX:col y:row] x:col y:row];
+        }
+    }
 }
 
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
@@ -181,6 +208,7 @@
 -(void) dealloc
 {
     free(blocks);
+    free(initialBlocks);
     free(goals);
     [movingBlocks release];
     

@@ -28,13 +28,23 @@
                                                       rows:rowCount
                                                     center:boardCenter
                                                   cellSize:cellSize];
+        cLayer = [[[ControlLayer alloc] init] retain];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onBoardComplete:)
                                                      name:@"BoardComplete"
                                                    object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onResetButtonPressed:)
+                                                     name:@"ResetButtonPressed"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onMenuButtonPressed:)
+                                                     name:@"MenuButtonPressed"
+                                                   object:nil];
         
         [self addChild:board];
+        [self addChild:cLayer];
     }
     return self;
 }
@@ -47,6 +57,18 @@
                                                 center:boardCenter
                                               cellSize:cellSize];
     [self addChild:board];
+}
+
+-(void) onResetButtonPressed:(NSNotification *)notification
+{
+    NSLog(@"Reset Button Pressed");
+    [board resetBoard];
+}
+
+-(void) onMenuButtonPressed:(NSNotification *)notification
+{
+    // TODO: Display menu
+    NSLog(@"Menu Button Pressed");
 }
 
 @end

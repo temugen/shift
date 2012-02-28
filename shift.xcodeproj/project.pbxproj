@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3893739814FC6A4300397E8E /* ControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3893739714FC6A4300397E8E /* ControlLayer.m */; };
+		3893739D14FC6B6E00397E8E /* button_menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 3893739B14FC6B6E00397E8E /* button_menu.png */; };
+		3893739E14FC6B6E00397E8E /* button_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 3893739C14FC6B6E00397E8E /* button_reset.png */; };
 		5ED0202514F98A1F0070387C /* block_wild.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202414F98A1E0070387C /* block_wild.png */; };
 		5ED0202714F98BBA0070387C /* 19.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202614F98BBA0070387C /* 19.plist */; };
 		5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF053D314F338AF00177148 /* WildcardBlock.m */; };
@@ -195,6 +198,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3893739614FC6A4300397E8E /* ControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ControlLayer.h; path = ../ControlLayer.h; sourceTree = "<group>"; };
+		3893739714FC6A4300397E8E /* ControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ControlLayer.m; path = ../ControlLayer.m; sourceTree = "<group>"; };
+		3893739B14FC6B6E00397E8E /* button_menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_menu.png; sourceTree = "<group>"; };
+		3893739C14FC6B6E00397E8E /* button_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_reset.png; sourceTree = "<group>"; };
 		5ED0202414F98A1E0070387C /* block_wild.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_wild.png; path = Resources/Cells/Blocks/block_wild.png; sourceTree = "<group>"; };
 		5ED0202614F98BBA0070387C /* 19.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 19.plist; path = Resources/Levels/19.plist; sourceTree = "<group>"; };
 		5EF053D214F338AE00177148 /* WildcardBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardBlock.h; path = Cells/Blocks/WildcardBlock.h; sourceTree = "<group>"; };
@@ -544,6 +551,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3893739A14FC6B6E00397E8E /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				3893739B14FC6B6E00397E8E /* button_menu.png */,
+				3893739C14FC6B6E00397E8E /* button_reset.png */,
+			);
+			name = Controls;
+			path = Resources/Controls;
+			sourceTree = "<group>";
+		};
 		82470CCC14EC882A00F60A7C /* shiftLogicTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,6 +729,8 @@
 				8270385414DB044A008D7240 /* GameConfig.h */,
 				8270386114DB052F008D7240 /* BoardLayer.h */,
 				8270386014DB052F008D7240 /* BoardLayer.m */,
+				3893739614FC6A4300397E8E /* ControlLayer.h */,
+				3893739714FC6A4300397E8E /* ControlLayer.m */,
 				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
 				82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */,
 				82470D3514F1C28000F60A7C /* SinglePlayerGame.h */,
@@ -732,6 +751,7 @@
 		827036FA14DB0448008D7240 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3893739A14FC6B6E00397E8E /* Controls */,
 				82470D0514F1BCC500F60A7C /* Levels */,
 				82470D0414F1BCAB00F60A7C /* Cells */,
 				827036FB14DB0448008D7240 /* Default.png */,
@@ -1212,6 +1232,8 @@
 				98C218F114F96BAA002177F9 /* completeBoard.plist in Resources */,
 				5ED0202514F98A1F0070387C /* block_wild.png in Resources */,
 				5ED0202714F98BBA0070387C /* 19.plist in Resources */,
+				3893739D14FC6B6E00397E8E /* button_menu.png in Resources */,
+				3893739E14FC6B6E00397E8E /* button_reset.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1365,6 +1387,7 @@
 				A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */,
 				A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */,
 				FAA46DB814F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m in Sources */,
+				3893739814FC6A4300397E8E /* ControlLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
