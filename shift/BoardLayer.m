@@ -13,14 +13,15 @@
 /* Private Functions */
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 
--(void) saveSnapshot;
-
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
 -(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
 
 -(void) containMovementAtX:(int)x y:(int)y;
 -(void) moveBlocksWithDistance:(float)distance;
 -(void) snapMovingBlocks;
+
+-(void) saveSnapshot;
+-(void) clearBoard;
 
 @end
 
@@ -48,7 +49,7 @@
         
         columnCount = columns;
         rowCount = rows;
-        movingBlocks = [[NSMutableArray alloc] initWithCapacity:MAX(rowCount, columnCount)];
+        movingBlocks = [[NSMutableArray arrayWithCapacity:MAX(rowCount, columnCount)] retain];
         
         //Make room in our board array for all of the blocks
         int cellCount = rowCount * columnCount;
@@ -56,6 +57,8 @@
         goals = (GoalSprite **)malloc(cellCount * sizeof(GoalSprite *));
         memset(blocks, 0, cellCount * sizeof(BlockSprite *));
         memset(goals, 0, cellCount * sizeof(GoalSprite *));
+        
+        initialBlocks = [[NSMutableSet setWithCapacity:cellCount] retain];
 
         cellSize = size;
 
@@ -67,7 +70,6 @@
         
         //Initially, no columns or rows are moving
         movement = kNone;
-        [self saveSnapshot];
 	}
 	return self;
 }
@@ -121,33 +123,10 @@
             }
         }
         
-        self.isTouchEnabled = YES;
         [self saveSnapshot];
+        self.isTouchEnabled = YES;
     }
     return self;
-}
-
--(void) saveSnapshot
-{
-    int cellCount = self.columnCount * self.rowCount;
-    
-    if (!initialBlocks) 
-        initialBlocks = (BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
-    
-    memcpy(initialBlocks, blocks, cellCount * sizeof(BlockSprite *));
-}
-
--(void) resetBoard
-{
-    int cellCount = self.columnCount * self.rowCount;
-    
-    memcpy(blocks, initialBlocks, cellCount * sizeof(BlockSprite *));
-    
-    for (int col = 0; col < self.columnCount; col++) {
-        for (int row = 0; row < self.rowCount; row++) {
-            [self setBlock:[self blockAtX:col y:row] x:col y:row];
-        }
-    }
 }
 
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
@@ -200,17 +179,53 @@
             }
         }
         
+        [self saveSnapshot];
         self.isTouchEnabled = YES;
     }
     return self;
 }
 
+-(void) saveSnapshot
+{
+    [initialBlocks removeAllObjects];
+    for (int x = 0; x < columnCount; x++) {
+        for (int y = 0; y < rowCount; y++) {
+            BlockSprite *block = [self blockAtX:x y:y];
+            if (block != nil)
+                [initialBlocks addObject:[[self blockAtX:x y:y] copy]];
+        }
+    }
+}
+
+-(void) clearBoard
+{
+    for (int x = 0; x < columnCount; x++) {
+        for (int y = 0; y < rowCount; y++) {
+            BlockSprite *block = [self blockAtX:x y:y];
+            [self removeBlock:block];
+        }
+    }   
+}
+
+-(void) resetBoard
+{
+    [self clearBoard];
+    
+    NSEnumerator *enumerator = [initialBlocks objectEnumerator];
+    for (BlockSprite *block in enumerator) {
+        [self setBlock:block x:block.column y:block.row];
+        [self addChild:block z:1];
+    }
+    
+    [self saveSnapshot];
+}
+
 -(void) dealloc
 {
     free(blocks);
-    free(initialBlocks);
     free(goals);
     [movingBlocks release];
+    [initialBlocks release];
     
     [super dealloc];
 }
@@ -522,13 +537,15 @@
     return YES;
 }
 
--(void) removeBlock:(BlockSprite*) block
+-(void) removeBlock:(BlockSprite *) block
 {
+    //Don't need to do anything if the user wants to remove an empty space
+    if (block == nil)
+        return;
+    
     //If block was in the process of being moved, remove it from the movingBlocks array
     if ([movingBlocks containsObject:block]) 
-    {
         [movingBlocks removeObject:block];
-    }
     
     [self setBlock:nil x:block.column y:block.row];
     [self removeChild:block cleanup:YES];

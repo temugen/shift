@@ -8,8 +8,10 @@
 
 #import "cocos2d.h"
 
-@interface CellSprite : CCSprite
+@interface CellSprite : CCSprite <NSCopying>
 {
+    NSString *textureFilename;
+    
     @public
 	int row, column;
     int health;

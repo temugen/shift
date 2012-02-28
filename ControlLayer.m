@@ -31,8 +31,6 @@
         float screenHeight = screenSize.height;
         
         // Resize images
-        CGSize cellSize = CGSizeMake(40.0, 40.0);
-        
         float scaleX = 0.3;
         float scaleY = 0.3;
         

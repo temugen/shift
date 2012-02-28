@@ -19,12 +19,34 @@
 {
     CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:filename];
     if ((self = [super initWithTexture:texture])) {
+        textureFilename = [filename copy];
         comparable = YES;
         movable = YES;
         destructible = NO;
         name = @"";
     }
     return self;
+}
+
+-(void) dealloc
+{
+    [textureFilename release];
+    [name release];
+    
+    [super dealloc];
+}
+
+-(id) copyWithZone:(NSZone *)zone
+{
+    CellSprite *cell = [[[[self class] alloc] initWithFilename:textureFilename] autorelease];
+    [cell resize:[self boundingBox].size];
+    cell.name = name;
+    cell.column = column;
+    cell.row = row;
+    cell.health = health;
+    cell.comparable = comparable;
+    cell.movable = movable;
+    return cell;
 }
 
 -(CGPoint) resize:(CGSize)size
