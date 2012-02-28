@@ -14,14 +14,15 @@
 @synthesize comparable, movable;
 @synthesize name;
 
-+(id) cellWithFilename:(NSString *)filename
+-(id) initWithFilename:(NSString *)filename
 {
     CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:filename];
-    CellSprite *cell = [self spriteWithTexture:texture];
-    cell.comparable = YES;
-    cell.movable = YES;
-    cell.name = @"";
-    return cell;
+    if ((self = [super initWithTexture:texture])) {
+        comparable = YES;
+        movable = YES;
+        name = @"";
+    }
+    return self;
 }
 
 -(CGPoint) resize:(CGSize)size
@@ -36,6 +37,12 @@
     self.scaleX = factors.x;
     self.scaleY = factors.y;
     return [self boundingBox].size;
+}
+
+-(BOOL) onTap
+{
+    NSLog(@"%@ was tapped", name);
+    return NO;
 }
 
 -(BOOL) onTouch

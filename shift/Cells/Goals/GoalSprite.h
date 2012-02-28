@@ -12,6 +12,7 @@
     
 }
 
+-(id) initWithName:(NSString *)color;
 +(id) goalWithName:(NSString *)name;
 
 @end

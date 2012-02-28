@@ -11,14 +11,15 @@
 
 @implementation KeyBlock
 
-+(id) blockWithName:(NSString *)name
+-(id) initWithName:(NSString *)blockName
 {
     NSString *filename = [NSString stringWithFormat:@"key.png"];
-    KeyBlock *block = [self cellWithFilename:filename];
-    block.comparable = NO;
-    block.movable = YES;
-    block.name = name;
-    return block;
+    if ((self = [super initWithFilename:filename])) {
+        comparable = NO;
+        movable = YES;
+        name = blockName;
+    }
+    return self;
 }
 
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force

@@ -12,14 +12,15 @@
 
 @implementation WildcardBlock
 
-+(id) blockWithName:(NSString *)name
+-(id) initWithName:(NSString *)blockName
 {
     NSString *filename = [NSString stringWithFormat:@"block_wild.png"];
-    WildcardBlock *block = [self cellWithFilename:filename];
-    block.comparable = YES;
-    block.movable = YES;
-    block.name = name;
-    return block;
+    if ((self = [super initWithFilename:filename])) {
+        comparable = YES;
+        movable = YES;
+        name = name;
+    }
+    return self;
 }
 
 -(BOOL) onDoubleTap

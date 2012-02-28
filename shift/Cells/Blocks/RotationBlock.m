@@ -152,14 +152,15 @@
 
 @implementation RotationBlock
 
-+(id) blockWithName:(NSString *)name
+-(id) initWithName:(NSString *)blockName
 {
     NSString *filename = [NSString stringWithFormat:@"block_rotate.png"];
-    RotationBlock *block = [self cellWithFilename:filename];
-    block.comparable = NO;
-    block.movable = NO;
-    block.name = name;
-    return block;
+    if ((self = [super initWithFilename:filename])) {
+        comparable = NO;
+        movable = NO;
+        name = blockName;
+    }
+    return self;
 }
 
 -(BOOL) onTouch

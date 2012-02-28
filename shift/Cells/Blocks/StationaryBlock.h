@@ -9,5 +9,9 @@
 #import "BlockSprite.h"
 
 @interface StationaryBlock : BlockSprite
+{
+}
+
+-(id) initWithName:(NSString *)blockName;
 
 @end

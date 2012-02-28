@@ -9,8 +9,10 @@
 #import "BlockSprite.h"
 
 @interface LockBlock : BlockSprite
+{
+}
 
-+(id) blockWithName:(NSString *)name;
+-(id) initWithName:(NSString *)blockName;
 
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force;
 -(void) unlock;

@@ -10,13 +10,17 @@
 
 @implementation GoalSprite
 
+-(id) initWithName:(NSString *)color
+{
+    if ((self = [super initWithFilename:[NSString stringWithFormat:@"goal_%@.png", color]])) {
+        name = color;
+    }
+    return self;
+}
+
 +(id) goalWithName:(NSString *)name
 {
-    NSString *filename = [NSString stringWithFormat:@"goal_%@.png", name];
-    GoalSprite *goal = [self cellWithFilename:filename];
-    goal.name = name;
-    goal.movable = NO;
-    return goal;
+    return [[[self alloc] initWithName:name] autorelease];
 }
 
 @end

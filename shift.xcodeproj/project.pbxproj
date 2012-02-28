@@ -643,6 +643,8 @@
 		82470D2714F1BF6F00F60A7C /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				82470D2F14F1C03000F60A7C /* BlockSprite.h */,
+				82470D3014F1C03000F60A7C /* BlockSprite.m */,
 				A33E61AD14F5D1360024A2EC /* DestructiveBlock.h */,
 				A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */,
 				A33E61AF14F5D1370024A2EC /* StationaryBlock.h */,
@@ -651,8 +653,6 @@
 				98657FD914F412EE00584BD1 /* KeyBlock.m */,
 				98657FDA14F412EE00584BD1 /* LockBlock.h */,
 				98657FDB14F412EE00584BD1 /* LockBlock.m */,
-				82470D2F14F1C03000F60A7C /* BlockSprite.h */,
-				82470D3014F1C03000F60A7C /* BlockSprite.m */,
 				5EF053D214F338AE00177148 /* WildcardBlock.h */,
 				5EF053D314F338AF00177148 /* WildcardBlock.m */,
 				82470D3114F1C03000F60A7C /* RotationBlock.h */,

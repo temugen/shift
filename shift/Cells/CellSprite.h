@@ -11,7 +11,8 @@
 @interface CellSprite : CCSprite
 {
     @public
-	int row, column, health;
+	int row, column;
+    int health;
     BOOL comparable;
     BOOL movable;
     NSString *name;
@@ -21,16 +22,16 @@
 @property(nonatomic, assign) BOOL comparable, movable;
 @property(nonatomic, copy) NSString *name;
 
-+(id) cellWithFilename:(NSString *)name;
+-(id) initWithFilename:(NSString *)filename;
 
 //Returns scaling factors used to resize
 -(CGPoint) resize:(CGSize)size;
-
 //Returns size after scaling
 -(CGSize) scaleWithFactors:(CGPoint)factors;
 
-//Override if you want to handle touch events
+//Override if you want to handle events
 -(BOOL) onTouch;
+-(BOOL) onTap;
 -(BOOL) onDoubleTap;
 -(BOOL) onMoveWithDistance:(float)distance vertically:(BOOL)vertically;
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force;

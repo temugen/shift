@@ -10,12 +10,18 @@
 
 @implementation BlockSprite
 
+-(id) initWithName:(NSString *)color
+{
+    NSString *filename = [NSString stringWithFormat:@"block_%@.png", color];
+    if ((self = [super initWithFilename:filename])) {
+        name = color;
+    }
+    return self;
+}
+
 +(id) blockWithName:(NSString *)name
 {
-    NSString *filename = [NSString stringWithFormat:@"block_%@.png", name];
-    BlockSprite *block = [self cellWithFilename:filename];
-    block.name = name;
-    return block;
+    return [[[self alloc] initWithName:name] autorelease];
 }
 
 @end

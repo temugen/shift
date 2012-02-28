@@ -11,14 +11,15 @@
 
 @implementation LockBlock
 
-+(id) blockWithName:(NSString *)name
+-(id) initWithName:(NSString *)blockName
 {
     NSString *filename = [NSString stringWithFormat:@"%@_lock.png",name];
-    LockBlock *block = [self cellWithFilename:filename];
-    block.comparable = YES;
-    block.movable = NO;
-    block.name = name;
-    return block;
+    if ((self = [super initWithFilename:filename])) {
+        comparable = YES;
+        movable = NO;
+        name = blockName;
+    }
+    return self;
 }
 
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force

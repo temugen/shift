@@ -11,12 +11,13 @@
 
 @implementation DestructiveBlock
 
-+(id) blockWithName:(NSString *)name
+-(id) initWithName:(NSString *)blockName
 {
     NSString *filename = [NSString stringWithFormat:@"block_destructive.png"];
-    StationaryBlock *block = [self cellWithFilename:filename];
-    block.health = 4;
-    return block;
+    if ((self = [super initWithFilename:filename])) {
+        health = 4;
+    }
+    return self;
 }
 
 -(void) decreaseHealth
