@@ -65,7 +65,7 @@
 - (void) submitScore:(int64_t)score category:(NSString*)category;
 - (void) retrieveScoresForPlayers:(NSArray*)players category:(NSString*)category range:(NSRange)range playerScope:(GKLeaderboardPlayerScope)playerScope timeScope:(GKLeaderboardTimeScope)timeScope;
 - (void) retrieveTopTenAllTimeGlobalScores;
-- (void) showLeaderboard;
+- (void) showLeaderboard:(NSString*)category;
 - (void) showMatchmakerView;
 
 @end

@@ -184,6 +184,7 @@
 		A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */; };
 		A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61B014F5D1370024A2EC /* StationaryBlock.m */; };
 		FA04FF1A14F2E457001D6536 /* GameCenterHub.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04FF1914F2E457001D6536 /* GameCenterHub.m */; };
+		FA4D148A14FD1CE40032FB74 /* LeaderboardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */; };
 		FAA46DB814F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA46DB714F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
 /* End PBXBuildFile section */
@@ -519,6 +520,8 @@
 		A33E61B014F5D1370024A2EC /* StationaryBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationaryBlock.m; path = Cells/Blocks/StationaryBlock.m; sourceTree = "<group>"; };
 		FA04FF1814F2E457001D6536 /* GameCenterHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameCenterHub.h; path = shift/GameCenterHub.h; sourceTree = "<group>"; };
 		FA04FF1914F2E457001D6536 /* GameCenterHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameCenterHub.m; path = shift/GameCenterHub.m; sourceTree = "<group>"; };
+		FA4D148814FD1CE40032FB74 /* LeaderboardMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaderboardMenu.h; path = Menus/LeaderboardMenu.h; sourceTree = "<group>"; };
+		FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaderboardMenu.m; path = Menus/LeaderboardMenu.m; sourceTree = "<group>"; };
 		FAA46DB614F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GKMatchMakerViewController-LandscapeOnly.h"; path = "shift/GKMatchMakerViewController-LandscapeOnly.h"; sourceTree = "<group>"; };
 		FAA46DB714F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GKMatchMakerViewController-LandscapeOnly.m"; path = "shift/GKMatchMakerViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
 		FAC182E614E3723100968475 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -1094,6 +1097,8 @@
 				9853999E14F18CE600713F65 /* DifficultyMenu.h */,
 				9853999F14F18CE600713F65 /* DifficultyMenu.m */,
 				985399A114F18CE600713F65 /* Menu.h */,
+				FA4D148814FD1CE40032FB74 /* LeaderboardMenu.h */,
+				FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */,
 				985399A214F18CE600713F65 /* Menu.m */,
 				985399A314F18CE600713F65 /* MultiplayerMenu.h */,
 				985399A414F18CE600713F65 /* MultiplayerMenu.m */,
@@ -1394,6 +1399,7 @@
 				FAA46DB814F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m in Sources */,
 				8235A41F14FCA9350058C21F /* ControlLayer.m in Sources */,
 				8235A42214FCA94C0058C21F /* BlockTrain.m in Sources */,
+				FA4D148A14FD1CE40032FB74 /* LeaderboardMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

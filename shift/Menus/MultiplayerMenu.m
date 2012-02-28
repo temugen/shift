@@ -10,6 +10,7 @@
 #import "MainMenu.h"
 #import "DifficultyMenu.h"
 #import "GameCenterHub.h"
+#import "LeaderboardMenu.h"
 
 @implementation MultiplayerMenu
 
@@ -59,7 +60,8 @@
 
 - (void) onLeaderboard: (id) sender
 {
-  [[GameCenterHub sharedInstance] showLeaderboard];
+  gamemode selection = [sender tag];
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[LeaderboardMenu scene:selection]]];
 }
 
 

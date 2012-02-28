@@ -150,6 +150,7 @@ static GameCenterHub* sharedHelper = nil;
   {
     leaderboard = [[[GKLeaderboard alloc] initWithPlayerIDs:players] autorelease];
     leaderboard.playerScope = playerScope;
+    leaderboard.category = category;
   }
   
   if (leaderboard != nil)
@@ -169,13 +170,20 @@ static GameCenterHub* sharedHelper = nil;
   [self retrieveScoresForPlayers:nil category:nil range:NSMakeRange(1, 10) playerScope:GKLeaderboardPlayerScopeGlobal timeScope:GKLeaderboardTimeScopeAllTime];
 }
 
-- (void) showLeaderboard
+- (void) showLeaderboard:(NSString*) category
 {
   if (!gameCenterAvailable) return;
   GKLeaderboardViewController* lbvc = [[[GKLeaderboardViewController alloc] init] autorelease];
   if (lbvc != nil)
   {
     lbvc.leaderboardDelegate = self;
+    GKLeaderboard* leaderboard = nil;
+   
+    leaderboard = [[[GKLeaderboard alloc] init] autorelease];
+    leaderboard.category = category;
+    leaderboard.timeScope = GKLeaderboardTimeScopeAllTime;
+    leaderboard.playerScope = GKLeaderboardPlayerScopeGlobal;
+    
     [rootViewController presentModalViewController:lbvc animated:YES];
   }
 }
