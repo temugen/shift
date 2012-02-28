@@ -231,14 +231,14 @@ static GameCenterHub* sharedHelper = nil;
 }
 
 // Failed with an error
-- (void) matchmakerViewController:(GKMatchmakerViewController *)viewController didFailWithError:(NSError *)error
+- (void) matchmakerViewController:(GKMatchmakerViewController *)viewController didFailWithError:(NSError*)error
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
   NSLog(@"Error:  Couldn't find match: %@", error.localizedDescription);
 }
 
 // An opponent has been found
-- (void) matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch *)myMatch
+- (void) matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch*)myMatch
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
   self.match = myMatch;

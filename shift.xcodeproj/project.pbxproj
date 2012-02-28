@@ -1116,12 +1116,12 @@
 		FAD50AD914F98B8F0008CF7C /* Game Center */ = {
 			isa = PBXGroup;
 			children = (
-				FAA46DB614F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.h */,
-				FAA46DB714F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m */,
 				FA04FF1814F2E457001D6536 /* GameCenterHub.h */,
-				FA04FF1914F2E457001D6536 /* GameCenterHub.m */,
 				FA6FBB2514FD4A2E00592C5F /* GKLeaderboardViewController-LandscapeOnly.h */,
+				FAA46DB614F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.h */,
+				FA04FF1914F2E457001D6536 /* GameCenterHub.m */,
 				FA6FBB2614FD4A5400592C5F /* GKLeaderboardViewController-LandscapeOnly.m */,
+				FAA46DB714F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m */,
 			);
 			name = "Game Center";
 			path = ..;
