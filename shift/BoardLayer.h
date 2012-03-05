@@ -16,8 +16,6 @@
     GoalSprite **goals;
     NSMutableSet *initialBlocks;
     
-    float dx, dy;
-    
     @public
     CGRect boundingBox;
     int rowCount, columnCount;
