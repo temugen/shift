@@ -10,7 +10,7 @@
 #import <GameKit/GameKit.h>
 #import "RootViewController.h"
 
-@interface GameCenterHub : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GKLeaderboardViewControllerDelegate, GKFriendRequestComposeViewControllerDelegate>
+@interface GameCenterHub : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GKLeaderboardViewControllerDelegate, GKFriendRequestComposeViewControllerDelegate, GKAchievementViewControllerDelegate>
 { 
   RootViewController* rootViewController;
   BOOL gameCenterAvailable;
@@ -19,7 +19,7 @@
   NSError* lastError;
   
   GKMatch* match;
-  BOOL matchStarted;  
+  BOOL matchStarted;
 }
 
 @property (nonatomic, readonly) NSNotificationCenter* notificationCenter;
@@ -38,6 +38,10 @@
 - (void) authenticationChanged;
 - (void) getPlayerFriends;
 - (void) inviteFriends:(NSArray*)identifiers;
+
+// Achievements functions
+- (void) showAchievements;
+- (void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController;
 
 // LeaderBoard functions
 - (void) showLeaderboard:(NSString*)category;

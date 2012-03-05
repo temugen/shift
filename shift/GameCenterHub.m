@@ -126,6 +126,27 @@ static GameCenterHub* sharedHelper = nil;
 
 
 /*
+ ********** Achievement Functions **********
+ */
+
+- (void) showAchievements
+{
+  GKAchievementViewController* achievements = [[GKAchievementViewController alloc] init];
+  if (achievements != nil)
+  {
+    achievements.achievementDelegate = self;
+    [rootViewController presentModalViewController: achievements animated: YES];
+  }
+  [achievements release];
+}
+
+- (void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController 
+{
+  [rootViewController dismissModalViewControllerAnimated:YES];
+}
+
+
+/*
  ********** Leaderboard Functions **********
  */
 
