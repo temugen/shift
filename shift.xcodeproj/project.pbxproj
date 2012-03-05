@@ -14,6 +14,7 @@
 		5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF053D314F338AF00177148 /* WildcardBlock.m */; };
 		8235A41F14FCA9350058C21F /* ControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A41E14FCA9350058C21F /* ControlLayer.m */; };
 		8235A42214FCA94C0058C21F /* BlockTrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A42114FCA94C0058C21F /* BlockTrain.m */; };
+		8235A42F150556E90058C21F /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A42E150556E80058C21F /* GameScene.m */; };
 		82470CC914EC882A00F60A7C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82470CC814EC882A00F60A7C /* SenTestingKit.framework */; };
 		82470CCA14EC882A00F60A7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036F314DB0448008D7240 /* UIKit.framework */; };
 		82470CCB14EC882A00F60A7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036F514DB0448008D7240 /* Foundation.framework */; };
@@ -211,6 +212,8 @@
 		8235A41E14FCA9350058C21F /* ControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlLayer.m; sourceTree = "<group>"; };
 		8235A42014FCA94C0058C21F /* BlockTrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTrain.h; sourceTree = "<group>"; };
 		8235A42114FCA94C0058C21F /* BlockTrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTrain.m; sourceTree = "<group>"; };
+		8235A42D150556E70058C21F /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		8235A42E150556E80058C21F /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		82470CC714EC882A00F60A7C /* shiftLogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shiftLogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82470CC814EC882A00F60A7C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		82470CCE14EC882A00F60A7C /* shiftLogicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "shiftLogicTests-Info.plist"; sourceTree = "<group>"; };
@@ -740,6 +743,8 @@
 				8270386014DB052F008D7240 /* BoardLayer.m */,
 				8235A41D14FCA9350058C21F /* ControlLayer.h */,
 				8235A41E14FCA9350058C21F /* ControlLayer.m */,
+				8235A42D150556E70058C21F /* GameScene.h */,
+				8235A42E150556E80058C21F /* GameScene.m */,
 				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
 				82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */,
 				82470D3514F1C28000F60A7C /* SinglePlayerGame.h */,
@@ -1406,6 +1411,7 @@
 				8235A42214FCA94C0058C21F /* BlockTrain.m in Sources */,
 				FA4D148A14FD1CE40032FB74 /* LeaderboardMenu.m in Sources */,
 				FA6FBB2714FD4A5400592C5F /* GKLeaderboardViewController-LandscapeOnly.m in Sources */,
+				8235A42F150556E90058C21F /* GameScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

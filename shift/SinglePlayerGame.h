@@ -6,15 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "cocos2d.h"
-#import "BoardLayer.h"
+#import "GameScene.h"
 
-@interface SinglePlayerGame : CCScene
+@interface SinglePlayerGame : GameScene
 {
-    BoardLayer *board;
-    CGPoint boardCenter;
-    CGSize cellSize;
-    
     int currentLevel;
 }
 

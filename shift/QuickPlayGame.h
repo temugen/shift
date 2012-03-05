@@ -6,18 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "cocos2d.h"
-#import "BoardLayer.h"
-#import "ControlLayer.h"
+#import "GameScene.h"
 
-@interface QuickPlayGame : CCScene
+@interface QuickPlayGame : GameScene
 {
-    BoardLayer *board;
-    CGPoint boardCenter;
-    CGSize cellSize;
-    
-    ControlLayer *cLayer;
-    
     int rowCount, columnCount;
 }
 

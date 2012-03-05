@@ -23,16 +23,10 @@
         currentLevel = level;
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         boardCenter = CGPointMake((screenSize.width / 2), (screenSize.height / 2));
-        cellSize = CGSizeMake(40.0, 40.0);
         
         board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
                                        center:boardCenter
                                      cellSize:cellSize];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onBoardComplete:)
-                                                     name:@"BoardComplete"
-                                                   object:nil];
         
         [self addChild:board];
     }
