@@ -21,7 +21,7 @@
         
       //Add items to menu
       CCMenu *menu = [CCMenu menuWithItems: earned, available, back, nil];
-              
+      
       [menu alignItemsVertically];
       [self addChild: menu];        
     }
@@ -40,12 +40,14 @@
 
 - (void) onEarned: (id) sender
 {
-  if ([GameCenterHub sharedInstance].gameCenterAvailable) {
-    // TODO implement achievements and cache
-    [[GameCenterHub sharedInstance] displayEarnedAchievements];
-  }
+  if ([GameCenterHub sharedInstance].gameCenterAvailable) 
   {
-    // Load local cache
+    // TODO implement achievements and cache
+    [[GameCenterHub sharedInstance] showAchievements];
+  }
+  else
+  {
+     // Load local cache
   }
 }
 
@@ -61,6 +63,5 @@
       // Show local cache
   }
 }
-
-
+       
 @end
