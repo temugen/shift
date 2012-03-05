@@ -7,6 +7,8 @@
 //
 
 #import "BoardLayer.h"
+#import "GameConfig.h"
+#import "BlockTrain.h"
 
 @interface BoardLayer()
 
@@ -15,10 +17,6 @@
 
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
 -(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
-
--(void) containMovementAtX:(int)x y:(int)y;
--(void) moveBlocksWithDistance:(float)distance;
--(void) snapMovingBlocks;
 
 -(void) saveSnapshot;
 -(void) clearBoard;
@@ -49,7 +47,6 @@
         
         columnCount = columns;
         rowCount = rows;
-        movingBlocks = [[NSMutableArray arrayWithCapacity:MAX(rowCount, columnCount)] retain];
         
         //Make room in our board array for all of the blocks
         int cellCount = rowCount * columnCount;
@@ -67,9 +64,6 @@
         boundingBox.size.height = rowCount * cellSize.height;
         boundingBox.origin.x = center.x - (CGRectGetWidth(boundingBox) / 2);
         boundingBox.origin.y = center.y - (CGRectGetHeight(boundingBox) / 2);
-        
-        //Initially, no columns or rows are moving
-        movement = kNone;
 	}
 	return self;
 }
@@ -115,11 +109,11 @@
             
             if (direction == 0) {
                 int cells = arc4random() % columnCount;
-                [self shiftColumnAtX:column y:row numberOfCells:cells];
+                //[self shiftColumnAtX:column y:row numberOfCells:cells];
             }
             else {
                 int cells = arc4random() % rowCount;
-                [self shiftRowAtY:row x:column numberOfCells:cells];
+                //[self shiftRowAtY:row x:column numberOfCells:cells];
             }
         }
         
@@ -224,7 +218,6 @@
 {
     free(blocks);
     free(goals);
-    [movingBlocks release];
     [initialBlocks release];
     
     [super dealloc];
@@ -255,10 +248,12 @@
 	goals[(y * columnCount) + x] = goal;
     
     //Update the goal's location information
-    goal.row = y;
-    goal.column = x;
-    goal.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
-                         CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
+    if (goal != nil) {
+        goal.row = y;
+        goal.column = x;
+        goal.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
+                            CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
+    }
 }
 
 -(GoalSprite *) goalAtX:(int)x y:(int)y
@@ -266,164 +261,18 @@
 	return goals[(y * columnCount) + x];
 }
 
--(void) containMovementAtX:(int)x y:(int)y
+-(CGPoint) locationAtPoint:(CGPoint)point
 {
-    int variable;
-    int maxVariable;
+    int row = (int)floorf((point.y - CGRectGetMinY(boundingBox)) / cellSize.height);
+    int column = (int)floorf((point.x - CGRectGetMinX(boundingBox)) / cellSize.width);
     
-    //Choose the correct rect min and rect max functions for x and y directions
-    switch (movement) {
-        case kColumn:
-            rectMin = CGRectGetMinY;
-            rectMax = CGRectGetMaxY;
-            variable = y;
-            maxVariable = rowCount;
-            break;
-            
-        case kRow:
-            rectMin = CGRectGetMinX;
-            rectMax = CGRectGetMaxX;
-            variable = x;
-            maxVariable = columnCount;
-            break;
-            
-        default:
-            return;
-    }
-
-    [movingBlocks removeAllObjects];
-    lowImmovable = highImmovable = nil;
-    lowPositionLimit = rectMin(boundingBox), highPositionLimit = rectMax(boundingBox);
-    
-    int i, row, column;
-    //Find the lowest index block that we can move, and mark the first unmoveable block if it exists
-    for (i = variable; i >= 0; i--) {
-        if (movement == kColumn) {
-            row = i;
-            column = x;
-        }
-        else if (movement == kRow) {
-            row = y;
-            column = i;
-        }
-        
-        BlockSprite *block = [self blockAtX:column y:row];
-        if (block != nil && !block.movable) {
-            lowImmovable = block;
-            lowPositionLimit = rectMax([lowImmovable boundingBox]);
-            break;
-        }
-    }
-    
-    //Find all the blocks we can move, and mark the highest unmoveable block if it exists
-    for (i = MAX(0, i + 1); i < maxVariable; i++) {
-        if (movement == kColumn) {
-            row = i;
-            column = x;
-        }
-        else if (movement == kRow) {
-            row = y;
-            column = i;
-        }
-        
-        BlockSprite *block = [self blockAtX:column y:row];
-        if (block != nil && !block.movable) {
-            highImmovable = block;
-            highPositionLimit = rectMin([highImmovable boundingBox]);
-            break;
-        }
-        else if (block != nil && block.movable) {
-            [movingBlocks addObject:block];
-        }
-    }
-}
-
--(void) moveBlocksWithDistance:(float)distance
-{
-    //There is nothing to move
-    if ([movingBlocks count] == 0) {
-        return;
-    }
-    
-    //Get the first and last moving blocks
-    BlockSprite *lowBlock = [movingBlocks objectAtIndex:0], *highBlock = [movingBlocks objectAtIndex:[movingBlocks count] - 1];
-    
-    //This blocks the user from pushing the blocks past a barrier (unmoveable block or board border)
-    float limitedDistance;
-    if (distance < 0) {
-        limitedDistance = MAX(distance, lowPositionLimit - rectMin([lowBlock boundingBox]));
-        
-        //Let blocks know if they collided with each other
-        if (lowImmovable != nil && ABS(limitedDistance) < ABS(distance)) {
-            [lowImmovable onCollideWithCell:lowBlock force:ABS(distance)];
-            [lowBlock onCollideWithCell:lowImmovable force:ABS(distance)];
-        }
-    }
-    else {
-        limitedDistance = MIN(distance, highPositionLimit - rectMax([highBlock boundingBox]));
-        
-        //Let blocks know if they collided with each other
-        if (highImmovable != nil && ABS(limitedDistance) < ABS(distance)) {
-            [highImmovable onCollideWithCell:highBlock force:ABS(distance)];
-            [highBlock onCollideWithCell:highImmovable force:ABS(distance)];
-        }
-    }
-    
-    //Move all of the moving blocks by distance in the correct direction
-    for (BlockSprite *block in movingBlocks) {
-        if (movement == kColumn)
-            block.position = ccp(block.position.x, block.position.y + limitedDistance);
-        else if (movement == kRow)
-            block.position = ccp(block.position.x + limitedDistance, block.position.y);
-        
-        //Let the block know it was moved
-        [block onMoveWithDistance:distance vertically:(movement == kColumn)];
-    }
-}
-
--(void) snapMovingBlocks
-{
-    NSEnumerator *enumerator = [movingBlocks objectEnumerator];
-    for (BlockSprite *block in enumerator) {
-        //Clear the block's space on the board
-        [self setBlock:nil x:block.column y:block.row];
-    }
-    
-    int row,column;
-    enumerator = [movingBlocks objectEnumerator];
-    for (BlockSprite *block in enumerator) {
-        //Move the block to the closest cell's position on the board
-        column = (int)roundf((block.position.x - cellSize.width / 2 -CGRectGetMinX(boundingBox)) / cellSize.width);
-        row = (int)roundf((block.position.y - cellSize.height / 2 - CGRectGetMinY(boundingBox)) / cellSize.height);
-        
-        //If there is a block in the cell we want to snap to, shift the tiles back 1 space.
-        int vertShift = 0, horizShift = 0;
-        if([self blockAtX:column y:row])
-        {
-            if(block.row > row)
-                vertShift = 1;
-            else if (block.row < row)
-                vertShift = -1;
-            else if (block.column > column)
-                horizShift = 1;
-            else
-                horizShift = -1;
-        }
-        
-        block.row = row+vertShift;
-        block.column = column+horizShift;
-
-        [self setBlock:block x:block.column y:block.row];
-    }
-        
-    //If the user initiated the move, check if they completed the board
-    if (self.isTouchEnabled) {
-        [self isComplete];
-    }
+    return CGPointMake(column, row);
 }
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    dx = dy = 0;
+    
     //Notify a block if it was pressed
 	UITouch *touch = [touches anyObject];
 	CGPoint location = [touch locationInView:[touch view]];
@@ -434,86 +283,22 @@
     int column = (int)floorf((location.x - CGRectGetMinX(boundingBox)) / cellSize.width);
     
     //If the user touched something outside the board, do nothing
-    if (row < 0 || column < 0 || row >= rowCount || column >= columnCount) {
+    if ([self isOutOfBoundsAtX:column y:row])
         return;
-    }
     
     //Tell the block it was clicked or double-tapped.
     BlockSprite *block = [self blockAtX:column y:row];
-    
-    if(touch.tapCount == 2)
-    {
-        [block onDoubleTap];
-    }
-    else
-    {
+    if (block != nil) {
+        if(touch.tapCount == 2)
+            [block onDoubleTap];
+        else if(touch.tapCount == 1)
+            [block onTap];
         [block onTouch];
     }
-}
-
--(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    //Calculate the displacement of our touch in both x and y directions
-	UITouch *touch = [touches anyObject];
-	CGPoint location = [touch locationInView:[touch view]];
-	CGPoint prevLocation = [touch previousLocationInView:[touch view]];
-	location = [[CCDirector sharedDirector] convertToGL:location];
-	prevLocation = [[CCDirector sharedDirector] convertToGL:prevLocation];
-    float dx = location.x - prevLocation.x, dy = location.y - prevLocation.y;
-	float row, column;
     
-	switch (movement) {
-            
-        case kNone:
-            //On our first move, don't do anything. Wait for one more sample to calculate direction
-            movement = kStarted;
-            break;
-            
-        case kStarted:
-            //When we start moving, remember which column or row we touched originally
-            row = (int)floorf((prevLocation.y - CGRectGetMinY(boundingBox)) / cellSize.height);
-            column = (int)floorf((prevLocation.x - CGRectGetMinX(boundingBox)) / cellSize.width);
-            
-            //If the user moved something outside the board, do nothing
-            if (row < 0 || column < 0 || row >= rowCount || column >= columnCount)
-                break;
-                
-            if (ABS(dx) >= ABS(dy))
-                movement = kRow;
-            else
-                movement = kColumn;
-            
-            [self containMovementAtX:column y:row];
-            break;
-            
-        case kColumn:
-            [self moveBlocksWithDistance:dy];
-            break;
-            
-        case kRow:
-            [self moveBlocksWithDistance:dx];
-            break;
-            
-        default:
-            break;
+    if (block == nil || block.movable) {
+        [BlockTrain trainFromBoard:self x:column y:row];
     }
-}
-
--(void) ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    switch (movement) {
-            
-        case kColumn:
-            
-        case kRow:
-            [self snapMovingBlocks];
-            break;
-            
-        default:
-            break;
-    }
-    
-    movement = kNone;
 }
 
 -(BOOL) isComplete
@@ -521,14 +306,11 @@
     for (int x = 0; x < columnCount; x++) {
         for (int y = 0; y < rowCount; y++) {
             GoalSprite *goal = [self goalAtX:x y:y];
-            BlockSprite *block = [self blockAtX:x y:y];
-            
-            if (goal == nil && block != nil && block.comparable)
-                return NO;
-            else if (block == nil && goal != nil && goal.comparable)
-                return NO;
-            else if (block != nil && goal != nil && block.comparable && goal.comparable && ![block.name isEqualToString:goal.name])
-                return NO;
+            BlockSprite *block = [self blockAtX:x y:y]; 
+             if (goal != nil && goal.comparable && ![goal onCompareWithCell:block])
+                 return NO;
+             if (block != nil && block.comparable && ![block onCompareWithCell:goal])
+                 return NO;
         }
     }
     
@@ -544,31 +326,11 @@
         return;
     
     //If block was in the process of being moved, remove it from the movingBlocks array
-    if ([movingBlocks containsObject:block]) 
-        [movingBlocks removeObject:block];
+    //if ([movingBlocks containsObject:block]) 
+    //    [movingBlocks removeObject:block];
     
     [self setBlock:nil x:block.column y:block.row];
     [self removeChild:block cleanup:YES];
-}
-
--(void) shiftColumnAtX:(int)x y:(int)y numberOfCells:(int)cells
-{
-    movement = kColumn;
-    float distance = cells * cellSize.height;
-    [self containMovementAtX:x y:y];
-    [self moveBlocksWithDistance:distance];
-    [self snapMovingBlocks];
-    movement = kNone;
-}
-
--(void) shiftRowAtY:(int)y x:(int)x numberOfCells:(int)cells
-{
-    movement = kRow;
-    float distance = cells * cellSize.width;
-    [self containMovementAtX:x y:y];
-    [self moveBlocksWithDistance:distance];
-    [self snapMovingBlocks];
-    movement = kNone;
 }
 
 -(BOOL) isOutOfBoundsAtX:(int)x y:(int)y

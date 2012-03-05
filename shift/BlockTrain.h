@@ -6,8 +6,27 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "cocos2d.h"
+#import "BlockSprite.h"
+#import "GameConfig.h"
 
-@interface BlockTrain : NSObject
+@interface BlockTrain : CCLayer
+{
+    NSMutableArray *movingBlocks;
+    int initialRow, initialColumn;
+    CGFloat (*rectMin)(CGRect), (*rectMax)(CGRect);
+    float lowPositionLimit, highPositionLimit;
+    BlockSprite *lowImmovable, *highImmovable; 
+    BoardLayer *board;
+    float totalDx, totalDy;
+    
+    @public
+    BOOL rightLeft;
+    Movement movement;
+}
+
++(id) trainFromBoard:(BoardLayer *)boardLayer x:(int)x y:(int)y;
+
+-(id) initFromBoard:(BoardLayer *)boardLayer x:(int)x y:(int)y;
 
 @end

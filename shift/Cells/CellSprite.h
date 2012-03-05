@@ -8,6 +8,8 @@
 
 #import "cocos2d.h"
 
+@class BoardLayer;
+
 @interface CellSprite : CCSprite <NSCopying>
 {
     NSString *textureFilename;
@@ -34,6 +36,7 @@
 -(CGSize) scaleWithFactors:(CGPoint)factors;
 
 //Override if you want to handle events
+-(BOOL) onCompareWithCell:(CellSprite *)cell;
 -(BOOL) onTouch;
 -(BOOL) onTap;
 -(BOOL) onDoubleTap;

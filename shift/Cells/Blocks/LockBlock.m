@@ -8,6 +8,7 @@
 
 #import "LockBlock.h"
 #import "BoardLayer.h"
+#import "KeyBlock.h"
 
 @implementation LockBlock
 

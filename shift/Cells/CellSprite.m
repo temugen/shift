@@ -63,6 +63,14 @@
     return [self boundingBox].size;
 }
 
+-(BOOL) onCompareWithCell:(CellSprite *)cell
+{
+    if (cell == nil || ![cell.name isEqualToString:name]) {
+        return false;
+    }
+    return true;
+}
+
 -(BOOL) onTap
 {
     NSLog(@"%@ was tapped", name);

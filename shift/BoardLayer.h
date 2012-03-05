@@ -10,32 +10,13 @@
 #import "BlockSprite.h"
 #import "GoalSprite.h"
 
-#import "RotationBlock.h"
-#import "StationaryBlock.h"
-#import "LockBlock.h"
-#import "KeyBlock.h"
-#import "GameConfig.h"
-
-//Describes the current movement occurring on the board
-typedef enum {
-    kColumn,
-    kRow,
-    kNone,
-    kStarted
-} Movement;
-
 @interface BoardLayer : CCLayer
 {
 	BlockSprite **blocks;
     GoalSprite **goals;
-    
     NSMutableSet *initialBlocks;
     
-    Movement movement;
-    NSMutableArray *movingBlocks;
-    CGFloat (*rectMin)(CGRect), (*rectMax)(CGRect);
-    float lowPositionLimit, highPositionLimit;
-    BlockSprite *lowImmovable, *highImmovable;
+    float dx, dy;
     
     @public
     CGRect boundingBox;
@@ -57,8 +38,7 @@ typedef enum {
 -(BOOL) isComplete;
 -(void) removeBlock:(BlockSprite *)block;
 -(void) resetBoard;
--(void) shiftColumnAtX:(int)x y:(int)y numberOfCells:(int)dist;
--(void) shiftRowAtY:(int)y x:(int)x numberOfCells:(int)dist;
 -(BOOL) isOutOfBoundsAtX:(int)x y:(int)y;
+-(CGPoint) locationAtPoint:(CGPoint)point;
 
 @end
