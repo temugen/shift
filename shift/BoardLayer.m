@@ -207,18 +207,18 @@
     
     NSEnumerator *enumerator = [initialBlocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
-        [self setBlock:block x:block.column y:block.row];
-        [self addChild:block z:1];
+        BlockSprite *copy = [block copy];
+        [self setBlock:copy x:block.column y:block.row];
+        [self addChild:copy z:1];
     }
-    
-    [self saveSnapshot];
 }
 
 -(void) dealloc
 {
+    //[initialBlocks release];
+    [self clearBoard];
     free(blocks);
     free(goals);
-    [initialBlocks release];
     
     [super dealloc];
 }
@@ -269,10 +269,8 @@
     return CGPointMake(column, row);
 }
 
-- (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    dx = dy = 0;
-    
     //Notify a block if it was pressed
 	UITouch *touch = [touches anyObject];
 	CGPoint location = [touch locationInView:[touch view]];
