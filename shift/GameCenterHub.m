@@ -11,6 +11,7 @@
 
 @implementation GameCenterHub
 
+@synthesize achievementDict;
 @synthesize notificationCenter;
 @synthesize rootViewController;
 @synthesize gameCenterAvailable;
@@ -76,6 +77,7 @@ static GameCenterHub* sharedHelper = nil;
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:nil];
   }
   [self getPlayerFriends];
+  [self loadAchievements];
 }
 
 - (void) authenticationChanged 
@@ -131,18 +133,80 @@ static GameCenterHub* sharedHelper = nil;
 
 - (void) showAchievements
 {
-  GKAchievementViewController* achievements = [[GKAchievementViewController alloc] init];
-  if (achievements != nil)
+  GKAchievementViewController* aVC = [[[GKAchievementViewController alloc] init] autorelease];
+  if (aVC != nil)
   {
-    achievements.achievementDelegate = self;
-    [rootViewController presentModalViewController: achievements animated: YES];
+    aVC.achievementDelegate = self;
+    [rootViewController presentModalViewController: aVC animated: YES];
   }
-  [achievements release];
 }
 
 - (void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController 
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
+}
+
+- (void) loadAchievements
+{    
+  [GKAchievement loadAchievementsWithCompletionHandler:^(NSArray* achievements, NSError* error) 
+   {
+     if (error != nil)
+     {
+       [self setError:error];
+     }
+     if (achievements != nil)
+     {
+       for (GKAchievement* achievement in achievements)
+       {
+         [achievementDict setObject: achievement forKey: achievement.identifier];
+       }
+     }
+  }];
+}
+
+// Tests for existing identifier, if not then allocs it
+- (GKAchievement*) addOrFindIdentifier:(NSString*)identifier
+{
+  GKAchievement* achievement = [achievementDict objectForKey:identifier];
+  if (achievement == nil)
+  {
+    achievement = [[[GKAchievement alloc] initWithIdentifier:identifier] autorelease];
+    [achievementDict setObject:achievement forKey:achievement.identifier];
+  }
+  return [[achievement retain] autorelease];
+}
+
+
+- (void) retrieveAchievmentMetadata
+{
+  [GKAchievementDescription loadAchievementDescriptionsWithCompletionHandler:^(NSArray* descriptions, NSError* error) 
+  {
+    if (error != nil)
+    {  
+      [self setError:error];
+    }
+    if (descriptions != nil)
+    {  
+       // process achievement descriptions
+    }
+  }];
+}
+
+- (void) reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent
+{
+  GKAchievement* achievement = [self addOrFindIdentifier:identifier];
+  if (achievement)
+  {
+    achievement.percentComplete = percent;
+    [achievement reportAchievementWithCompletionHandler:^(NSError* error)
+     {
+       if (error != nil)
+       {
+         [self setError:error];
+         // figure out what to do with non sent data
+       }
+     }];
+  }
 }
 
 
@@ -169,33 +233,6 @@ static GameCenterHub* sharedHelper = nil;
   [rootViewController dismissModalViewControllerAnimated:YES];
 }
 
-- (void) retrieveScoresForPlayers:(NSArray *)players category:(NSString *)category range:(NSRange)range playerScope:(GKLeaderboardPlayerScope)playerScope timeScope:(GKLeaderboardTimeScope)timeScope
-{
-  if (!gameCenterAvailable) return;
-  GKLeaderboard* leaderboard = nil;
-  if ([players count] > 0)
-  {
-    leaderboard = [[[GKLeaderboard alloc] init] autorelease];
-  }
-  else 
-  {
-    leaderboard = [[[GKLeaderboard alloc] initWithPlayerIDs:players] autorelease];
-    leaderboard.playerScope = playerScope;
-    leaderboard.category = category;
-  }
-  
-  if (leaderboard != nil)
-  {
-    leaderboard.timeScope = timeScope;
-    leaderboard.category = category;
-    leaderboard.range = range;
-    [leaderboard loadScoresWithCompletionHandler:^(NSArray* scores, NSError* error)
-     {
-       [self setError:error];
-     }];
-  }
-}
-
 - (void) submitScore:(int64_t)score category:(NSString *)category
 {
   if (!gameCenterAvailable) return;
@@ -205,11 +242,6 @@ static GameCenterHub* sharedHelper = nil;
    {
      [self setError:error];
    }];
-}
-
-- (void) retrieveTopTenAllTimeGlobalScores
-{
-  [self retrieveScoresForPlayers:nil category:nil range:NSMakeRange(1, 10) playerScope:GKLeaderboardPlayerScopeGlobal timeScope:GKLeaderboardTimeScopeAllTime];
 }
 
 

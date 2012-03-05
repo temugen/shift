@@ -185,6 +185,7 @@
 		A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61B014F5D1370024A2EC /* StationaryBlock.m */; };
 		FA04FF1A14F2E457001D6536 /* GameCenterHub.m in Sources */ = {isa = PBXBuildFile; fileRef = FA04FF1914F2E457001D6536 /* GameCenterHub.m */; };
 		FA4D148A14FD1CE40032FB74 /* LeaderboardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */; };
+		FA6FB19A15054902000A8C3F /* GKAchievementViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FB19915054902000A8C3F /* GKAchievementViewController-LandscapeOnly.m */; };
 		FA6FBB2714FD4A5400592C5F /* GKLeaderboardViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FBB2614FD4A5400592C5F /* GKLeaderboardViewController-LandscapeOnly.m */; };
 		FAA46DB814F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA46DB714F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
@@ -523,6 +524,8 @@
 		FA04FF1914F2E457001D6536 /* GameCenterHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameCenterHub.m; path = shift/GameCenterHub.m; sourceTree = "<group>"; };
 		FA4D148814FD1CE40032FB74 /* LeaderboardMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaderboardMenu.h; path = Menus/LeaderboardMenu.h; sourceTree = "<group>"; };
 		FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaderboardMenu.m; path = Menus/LeaderboardMenu.m; sourceTree = "<group>"; };
+		FA6FB19815054902000A8C3F /* GKAchievementViewController-LandscapeOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GKAchievementViewController-LandscapeOnly.h"; path = "shift/GKAchievementViewController-LandscapeOnly.h"; sourceTree = "<group>"; };
+		FA6FB19915054902000A8C3F /* GKAchievementViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GKAchievementViewController-LandscapeOnly.m"; path = "shift/GKAchievementViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
 		FA6FBB2514FD4A2E00592C5F /* GKLeaderboardViewController-LandscapeOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GKLeaderboardViewController-LandscapeOnly.h"; path = "shift/GKLeaderboardViewController-LandscapeOnly.h"; sourceTree = "<group>"; };
 		FA6FBB2614FD4A5400592C5F /* GKLeaderboardViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GKLeaderboardViewController-LandscapeOnly.m"; path = "shift/GKLeaderboardViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
 		FAA46DB614F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GKMatchMakerViewController-LandscapeOnly.h"; path = "shift/GKMatchMakerViewController-LandscapeOnly.h"; sourceTree = "<group>"; };
@@ -1117,9 +1120,11 @@
 			isa = PBXGroup;
 			children = (
 				FA04FF1814F2E457001D6536 /* GameCenterHub.h */,
+				FA6FB19815054902000A8C3F /* GKAchievementViewController-LandscapeOnly.h */,
 				FA6FBB2514FD4A2E00592C5F /* GKLeaderboardViewController-LandscapeOnly.h */,
 				FAA46DB614F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.h */,
 				FA04FF1914F2E457001D6536 /* GameCenterHub.m */,
+				FA6FB19915054902000A8C3F /* GKAchievementViewController-LandscapeOnly.m */,
 				FA6FBB2614FD4A5400592C5F /* GKLeaderboardViewController-LandscapeOnly.m */,
 				FAA46DB714F764B1004F8882 /* GKMatchMakerViewController-LandscapeOnly.m */,
 			);
@@ -1406,6 +1411,7 @@
 				8235A42214FCA94C0058C21F /* BlockTrain.m in Sources */,
 				FA4D148A14FD1CE40032FB74 /* LeaderboardMenu.m in Sources */,
 				FA6FBB2714FD4A5400592C5F /* GKLeaderboardViewController-LandscapeOnly.m in Sources */,
+				FA6FB19A15054902000A8C3F /* GKAchievementViewController-LandscapeOnly.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

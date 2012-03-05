@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GameKit/GameKit.h>
 
-@interface GKAchievementViewController_LandscapeOnly : NSObject
-
+@interface GKAchievementViewController (LandscapeOnly)
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
 @end

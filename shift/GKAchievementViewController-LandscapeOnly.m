@@ -8,6 +8,9 @@
 
 #import "GKAchievementViewController-LandscapeOnly.h"
 
-@implementation GKAchievementViewController_LandscapeOnly
-
+@implementation GKAchievementViewController (LandscapeOnly)
+- (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+  return (UIInterfaceOrientationIsLandscape(toInterfaceOrientation));
+}
 @end
