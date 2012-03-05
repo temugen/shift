@@ -31,8 +31,7 @@
 {
     if ((self = [super init])) {
         board.isTouchEnabled = NO;
-        
-        movement = kStarted;
+        movement = kMovementNone;
         self.isTouchEnabled = YES;
         
         totalDx = totalDy = 0;
@@ -66,23 +65,23 @@
     float dx = location.x - prevLocation.x, dy = location.y - prevLocation.y;
     
     switch (movement) {
-        case kStarted:
+        case kMovementNone:
             totalDx += dx;
             totalDy += dy;
             
             if (ABS(totalDx - totalDy) > directionThreshold) {
                 if (ABS(totalDx) > ABS(totalDy))
-                    movement = kRow;
+                    movement = kMovementRow;
                 else
-                    movement = kColumn;
+                    movement = kMovementColumn;
                 
                 [self containMovementAtX:initialColumn y:initialRow];
             }
             break;
             
-        case kRow:
-        case kColumn:
-            [self moveBlocksWithDistance:(movement == kRow ? dx : dy)];
+        case kMovementRow:
+        case kMovementColumn:
+            [self moveBlocksWithDistance:(movement == kMovementRow ? dx : dy)];
             break;
             
         default:
@@ -105,14 +104,14 @@
     
     //Choose the correct rect min and rect max functions for x and y directions
     switch (movement) {
-        case kColumn:
+        case kMovementColumn:
             rectMin = CGRectGetMinY;
             rectMax = CGRectGetMaxY;
             variable = y;
             maxVariable = board.rowCount;
             break;
             
-        case kRow:
+        case kMovementRow:
             rectMin = CGRectGetMinX;
             rectMax = CGRectGetMaxX;
             variable = x;
@@ -130,11 +129,11 @@
     int i, row, column;
     //Find the lowest index block that we can move, and mark the first unmoveable block if it exists
     for (i = variable; i >= 0; i--) {
-        if (movement == kColumn) {
+        if (movement == kMovementColumn) {
             row = i;
             column = x;
         }
-        else if (movement == kRow) {
+        else if (movement == kMovementRow) {
             row = y;
             column = i;
         }
@@ -149,11 +148,11 @@
     
     //Find all the blocks we can move, and mark the highest unmoveable block if it exists
     for (i = MAX(0, i + 1); i < maxVariable; i++) {
-        if (movement == kColumn) {
+        if (movement == kMovementColumn) {
             row = i;
             column = x;
         }
-        else if (movement == kRow) {
+        else if (movement == kMovementRow) {
             row = y;
             column = i;
         }
@@ -203,13 +202,13 @@
     
     //Move all of the moving blocks by distance in the correct direction
     for (BlockSprite *block in movingBlocks) {
-        if (movement == kColumn)
+        if (movement == kMovementColumn)
             block.position = ccp(block.position.x, block.position.y + limitedDistance);
-        else if (movement == kRow)
+        else if (movement == kMovementRow)
             block.position = ccp(block.position.x + limitedDistance, block.position.y);
         
         //Let the block know it was moved
-        [block onMoveWithDistance:distance vertically:(movement == kColumn)];
+        [block onMoveWithDistance:distance vertically:(movement == kMovementColumn)];
     }
 }
 

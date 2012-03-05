@@ -51,19 +51,19 @@
 
 - (void) onQuickplay: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[DifficultyMenu scene:QUICKPLAY]]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu scene:QUICKPLAY]]];
 }
 
 - (void) onSinglePlayer: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[SinglePlayerMenu scene]]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerMenu scene]]];
 }
 
 - (void) onMultiplayer: (id) sender
 {
   if ([GameCenterHub sharedInstance].gameCenterAvailable) 
   { 
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[MultiplayerMenu scene]]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
   }
   else
   {
@@ -73,12 +73,12 @@
 
 - (void) onOptions: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[OptionsMenu scene]]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[OptionsMenu scene]]];
 }
 
 - (void) onAchievements: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[AchievementsMenu scene]]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[AchievementsMenu scene]]];
 }
 
 

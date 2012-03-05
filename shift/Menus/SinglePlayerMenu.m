@@ -76,7 +76,7 @@
     if(levelNum<=highestLevel)
     {
         SinglePlayerGame *game = [SinglePlayerGame gameWithLevel:levelNum];
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:TRANS_TIME scene:game]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:kSceneTransitionTime scene:game]];
     }
 }
 
