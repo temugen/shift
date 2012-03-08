@@ -8,6 +8,8 @@
 
 #import "GameScene.h"
 
+#define kBufferSpace 20
+
 @implementation GameScene
 
 -(id) init
@@ -21,7 +23,7 @@
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
         float sampleSize = CGRectGetWidth([sampleGoal boundingBox]);
-        float requestedCellSize = MIN(sampleSize, screenSize.height / kDifficultyHard);
+        float requestedCellSize = MIN(sampleSize, (screenSize.height - kBufferSpace) / kDifficultyHard);
         cellSize = CGSizeMake(requestedCellSize, requestedCellSize);
         
         [[NSNotificationCenter defaultCenter] addObserver:self

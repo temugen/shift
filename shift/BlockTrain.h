@@ -19,6 +19,8 @@
     BoardLayer *board;
     float totalDx, totalDy;
     
+    CCRibbon *ribbon;
+    
     @public
     BOOL rightLeft;
     Movement movement;

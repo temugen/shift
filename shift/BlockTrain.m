@@ -161,6 +161,38 @@
             [movingBlocks addObject:block];
         }
     }
+    
+    //There is nothing to move
+    if ([movingBlocks count] == 0) {
+        return;
+    }
+
+    ribbon = [CCRibbon ribbonWithWidth:10 image:@"beam.png" length:10000 color:ccc4(255, 255, 255, 255) fade:0.5];
+    [self addChild:ribbon z:8];
+    BlockSprite *lowBlock = [movingBlocks objectAtIndex:0];
+    BlockSprite *highBlock = [movingBlocks objectAtIndex:[movingBlocks count]-1];
+    
+    CGSize blockSize = [lowBlock boundingBox].size;
+    if (movement == kMovementColumn) {
+        CGPoint lowMiddleTop = [lowBlock boundingBox].origin;
+        lowMiddleTop.x += blockSize.width / 2;
+        lowMiddleTop.y += blockSize.height;
+        [ribbon addPointAt:lowMiddleTop width:10.0];
+        
+        CGPoint highMiddleBottom = [highBlock boundingBox].origin;
+        highMiddleBottom.x += blockSize.width / 2;
+        [ribbon addPointAt:highMiddleBottom width:10.0];
+    }
+    else if (movement == kMovementRow) {
+        CGPoint lowMiddleRight = [lowBlock boundingBox].origin;
+        lowMiddleRight.x += blockSize.width;
+        lowMiddleRight.y += blockSize.height / 2;
+        [ribbon addPointAt:lowMiddleRight width:10.0];
+        
+        CGPoint highMiddleLeft = [highBlock boundingBox].origin;
+        highMiddleLeft.y += blockSize.height / 2;
+        [ribbon addPointAt:highMiddleLeft width:10.0];
+    }
 }
 
 -(void) moveBlocksWithDistance:(float)distance
@@ -204,10 +236,23 @@
         //Let the block know it was moved
         [block onMoveWithDistance:distance vertically:(movement == kMovementColumn)];
     }
+    
+    //Move the ribbon
+    if (movement == kMovementRow)
+        ribbon.position = ccp(ribbon.position.x + limitedDistance, ribbon.position.y);
+    else if (movement == kMovementColumn)
+        ribbon.position = ccp(ribbon.position.x, ribbon.position.y + limitedDistance);
 }
 
 -(void) snapMovingBlocks
 {
+    //There is nothing to snap
+    if ([movingBlocks count] == 0) {
+        return;
+    }
+    
+    [self removeChild:ribbon cleanup:YES];
+    
     NSEnumerator *enumerator = [movingBlocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
         //Clear the block's space on the board
