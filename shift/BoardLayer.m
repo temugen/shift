@@ -178,6 +178,19 @@
     return self;
 }
 
+-(void) draw
+{
+    glEnable(GL_LINE_SMOOTH);
+    for (int x = 0; x <= columnCount; x++) {
+        ccDrawLine(ccp(CGRectGetMinX(boundingBox) + x * cellSize.width, CGRectGetMinY(boundingBox)),
+                   ccp(CGRectGetMinX(boundingBox) + x * cellSize.width, CGRectGetMaxY(boundingBox)));
+    }
+    for (int y = 0; y <= rowCount; y++) {
+        ccDrawLine(ccp(CGRectGetMinX(boundingBox), CGRectGetMinY(boundingBox) + y * cellSize.height),
+                   ccp(CGRectGetMaxX(boundingBox), CGRectGetMinY(boundingBox) + y * cellSize.height));
+    }
+}
+
 -(void) saveSnapshot
 {
     [initialBlocks removeAllObjects];
@@ -214,7 +227,6 @@
 
 -(void) dealloc
 {
-    //[initialBlocks release];
     [self clearBoard];
     free(blocks);
     free(goals);
