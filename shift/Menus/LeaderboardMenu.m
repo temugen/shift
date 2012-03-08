@@ -58,10 +58,6 @@
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
 }
 
--(void) dealloc
-{
-	[super dealloc];
-}
 
 
 @end

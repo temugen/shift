@@ -12,7 +12,7 @@
 
 +(QuickPlayGame *) gameWithNumberOfRows:(int)rows columns:(int)columns;
 {
-    return [[[QuickPlayGame alloc] initWithNumberOfRows:rows columns:columns] autorelease];
+    return [[QuickPlayGame alloc] initWithNumberOfRows:rows columns:columns];
 }
 
 -(id) initWithNumberOfRows:(int)rows columns:(int)columns

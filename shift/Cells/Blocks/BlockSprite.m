@@ -19,16 +19,10 @@
     return self;
 }
 
--(void) dealloc
-{
-    //[name release];
-    
-    [super dealloc];
-}
 
 +(id) blockWithName:(NSString *)name
 {
-    return [[[[self class] alloc] initWithName:name] autorelease];
+    return [[[self class] alloc] initWithName:name];
 }
 
 @end

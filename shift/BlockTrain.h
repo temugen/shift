@@ -8,7 +8,6 @@
 
 #import "cocos2d.h"
 #import "BlockSprite.h"
-#import "GameConfig.h"
 
 @interface BlockTrain : CCLayer
 {

@@ -28,17 +28,10 @@
     return self;
 }
 
--(void) dealloc
-{
-    [textureFilename release];
-    [name release];
-    
-    [super dealloc];
-}
 
 -(id) copyWithZone:(NSZone *)zone
 {
-    CellSprite *cell = [[[[self class] alloc] initWithFilename:textureFilename] autorelease];
+    CellSprite *cell = [[[self class] alloc] initWithFilename:textureFilename];
     [cell resize:[self boundingBox].size];
     cell.name = name;
     cell.column = column;

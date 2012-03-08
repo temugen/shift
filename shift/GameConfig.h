@@ -42,19 +42,19 @@
 #endif
 
 //Describes the current movement occurring on a block train
-typedef enum {
+typedef enum Movement {
     kMovementColumn,
     kMovementRow,
     kMovementNone
 } Movement;
 
-typedef enum{
+typedef enum Difficulty {
     kDifficultyEasy = 3,
     kDifficultyMedium = 5,
     kDifficultyHard = 7
 } Difficulty;
 
-typedef enum {
+typedef enum gamemode {
     QUICKPLAY,
     SINGLE,
     RANDOMMULTI,

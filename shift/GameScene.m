@@ -7,7 +7,6 @@
 //
 
 #import "GameScene.h"
-#import "GameConfig.h"
 
 @implementation GameScene
 
@@ -15,7 +14,7 @@
 {
     if ((self = [super init])) {
         //Add Control Layer (Reset, Menu)
-        cLayer = [[[ControlLayer alloc] init] retain];
+        cLayer = [[ControlLayer alloc] init];
         [self addChild:cLayer];
         
         //Set cell size for platform

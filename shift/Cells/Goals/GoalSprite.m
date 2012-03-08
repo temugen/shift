@@ -20,7 +20,7 @@
 
 +(id) goalWithName:(NSString *)name
 {
-    return [[[self alloc] initWithName:name] autorelease];
+    return [[self alloc] initWithName:name];
 }
 
 @end

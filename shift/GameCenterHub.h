@@ -15,7 +15,7 @@
   RootViewController* rootViewController;
   BOOL gameCenterAvailable;
   BOOL userAuthenticated;  
-  NSNotificationCenter* notificationCenter;
+  NSNotificationCenter* __weak notificationCenter;
   NSError* lastError;
   
   GKMatch* match;
@@ -24,8 +24,8 @@
 
 @property (nonatomic, readonly) NSNotificationCenter* notificationCenter;
 @property (assign, readonly) BOOL gameCenterAvailable;
-@property (retain) RootViewController* rootViewController;
-@property (nonatomic, retain) GKMatch* match;
+@property (strong) RootViewController* rootViewController;
+@property (nonatomic, strong) GKMatch* match;
 @property (nonatomic, readonly) NSError* lastError;
 
 // Initialization functions

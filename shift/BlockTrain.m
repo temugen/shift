@@ -24,7 +24,7 @@
 
 +(id) trainFromBoard:(BoardLayer *)boardLayer x:(int)x y:(int)y
 {
-    return [[[BlockTrain alloc] initFromBoard:boardLayer x:x y:y] autorelease];
+    return [[BlockTrain alloc] initFromBoard:boardLayer x:x y:y];
 }
 
 -(id) initFromBoard:(BoardLayer *)boardLayer x:(int)x y:(int)y
@@ -39,7 +39,7 @@
         initialRow = y;
         initialColumn = x;
         
-        movingBlocks = [[NSMutableArray arrayWithCapacity:MAX(board.rowCount, board.columnCount)] retain];
+        movingBlocks = [NSMutableArray arrayWithCapacity:MAX(board.rowCount, board.columnCount)];
         
         [board addChild:self];
     }
@@ -47,12 +47,6 @@
     return self;
 }
 
--(void) dealloc
-{
-    [movingBlocks release];
-    
-    [super dealloc];
-}
 
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {

@@ -8,7 +8,6 @@
 
 #import "WildcardBlock.h"
 #import "BoardLayer.h"
-#import "GameConfig.h"
 
 @implementation WildcardBlock
 

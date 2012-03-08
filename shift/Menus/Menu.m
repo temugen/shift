@@ -33,9 +33,5 @@
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
--(void) dealloc
-{
-	[super dealloc];
-}
 
 @end

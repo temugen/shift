@@ -33,7 +33,7 @@ static GameCenterHub* sharedHelper = nil;
   @synchronized(self)
   {
     NSAssert(sharedHelper == nil, @"Attempted to alloc second GCHub");
-    sharedHelper = [[super alloc] retain];
+    sharedHelper = [super alloc];
     return sharedHelper;
   }
   return nil;
@@ -55,12 +55,8 @@ static GameCenterHub* sharedHelper = nil;
 
 - (void) dealloc
 {
-  [sharedHelper release];
   sharedHelper = nil;
-  [match release];
-  [lastError release];
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [super dealloc];
 }
 
 
@@ -110,7 +106,7 @@ static GameCenterHub* sharedHelper = nil;
 
 - (void) inviteFriends: (NSArray*) identifiers
 {
-  GKFriendRequestComposeViewController* friendRequestVc = [[[GKFriendRequestComposeViewController alloc] init] autorelease];
+  GKFriendRequestComposeViewController* friendRequestVc = [[GKFriendRequestComposeViewController alloc] init];
   friendRequestVc.composeViewDelegate = self;
   if (identifiers)
   {
@@ -137,7 +133,6 @@ static GameCenterHub* sharedHelper = nil;
     achievements.achievementDelegate = self;
     [rootViewController presentModalViewController: achievements animated: YES];
   }
-  [achievements release];
 }
 
 - (void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController 
@@ -153,7 +148,7 @@ static GameCenterHub* sharedHelper = nil;
 - (void) showLeaderboard:(NSString*) category
 {
   if (!gameCenterAvailable) return;
-  GKLeaderboardViewController* leaderboardVc = [[[GKLeaderboardViewController alloc] init] autorelease];
+  GKLeaderboardViewController* leaderboardVc = [[GKLeaderboardViewController alloc] init];
   if (leaderboardVc != nil)
   {
     leaderboardVc.leaderboardDelegate = self;
@@ -175,11 +170,11 @@ static GameCenterHub* sharedHelper = nil;
   GKLeaderboard* leaderboard = nil;
   if ([players count] > 0)
   {
-    leaderboard = [[[GKLeaderboard alloc] init] autorelease];
+    leaderboard = [[GKLeaderboard alloc] init];
   }
   else 
   {
-    leaderboard = [[[GKLeaderboard alloc] initWithPlayerIDs:players] autorelease];
+    leaderboard = [[GKLeaderboard alloc] initWithPlayerIDs:players];
     leaderboard.playerScope = playerScope;
     leaderboard.category = category;
   }
@@ -199,7 +194,7 @@ static GameCenterHub* sharedHelper = nil;
 - (void) submitScore:(int64_t)score category:(NSString *)category
 {
   if (!gameCenterAvailable) return;
-  GKScore* myScore = [[[GKScore alloc] init] autorelease];
+  GKScore* myScore = [[GKScore alloc] init];
   myScore.value = score;
   [myScore reportScoreWithCompletionHandler:^(NSError* error)
    {
@@ -226,11 +221,11 @@ static GameCenterHub* sharedHelper = nil;
   match = nil;
   [rootViewController dismissModalViewControllerAnimated:NO];
   
-  GKMatchRequest* request = [[[GKMatchRequest alloc] init] autorelease];
+  GKMatchRequest* request = [[GKMatchRequest alloc] init];
   request.minPlayers = 2;
   request.maxPlayers = 2;
   
-  GKMatchmakerViewController* matchmakerVc = [[[GKMatchmakerViewController alloc] initWithMatchRequest:request] autorelease];
+  GKMatchmakerViewController* matchmakerVc = [[GKMatchmakerViewController alloc] initWithMatchRequest:request];
   matchmakerVc.matchmakerDelegate = self;
   
   [rootViewController presentModalViewController:matchmakerVc animated:YES];
@@ -337,7 +332,6 @@ static GameCenterHub* sharedHelper = nil;
 
 - (void) setError:(NSError*) error
 {
-  [lastError release];
   lastError = [error copy];
   if (lastError)
   {

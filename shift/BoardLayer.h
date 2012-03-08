@@ -12,8 +12,8 @@
 
 @interface BoardLayer : CCLayer
 {
-	BlockSprite **blocks;
-    GoalSprite **goals;
+    __unsafe_unretained BlockSprite **blocks;
+    __unsafe_unretained GoalSprite **goals;
     NSMutableSet *initialBlocks;
     
     @public

@@ -107,9 +107,5 @@ DifficultyMenu* layer;
     }
 }
 
--(void) dealloc
-{
-	[super dealloc];
-}
 
 @end

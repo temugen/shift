@@ -7,14 +7,13 @@
 //
 
 #import "SinglePlayerGame.h"
-#import "GameConfig.h"
 #import "MainMenu.h"
 
 @implementation SinglePlayerGame
 
 +(SinglePlayerGame *) gameWithLevel:(int)level
 {
-    return [[[SinglePlayerGame alloc] initWithLevel:level] autorelease];
+    return [[SinglePlayerGame alloc] initWithLevel:level];
 }
 
 -(id) initWithLevel:(int)level

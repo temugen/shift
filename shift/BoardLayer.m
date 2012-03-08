@@ -7,7 +7,6 @@
 //
 
 #import "BoardLayer.h"
-#import "GameConfig.h"
 #import "BlockTrain.h"
 
 @interface BoardLayer()
@@ -31,12 +30,12 @@
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {
-    return [[[BoardLayer alloc] initRandomWithNumberOfColumns:columns rows:rows center:center cellSize:size] autorelease];
+    return [[BoardLayer alloc] initRandomWithNumberOfColumns:columns rows:rows center:center cellSize:size];
 }
 
 +(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
 {
-    return [[[BoardLayer alloc] initWithFilename:filename center:center cellSize:size] autorelease];
+    return [[BoardLayer alloc] initWithFilename:filename center:center cellSize:size];
 }
 
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
@@ -50,12 +49,12 @@
         
         //Make room in our board array for all of the blocks
         int cellCount = rowCount * columnCount;
-        blocks = (BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
-        goals = (GoalSprite **)malloc(cellCount * sizeof(GoalSprite *));
+        blocks = (__unsafe_unretained BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
+        goals = (__unsafe_unretained GoalSprite **)malloc(cellCount * sizeof(GoalSprite *));
         memset(blocks, 0, cellCount * sizeof(BlockSprite *));
         memset(goals, 0, cellCount * sizeof(GoalSprite *));
         
-        initialBlocks = [[NSMutableSet setWithCapacity:cellCount] retain];
+        initialBlocks = [NSMutableSet setWithCapacity:cellCount];
 
         cellSize = size;
 
@@ -220,7 +219,6 @@
     free(blocks);
     free(goals);
     
-    [super dealloc];
 }
 
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y
