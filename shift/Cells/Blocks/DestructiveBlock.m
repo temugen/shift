@@ -15,25 +15,37 @@
 {
     NSString *filename = [NSString stringWithFormat:@"block_destructive.png"];
     if ((self = [super initWithFilename:filename])) {
-        health = 4;
+        health = 400;
+        comparable = NO;
+        movable = NO;
+        name = blockName;
     }
     return self;
 }
 
--(void) decreaseHealth
+-(void) decreaseHealthBy:(int)damage;
 {
     int decreasedHealth = self.health;
-    if(health > 0) decreasedHealth--;
+    if(health > 0) decreasedHealth -= damage;
     self.health = decreasedHealth;
 }
 
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force
 {
+    if([cell.name isEqualToString:@"ram"])
+    {
+     
+    }
+    if(force < 30)
+        return NO;
+    
+    NSLog(@"Health is %i", self.health);
     if(self.health >0)
     {
-        [self decreaseHealth];
+        [self decreaseHealthBy:force];
+        NSLog(@"Health is %i", self.health);
     }
-    else if(self.health == 0)
+    else if(self.health <= 0)
     {
         [self destroyBlock];
     }
