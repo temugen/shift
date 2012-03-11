@@ -56,7 +56,7 @@
   if ([GameCenterHub sharedInstance].gameCenterAvailable) 
   {
     // TODO implement achievements and cache
-    [[GameCenterHub sharedInstance] showAchievements];
+    //[[GameCenterHub sharedInstance] displayAvailableAchievements];
   }
   else
   {

@@ -18,13 +18,10 @@
   NSNotificationCenter* __weak notificationCenter;
   NSError* lastError;
   
-  NSMutableDictionary* achievementDict;
-  
   GKMatch* match;
   BOOL matchStarted;
 }
 
-@property(nonatomic, retain) NSMutableDictionary* achievementDict;
 @property (nonatomic, readonly) NSNotificationCenter* notificationCenter;
 @property (assign, readonly) BOOL gameCenterAvailable;
 @property (strong) RootViewController* rootViewController;
@@ -44,15 +41,13 @@
 
 // Achievements functions
 - (void) showAchievements;
-- (void) loadAchievements;
-- (void) achievementViewControllerDidFinish:(GKAchievementViewController*) viewController;
-- (void) retrieveAchievmentMetadata;
-- (void) reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent;
-- (GKAchievement*) addOrFindIdentifier:(NSString*)identifier;
+- (void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController;
 
 // LeaderBoard functions
 - (void) showLeaderboard:(NSString*)category;
 - (void) submitScore:(int64_t)score category:(NSString*)category;
+- (void) retrieveScoresForPlayers:(NSArray*)players category:(NSString*)category range:(NSRange)range playerScope:(GKLeaderboardPlayerScope)playerScope timeScope:(GKLeaderboardTimeScope)timeScope;
+- (void) retrieveTopTenAllTimeGlobalScores;
 
 // Matchmaking functions
 - (void) findRandomMatch;
