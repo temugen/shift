@@ -7,14 +7,13 @@
 //
 
 #import "SinglePlayerGame.h"
-#import "GameConfig.h"
 #import "MainMenu.h"
 
 @implementation SinglePlayerGame
 
 +(SinglePlayerGame *) gameWithLevel:(int)level
 {
-    return [[[SinglePlayerGame alloc] initWithLevel:level] autorelease];
+    return [[SinglePlayerGame alloc] initWithLevel:level];
 }
 
 -(id) initWithLevel:(int)level
@@ -23,16 +22,10 @@
         currentLevel = level;
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         boardCenter = CGPointMake((screenSize.width / 2), (screenSize.height / 2));
-        cellSize = CGSizeMake(40.0, 40.0);
         
         board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
                                        center:boardCenter
                                      cellSize:cellSize];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onBoardComplete:)
-                                                     name:@"BoardComplete"
-                                                   object:nil];
         
         [self addChild:board];
     }
@@ -57,7 +50,7 @@
     //If user completed all levels, return to Main Menu (for now). Maybe display some congratulatory message? Fireworks?
     if(currentLevel > NUM_LEVELS)
     {
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:TRANS_TIME scene:[MainMenu scene]]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
     }
     else
     {

@@ -55,13 +55,9 @@
 
 - (void) goBack: (id) sender
 {
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:TRANS_TIME scene:[MultiplayerMenu scene]]];
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
 }
 
--(void) dealloc
-{
-	[super dealloc];
-}
 
 
 @end

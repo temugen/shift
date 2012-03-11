@@ -38,27 +38,27 @@
         int column = rotationBlock.column, row = rotationBlock.row;
         
         //Make room for all of the blocks surrounding the rotation block
-        blocks = [[NSMutableArray arrayWithCapacity:8] retain];
+        blocks = [NSMutableArray arrayWithCapacity:8];
         
         //Store the x positions in order clockwise
-        xs = [[NSMutableArray arrayWithObjects:[NSNumber numberWithInt:column - 1],
+        xs = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:column - 1],
                               [NSNumber numberWithInt:column],
                               [NSNumber numberWithInt:column + 1],
                               [NSNumber numberWithInt:column + 1],
                               [NSNumber numberWithInt:column + 1],
                               [NSNumber numberWithInt:column],
                               [NSNumber numberWithInt:column - 1],
-                              [NSNumber numberWithInt:column - 1], nil] retain];
+                              [NSNumber numberWithInt:column - 1], nil];
         
         //Store the y positions in order clockwise
-        ys = [[NSMutableArray arrayWithObjects:[NSNumber numberWithInt:row + 1],
+        ys = [NSMutableArray arrayWithObjects:[NSNumber numberWithInt:row + 1],
                               [NSNumber numberWithInt:row + 1],
                               [NSNumber numberWithInt:row + 1],
                               [NSNumber numberWithInt:row],
                               [NSNumber numberWithInt:row - 1],
                               [NSNumber numberWithInt:row - 1],
                               [NSNumber numberWithInt:row - 1],
-                              [NSNumber numberWithInt:row], nil] retain];
+                              [NSNumber numberWithInt:row], nil];
         
         //Store the indices of all positions off the board
         NSMutableIndexSet *badIndexes = [NSMutableIndexSet indexSet];
@@ -94,14 +94,6 @@
     return self;
 }
 
--(void) dealloc
-{
-    [blocks dealloc];
-    [xs dealloc];
-    [ys dealloc];
-    
-    [super dealloc];
-}
 
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -169,7 +161,7 @@
     board.isTouchEnabled = NO;
     
     //Add the input layer to the scene
-    RotationBlockLayer *rotationBlockLayer = [[[RotationBlockLayer alloc] initWithRotationBlock:self] autorelease];
+    RotationBlockLayer *rotationBlockLayer = [[RotationBlockLayer alloc] initWithRotationBlock:self];
     [board addChild:rotationBlockLayer];
     
     return NO;

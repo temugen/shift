@@ -42,20 +42,19 @@
 #endif
 
 //Describes the current movement occurring on a block train
-typedef enum {
-    kColumn,
-    kRow,
-    kNone,
-    kStarted
+typedef enum Movement {
+    kMovementColumn,
+    kMovementRow,
+    kMovementNone
 } Movement;
 
-typedef enum{
-    EASY,
-    MEDIUM,
-    HARD
-} difficulty;
+typedef enum Difficulty {
+    kDifficultyEasy = 3,
+    kDifficultyMedium = 5,
+    kDifficultyHard = 7
+} Difficulty;
 
-typedef enum {
+typedef enum gamemode {
     QUICKPLAY,
     SINGLE,
     RANDOMMULTI,
@@ -72,7 +71,7 @@ typedef enum {
 #define len(array) (sizeof((array))/sizeof(typeof((array[0]))))
 
 //Scene transition time
-#define TRANS_TIME 0.3f
+#define kSceneTransitionTime 0.3f
 
 static NSString * const colors[] = {
     @"blue",

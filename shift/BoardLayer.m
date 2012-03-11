@@ -7,7 +7,6 @@
 //
 
 #import "BoardLayer.h"
-#import "GameConfig.h"
 #import "BlockTrain.h"
 
 @interface BoardLayer()
@@ -31,12 +30,12 @@
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {
-    return [[[BoardLayer alloc] initRandomWithNumberOfColumns:columns rows:rows center:center cellSize:size] autorelease];
+    return [[BoardLayer alloc] initRandomWithNumberOfColumns:columns rows:rows center:center cellSize:size];
 }
 
 +(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
 {
-    return [[[BoardLayer alloc] initWithFilename:filename center:center cellSize:size] autorelease];
+    return [[BoardLayer alloc] initWithFilename:filename center:center cellSize:size];
 }
 
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
@@ -50,12 +49,12 @@
         
         //Make room in our board array for all of the blocks
         int cellCount = rowCount * columnCount;
-        blocks = (BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
-        goals = (GoalSprite **)malloc(cellCount * sizeof(GoalSprite *));
+        blocks = (__unsafe_unretained BlockSprite **)malloc(cellCount * sizeof(BlockSprite *));
+        goals = (__unsafe_unretained GoalSprite **)malloc(cellCount * sizeof(GoalSprite *));
         memset(blocks, 0, cellCount * sizeof(BlockSprite *));
         memset(goals, 0, cellCount * sizeof(GoalSprite *));
         
-        initialBlocks = [[NSMutableSet setWithCapacity:cellCount] retain];
+        initialBlocks = [NSMutableSet setWithCapacity:cellCount];
 
         cellSize = size;
 
@@ -179,6 +178,19 @@
     return self;
 }
 
+-(void) draw
+{
+    glEnable(GL_LINE_SMOOTH);
+    for (int x = 0; x <= columnCount; x++) {
+        ccDrawLine(ccp(CGRectGetMinX(boundingBox) + x * cellSize.width, CGRectGetMinY(boundingBox)),
+                   ccp(CGRectGetMinX(boundingBox) + x * cellSize.width, CGRectGetMaxY(boundingBox)));
+    }
+    for (int y = 0; y <= rowCount; y++) {
+        ccDrawLine(ccp(CGRectGetMinX(boundingBox), CGRectGetMinY(boundingBox) + y * cellSize.height),
+                   ccp(CGRectGetMaxX(boundingBox), CGRectGetMinY(boundingBox) + y * cellSize.height));
+    }
+}
+
 -(void) saveSnapshot
 {
     [initialBlocks removeAllObjects];
@@ -215,12 +227,10 @@
 
 -(void) dealloc
 {
-    //[initialBlocks release];
     [self clearBoard];
     free(blocks);
     free(goals);
     
-    [super dealloc];
 }
 
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y

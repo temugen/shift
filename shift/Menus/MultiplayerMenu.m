@@ -54,13 +54,9 @@
 - (void) onLeaderboard: (id) sender
 {
   gamemode selection = [sender tag];
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:TRANS_TIME scene:[LeaderboardMenu scene:selection]]];
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu scene:selection]]];
 }
 
 
-- (void) dealloc
-{
-	[super dealloc];
-}
 
 @end

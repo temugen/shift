@@ -14,7 +14,7 @@
 
 -(id) initWithName:(NSString *)blockName
 {
-    NSString *filename = [NSString stringWithFormat:@"%@_lock.png",name];
+    NSString *filename = [NSString stringWithFormat:@"%@_lock.png", blockName];
     if ((self = [super initWithFilename:filename])) {
         comparable = YES;
         movable = NO;

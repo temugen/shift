@@ -24,15 +24,14 @@
 
 +(id) trainFromBoard:(BoardLayer *)boardLayer x:(int)x y:(int)y
 {
-    return [[[BlockTrain alloc] initFromBoard:boardLayer x:x y:y] autorelease];
+    return [[BlockTrain alloc] initFromBoard:boardLayer x:x y:y];
 }
 
 -(id) initFromBoard:(BoardLayer *)boardLayer x:(int)x y:(int)y
 {
     if ((self = [super init])) {
         board.isTouchEnabled = NO;
-        
-        movement = kStarted;
+        movement = kMovementNone;
         self.isTouchEnabled = YES;
         
         totalDx = totalDy = 0;
@@ -40,7 +39,7 @@
         initialRow = y;
         initialColumn = x;
         
-        movingBlocks = [[NSMutableArray arrayWithCapacity:MAX(board.rowCount, board.columnCount)] retain];
+        movingBlocks = [NSMutableArray arrayWithCapacity:MAX(board.rowCount, board.columnCount)];
         
         [board addChild:self];
     }
@@ -48,12 +47,6 @@
     return self;
 }
 
--(void) dealloc
-{
-    [movingBlocks release];
-    
-    [super dealloc];
-}
 
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -66,23 +59,23 @@
     float dx = location.x - prevLocation.x, dy = location.y - prevLocation.y;
     
     switch (movement) {
-        case kStarted:
+        case kMovementNone:
             totalDx += dx;
             totalDy += dy;
             
             if (ABS(totalDx - totalDy) > directionThreshold) {
                 if (ABS(totalDx) > ABS(totalDy))
-                    movement = kRow;
+                    movement = kMovementRow;
                 else
-                    movement = kColumn;
+                    movement = kMovementColumn;
                 
                 [self containMovementAtX:initialColumn y:initialRow];
             }
             break;
             
-        case kRow:
-        case kColumn:
-            [self moveBlocksWithDistance:(movement == kRow ? dx : dy)];
+        case kMovementRow:
+        case kMovementColumn:
+            [self moveBlocksWithDistance:(movement == kMovementRow ? dx : dy)];
             break;
             
         default:
@@ -105,14 +98,14 @@
     
     //Choose the correct rect min and rect max functions for x and y directions
     switch (movement) {
-        case kColumn:
+        case kMovementColumn:
             rectMin = CGRectGetMinY;
             rectMax = CGRectGetMaxY;
             variable = y;
             maxVariable = board.rowCount;
             break;
             
-        case kRow:
+        case kMovementRow:
             rectMin = CGRectGetMinX;
             rectMax = CGRectGetMaxX;
             variable = x;
@@ -130,11 +123,11 @@
     int i, row, column;
     //Find the lowest index block that we can move, and mark the first unmoveable block if it exists
     for (i = variable; i >= 0; i--) {
-        if (movement == kColumn) {
+        if (movement == kMovementColumn) {
             row = i;
             column = x;
         }
-        else if (movement == kRow) {
+        else if (movement == kMovementRow) {
             row = y;
             column = i;
         }
@@ -149,11 +142,11 @@
     
     //Find all the blocks we can move, and mark the highest unmoveable block if it exists
     for (i = MAX(0, i + 1); i < maxVariable; i++) {
-        if (movement == kColumn) {
+        if (movement == kMovementColumn) {
             row = i;
             column = x;
         }
-        else if (movement == kRow) {
+        else if (movement == kMovementRow) {
             row = y;
             column = i;
         }
@@ -167,6 +160,38 @@
         else if (block != nil && block.movable) {
             [movingBlocks addObject:block];
         }
+    }
+    
+    //There is nothing to move
+    if ([movingBlocks count] == 0) {
+        return;
+    }
+
+    ribbon = [CCRibbon ribbonWithWidth:10 image:@"beam.png" length:10000 color:ccc4(255, 255, 255, 255) fade:0.5];
+    [self addChild:ribbon z:8];
+    BlockSprite *lowBlock = [movingBlocks objectAtIndex:0];
+    BlockSprite *highBlock = [movingBlocks objectAtIndex:[movingBlocks count]-1];
+    
+    CGSize blockSize = [lowBlock boundingBox].size;
+    if (movement == kMovementColumn) {
+        CGPoint lowMiddleTop = [lowBlock boundingBox].origin;
+        lowMiddleTop.x += blockSize.width / 2;
+        lowMiddleTop.y += blockSize.height;
+        [ribbon addPointAt:lowMiddleTop width:10.0];
+        
+        CGPoint highMiddleBottom = [highBlock boundingBox].origin;
+        highMiddleBottom.x += blockSize.width / 2;
+        [ribbon addPointAt:highMiddleBottom width:10.0];
+    }
+    else if (movement == kMovementRow) {
+        CGPoint lowMiddleRight = [lowBlock boundingBox].origin;
+        lowMiddleRight.x += blockSize.width;
+        lowMiddleRight.y += blockSize.height / 2;
+        [ribbon addPointAt:lowMiddleRight width:10.0];
+        
+        CGPoint highMiddleLeft = [highBlock boundingBox].origin;
+        highMiddleLeft.y += blockSize.height / 2;
+        [ribbon addPointAt:highMiddleLeft width:10.0];
     }
 }
 
@@ -203,18 +228,31 @@
     
     //Move all of the moving blocks by distance in the correct direction
     for (BlockSprite *block in movingBlocks) {
-        if (movement == kColumn)
+        if (movement == kMovementColumn)
             block.position = ccp(block.position.x, block.position.y + limitedDistance);
-        else if (movement == kRow)
+        else if (movement == kMovementRow)
             block.position = ccp(block.position.x + limitedDistance, block.position.y);
         
         //Let the block know it was moved
-        [block onMoveWithDistance:distance vertically:(movement == kColumn)];
+        [block onMoveWithDistance:distance vertically:(movement == kMovementColumn)];
     }
+    
+    //Move the ribbon
+    if (movement == kMovementRow)
+        ribbon.position = ccp(ribbon.position.x + limitedDistance, ribbon.position.y);
+    else if (movement == kMovementColumn)
+        ribbon.position = ccp(ribbon.position.x, ribbon.position.y + limitedDistance);
 }
 
 -(void) snapMovingBlocks
 {
+    //There is nothing to snap
+    if ([movingBlocks count] == 0) {
+        return;
+    }
+    
+    [self removeChild:ribbon cleanup:YES];
+    
     NSEnumerator *enumerator = [movingBlocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
         //Clear the block's space on the board

@@ -23,11 +23,11 @@ DifficultyMenu* layer;
         
         //Set up menu items
         CCMenuItemFont *easy = [CCMenuItemFont itemFromString:@"Easy" target:self selector: @selector(onSelection:)];
-        [easy setTag:EASY];
+        [easy setTag:kDifficultyEasy];
         CCMenuItemFont *medium = [CCMenuItemFont itemFromString:@"Medium" target:self selector: @selector(onSelection:)];
-        [medium setTag:MEDIUM];
+        [medium setTag:kDifficultyMedium];
         CCMenuItemFont *hard= [CCMenuItemFont itemFromString:@"Hard" target:self selector: @selector(onSelection:)];
-        [hard setTag:HARD];
+        [hard setTag:kDifficultyHard];
         CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
 
         //Add items to menu
@@ -52,31 +52,31 @@ DifficultyMenu* layer;
 
 - (void) onSelection: (id) sender
 {
-    difficulty diff = [sender tag];
+    Difficulty diff = [sender tag];
     
     if(layer->mode == QUICKPLAY)
     {
         QuickPlayGame *game;
         switch (diff) {
-            case EASY:
-                //TODO: Generate random easy puzzle
+            case kDifficultyEasy:
+                //TODO: Generate random kDifficultyEasy puzzle
                 NSLog(@"User selected Easy Quickplay");
-                game = [QuickPlayGame gameWithNumberOfRows:3 columns:3];
+                game = [QuickPlayGame gameWithNumberOfRows:kDifficultyEasy columns:kDifficultyEasy];
                 break;
-            case MEDIUM:
-                //TODO: Generate random medium puzzle
+            case kDifficultyMedium:
+                //TODO: Generate random kDifficultyMedium puzzle
                 NSLog(@"User selected Medium Quickplay");
-                game = [QuickPlayGame gameWithNumberOfRows:5 columns:5];
+                game = [QuickPlayGame gameWithNumberOfRows:kDifficultyMedium columns:kDifficultyMedium];
                 break;
-            case HARD:
-                //TODO: Generate random hard puzzle
+            case kDifficultyHard:
+                //TODO: Generate random kDifficultyHard puzzle
                 NSLog(@"User selected Hard Quickplay");
-                game = [QuickPlayGame gameWithNumberOfRows:7 columns:7];
+                game = [QuickPlayGame gameWithNumberOfRows:kDifficultyHard columns:kDifficultyHard];
                 break;
             default:
                 break;
         }
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:TRANS_TIME scene:game]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:kSceneTransitionTime scene:game]];
     }
     else //Multiplayer game
     {
@@ -98,18 +98,14 @@ DifficultyMenu* layer;
 {
     if(layer->mode==QUICKPLAY) //Return to Main Menu
     {
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:TRANS_TIME scene:[MainMenu scene]]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
     }
     else //Return to Multiplayer menu
     {
         [[CCDirector sharedDirector] replaceScene:
-                                        [CCTransitionSlideInL transitionWithDuration:TRANS_TIME scene:[MultiplayerMenu scene]]];
+                                        [CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
     }
 }
 
--(void) dealloc
-{
-	[super dealloc];
-}
 
 @end

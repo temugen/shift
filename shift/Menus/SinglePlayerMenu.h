@@ -8,7 +8,6 @@
 
 #import "cocos2d.h"
 #import "Menu.h"
-#import "GameConfig.h"
 
 @interface SinglePlayerMenu : Menu
 {

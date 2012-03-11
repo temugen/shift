@@ -7,7 +7,6 @@
 //
 
 #import "cocos2d.h"
-#import "GameConfig.h"
 
 @interface Menu : CCLayer
 

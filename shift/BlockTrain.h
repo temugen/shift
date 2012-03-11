@@ -8,7 +8,6 @@
 
 #import "cocos2d.h"
 #import "BlockSprite.h"
-#import "GameConfig.h"
 
 @interface BlockTrain : CCLayer
 {
@@ -19,6 +18,8 @@
     BlockSprite *lowImmovable, *highImmovable; 
     BoardLayer *board;
     float totalDx, totalDy;
+    
+    CCRibbon *ribbon;
     
     @public
     BOOL rightLeft;

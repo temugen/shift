@@ -15,7 +15,7 @@
 	RootViewController	*viewController;
 }
 
-@property (nonatomic, retain) UIWindow *window;
-@property (nonatomic, retain) RootViewController* viewController;
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) RootViewController* viewController;
 
 @end

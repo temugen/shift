@@ -14,7 +14,6 @@
 #import "cocos2d.h"
 
 #import "RootViewController.h"
-#import "GameConfig.h"
 
 @implementation RootViewController
 
@@ -143,9 +142,6 @@
 }
 
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end

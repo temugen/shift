@@ -9,7 +9,6 @@
 #import "cocos2d.h"
 
 #import "shiftAppDelegate.h"
-#import "GameConfig.h"
 #import "BoardLayer.h"
 #import "MainMenu.h"
 #import "RootViewController.h"
@@ -145,9 +144,7 @@
 	
 	[[director openGLView] removeFromSuperview];
 	
-	[viewController release];
 	
-	[window release];
 	
 	[director end];	
 }
@@ -157,9 +154,7 @@
 }
 
 - (void)dealloc {
-	[[CCDirector sharedDirector] release];
-	[window release];
-	[super dealloc];
+	[CCDirector sharedDirector];
 }
 
 @end
