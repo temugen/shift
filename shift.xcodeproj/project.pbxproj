@@ -87,6 +87,8 @@
 		985399AD14F18CE600713F65 /* SinglePlayerMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399A814F18CE600713F65 /* SinglePlayerMenu.m */; };
 		985399B014F1905500713F65 /* AchievementsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399AE14F1905500713F65 /* AchievementsMenu.m */; };
 		985399B114F1905500713F65 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399AF14F1905500713F65 /* MainMenu.m */; };
+		985A8D51150E6659005E771A /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8243E92C15081AC1003DEBAA /* libcocos2d.a */; };
+		985A8D52150E6659005E771A /* libCocosDenshion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8243E93015081AC1003DEBAA /* libCocosDenshion.a */; };
 		98657FDC14F412EF00584BD1 /* KeyBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FD914F412EE00584BD1 /* KeyBlock.m */; };
 		98657FDD14F412EF00584BD1 /* LockBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FDB14F412EE00584BD1 /* LockBlock.m */; };
 		98C218F114F96BAA002177F9 /* completeBoard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98C218F014F96BAA002177F9 /* completeBoard.plist */; };
@@ -721,6 +723,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				985A8D51150E6659005E771A /* libcocos2d.a in Frameworks */,
+				985A8D52150E6659005E771A /* libCocosDenshion.a in Frameworks */,
 				82470CC914EC882A00F60A7C /* SenTestingKit.framework in Frameworks */,
 				82470CCA14EC882A00F60A7C /* UIKit.framework in Frameworks */,
 				82470CCB14EC882A00F60A7C /* Foundation.framework in Frameworks */,
@@ -1802,7 +1806,7 @@
 		82470CD714EC882A00F60A7C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/shift.app/shift";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
@@ -1822,6 +1826,7 @@
 				INFOPLIST_FILE = "shiftLogicTests/shiftLogicTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/cocos2d/CocosDenshion/** ${SRCROOT}/cocos2d/cocos2d/**";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -1829,7 +1834,7 @@
 		82470CD814EC882A00F60A7C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/shift.app/shift";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
@@ -1844,6 +1849,7 @@
 				INFOPLIST_FILE = "shiftLogicTests/shiftLogicTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/cocos2d/CocosDenshion/** ${SRCROOT}/cocos2d/cocos2d/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = octest;
 			};
