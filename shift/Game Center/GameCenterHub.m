@@ -10,6 +10,7 @@
 #import <GameKit/GameKit.h>
 
 @implementation GameCenterHub
+
 @synthesize achievementDict;
 @synthesize notificationCenter;
 @synthesize rootViewController;
