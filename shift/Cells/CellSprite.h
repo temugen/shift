@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "cocos2d.h"
-
 @class BoardLayer;
 
 @interface CellSprite : CCSprite <NSCopying>

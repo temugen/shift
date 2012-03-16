@@ -70,6 +70,8 @@
 -(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {	
     if ((self = [self initWithNumberOfColumns:columns rows:rows center:center cellSize:size])) {
+        NSArray *colorNames = [colors allKeys];
+        
         //Fill the board in with new, random blocks
         for (int x = 0; x < columnCount; x++) {
             for (int y = 0; y < rowCount; y++) {
@@ -81,16 +83,16 @@
                     continue;
                 }
                 
-                int randomIndex = arc4random() % len(colors);
+                int randomIndex = arc4random() % [colors count];
                 
                 //Add the goal block
-                GoalSprite *goal = [GoalSprite goalWithName:colors[randomIndex]];
+                GoalSprite *goal = [GoalSprite goalWithName:[colorNames objectAtIndex:randomIndex]];
                 CGPoint scalingFactors = [goal resize:cellSize];
                 [self setGoal:goal x:x y:y];
                 [self addChild:goal z:0];
                 
                 //Add the user block
-                BlockSprite *block = [BlockSprite blockWithName:colors[randomIndex]];
+                BlockSprite *block = [BlockSprite blockWithName:[colorNames objectAtIndex:randomIndex]];
                 [block scaleWithFactors:scalingFactors];
                 [self setBlock:block x:x y:y];
                 [self addChild:block z:1];
@@ -181,11 +183,11 @@
 -(void) draw
 {
     glEnable(GL_LINE_SMOOTH);
-    for (int x = 0; x <= columnCount; x++) {
+    for (int x = 0; x <= columnCount; x += columnCount) {
         ccDrawLine(ccp(CGRectGetMinX(boundingBox) + x * cellSize.width, CGRectGetMinY(boundingBox)),
                    ccp(CGRectGetMinX(boundingBox) + x * cellSize.width, CGRectGetMaxY(boundingBox)));
     }
-    for (int y = 0; y <= rowCount; y++) {
+    for (int y = 0; y <= rowCount; y += rowCount) {
         ccDrawLine(ccp(CGRectGetMinX(boundingBox), CGRectGetMinY(boundingBox) + y * cellSize.height),
                    ccp(CGRectGetMaxX(boundingBox), CGRectGetMinY(boundingBox) + y * cellSize.height));
     }

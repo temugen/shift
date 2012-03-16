@@ -167,7 +167,7 @@
         return;
     }
 
-    ribbon = [CCRibbon ribbonWithWidth:10 image:@"beam.png" length:10000 color:ccc4(255, 255, 255, 255) fade:0.5];
+    ribbon = [CCRibbon ribbonWithWidth:10 image:@"block_connector.png" length:10000 color:ccc4(255, 255, 255, 255) fade:0.5];
     [self addChild:ribbon z:8];
     BlockSprite *lowBlock = [movingBlocks objectAtIndex:0];
     BlockSprite *highBlock = [movingBlocks objectAtIndex:[movingBlocks count]-1];

@@ -6,7 +6,6 @@
 //  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
-#import "cocos2d.h"
 #import "BlockSprite.h"
 #import "GoalSprite.h"
 

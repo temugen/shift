@@ -73,14 +73,22 @@ typedef enum gamemode {
 //Scene transition time
 #define kSceneTransitionTime 0.3f
 
-static NSString * const colors[] = {
-    @"blue",
-    @"red",
-    @"green",
-    @"purple",
-    @"yellow",
-    @"orange"
-};
+static NSMutableDictionary *colors;
+__attribute__((constructor))
+static void initialize_colors() {
+    colors = [[NSMutableDictionary alloc] initWithCapacity:20];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"colors" ofType:@"plist"];
+    NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSDictionary *defaults = [plist objectForKey:@"default"];
+    NSArray *colorNames = [defaults allKeys];
+    for (NSArray *colorName in colorNames) {
+        NSArray *colorValues = [defaults objectForKey:colorName];
+        ccColor3B color = ccc3([[colorValues objectAtIndex:0] intValue],
+                               [[colorValues objectAtIndex:1] intValue],
+                               [[colorValues objectAtIndex:2] intValue]);
+        [colors setObject:[NSData dataWithBytes:&color length:sizeof(color)] forKey:colorName];
+    }
+}
 
 #endif // __GAME_CONFIG_H
 

@@ -12,8 +12,10 @@
 
 -(id) initWithName:(NSString *)color
 {
-    if ((self = [super initWithFilename:[NSString stringWithFormat:@"goal_%@.png", color]])) {
+    if ((self = [super initWithFilename:[NSString stringWithFormat:@"goal.png", color]])) {
         name = color;
+        const ccColor3B *ccColor = [[colors objectForKey:color] bytes];
+        [self setColor:*ccColor];
     }
     return self;
 }

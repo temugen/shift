@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "cocos2d.h"
 #import "BoardLayer.h"
 #import "ControlLayer.h"
 

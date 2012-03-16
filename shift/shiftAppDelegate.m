@@ -6,8 +6,6 @@
 //  Copyright __MyCompanyName__ 2011. All rights reserved.
 //
 
-#import "cocos2d.h"
-
 #import "shiftAppDelegate.h"
 #import "BoardLayer.h"
 #import "MainMenu.h"
@@ -40,6 +38,11 @@
 	
 #endif // GAME_AUTOROTATION == kGameAutorotationUIViewController	
 }
+
+- (void) initColors
+{
+}
+
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
 	// Init the window
