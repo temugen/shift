@@ -25,7 +25,7 @@
 }
 
 @property(nonatomic, strong) NSMutableDictionary* achievementDict;
-@property (nonatomic, readonly) NSNotificationCenter* notificationCenter;
+@property (nonatomic, weak, readonly) NSNotificationCenter* notificationCenter;
 @property (assign, readonly) BOOL gameCenterAvailable;
 @property (strong) RootViewController* rootViewController;
 @property (nonatomic, strong) GKMatch* match;
