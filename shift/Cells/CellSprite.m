@@ -39,6 +39,7 @@
     cell.health = health;
     cell.comparable = comparable;
     cell.movable = movable;
+    [cell setColor:self.color];
     return cell;
 }
 
