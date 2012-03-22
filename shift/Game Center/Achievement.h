@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Achievement : NSObject
+@interface Achievement : NSObject<NSCoding>{
+    NSMutableDictionary * achievements;
+}
+-(NSMutableDictionary*) getAchievements;
+-(void)setAchievements:(NSMutableDictionary*) other;
 
 @end
