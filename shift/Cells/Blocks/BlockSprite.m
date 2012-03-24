@@ -20,7 +20,6 @@
     return self;
 }
 
-
 +(id) blockWithName:(NSString *)name
 {
     return [[[self class] alloc] initWithName:name];

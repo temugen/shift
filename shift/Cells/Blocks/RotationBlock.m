@@ -127,7 +127,7 @@
         int x = [[xs objectAtIndex:grabIndex] intValue],
             y = [[ys objectAtIndex:grabIndex] intValue];
         
-        [board setBlock:block x:x y:y];
+        [board moveBlock:block x:x y:y];
     }
 }
 

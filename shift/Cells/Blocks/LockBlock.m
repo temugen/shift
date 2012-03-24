@@ -87,8 +87,7 @@
         CGPoint scalingFactors = [sampleGoal resize:board.cellSize];
         BlockSprite *block = [KeyBlock blockWithName:@"key"];
         [block scaleWithFactors:scalingFactors];
-        [board setBlock:block x:x y:y];
-        [board addChild:block z:1];
+        [board addBlock:block x:x y:y];
         return true;
     }
     return false;

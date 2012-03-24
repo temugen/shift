@@ -239,37 +239,13 @@
     
     [board removeChild:ribbon cleanup:YES];
     
-    NSEnumerator *enumerator = [blocks objectEnumerator];
-    for (BlockSprite *block in enumerator) {
-        //Clear the block's space on the board
-        [board setBlock:nil x:block.column y:block.row];
-    }
-    
     int row,column;
-    enumerator = [blocks objectEnumerator];
+    NSEnumerator *enumerator = [blocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
         //Move the block to the closest cell's position on the board
         column = (int)roundf((block.position.x - board.cellSize.width / 2 -CGRectGetMinX(board.boundingBox)) / board.cellSize.width);
         row = (int)roundf((block.position.y - board.cellSize.height / 2 - CGRectGetMinY(board.boundingBox)) / board.cellSize.height);
-        
-        //If there is a block in the cell we want to snap to, shift the tiles back 1 space.
-        int vertShift = 0, horizShift = 0;
-        if([board blockAtX:column y:row])
-        {
-            if(block.row > row)
-                vertShift = 1;
-            else if (block.row < row)
-                vertShift = -1;
-            else if (block.column > column)
-                horizShift = 1;
-            else
-                horizShift = -1;
-        }
-        
-        block.row = row+vertShift;
-        block.column = column+horizShift;
-        
-        [board setBlock:block x:block.column y:block.row];
+        [board moveBlock:block x:column y:row];
     }
 }
 

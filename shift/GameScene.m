@@ -50,7 +50,7 @@
 -(void) onResetButtonPressed:(NSNotification *)notification
 {
     NSLog(@"Reset Button Pressed");
-    [board resetBoard];
+    [board reset];
 }
 
 -(void) onMenuButtonPressed:(NSNotification *)notification

@@ -19,6 +19,7 @@
     @public
     CGRect boundingBox;
     int rowCount, columnCount;
+    CGSize cellSize;
 }
 
 @property(readonly, assign) int rowCount, columnCount;
@@ -34,11 +35,12 @@
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
 
 -(BlockSprite *) blockAtX:(int)x y:(int)y;
--(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
+-(void) moveBlock:(BlockSprite *)block x:(int)x y:(int)y;
 -(void) removeBlock:(BlockSprite *)block;
+-(void) addBlock:(BlockSprite *)block x:(int)x y:(int)y;
 
 -(BOOL) isComplete;
--(void) resetBoard;
+-(void) reset;
 -(BOOL) isOutOfBoundsAtX:(int)x y:(int)y;
 
 -(int) rowAtPoint:(CGPoint)point;

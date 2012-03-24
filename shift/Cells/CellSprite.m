@@ -59,9 +59,9 @@
 -(BOOL) onCompareWithCell:(CellSprite *)cell
 {
     if (cell == nil || ![cell.name isEqualToString:name]) {
-        return false;
+        return NO;
     }
-    return true;
+    return YES;
 }
 
 -(BOOL) onTap

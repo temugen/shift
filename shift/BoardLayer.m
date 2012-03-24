@@ -14,10 +14,17 @@
 /* Private Functions */
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 
+-(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
 -(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
 
+-(void) randomize;
+-(void) shuffle;
+
 -(void) saveSnapshot;
--(void) clearBoard;
+
+-(void) clear;
+-(void) clearBlocks;
+-(void) clearGoals;
 
 @end
 
@@ -65,76 +72,18 @@
         
         blockTrains = [NSMutableDictionary dictionaryWithCapacity:MAX(columns, rows)];
 	}
+    
 	return self;
 }
 
 -(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {	
     if ((self = [self initWithNumberOfColumns:columns rows:rows center:center cellSize:size])) {
-        NSArray *colorNames = [colors allKeys];
-        
-        //Fill the board in with new, random blocks
-        for (int x = 0; x < columnCount; x++) {
-            for (int y = 0; y < rowCount; y++) {
-                
-                //Keep some blocks clear
-                if (arc4random() % 2 == 0) {
-                    [self setBlock:nil x:x y:y];
-                    [self setGoal:nil x:x y:y];
-                    continue;
-                }
-                
-                int randomIndex = arc4random() % [colors count];
-                
-                //Add the goal block
-                GoalSprite *goal = [GoalSprite goalWithName:[colorNames objectAtIndex:randomIndex]];
-                CGPoint scalingFactors = [goal resize:cellSize];
-                [self setGoal:goal x:x y:y];
-                [self addChild:goal z:0];
-                
-                //Add the user block
-                BlockSprite *block = [BlockSprite blockWithName:[colorNames objectAtIndex:randomIndex]];
-                [block scaleWithFactors:scalingFactors];
-                [self setBlock:block x:x y:y];
-                [self addChild:block z:1];
-            }
-        }
-        
-        //Shift random rows and columns a certain number of times
-        for (int i = 0; i < (rowCount * columnCount) * (rowCount * columnCount); i++) {
-            int direction = arc4random() % 2;
-            int column = arc4random() % columnCount, row = arc4random() % rowCount;
-            CGPoint startPoint = CGPointMake(CGRectGetMinX(boundingBox) + column * cellSize.width,
-                                             CGRectGetMinY(boundingBox) + row * cellSize.height);
-            
-            int reverse = 1;
-            if (arc4random() % 2 == 0)
-                reverse = -1;
-            
-            int cells;
-            float distance;
-            BlockTrain *train;
-            CGPoint endPoint;
-            
-            if (direction == 0) {
-                cells = arc4random() % columnCount;
-                distance = reverse * cells * cellSize.width;
-                endPoint = CGPointMake(startPoint.x + distance, startPoint.y);
-            }
-            else {
-                cells = arc4random() % rowCount;
-                distance = reverse * cells * cellSize.height;
-                endPoint = CGPointMake(startPoint.x, startPoint.y + distance);
-            }
-            
-            train = [BlockTrain trainFromBoard:self atPoint:startPoint];
-            [train moveTo:endPoint];
-            [train snap];
-        }
-        
+        [self randomize];
         [self saveSnapshot];
         self.isTouchEnabled = YES;
     }
+    
     return self;
 }
 
@@ -191,7 +140,78 @@
         [self saveSnapshot];
         self.isTouchEnabled = YES;
     }
+    
     return self;
+}
+
+-(void) randomize
+{
+    [self clear];
+    
+    NSArray *colorNames = [colors allKeys];
+    //Fill the board in with new, random blocks
+    for (int x = 0; x < columnCount; x++) {
+        for (int y = 0; y < rowCount; y++) {
+            
+            //Keep some blocks clear
+            if (arc4random() % 2 == 0) {
+                [self setBlock:nil x:x y:y];
+                [self setGoal:nil x:x y:y];
+                continue;
+            }
+            
+            int randomIndex = arc4random() % [colors count];
+            
+            //Add the goal block
+            GoalSprite *goal = [GoalSprite goalWithName:[colorNames objectAtIndex:randomIndex]];
+            CGPoint scalingFactors = [goal resize:cellSize];
+            [self setGoal:goal x:x y:y];
+            [self addChild:goal z:0];
+            
+            //Add the user block
+            BlockSprite *block = [BlockSprite blockWithName:[colorNames objectAtIndex:randomIndex]];
+            [block scaleWithFactors:scalingFactors];
+            [self setBlock:block x:x y:y];
+            [self addChild:block z:1];
+        }
+    }
+    
+    [self shuffle];
+}
+
+-(void) shuffle
+{
+    //Shift random rows and columns a certain number of times
+    for (int i = 0; i < (rowCount * columnCount) * (rowCount * columnCount); i++) {
+        int direction = arc4random() % 2;
+        int column = arc4random() % columnCount, row = arc4random() % rowCount;
+        CGPoint startPoint = CGPointMake(CGRectGetMinX(boundingBox) + column * cellSize.width,
+                                         CGRectGetMinY(boundingBox) + row * cellSize.height);
+        
+        int reverse = 1;
+        if (arc4random() % 2 == 0)
+            reverse = -1;
+        
+        int cells;
+        float distance;
+        BlockTrain *train;
+        CGPoint endPoint;
+        
+        if (direction == 0) {
+            cells = arc4random() % columnCount;
+            distance = reverse * cells * cellSize.width;
+            endPoint = CGPointMake(startPoint.x + distance, startPoint.y);
+        }
+        else {
+            cells = arc4random() % rowCount;
+            distance = reverse * cells * cellSize.height;
+            endPoint = CGPointMake(startPoint.x, startPoint.y + distance);
+        }
+        
+        train = [BlockTrain trainFromBoard:self atPoint:startPoint];
+        [train moveTo:endPoint];
+        [train snap];
+    }
 }
 
 -(void) draw
@@ -219,7 +239,13 @@
     }
 }
 
--(void) clearBoard
+-(void) clear
+{
+    [self clearBlocks];
+    [self clearGoals];
+}
+
+-(void) clearBlocks
 {
     for (int x = 0; x < columnCount; x++) {
         for (int y = 0; y < rowCount; y++) {
@@ -229,21 +255,33 @@
     }   
 }
 
--(void) resetBoard
+-(void) clearGoals
 {
-    [self clearBoard];
+    for (int x = 0; x < columnCount; x++) {
+        for (int y = 0; y < rowCount; y++) {
+            GoalSprite *goal = [self goalAtX:x y:y];
+            if (goal != nil) {
+                [self setGoal:nil x:goal.column y:goal.row];
+                [self removeChild:goal cleanup:YES];
+            }
+        }
+    }   
+}
+
+-(void) reset
+{
+    [self clearBlocks];
     
     NSEnumerator *enumerator = [initialBlocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
         BlockSprite *copy = [block copy];
-        [self setBlock:copy x:block.column y:block.row];
-        [self addChild:copy z:1];
+        [self addBlock:copy x:block.column y:block.row];
     }
 }
 
 -(void) dealloc
 {
-    [self clearBoard];
+    [self clear];
     free(blocks);
     free(goals);
     
@@ -274,12 +312,25 @@
     if (block == nil)
         return;
     
-    //If block was in the process of being moved, remove it from the movingBlocks array
-    //if ([movingBlocks containsObject:block]) 
-    //    [movingBlocks removeObject:block];
-    
     [self setBlock:nil x:block.column y:block.row];
     [self removeChild:block cleanup:YES];
+}
+
+-(void) addBlock:(BlockSprite *)block x:(int)x y:(int)y;
+{
+    block.column = x;
+    block.row = y;
+    [self setBlock:block x:x y:y];
+    [self addChild:block z:1];
+}
+
+-(void) moveBlock:(BlockSprite *)block x:(int)x y:(int)y
+{
+    if ([self blockAtX:block.column y:block.row] == block) {
+        [self setBlock:nil x:block.column y:block.row];
+    }
+    
+    [self setBlock:block x:x y:y];
 }
 
 -(void) setGoal:(GoalSprite *)goal x:(int)x y:(int)y
@@ -367,10 +418,10 @@
         for (int y = 0; y < rowCount; y++) {
             GoalSprite *goal = [self goalAtX:x y:y];
             BlockSprite *block = [self blockAtX:x y:y]; 
-             if (goal != nil && goal.comparable && ![goal onCompareWithCell:block])
-                 return NO;
-             if (block != nil && block.comparable && ![block onCompareWithCell:goal])
-                 return NO;
+            if (goal != nil && goal.comparable) {
+                 if (!([goal onCompareWithCell:block] || (block != nil && [block onCompareWithCell:goal])))
+                     return NO;
+            }
         }
     }
     
