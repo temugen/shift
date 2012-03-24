@@ -21,6 +21,10 @@
 
 @implementation BlockTrain
 
+@synthesize movement;
+@synthesize initialRow, initialColumn;
+@synthesize blocks;
+
 +(id) trainFromBoard:(BoardLayer *)boardLayer atPoint:(CGPoint)point
 {
     return [[BlockTrain alloc] initFromBoard:boardLayer atPoint:point];
@@ -35,7 +39,7 @@
         initialLocation = point;
         movement = kMovementNone;
         
-        movingBlocks = [NSMutableArray arrayWithCapacity:MAX(board.rowCount, board.columnCount)];
+        blocks = [NSMutableArray arrayWithCapacity:MAX(board.rowCount, board.columnCount)];
     }
     
     return self;
@@ -98,7 +102,7 @@
             return;
     }
     
-    [movingBlocks removeAllObjects];
+    [blocks removeAllObjects];
     lowImmovable = highImmovable = nil;
     lowPositionLimit = rectMin(board.boundingBox), highPositionLimit = rectMax(board.boundingBox);
     
@@ -140,19 +144,19 @@
             break;
         }
         else if (block != nil && block.movable) {
-            [movingBlocks addObject:block];
+            [blocks addObject:block];
         }
     }
     
     //There is nothing to move
-    if ([movingBlocks count] == 0) {
+    if ([blocks count] == 0) {
         return;
     }
 
     ribbon = [CCRibbon ribbonWithWidth:10 image:@"block_connector.png" length:10000 color:ccc4(255, 255, 255, 255) fade:0.5];
     [board addChild:ribbon z:0];
-    BlockSprite *lowBlock = [movingBlocks objectAtIndex:0];
-    BlockSprite *highBlock = [movingBlocks objectAtIndex:[movingBlocks count]-1];
+    BlockSprite *lowBlock = [blocks objectAtIndex:0];
+    BlockSprite *highBlock = [blocks objectAtIndex:[blocks count]-1];
     
     CGSize blockSize = [lowBlock boundingBox].size;
     if (movement == kMovementColumn) {
@@ -180,12 +184,12 @@
 -(void) moveBlocksWithDistance:(float)distance
 {
     //There is nothing to move
-    if ([movingBlocks count] == 0) {
+    if ([blocks count] == 0) {
         return;
     }
     
     //Get the first and last moving blocks
-    BlockSprite *lowBlock = [movingBlocks objectAtIndex:0], *highBlock = [movingBlocks objectAtIndex:[movingBlocks count] - 1];
+    BlockSprite *lowBlock = [blocks objectAtIndex:0], *highBlock = [blocks objectAtIndex:[blocks count] - 1];
     
     //This blocks the user from pushing the blocks past a barrier (unmoveable block or board border)
     float limitedDistance;
@@ -209,7 +213,7 @@
     }
     
     //Move all of the moving blocks by distance in the correct direction
-    for (BlockSprite *block in movingBlocks) {
+    for (BlockSprite *block in blocks) {
         if (movement == kMovementColumn)
             block.position = ccp(block.position.x, block.position.y + limitedDistance);
         else if (movement == kMovementRow)
@@ -229,20 +233,20 @@
 -(void) snap
 {
     //There is nothing to snap
-    if ([movingBlocks count] == 0) {
+    if ([blocks count] == 0) {
         return;
     }
     
     [board removeChild:ribbon cleanup:YES];
     
-    NSEnumerator *enumerator = [movingBlocks objectEnumerator];
+    NSEnumerator *enumerator = [blocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
         //Clear the block's space on the board
         [board setBlock:nil x:block.column y:block.row];
     }
     
     int row,column;
-    enumerator = [movingBlocks objectEnumerator];
+    enumerator = [blocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
         //Move the block to the closest cell's position on the board
         column = (int)roundf((block.position.x - board.cellSize.width / 2 -CGRectGetMinX(board.boundingBox)) / board.cellSize.width);
@@ -267,10 +271,6 @@
         
         [board setBlock:block x:block.column y:block.row];
     }
-    
-    //If the user initiated the move, check if they completed the board
-    if (board.isTouchEnabled)
-        [board isComplete];
 }
 
 @end

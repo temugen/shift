@@ -10,8 +10,6 @@
 
 @interface BlockTrain : NSObject
 {
-    NSMutableArray *movingBlocks;
-    int initialRow, initialColumn;
     CGPoint initialLocation, currentLocation;
     CGFloat (*rectMin)(CGRect), (*rectMax)(CGRect);
     float lowPositionLimit, highPositionLimit;
@@ -22,7 +20,13 @@
     
     @public
     Movement movement;
+    int initialRow, initialColumn;
+    NSMutableArray *blocks;
 }
+
+@property(readonly, assign) Movement movement;
+@property(readonly, assign) int initialRow, initialColumn;
+@property(readonly) NSMutableArray *blocks;
 
 +(id) trainFromBoard:(BoardLayer *)boardLayer atPoint:(CGPoint)point;
 

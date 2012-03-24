@@ -19,6 +19,8 @@
 -(void) saveSnapshot;
 -(void) clearBoard;
 
+-(BOOL) isMoveValidAtRow:(int)row column:(int)column;
+
 @end
 
 @implementation BoardLayer
@@ -313,8 +315,8 @@
         }
         
         if (block == nil || block.movable) {
-            BlockTrain *blockTrain = [BlockTrain trainFromBoard:self atPoint:location];
-            [blockTrains setObject:blockTrain
+            BlockTrain *train = [BlockTrain trainFromBoard:self atPoint:location];
+            [blockTrains setObject:train
                             forKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
         }
     }
@@ -326,9 +328,9 @@
         CGPoint location = [touch locationInView:[touch view]];
         location = [[CCDirector sharedDirector] convertToGL:location];
         
-        BlockTrain *blockTrain = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
-        if (blockTrain != nil) {
-            [blockTrain moveTo:location];
+        BlockTrain *train = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
+        if (train != nil) {
+            [train moveTo:location];
         }
     }
 }
@@ -336,16 +338,21 @@
 -(void) ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     for (UITouch *touch in touches) {
-        BlockTrain *blockTrain = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
-        if (blockTrain != nil) {
-            [blockTrain snap];
+        BlockTrain *train = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
+        if (train != nil) {
+            [train snap];
             [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
+            [self isComplete];
         }
     }
 }
 
 -(BOOL) isComplete
 {
+    if ([blockTrains count] > 0) {
+        return NO;
+    }
+    
     for (int x = 0; x < columnCount; x++) {
         for (int y = 0; y < rowCount; y++) {
             GoalSprite *goal = [self goalAtX:x y:y];
@@ -375,6 +382,19 @@
 -(int) columnAtPoint:(CGPoint)point
 {
     return (int)floorf((point.x - CGRectGetMinX(boundingBox)) / cellSize.width);
+}
+
+-(BOOL) isMoveValidAtRow:(int)row column:(int)column
+{
+    for (BlockTrain *train in blockTrains) {
+        for (BlockSprite *block in train.blocks) {
+            if (block.row == row || block.column == column) {
+                return NO;
+            }
+        }
+    }
+    
+    return YES;
 }
 
 @end
