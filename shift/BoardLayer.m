@@ -14,7 +14,6 @@
 /* Private Functions */
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 
--(GoalSprite *) goalAtX:(int)x y:(int)y;
 -(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
 
 -(void) saveSnapshot;
@@ -63,6 +62,8 @@
         boundingBox.size.height = rowCount * cellSize.height;
         boundingBox.origin.x = center.x - (CGRectGetWidth(boundingBox) / 2);
         boundingBox.origin.y = center.y - (CGRectGetHeight(boundingBox) / 2);
+        
+        blockTrains = [NSMutableDictionary dictionaryWithCapacity:MAX(columns, rows)];
 	}
 	return self;
 }
@@ -254,6 +255,20 @@
 	return blocks[(y * columnCount) + x];
 }
 
+-(void) removeBlock:(BlockSprite *) block
+{
+    //Don't need to do anything if the user wants to remove an empty space
+    if (block == nil)
+        return;
+    
+    //If block was in the process of being moved, remove it from the movingBlocks array
+    //if ([movingBlocks containsObject:block]) 
+    //    [movingBlocks removeObject:block];
+    
+    [self setBlock:nil x:block.column y:block.row];
+    [self removeChild:block cleanup:YES];
+}
+
 -(void) setGoal:(GoalSprite *)goal x:(int)x y:(int)y
 {
     //Point the corresponding board array element to the goal
@@ -273,41 +288,59 @@
 	return goals[(y * columnCount) + x];
 }
 
--(CGPoint) locationAtPoint:(CGPoint)point
-{
-    int row = (int)floorf((point.y - CGRectGetMinY(boundingBox)) / cellSize.height);
-    int column = (int)floorf((point.x - CGRectGetMinX(boundingBox)) / cellSize.width);
-    
-    return CGPointMake(column, row);
-}
-
 -(void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    //Notify a block if it was pressed
-	UITouch *touch = [touches anyObject];
-	CGPoint location = [touch locationInView:[touch view]];
-	location = [[CCDirector sharedDirector] convertToGL:location];
-
-    //Figure out the cell that the user pressed
-    int row = (int)floorf((location.y - CGRectGetMinY(boundingBox)) / cellSize.height);
-    int column = (int)floorf((location.x - CGRectGetMinX(boundingBox)) / cellSize.width);
-    
-    //If the user touched something outside the board, do nothing
-    if ([self isOutOfBoundsAtX:column y:row])
-        return;
-    
-    //Tell the block it was clicked or double-tapped.
-    BlockSprite *block = [self blockAtX:column y:row];
-    if (block != nil) {
-        if(touch.tapCount == 2)
-            [block onDoubleTap];
-        else if(touch.tapCount == 1)
-            [block onTap];
-        [block onTouch];
+	for(UITouch *touch in touches)
+    {
+        NSLog(@"new touch %p\n", touch);
+        CGPoint location = [touch locationInView:[touch view]];
+        location = [[CCDirector sharedDirector] convertToGL:location];
+        int row = [self rowAtPoint:location], column = [self columnAtPoint:location];
+        
+        //If the user touched something outside the board, do nothing
+        if ([self isOutOfBoundsAtX:column y:row])
+            return;
+        
+        //Tell the block it was clicked or double-tapped.
+        BlockSprite *block = [self blockAtX:column y:row];
+        if (block != nil) {
+            if(touch.tapCount >= 2)
+                [block onDoubleTap];
+            else if(touch.tapCount == 1)
+                [block onTap];
+            else
+                [block onTouch];
+        }
+        
+        if (block == nil || block.movable) {
+            BlockTrain *blockTrain = [BlockTrain trainFromBoard:self atPoint:location];
+            [blockTrains setObject:blockTrain
+                            forKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
+        }
     }
-    
-    if (block == nil || block.movable) {
-        [BlockTrain trainFromBoard:self x:column y:row];
+}
+
+-(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    for (UITouch *touch in touches) {
+        CGPoint location = [touch locationInView:[touch view]];
+        location = [[CCDirector sharedDirector] convertToGL:location];
+        
+        BlockTrain *blockTrain = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
+        if (blockTrain != nil) {
+            [blockTrain moveTo:location];
+        }
+    }
+}
+
+-(void) ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    for (UITouch *touch in touches) {
+        BlockTrain *blockTrain = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
+        if (blockTrain != nil) {
+            [blockTrain snap];
+            [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
+        }
     }
 }
 
@@ -329,23 +362,19 @@
     return YES;
 }
 
--(void) removeBlock:(BlockSprite *) block
-{
-    //Don't need to do anything if the user wants to remove an empty space
-    if (block == nil)
-        return;
-    
-    //If block was in the process of being moved, remove it from the movingBlocks array
-    //if ([movingBlocks containsObject:block]) 
-    //    [movingBlocks removeObject:block];
-    
-    [self setBlock:nil x:block.column y:block.row];
-    [self removeChild:block cleanup:YES];
-}
-
 -(BOOL) isOutOfBoundsAtX:(int)x y:(int)y
 {
     return x<0||y<0||x>=columnCount||y>=rowCount;
+}
+
+-(int) rowAtPoint:(CGPoint)point
+{
+    return (int)floorf((point.y - CGRectGetMinY(boundingBox)) / cellSize.height);
+}
+
+-(int) columnAtPoint:(CGPoint)point
+{
+    return (int)floorf((point.x - CGRectGetMinX(boundingBox)) / cellSize.width);
 }
 
 @end

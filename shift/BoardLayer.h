@@ -14,6 +14,7 @@
     __unsafe_unretained BlockSprite **blocks;
     __unsafe_unretained GoalSprite **goals;
     NSMutableSet *initialBlocks;
+    NSMutableDictionary *blockTrains;
     
     @public
     CGRect boundingBox;
@@ -30,12 +31,17 @@
 -(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;
 
+-(GoalSprite *) goalAtX:(int)x y:(int)y;
+
 -(BlockSprite *) blockAtX:(int)x y:(int)y;
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
--(BOOL) isComplete;
 -(void) removeBlock:(BlockSprite *)block;
+
+-(BOOL) isComplete;
 -(void) resetBoard;
 -(BOOL) isOutOfBoundsAtX:(int)x y:(int)y;
--(CGPoint) locationAtPoint:(CGPoint)point;
+
+-(int) rowAtPoint:(CGPoint)point;
+-(int) columnAtPoint:(CGPoint)point;
 
 @end

@@ -8,25 +8,27 @@
 
 #import "BlockSprite.h"
 
-@interface BlockTrain : CCLayer
+@interface BlockTrain : NSObject
 {
     NSMutableArray *movingBlocks;
     int initialRow, initialColumn;
+    CGPoint initialLocation, currentLocation;
     CGFloat (*rectMin)(CGRect), (*rectMax)(CGRect);
     float lowPositionLimit, highPositionLimit;
-    BlockSprite *lowImmovable, *highImmovable; 
-    BoardLayer *board;
-    float totalDx, totalDy;
+    BlockSprite *lowImmovable, *highImmovable;
     
+    BoardLayer *board;
     CCRibbon *ribbon;
     
     @public
-    BOOL rightLeft;
     Movement movement;
 }
 
-+(id) trainFromBoard:(BoardLayer *)boardLayer x:(int)x y:(int)y;
++(id) trainFromBoard:(BoardLayer *)boardLayer atPoint:(CGPoint)point;
 
--(id) initFromBoard:(BoardLayer *)boardLayer x:(int)x y:(int)y;
+-(id) initFromBoard:(BoardLayer *)boardLayer atPoint:(CGPoint)point;
+
+-(void) moveTo:(CGPoint)location;
+-(void) snap;
 
 @end

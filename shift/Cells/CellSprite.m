@@ -28,7 +28,6 @@
     return self;
 }
 
-
 -(id) copyWithZone:(NSZone *)zone
 {
     CellSprite *cell = [[[self class] alloc] initWithFilename:textureFilename];

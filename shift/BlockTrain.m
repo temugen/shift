@@ -9,62 +9,50 @@
 #import "BlockTrain.h"
 #import "BoardLayer.h"
 
-#define directionThreshold 5
+#define kDirectionThreshold 3
 
 @interface BlockTrain()
 
 /* Private Functions */
 -(void) containMovementAtX:(int)x y:(int)y;
 -(void) moveBlocksWithDistance:(float)distance;
--(void) snapMovingBlocks;
 
 @end
 
 @implementation BlockTrain
 
-+(id) trainFromBoard:(BoardLayer *)boardLayer x:(int)x y:(int)y
++(id) trainFromBoard:(BoardLayer *)boardLayer atPoint:(CGPoint)point
 {
-    return [[BlockTrain alloc] initFromBoard:boardLayer x:x y:y];
+    return [[BlockTrain alloc] initFromBoard:boardLayer atPoint:point];
 }
 
--(id) initFromBoard:(BoardLayer *)boardLayer x:(int)x y:(int)y
+-(id) initFromBoard:(BoardLayer *)boardLayer atPoint:(CGPoint)point
 {
     if ((self = [super init])) {
-        board.isTouchEnabled = NO;
-        movement = kMovementNone;
-        self.isTouchEnabled = YES;
-        
-        totalDx = totalDy = 0;
         board = boardLayer;
-        initialRow = y;
-        initialColumn = x;
+        initialRow = [board rowAtPoint:point];
+        initialColumn = [board columnAtPoint:point];
+        initialLocation = point;
+        movement = kMovementNone;
         
         movingBlocks = [NSMutableArray arrayWithCapacity:MAX(board.rowCount, board.columnCount)];
-        
-        [board addChild:self];
     }
     
     return self;
 }
 
-
--(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+-(void) moveTo:(CGPoint)location
 {
-    //Calculate the displacement of our touch in both x and y directions
-	UITouch *touch = [touches anyObject];
-	CGPoint location = [touch locationInView:[touch view]];
-	CGPoint prevLocation = [touch previousLocationInView:[touch view]];
-	location = [[CCDirector sharedDirector] convertToGL:location];
-	prevLocation = [[CCDirector sharedDirector] convertToGL:prevLocation];
-    float dx = location.x - prevLocation.x, dy = location.y - prevLocation.y;
+    float dx = location.x - currentLocation.x, dy = location.y - currentLocation.y;
     
     switch (movement) {
         case kMovementNone:
-            totalDx += dx;
-            totalDy += dy;
+            //Calculate the displacement of our touch in both x and y directions
+            dx = location.x - initialLocation.x;
+            dy = location.y - initialLocation.y;
             
-            if (ABS(totalDx - totalDy) > directionThreshold) {
-                if (ABS(totalDx) > ABS(totalDy))
+            if (ABS(dx - dy) > kDirectionThreshold) {
+                if (ABS(dx) > ABS(dy))
                     movement = kMovementRow;
                 else
                     movement = kMovementColumn;
@@ -81,14 +69,8 @@
         default:
             break;
     }
-}
-
--(void) ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self snapMovingBlocks];
-    self.isTouchEnabled = NO;
-    board.isTouchEnabled = YES;
-    [board removeChild:self cleanup:YES];
+    
+    currentLocation = location;
 }
 
 -(void) containMovementAtX:(int)x y:(int)y
@@ -168,7 +150,7 @@
     }
 
     ribbon = [CCRibbon ribbonWithWidth:10 image:@"block_connector.png" length:10000 color:ccc4(255, 255, 255, 255) fade:0.5];
-    [self addChild:ribbon z:8];
+    [board addChild:ribbon z:0];
     BlockSprite *lowBlock = [movingBlocks objectAtIndex:0];
     BlockSprite *highBlock = [movingBlocks objectAtIndex:[movingBlocks count]-1];
     
@@ -244,14 +226,14 @@
         ribbon.position = ccp(ribbon.position.x, ribbon.position.y + limitedDistance);
 }
 
--(void) snapMovingBlocks
+-(void) snap
 {
     //There is nothing to snap
     if ([movingBlocks count] == 0) {
         return;
     }
     
-    [self removeChild:ribbon cleanup:YES];
+    [board removeChild:ribbon cleanup:YES];
     
     NSEnumerator *enumerator = [movingBlocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
@@ -287,9 +269,8 @@
     }
     
     //If the user initiated the move, check if they completed the board
-    if (self.isTouchEnabled) {
+    if (board.isTouchEnabled)
         [board isComplete];
-    }
 }
 
 @end
