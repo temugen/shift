@@ -15,7 +15,9 @@
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
--(void) setGoal:(GoalSprite *)block x:(int)x y:(int)y;
+-(void) setGoal:(GoalSprite *)goal x:(int)x y:(int)y;
+-(void) addGoal:(GoalSprite *)goal x:(int)x y:(int)y;
+-(void) removeGoal:(GoalSprite *)goal;
 
 -(void) randomize;
 -(void) shuffle;
@@ -126,14 +128,12 @@
             if ([class isEqualToString:@"GoalSprite"]) {
                 GoalSprite *goal = [GoalSprite goalWithName:name];
                 [goal resize:cellSize];
-                [self setGoal:goal x:column y:row];
-                [self addChild:goal z:0];
+                [self addGoal:goal x:column y:row];
             }
             else {
                 BlockSprite *block = [NSClassFromString(class) blockWithName:name];
                 [block scaleWithFactors:scalingFactors];
-                [self setBlock:block x:column y:row];
-                [self addChild:block z:1];
+                [self addBlock:block x:column y:row];
             }
         }
         
@@ -165,18 +165,16 @@
             //Add the goal block
             GoalSprite *goal = [GoalSprite goalWithName:[colorNames objectAtIndex:randomIndex]];
             CGPoint scalingFactors = [goal resize:cellSize];
-            [self setGoal:goal x:x y:y];
-            [self addChild:goal z:0];
+            [self addGoal:goal x:x y:y];
             
             //Add the user block
             BlockSprite *block = [BlockSprite blockWithName:[colorNames objectAtIndex:randomIndex]];
             [block scaleWithFactors:scalingFactors];
-            [self setBlock:block x:x y:y];
-            [self addChild:block z:1];
+            [self addBlock:block x:x y:y];
         }
     }
     
-    [self shuffle];
+    g[self shuffle];
 }
 
 -(void) shuffle
@@ -261,8 +259,7 @@
         for (int y = 0; y < rowCount; y++) {
             GoalSprite *goal = [self goalAtX:x y:y];
             if (goal != nil) {
-                [self setGoal:nil x:goal.column y:goal.row];
-                [self removeChild:goal cleanup:YES];
+                [self removeGoal:goal];
             }
         }
     }   
@@ -294,10 +291,20 @@
     
     //Update the block's location information
     if (block != nil) {
-        block.row = y;
-        block.column = x;
         block.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
                              CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
+    }
+}
+
+-(void) setGoal:(GoalSprite *)goal x:(int)x y:(int)y
+{
+    //Point the corresponding board array element to the goal
+	goals[(y * columnCount) + x] = goal;
+    
+    //Update the goal's location information
+    if (goal != nil) {
+        goal.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
+                            CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
     }
 }
 
@@ -306,14 +313,21 @@
 	return blocks[(y * columnCount) + x];
 }
 
--(void) removeBlock:(BlockSprite *) block
+-(GoalSprite *) goalAtX:(int)x y:(int)y
 {
-    //Don't need to do anything if the user wants to remove an empty space
-    if (block == nil)
-        return;
-    
+	return goals[(y * columnCount) + x];
+}
+
+-(void) removeBlock:(BlockSprite *)block
+{
     [self setBlock:nil x:block.column y:block.row];
     [self removeChild:block cleanup:YES];
+}
+
+-(void) removeGoal:(GoalSprite *)goal
+{    
+    [self setGoal:nil x:goal.column y:goal.row];
+    [self removeChild:goal cleanup:YES];
 }
 
 -(void) addBlock:(BlockSprite *)block x:(int)x y:(int)y;
@@ -324,32 +338,23 @@
     [self addChild:block z:1];
 }
 
+-(void) addGoal:(GoalSprite *)goal x:(int)x y:(int)y;
+{
+    goal.column = x;
+    goal.row = y;
+    [self setGoal:goal x:x y:y];
+    [self addChild:goal z:0];
+}
+
 -(void) moveBlock:(BlockSprite *)block x:(int)x y:(int)y
 {
     if ([self blockAtX:block.column y:block.row] == block) {
         [self setBlock:nil x:block.column y:block.row];
     }
     
+    block.column = x;
+    block.row = y;
     [self setBlock:block x:x y:y];
-}
-
--(void) setGoal:(GoalSprite *)goal x:(int)x y:(int)y
-{
-    //Point the corresponding board array element to the goal
-	goals[(y * columnCount) + x] = goal;
-    
-    //Update the goal's location information
-    if (goal != nil) {
-        goal.row = y;
-        goal.column = x;
-        goal.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
-                            CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
-    }
-}
-
--(GoalSprite *) goalAtX:(int)x y:(int)y
-{
-	return goals[(y * columnCount) + x];
 }
 
 -(void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

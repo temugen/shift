@@ -33,7 +33,6 @@
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;
 
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
-
 -(BlockSprite *) blockAtX:(int)x y:(int)y;
 -(void) moveBlock:(BlockSprite *)block x:(int)x y:(int)y;
 -(void) removeBlock:(BlockSprite *)block;
