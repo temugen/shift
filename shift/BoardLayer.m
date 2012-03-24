@@ -104,19 +104,32 @@
         for (int i = 0; i < (rowCount * columnCount) * (rowCount * columnCount); i++) {
             int direction = arc4random() % 2;
             int column = arc4random() % columnCount, row = arc4random() % rowCount;
+            CGPoint startPoint = CGPointMake(CGRectGetMinX(boundingBox) + column * cellSize.width,
+                                             CGRectGetMinY(boundingBox) + row * cellSize.height);
             
             int reverse = 1;
             if (arc4random() % 2 == 0)
                 reverse = -1;
             
+            int cells;
+            float distance;
+            BlockTrain *train;
+            CGPoint endPoint;
+            
             if (direction == 0) {
-                int cells = arc4random() % columnCount;
-                //[self shiftColumnAtX:column y:row numberOfCells:cells];
+                cells = arc4random() % columnCount;
+                distance = reverse * cells * cellSize.width;
+                endPoint = CGPointMake(startPoint.x + distance, startPoint.y);
             }
             else {
-                int cells = arc4random() % rowCount;
-                //[self shiftRowAtY:row x:column numberOfCells:cells];
+                cells = arc4random() % rowCount;
+                distance = reverse * cells * cellSize.height;
+                endPoint = CGPointMake(startPoint.x, startPoint.y + distance);
             }
+            
+            train = [BlockTrain trainFromBoard:self atPoint:startPoint];
+            [train moveTo:endPoint];
+            [train snap];
         }
         
         [self saveSnapshot];

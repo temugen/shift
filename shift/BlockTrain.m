@@ -55,15 +55,15 @@
             dx = location.x - initialLocation.x;
             dy = location.y - initialLocation.y;
             
-            if (ABS(dx - dy) > kDirectionThreshold) {
-                if (ABS(dx) > ABS(dy))
-                    movement = kMovementRow;
-                else
-                    movement = kMovementColumn;
-                
-                [self containMovementAtX:initialColumn y:initialRow];
-            }
-            break;
+            if (ABS(dx - dy) < kDirectionThreshold)
+                break;
+            
+            if (ABS(dx) > ABS(dy))
+                movement = kMovementRow;
+            else
+                movement = kMovementColumn;
+            
+            [self containMovementAtX:initialColumn y:initialRow];
             
         case kMovementRow:
         case kMovementColumn:
