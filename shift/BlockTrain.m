@@ -211,9 +211,14 @@
         [block onCollideWithCell:immovable force:ABS(distance)];
         
         CCParticleSmoke *smoke = [[CCParticleSmoke alloc] initWithTotalParticles:100];
-        smoke.duration = 0.5;
-        smoke.startSize = 5;
-        smoke.endSize = 5;
+        [smoke setEmitterMode:kCCParticleModeRadius];
+        smoke.startRadius = 5;
+        smoke.endRadius = 5;
+        smoke.duration = 0.1;
+        smoke.life = 0.1;
+        smoke.startSize = 1;
+        smoke.endSize = 1;
+        smoke.emissionRate = 1000;
         smoke.position = ccp((immovable.position.x + block.position.x) / 2,
                              (immovable.position.y + block.position.y) / 2);
         [board addChild:smoke z:10];

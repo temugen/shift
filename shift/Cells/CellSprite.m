@@ -44,8 +44,8 @@
 
 -(CGPoint) resize:(CGSize)size
 {
-    self.scaleX = size.width / CGRectGetWidth([self boundingBox]);
-    self.scaleY = size.height / CGRectGetHeight([self boundingBox]);
+    self.scaleX *= size.width / CGRectGetWidth([self boundingBox]);
+    self.scaleY *= size.height / CGRectGetHeight([self boundingBox]);
     return CGPointMake(self.scaleX, self.scaleY);
 }
 
