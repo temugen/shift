@@ -73,6 +73,8 @@ typedef enum gamemode {
 //Scene transition time
 #define kSceneTransitionTime 0.3f
 
+#define kMinCollisionForce 30.0
+
 static NSMutableDictionary *colors;
 __attribute__((constructor))
 static void initialize_colors() {

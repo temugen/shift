@@ -193,23 +193,30 @@
     
     //This blocks the user from pushing the blocks past a barrier (unmoveable block or board border)
     float limitedDistance;
+    BlockSprite *immovable, *block;
     if (distance < 0) {
         limitedDistance = MAX(distance, lowPositionLimit - rectMin([lowBlock boundingBox]));
-        
-        //Let blocks know if they collided with each other
-        if (lowImmovable != nil && ABS(limitedDistance) < ABS(distance)) {
-            [lowImmovable onCollideWithCell:lowBlock force:ABS(distance)];
-            [lowBlock onCollideWithCell:lowImmovable force:ABS(distance)];
-        }
+        immovable = lowImmovable;
+        block = lowBlock;
     }
     else {
         limitedDistance = MIN(distance, highPositionLimit - rectMax([highBlock boundingBox]));
+        immovable = highImmovable;
+        block = highBlock;
+    }
+    
+    //Let blocks know if they collided with each other
+    if (immovable != nil && ABS(limitedDistance) < ABS(distance) && ABS(distance) > kMinCollisionForce) {
+        [immovable onCollideWithCell:block force:ABS(distance)];
+        [block onCollideWithCell:immovable force:ABS(distance)];
         
-        //Let blocks know if they collided with each other
-        if (highImmovable != nil && ABS(limitedDistance) < ABS(distance)) {
-            [highImmovable onCollideWithCell:highBlock force:ABS(distance)];
-            [highBlock onCollideWithCell:highImmovable force:ABS(distance)];
-        }
+        CCParticleSmoke *smoke = [[CCParticleSmoke alloc] initWithTotalParticles:100];
+        smoke.duration = 0.5;
+        smoke.startSize = 5;
+        smoke.endSize = 5;
+        smoke.position = ccp((immovable.position.x + block.position.x) / 2,
+                             (immovable.position.y + block.position.y) / 2);
+        [board addChild:smoke z:10];
     }
     
     //Move all of the moving blocks by distance in the correct direction

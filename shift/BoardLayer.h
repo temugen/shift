@@ -19,12 +19,12 @@
     @public
     CGRect boundingBox;
     int rowCount, columnCount;
-    CGSize cellSize;
+    CGSize cellSize, blockSize;
 }
 
 @property(readonly, assign) int rowCount, columnCount;
 @property(readonly, assign) CGRect boundingBox;
-@property(readonly, assign) CGSize cellSize;
+@property(readonly, assign) CGSize cellSize, blockSize;
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 +(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;

@@ -34,7 +34,7 @@
 
 @synthesize rowCount, columnCount;
 @synthesize boundingBox;
-@synthesize cellSize;
+@synthesize cellSize, blockSize;
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {
@@ -64,7 +64,12 @@
         
         initialBlocks = [NSMutableSet setWithCapacity:cellCount];
 
+        //Calculate the cell size and block size
+        GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
+        BlockSprite *sampleBlock = [BlockSprite blockWithName:@"red"];
         cellSize = size;
+        CGPoint scalingFactors = [sampleGoal resize:cellSize];
+        blockSize = [sampleBlock scaleWithFactors:scalingFactors];
 
         //Calculate the bounding box for the board.
         boundingBox.size.width = columnCount * cellSize.width;
@@ -109,12 +114,7 @@
     NSDictionary *board = [plist objectForKey:@"board"];
     int rows = [[board objectForKey:@"rows"] intValue], columns = [[board objectForKey:@"columns"] intValue];
                    
-    if ((self = [self initWithNumberOfColumns:columns rows:rows center:center cellSize:size])) {
-        
-        //Calculate the scaling factors for all of our pieces.
-        GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
-        CGPoint scalingFactors = [sampleGoal resize:cellSize];
-        
+    if ((self = [self initWithNumberOfColumns:columns rows:rows center:center cellSize:size])) {        
         //Loop through all of the cells
         NSArray *cells = [board objectForKey:@"cells"];
         NSEnumerator *enumerator = [cells objectEnumerator];
@@ -127,12 +127,10 @@
             //Add the cell to the board
             if ([class isEqualToString:@"GoalSprite"]) {
                 GoalSprite *goal = [GoalSprite goalWithName:name];
-                [goal resize:cellSize];
                 [self addGoal:goal x:column y:row];
             }
             else {
                 BlockSprite *block = [NSClassFromString(class) blockWithName:name];
-                [block scaleWithFactors:scalingFactors];
                 [self addBlock:block x:column y:row];
             }
         }
@@ -164,12 +162,10 @@
             
             //Add the goal block
             GoalSprite *goal = [GoalSprite goalWithName:[colorNames objectAtIndex:randomIndex]];
-            CGPoint scalingFactors = [goal resize:cellSize];
             [self addGoal:goal x:x y:y];
             
             //Add the user block
             BlockSprite *block = [BlockSprite blockWithName:[colorNames objectAtIndex:randomIndex]];
-            [block scaleWithFactors:scalingFactors];
             [self addBlock:block x:x y:y];
         }
     }
@@ -334,6 +330,7 @@
 {
     block.column = x;
     block.row = y;
+    [block resize:blockSize];
     [self setBlock:block x:x y:y];
     [self addChild:block z:1];
 }
@@ -342,6 +339,7 @@
 {
     goal.column = x;
     goal.row = y;
+    [goal resize:cellSize];
     [self setGoal:goal x:x y:y];
     [self addChild:goal z:0];
 }
