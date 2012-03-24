@@ -174,7 +174,7 @@
         }
     }
     
-    g[self shuffle];
+    [self shuffle];
 }
 
 -(void) shuffle
