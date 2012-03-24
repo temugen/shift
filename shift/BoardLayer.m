@@ -19,8 +19,6 @@
 -(void) saveSnapshot;
 -(void) clearBoard;
 
--(BOOL) isMoveValidAtRow:(int)row column:(int)column;
-
 @end
 
 @implementation BoardLayer
@@ -294,7 +292,6 @@
 {
 	for(UITouch *touch in touches)
     {
-        NSLog(@"new touch %p\n", touch);
         CGPoint location = [touch locationInView:[touch view]];
         location = [[CCDirector sharedDirector] convertToGL:location];
         int row = [self rowAtPoint:location], column = [self columnAtPoint:location];
@@ -382,19 +379,6 @@
 -(int) columnAtPoint:(CGPoint)point
 {
     return (int)floorf((point.x - CGRectGetMinX(boundingBox)) / cellSize.width);
-}
-
--(BOOL) isMoveValidAtRow:(int)row column:(int)column
-{
-    for (BlockTrain *train in blockTrains) {
-        for (BlockSprite *block in train.blocks) {
-            if (block.row == row || block.column == column) {
-                return NO;
-            }
-        }
-    }
-    
-    return YES;
 }
 
 @end
