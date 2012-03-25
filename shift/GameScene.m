@@ -16,11 +16,11 @@
 {
     if ((self = [super init])) {
         //Add Background Layer
-        background = [[BackgroundLayer alloc] init];
+        BackgroundLayer *background = [[BackgroundLayer alloc] init];
         [self addChild:background z:-1];
         
         //Add Control Layer (Reset, Menu)
-        controls = [[ControlLayer alloc] init];
+        ControlLayer *controls = [[ControlLayer alloc] init];
         [self addChild:controls z:1];
         
         //Set cell size for platform

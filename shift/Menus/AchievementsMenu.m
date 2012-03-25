@@ -28,13 +28,6 @@
     return self;
 }
 
-// Create scene with achievements menu
-+(id) scene
-{
-    AchievementsMenu *layer = [AchievementsMenu node];
-    return [super scene:layer];
-}
-
 
 // Callback functions for achievements menu
 

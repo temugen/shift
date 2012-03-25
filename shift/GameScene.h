@@ -15,8 +15,5 @@
     BoardLayer *board;
     CGPoint boardCenter;
     CGSize cellSize;
-    
-    BackgroundLayer *background;
-    ControlLayer *controls;
 }
 @end

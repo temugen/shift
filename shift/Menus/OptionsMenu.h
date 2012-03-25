@@ -11,7 +11,4 @@
 
 @interface OptionsMenu : Menu
 
--(id) init;
-+(id) scene;
-
 @end

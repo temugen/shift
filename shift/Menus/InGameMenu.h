@@ -10,6 +10,5 @@
 
 @interface InGameMenu : Menu
 {
-    CGPoint corners[4];
 }
 @end

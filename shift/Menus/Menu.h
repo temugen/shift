@@ -9,8 +9,12 @@
 #import "cocos2d.h"
 
 @interface Menu : CCLayer
+{
+    CGPoint corners[4];
+}
 
-+(id) scene:(CCLayer*) layer;
++(id) scene;
++(id) sceneWithMenu:(Menu *)menu;
 
 -(void) goBack:(id)sender;
 

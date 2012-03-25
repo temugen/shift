@@ -26,11 +26,4 @@
     return self;
 }
 
-//Create scene with options menu
-+(id) scene
-{
-    OptionsMenu *layer = [OptionsMenu node];
-    return [super scene:layer];
-}
-
 @end

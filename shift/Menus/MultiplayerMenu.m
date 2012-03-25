@@ -37,13 +37,6 @@
     return self;
 }
 
-//Create scene with multiplayer menu
-+ (id) scene
-{
-    MultiplayerMenu *layer = [MultiplayerMenu node];
-    return [super scene:layer];
-}
-
 /* Callback functions for menu items */
 
 - (void) onOppSelection: (id) sender
@@ -54,7 +47,7 @@
 - (void) onLeaderboard: (id) sender
 {
   gamemode selection = [sender tag];
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu scene:selection]]];
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu sceneWithMode:selection]]];
 }
 
 

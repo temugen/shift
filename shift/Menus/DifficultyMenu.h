@@ -14,7 +14,7 @@
     gamemode mode;
 }
 
--(id) init;
-+(id) scene:(gamemode) gameSelection;
+-(id) initWithMode:(gamemode)gameSelection;
++(id) sceneWithMode:(gamemode) gameSelection;
 
 @end

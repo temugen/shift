@@ -14,7 +14,4 @@
     NSInteger highestLevel;
 }
 
--(id) init;
-+(id) scene;
-
 @end

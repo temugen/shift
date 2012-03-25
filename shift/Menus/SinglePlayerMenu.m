@@ -59,13 +59,6 @@
     return self;
 }
 
-//Create scene with single player menu
-+(id) scene
-{
-    SinglePlayerMenu *layer = [SinglePlayerMenu node];
-    return [super scene:layer];
-}
-
 /* Callback functions for menu items */
 
 //Displays level based on selection by the user. If level is not unlocked, it does nothing.

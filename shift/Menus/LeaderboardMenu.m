@@ -14,33 +14,34 @@
 @implementation LeaderboardMenu
 
 
-- (id) init
+- (id) initWithMode:(gamemode)gameSelection
 {
-  if ((self=[super init])) {
-    // Menu Items
-    CCMenuItemFont* hardTime = [CCMenuItemFont itemFromString:@"Hard Times" target:self selector: @selector(onHardTimeSelection:)];
-    CCMenuItemFont *hardMoves = [CCMenuItemFont itemFromString:@"Hard Moves" target:self selector: @selector(onHardMoves:)];
-    CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
-    
-    // Set tags
-    [hardMoves setTag:HARDMOVELB];
-    [hardTime setTag:HARDTIMELB];
-    
-    // Set items
-    CCMenu *menu = [CCMenu menuWithItems: hardTime, hardMoves, back, nil];
-    
-    [menu alignItemsVertically];
-    
-    [self addChild: menu];        
-  }
-  return self;
+    if ((self=[super init])) {
+        mode = gameSelection;
+        
+        // Menu Items
+        CCMenuItemFont* hardTime = [CCMenuItemFont itemFromString:@"Hard Times" target:self selector: @selector(onHardTimeSelection:)];
+        CCMenuItemFont *hardMoves = [CCMenuItemFont itemFromString:@"Hard Moves" target:self selector: @selector(onHardMoves:)];
+        CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
+        
+        // Set tags
+        [hardMoves setTag:HARDMOVELB];
+        [hardTime setTag:HARDTIMELB];
+        
+        // Set items
+        CCMenu *menu = [CCMenu menuWithItems: hardTime, hardMoves, back, nil];
+        
+        [menu alignItemsVertically];
+        
+        [self addChild: menu];        
+    }
+    return self;
 }
 
-+ (id) scene:(gamemode) gameSelection 
++ (id) sceneWithMode:(gamemode) gameSelection 
 {
-  LeaderboardMenu* layer = [LeaderboardMenu node];
-  layer->mode = gameSelection;
-  return [super scene:layer]; 
+    LeaderboardMenu* menu = [[LeaderboardMenu alloc] initWithMode:gameSelection];
+    return [Menu sceneWithMenu:menu]; 
 }
 
 - (void) onHardTimeSelection: (id) sender

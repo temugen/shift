@@ -11,7 +11,4 @@
 
 @interface AchievementsMenu : Menu
 
--(id) init;
-+(id) scene;
-
 @end

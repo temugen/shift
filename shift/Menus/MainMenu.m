@@ -40,18 +40,11 @@
     return self;
 }
 
-//Create scene with main menu
-+(id) scene
-{
-    MainMenu *layer = [MainMenu node];
-    return [super scene:layer];
-}
-
 /* Callback functions for main menu items */
 
 - (void) onQuickplay: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu scene:QUICKPLAY]]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu sceneWithMode:QUICKPLAY]]];
 }
 
 - (void) onSinglePlayer: (id) sender

@@ -11,7 +11,4 @@
 
 @interface MultiplayerMenu : Menu
 
--(id) init;
-+(id) scene;
-
 @end

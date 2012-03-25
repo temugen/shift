@@ -14,12 +14,11 @@
 
 @implementation DifficultyMenu
 
-DifficultyMenu* layer;
-
 //Initialize the Quickplay layer
--(id) init
+-(id) initWithMode:(gamemode)gameSelection
 {
     if( (self=[super init] )) {
+        mode = gameSelection;
         
         //Set up menu items
         CCMenuItemFont *easy = [CCMenuItemFont itemFromString:@"Easy" target:self selector: @selector(onSelection:)];
@@ -41,11 +40,10 @@ DifficultyMenu* layer;
 }
 
 //Create scene with quickplay menu
-+(id) scene:(gamemode) gameSelection
++(id) sceneWithMode:(gamemode) gameSelection
 {
-    layer = [DifficultyMenu node];
-    layer->mode = gameSelection;
-    return [super scene:layer];
+    DifficultyMenu *menu = [[DifficultyMenu alloc] initWithMode:gameSelection];
+    return [Menu sceneWithMenu:menu];
 }
 
 /* Callback functions for menu items */
@@ -54,7 +52,7 @@ DifficultyMenu* layer;
 {
     Difficulty diff = [sender tag];
     
-    if(layer->mode == QUICKPLAY)
+    if(mode == QUICKPLAY)
     {
         QuickPlayGame *game;
         switch (diff) {
@@ -80,7 +78,7 @@ DifficultyMenu* layer;
     }
     else //Multiplayer game
     {
-        if(layer->mode == RANDOMMULTI)
+        if(mode == RANDOMMULTI)
         {
             //TODO: Setup Random Multiplayer Game
             NSLog(@"User selected Random Opponent Multiplayer");   
@@ -96,7 +94,7 @@ DifficultyMenu* layer;
 
 - (void) goBack: (id) sender
 {
-    if(layer->mode==QUICKPLAY) //Return to Main Menu
+    if(mode==QUICKPLAY) //Return to Main Menu
     {
         [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
     }
