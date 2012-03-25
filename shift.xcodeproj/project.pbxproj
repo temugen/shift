@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3893739E14FC6B6E00397E8E /* button_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 3893739C14FC6B6E00397E8E /* button_reset.png */; };
 		5ED0202514F98A1F0070387C /* block_wild.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202414F98A1E0070387C /* block_wild.png */; };
 		5ED0202714F98BBA0070387C /* 19.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202614F98BBA0070387C /* 19.plist */; };
 		5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF053D314F338AF00177148 /* WildcardBlock.m */; };
@@ -586,7 +585,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3893739C14FC6B6E00397E8E /* button_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_reset.png; sourceTree = "<group>"; };
 		5ED0202414F98A1E0070387C /* block_wild.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_wild.png; path = Resources/Cells/Blocks/block_wild.png; sourceTree = "<group>"; };
 		5ED0202614F98BBA0070387C /* 19.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 19.plist; path = Resources/Levels/19.plist; sourceTree = "<group>"; };
 		5EF053D214F338AE00177148 /* WildcardBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardBlock.h; path = Cells/Blocks/WildcardBlock.h; sourceTree = "<group>"; };
@@ -751,7 +749,6 @@
 			isa = PBXGroup;
 			children = (
 				820109A2151F8BCC00DA8ECB /* pause.png */,
-				3893739C14FC6B6E00397E8E /* button_reset.png */,
 			);
 			name = Controls;
 			path = Resources/Controls;
@@ -1700,7 +1697,6 @@
 				98C218F114F96BAA002177F9 /* completeBoard.plist in Resources */,
 				5ED0202514F98A1F0070387C /* block_wild.png in Resources */,
 				5ED0202714F98BBA0070387C /* 19.plist in Resources */,
-				3893739E14FC6B6E00397E8E /* button_reset.png in Resources */,
 				8294476F151311B0003F727A /* block_connector.png in Resources */,
 				82944771151312A5003F727A /* block.png in Resources */,
 				82944773151312AF003F727A /* goal.png in Resources */,
