@@ -15,9 +15,13 @@
 -(id) init
 {
     if ((self = [super init])) {
+        //Add Background Layer
+        background = [[BackgroundLayer alloc] init];
+        [self addChild:background];
+        
         //Add Control Layer (Reset, Menu)
-        cLayer = [[ControlLayer alloc] init];
-        [self addChild:cLayer];
+        controls = [[ControlLayer alloc] init];
+        [self addChild:controls];
         
         //Set cell size for platform
         CGSize screenSize = [[CCDirector sharedDirector] winSize];

@@ -16,6 +16,8 @@
     NSMutableSet *initialBlocks;
     NSMutableDictionary *blockTrains;
     
+    CGPoint corners[4];
+    
     @public
     CGRect boundingBox;
     int rowCount, columnCount;

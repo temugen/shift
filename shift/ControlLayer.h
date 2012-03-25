@@ -12,4 +12,5 @@
     CCSprite *resetButton;
     CCSprite *menuButton;
 }
+
 @end

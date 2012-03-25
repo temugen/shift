@@ -8,6 +8,7 @@
 
 #import "BoardLayer.h"
 #import "ControlLayer.h"
+#import "BackgroundLayer.h"
 
 @interface GameScene : CCScene
 {
@@ -15,7 +16,7 @@
     CGPoint boardCenter;
     CGSize cellSize;
     
-    ControlLayer *cLayer;
+    BackgroundLayer *background;
+    ControlLayer *controls;
 }
-
 @end

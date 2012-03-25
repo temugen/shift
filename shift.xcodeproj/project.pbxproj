@@ -13,6 +13,8 @@
 		5ED0202714F98BBA0070387C /* 19.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202614F98BBA0070387C /* 19.plist */; };
 		5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF053D314F338AF00177148 /* WildcardBlock.m */; };
 		8201099B151E985100DA8ECB /* debris.png in Resources */ = {isa = PBXBuildFile; fileRef = 8201099A151E985100DA8ECB /* debris.png */; };
+		8201099E151EC11800DA8ECB /* BackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201099D151EC11700DA8ECB /* BackgroundLayer.m */; };
+		820109A1151ECEF900DA8ECB /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 820109A0151ECEF900DA8ECB /* background.png */; };
 		8235A41F14FCA9350058C21F /* ControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A41E14FCA9350058C21F /* ControlLayer.m */; };
 		8235A42214FCA94C0058C21F /* BlockTrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A42114FCA94C0058C21F /* BlockTrain.m */; };
 		8235A42F150556E90058C21F /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A42E150556E80058C21F /* GameScene.m */; };
@@ -590,6 +592,9 @@
 		5EF053D214F338AE00177148 /* WildcardBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardBlock.h; path = Cells/Blocks/WildcardBlock.h; sourceTree = "<group>"; };
 		5EF053D314F338AF00177148 /* WildcardBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WildcardBlock.m; path = Cells/Blocks/WildcardBlock.m; sourceTree = "<group>"; };
 		8201099A151E985100DA8ECB /* debris.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = debris.png; path = Resources/Effects/debris.png; sourceTree = "<group>"; };
+		8201099C151EC11700DA8ECB /* BackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayer.h; sourceTree = "<group>"; };
+		8201099D151EC11700DA8ECB /* BackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundLayer.m; sourceTree = "<group>"; };
+		820109A0151ECEF900DA8ECB /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Resources/Backgrounds/background.png; sourceTree = "<group>"; };
 		8235A41D14FCA9350058C21F /* ControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlLayer.h; sourceTree = "<group>"; };
 		8235A41E14FCA9350058C21F /* ControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlLayer.m; sourceTree = "<group>"; };
 		8235A42014FCA94C0058C21F /* BlockTrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTrain.h; sourceTree = "<group>"; };
@@ -747,6 +752,14 @@
 			);
 			name = Controls;
 			path = Resources/Controls;
+			sourceTree = "<group>";
+		};
+		8201099F151ECEED00DA8ECB /* Backgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				820109A0151ECEF900DA8ECB /* background.png */,
+			);
+			name = Backgrounds;
 			sourceTree = "<group>";
 		};
 		82364A7615093E0A0044B302 /* Effects */ = {
@@ -993,6 +1006,8 @@
 				8235A42114FCA94C0058C21F /* BlockTrain.m */,
 				8270386114DB052F008D7240 /* BoardLayer.h */,
 				8270386014DB052F008D7240 /* BoardLayer.m */,
+				8201099C151EC11700DA8ECB /* BackgroundLayer.h */,
+				8201099D151EC11700DA8ECB /* BackgroundLayer.m */,
 				8235A41D14FCA9350058C21F /* ControlLayer.h */,
 				8235A41E14FCA9350058C21F /* ControlLayer.m */,
 				8235A42D150556E70058C21F /* GameScene.h */,
@@ -1018,6 +1033,7 @@
 		827036FA14DB0448008D7240 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8201099F151ECEED00DA8ECB /* Backgrounds */,
 				3893739A14FC6B6E00397E8E /* Controls */,
 				82470D0514F1BCC500F60A7C /* Levels */,
 				82470D0414F1BCAB00F60A7C /* Cells */,
@@ -1686,6 +1702,7 @@
 				82944773151312AF003F727A /* goal.png in Resources */,
 				827F2EAC15131F2A00A2564D /* colors.plist in Resources */,
 				8201099B151E985100DA8ECB /* debris.png in Resources */,
+				820109A1151ECEF900DA8ECB /* background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1752,6 +1769,7 @@
 				FAC8909F150C49EE000F816C /* GKMatchMakerViewController-LandscapeOnly.m in Sources */,
 				8235A42F150556E90058C21F /* GameScene.m in Sources */,
 				964847D3151ACBAA00355CC4 /* Achievement.m in Sources */,
+				8201099E151EC11800DA8ECB /* BackgroundLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -77,6 +77,11 @@
         boundingBox.origin.x = center.x - (CGRectGetWidth(boundingBox) / 2);
         boundingBox.origin.y = center.y - (CGRectGetHeight(boundingBox) / 2);
         
+        corners[0] = ccp(CGRectGetMinX(boundingBox)-2, CGRectGetMinY(boundingBox)-2);
+        corners[1] = ccp(CGRectGetMinX(boundingBox)-2, CGRectGetMaxY(boundingBox)+2);
+        corners[2] = ccp(CGRectGetMaxX(boundingBox)+2, CGRectGetMaxY(boundingBox)+2);
+        corners[3] = ccp(CGRectGetMaxX(boundingBox)+2, CGRectGetMinY(boundingBox)-2);
+        
         blockTrains = [NSMutableDictionary dictionaryWithCapacity:MAX(columns, rows)];
 	}
     
@@ -210,15 +215,20 @@
 
 -(void) draw
 {
-    glEnable(GL_LINE_SMOOTH);
-    for (int x = 0; x <= columnCount; x += columnCount) {
-        ccDrawLine(ccp(CGRectGetMinX(boundingBox) + x * cellSize.width, CGRectGetMinY(boundingBox)),
-                   ccp(CGRectGetMinX(boundingBox) + x * cellSize.width, CGRectGetMaxY(boundingBox)));
-    }
-    for (int y = 0; y <= rowCount; y += rowCount) {
-        ccDrawLine(ccp(CGRectGetMinX(boundingBox), CGRectGetMinY(boundingBox) + y * cellSize.height),
-                   ccp(CGRectGetMaxX(boundingBox), CGRectGetMinY(boundingBox) + y * cellSize.height));
-    }
+    //Draw filled in board background
+    glColor4ub(20, 20, 20, 255);
+	glDisable(GL_TEXTURE_2D);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 0, corners);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnable(GL_TEXTURE_2D);
+    
+    //Draw white border
+    glColor4ub(255, 255, 255, 255);
+    ccDrawPoly(corners, 4, YES);
 }
 
 -(void) saveSnapshot
