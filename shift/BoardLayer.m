@@ -380,7 +380,7 @@
         //Tell the block it was clicked or double-tapped.
         BlockSprite *block = [self blockAtX:column y:row];
         if (block != nil) {
-            if(touch.tapCount >= 2)
+            if(touch.tapCount == 2)
                 [block onDoubleTap];
             else if(touch.tapCount == 1)
                 [block onTap];
