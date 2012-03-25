@@ -12,4 +12,6 @@
 
 +(id) scene:(CCLayer*) layer;
 
+-(void) goBack:(id)sender;
+
 @end

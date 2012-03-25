@@ -9,7 +9,6 @@
 
 @interface ControlLayer : CCLayer
 {
-    CCSprite *resetButton;
     CCSprite *menuButton;
 }
 

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3893739D14FC6B6E00397E8E /* button_menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 3893739B14FC6B6E00397E8E /* button_menu.png */; };
 		3893739E14FC6B6E00397E8E /* button_reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 3893739C14FC6B6E00397E8E /* button_reset.png */; };
 		5ED0202514F98A1F0070387C /* block_wild.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202414F98A1E0070387C /* block_wild.png */; };
 		5ED0202714F98BBA0070387C /* 19.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202614F98BBA0070387C /* 19.plist */; };
@@ -15,6 +14,8 @@
 		8201099B151E985100DA8ECB /* debris.png in Resources */ = {isa = PBXBuildFile; fileRef = 8201099A151E985100DA8ECB /* debris.png */; };
 		8201099E151EC11800DA8ECB /* BackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201099D151EC11700DA8ECB /* BackgroundLayer.m */; };
 		820109A1151ECEF900DA8ECB /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 820109A0151ECEF900DA8ECB /* background.png */; };
+		820109A3151F8BCC00DA8ECB /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 820109A2151F8BCC00DA8ECB /* pause.png */; };
+		820109A6151F8C9600DA8ECB /* InGameMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 820109A5151F8C9600DA8ECB /* InGameMenu.m */; };
 		8235A41F14FCA9350058C21F /* ControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A41E14FCA9350058C21F /* ControlLayer.m */; };
 		8235A42214FCA94C0058C21F /* BlockTrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A42114FCA94C0058C21F /* BlockTrain.m */; };
 		8235A42F150556E90058C21F /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A42E150556E80058C21F /* GameScene.m */; };
@@ -585,7 +586,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3893739B14FC6B6E00397E8E /* button_menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_menu.png; sourceTree = "<group>"; };
 		3893739C14FC6B6E00397E8E /* button_reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_reset.png; sourceTree = "<group>"; };
 		5ED0202414F98A1E0070387C /* block_wild.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_wild.png; path = Resources/Cells/Blocks/block_wild.png; sourceTree = "<group>"; };
 		5ED0202614F98BBA0070387C /* 19.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 19.plist; path = Resources/Levels/19.plist; sourceTree = "<group>"; };
@@ -595,6 +595,9 @@
 		8201099C151EC11700DA8ECB /* BackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayer.h; sourceTree = "<group>"; };
 		8201099D151EC11700DA8ECB /* BackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundLayer.m; sourceTree = "<group>"; };
 		820109A0151ECEF900DA8ECB /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Resources/Backgrounds/background.png; sourceTree = "<group>"; };
+		820109A2151F8BCC00DA8ECB /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		820109A4151F8C9600DA8ECB /* InGameMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InGameMenu.h; path = Menus/InGameMenu.h; sourceTree = "<group>"; };
+		820109A5151F8C9600DA8ECB /* InGameMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InGameMenu.m; path = Menus/InGameMenu.m; sourceTree = "<group>"; };
 		8235A41D14FCA9350058C21F /* ControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlLayer.h; sourceTree = "<group>"; };
 		8235A41E14FCA9350058C21F /* ControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlLayer.m; sourceTree = "<group>"; };
 		8235A42014FCA94C0058C21F /* BlockTrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTrain.h; sourceTree = "<group>"; };
@@ -747,7 +750,7 @@
 		3893739A14FC6B6E00397E8E /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				3893739B14FC6B6E00397E8E /* button_menu.png */,
+				820109A2151F8BCC00DA8ECB /* pause.png */,
 				3893739C14FC6B6E00397E8E /* button_reset.png */,
 			);
 			name = Controls;
@@ -1070,9 +1073,9 @@
 				985399AE14F1905500713F65 /* AchievementsMenu.m */,
 				9853999E14F18CE600713F65 /* DifficultyMenu.h */,
 				9853999F14F18CE600713F65 /* DifficultyMenu.m */,
-				985399A114F18CE600713F65 /* Menu.h */,
 				FA4D148814FD1CE40032FB74 /* LeaderboardMenu.h */,
 				FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */,
+				985399A114F18CE600713F65 /* Menu.h */,
 				985399A214F18CE600713F65 /* Menu.m */,
 				985399A314F18CE600713F65 /* MultiplayerMenu.h */,
 				985399A414F18CE600713F65 /* MultiplayerMenu.m */,
@@ -1080,6 +1083,8 @@
 				985399A614F18CE600713F65 /* OptionsMenu.m */,
 				985399A714F18CE600713F65 /* SinglePlayerMenu.h */,
 				985399A814F18CE600713F65 /* SinglePlayerMenu.m */,
+				820109A4151F8C9600DA8ECB /* InGameMenu.h */,
+				820109A5151F8C9600DA8ECB /* InGameMenu.m */,
 			);
 			name = Menus;
 			sourceTree = "<group>";
@@ -1695,7 +1700,6 @@
 				98C218F114F96BAA002177F9 /* completeBoard.plist in Resources */,
 				5ED0202514F98A1F0070387C /* block_wild.png in Resources */,
 				5ED0202714F98BBA0070387C /* 19.plist in Resources */,
-				3893739D14FC6B6E00397E8E /* button_menu.png in Resources */,
 				3893739E14FC6B6E00397E8E /* button_reset.png in Resources */,
 				8294476F151311B0003F727A /* block_connector.png in Resources */,
 				82944771151312A5003F727A /* block.png in Resources */,
@@ -1703,6 +1707,7 @@
 				827F2EAC15131F2A00A2564D /* colors.plist in Resources */,
 				8201099B151E985100DA8ECB /* debris.png in Resources */,
 				820109A1151ECEF900DA8ECB /* background.png in Resources */,
+				820109A3151F8BCC00DA8ECB /* pause.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1770,6 +1775,7 @@
 				8235A42F150556E90058C21F /* GameScene.m in Sources */,
 				964847D3151ACBAA00355CC4 /* Achievement.m in Sources */,
 				8201099E151EC11800DA8ECB /* BackgroundLayer.m in Sources */,
+				820109A6151F8C9600DA8ECB /* InGameMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,11 +17,11 @@
     if ((self = [super init])) {
         //Add Background Layer
         background = [[BackgroundLayer alloc] init];
-        [self addChild:background];
+        [self addChild:background z:-1];
         
         //Add Control Layer (Reset, Menu)
         controls = [[ControlLayer alloc] init];
-        [self addChild:controls];
+        [self addChild:controls z:1];
         
         //Set cell size for platform
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
@@ -38,13 +38,14 @@
                                                  selector:@selector(onResetButtonPressed:)
                                                      name:@"ResetButtonPressed"
                                                    object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onMenuButtonPressed:)
-                                                     name:@"MenuButtonPressed"
-                                                   object:nil];
     }
     
     return self;
+}
+
+-(void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void) onBoardComplete:(NSNotification *)notification
@@ -55,12 +56,6 @@
 {
     NSLog(@"Reset Button Pressed");
     [board reset];
-}
-
--(void) onMenuButtonPressed:(NSNotification *)notification
-{
-    // TODO: Display menu
-    NSLog(@"Menu Button Pressed");
 }
 
 @end
