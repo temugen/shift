@@ -205,25 +205,6 @@
         block = highBlock;
     }
     
-    //Let blocks know if they collided with each other
-    if (immovable != nil && ABS(limitedDistance) < ABS(distance) && ABS(distance) > kMinCollisionForce) {
-        [immovable onCollideWithCell:block force:ABS(distance)];
-        [block onCollideWithCell:immovable force:ABS(distance)];
-        
-        CCParticleSmoke *smoke = [[CCParticleSmoke alloc] initWithTotalParticles:100];
-        [smoke setEmitterMode:kCCParticleModeRadius];
-        smoke.startRadius = 5;
-        smoke.endRadius = 5;
-        smoke.duration = 0.1;
-        smoke.life = 0.1;
-        smoke.startSize = 1;
-        smoke.endSize = 1;
-        smoke.emissionRate = 1000;
-        smoke.position = ccp((immovable.position.x + block.position.x) / 2,
-                             (immovable.position.y + block.position.y) / 2);
-        [board addChild:smoke z:10];
-    }
-    
     //Move all of the moving blocks by distance in the correct direction
     for (BlockSprite *block in blocks) {
         if (movement == kMovementColumn)
@@ -240,6 +221,44 @@
         ribbon.position = ccp(ribbon.position.x + limitedDistance, ribbon.position.y);
     else if (movement == kMovementColumn)
         ribbon.position = ccp(ribbon.position.x, ribbon.position.y + limitedDistance);
+    
+    //Let blocks know if they collided with each other
+    if (immovable != nil && ABS(limitedDistance) < ABS(distance) && ABS(distance) > kMinCollisionForce) {
+        [immovable onCollideWithCell:block force:ABS(distance)];
+        [block onCollideWithCell:immovable force:ABS(distance)];
+        
+        CCParticleGalaxy *debris  = [[CCParticleGalaxy alloc] initWithTotalParticles:10];
+        [debris setEmitterMode:kCCParticleModeRadius];
+        debris.texture = [[CCTextureCache sharedTextureCache] addImage:@"debris.png"];
+        
+        float position;
+        if (distance < 0)
+            position = lowPositionLimit;
+        else
+            position = highPositionLimit;
+        
+        if (movement == kMovementColumn)
+            debris.position = ccp(immovable.position.x, position);
+        else if (movement == kMovementRow)
+            debris.position = ccp(position, immovable.position.y);
+        
+        debris.startSize = 10;
+        debris.endSize = 15;
+        
+        ccColor4F white = {1.0, 1.0, 1.0, 1.0};
+        debris.startColor = white;
+        debris.endColor = white;
+        
+        debris.life = 0.05;
+        debris.duration = 0.05;
+        
+        debris.emissionRate = 100;
+        
+        debris.startRadius = 10;
+        debris.endRadius = 15;
+        
+        [board addChild:debris z:10];
+    }
 }
 
 -(void) snap

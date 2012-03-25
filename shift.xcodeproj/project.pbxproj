@@ -12,6 +12,7 @@
 		5ED0202514F98A1F0070387C /* block_wild.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202414F98A1E0070387C /* block_wild.png */; };
 		5ED0202714F98BBA0070387C /* 19.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202614F98BBA0070387C /* 19.plist */; };
 		5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF053D314F338AF00177148 /* WildcardBlock.m */; };
+		8201099B151E985100DA8ECB /* debris.png in Resources */ = {isa = PBXBuildFile; fileRef = 8201099A151E985100DA8ECB /* debris.png */; };
 		8235A41F14FCA9350058C21F /* ControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A41E14FCA9350058C21F /* ControlLayer.m */; };
 		8235A42214FCA94C0058C21F /* BlockTrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A42114FCA94C0058C21F /* BlockTrain.m */; };
 		8235A42F150556E90058C21F /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A42E150556E80058C21F /* GameScene.m */; };
@@ -588,6 +589,7 @@
 		5ED0202614F98BBA0070387C /* 19.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 19.plist; path = Resources/Levels/19.plist; sourceTree = "<group>"; };
 		5EF053D214F338AE00177148 /* WildcardBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardBlock.h; path = Cells/Blocks/WildcardBlock.h; sourceTree = "<group>"; };
 		5EF053D314F338AF00177148 /* WildcardBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WildcardBlock.m; path = Cells/Blocks/WildcardBlock.m; sourceTree = "<group>"; };
+		8201099A151E985100DA8ECB /* debris.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = debris.png; path = Resources/Effects/debris.png; sourceTree = "<group>"; };
 		8235A41D14FCA9350058C21F /* ControlLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlLayer.h; sourceTree = "<group>"; };
 		8235A41E14FCA9350058C21F /* ControlLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlLayer.m; sourceTree = "<group>"; };
 		8235A42014FCA94C0058C21F /* BlockTrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockTrain.h; sourceTree = "<group>"; };
@@ -750,6 +752,7 @@
 		82364A7615093E0A0044B302 /* Effects */ = {
 			isa = PBXGroup;
 			children = (
+				8201099A151E985100DA8ECB /* debris.png */,
 				8294476E151311B0003F727A /* block_connector.png */,
 			);
 			name = Effects;
@@ -1682,6 +1685,7 @@
 				82944771151312A5003F727A /* block.png in Resources */,
 				82944773151312AF003F727A /* goal.png in Resources */,
 				827F2EAC15131F2A00A2564D /* colors.plist in Resources */,
+				8201099B151E985100DA8ECB /* debris.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
