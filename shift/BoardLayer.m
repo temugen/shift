@@ -374,8 +374,7 @@
                 [block onDoubleTap];
             else if(touch.tapCount == 1)
                 [block onTap];
-            else
-                [block onTouch];
+            [block onTouch];
         }
         
         if (block == nil || block.movable) {
