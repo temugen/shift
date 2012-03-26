@@ -98,7 +98,6 @@
     if( (self=[super init] )) 
     {
         CCSprite * title = [CCSprite spriteWithFile:@"title.png"];
-        //title.position = ccp(300,200);
         [self addChild:title z:0];
     }
     return self;
