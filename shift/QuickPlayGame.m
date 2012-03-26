@@ -22,20 +22,20 @@
         columnCount = columns;
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         boardCenter = CGPointMake((screenSize.width / 2), (screenSize.height / 2));
-        
         board = [BoardLayer randomBoardWithNumberOfColumns:columnCount
                                                       rows:rowCount
                                                     center:boardCenter
                                                   cellSize:cellSize];
-        
         [self addChild:board];
     }
+    
     return self;
 }
 
--(void) onBoardComplete:(NSNotification *)notification
+-(void) onNextGame
 {
     [self removeChild:board cleanup:YES];
+    
     board = [BoardLayer randomBoardWithNumberOfColumns:columnCount
                                                   rows:rowCount
                                                 center:boardCenter
