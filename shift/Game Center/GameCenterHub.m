@@ -278,27 +278,38 @@ static GameCenterHub* sharedHelper = nil;
   [rootViewController presentModalViewController:matchmakerVc animated:YES];
 }
 
+
 - (void) enterNewGame:(GKTurnBasedMatch*)match 
 {
-  
+  // TODO:  Implement method
 }
 - (void) layoutMatch:(GKTurnBasedMatch*)match
 {
-  
+  // TODO:  Implement method
+  [self checkForEnd:match.matchData];
 }
 
 - (void) takeTurn:(GKTurnBasedMatch*)match 
 {
-  
+  // TODO:  Implement method
+  [self checkForEnd:match.matchData];
 }
 
 - (void) recieveEndGame:(GKTurnBasedMatch*)match
 {
-  
+  [self layoutMatch:match];
+  // TODO:  Add in data to display final scores
 }
+
 - (void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match
 {
-  
+  UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"Your turn in another game" message:notice delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+  [av show];
+}
+
+- (void) checkForEnd:(NSData*) data
+{
+  // TODO:  Implement method 
 }
 
 
@@ -357,19 +368,54 @@ static GameCenterHub* sharedHelper = nil;
 /**
  *  Event Handler
  */
-- (void)handleInviteFromGameCenter:(NSArray*)playersToInvite 
+
+- (void)handleInviteFromGameCenter:(NSArray *)playersToInvite 
 {
-  NSLog(@"new invite");
+  [rootViewController dismissModalViewControllerAnimated:YES];
+  GKMatchRequest *request = [[GKMatchRequest alloc] init]; 
+  request.playersToInvite = playersToInvite;
+  request.maxPlayers = 2;
+  request.minPlayers = 2;
+  GKTurnBasedMatchmakerViewController* viewController = [[GKTurnBasedMatchmakerViewController alloc] initWithMatchRequest:request];
+  viewController.showExistingMatches = NO;
+  viewController.turnBasedMatchmakerDelegate = self;
+  [rootViewController presentModalViewController:viewController animated:YES];
 }
 
 - (void)handleTurnEventForMatch:(GKTurnBasedMatch*)myMatch 
 {
-  NSLog(@"Turn has happened");
+    NSLog(@"Turn has happened");
+    if ([myMatch.matchID isEqualToString:currentMatch.matchID]) {
+      if ([myMatch.currentParticipant.playerID 
+           isEqualToString:[GKLocalPlayer localPlayer].playerID]) {
+        // Current game, your turn
+        self.currentMatch = myMatch;
+        [self takeTurn:myMatch];
+      } else {
+        // Current game, not your turn
+        self.currentMatch = myMatch;
+        [self layoutMatch:myMatch];
+      }
+    } else {
+      if ([myMatch.currentParticipant.playerID 
+           isEqualToString:[GKLocalPlayer localPlayer].playerID]) {
+        // Other game, your turn
+        [self sendNotice:@"It's your turn for another match" forMatch:myMatch];
+      } 
+    }
 }
 
 - (void)handleMatchEnded:(GKTurnBasedMatch*)myMatch 
 {
-  NSLog(@"Game has ended");
+  NSLog(@"This game is over");
+  if ([myMatch.matchID isEqualToString:currentMatch.matchID]) 
+  {
+    [self recieveEndGame:myMatch];
+  } 
+  else 
+  {
+    [self sendNotice:@"A different game has ended" forMatch:myMatch];
+  }
 }
 
 

@@ -10,7 +10,7 @@
 #import <GameKit/GameKit.h>
 #import "RootViewController.h"
 
-@interface GameCenterHub : NSObject <GKMatchDelegate, GKLeaderboardViewControllerDelegate, GKFriendRequestComposeViewControllerDelegate, GKAchievementViewControllerDelegate, GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate>
+@interface GameCenterHub : NSObject <GKLeaderboardViewControllerDelegate, GKFriendRequestComposeViewControllerDelegate, GKAchievementViewControllerDelegate, GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate>
 { 
   RootViewController* rootViewController;
   BOOL gameCenterAvailable;
