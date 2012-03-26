@@ -10,5 +10,14 @@
 #include "Menu.h"
 
 @interface MainMenu : Menu
+{
+    CCMenu* menu;
+}
 
+-(id) init;
++(id) scene;
+
+@end
+
+@interface TitleLayer : CCLayer
 @end

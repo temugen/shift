@@ -20,24 +20,39 @@
 -(id) init
 {
     if( (self=[super init] )) {
-
+        
         //Set up menu items
         CCMenuItemFont *quickplay = [CCMenuItemFont itemFromString:@"Quickplay" target:self selector: @selector(onQuickplay:)];
         CCMenuItemFont *single = [CCMenuItemFont itemFromString:@"Single Player" target:self selector: @selector(onSinglePlayer:)];
         CCMenuItemFont *multi = [CCMenuItemFont itemFromString:@"Multiplayer" target:self selector: @selector(onMultiplayer:)];
         CCMenuItemFont *options = [CCMenuItemFont itemFromString:@"Options" target:self selector: @selector(onOptions:)];
         CCMenuItemFont *achievements= [CCMenuItemFont itemFromString:@"Achievements" target:self selector: @selector(onAchievements:)];
-
+        
         //Add items to menu
-        CCMenu *menu = [CCMenu menuWithItems: quickplay, single, multi, options, achievements, nil];
+        menu = [CCMenu menuWithItems: quickplay, single, multi, options, achievements, nil];
+        
+        //Shift menu down slightly to accomodate title
+        menu.position = ccp(menu.position.x,menu.position.y-40);
         
         [menu alignItemsVertically];
-
+        
         //Add menu to main menu layer
         [self addChild: menu];
         
     }
     return self;
+}
+
+//Create scene with main menu
++(id) scene
+{
+    MainMenu *mainMenu = [MainMenu node];
+    TitleLayer *title = [TitleLayer node];
+    title.position = ccp(mainMenu->menu.position.x,mainMenu->menu.position.y+140);
+    
+    CCScene* scene = [super sceneWithMenu:mainMenu];
+    [scene addChild:title z:1];
+    return scene;
 }
 
 /* Callback functions for main menu items */
@@ -54,14 +69,14 @@
 
 - (void) onMultiplayer: (id) sender
 {
-  if ([GameCenterHub sharedInstance].gameCenterAvailable) 
-  { 
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
-  }
-  else
-  {
-    [[[UIAlertView alloc] initWithTitle:@"GameCenter Error" message:@"GameCenter is required to use any of the multiplayer features" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
-  }
+    if ([GameCenterHub sharedInstance].gameCenterAvailable) 
+    { 
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
+    }
+    else
+    {
+        [[[UIAlertView alloc] initWithTitle:@"GameCenter Error" message:@"GameCenter is required to use any of the multiplayer features" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+    }
 }
 
 - (void) onOptions: (id) sender
@@ -74,6 +89,19 @@
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[AchievementsMenu scene]]];
 }
 
+@end
 
+@implementation TitleLayer
+
+-(id) init
+{
+    if( (self=[super init] )) 
+    {
+        CCSprite * title = [CCSprite spriteWithFile:@"title.png"];
+        //title.position = ccp(300,200);
+        [self addChild:title z:0];
+    }
+    return self;
+}
 
 @end

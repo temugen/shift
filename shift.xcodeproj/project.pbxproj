@@ -88,6 +88,7 @@
 		98657FDD14F412EF00584BD1 /* LockBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FDB14F412EE00584BD1 /* LockBlock.m */; };
 		98C218F114F96BAA002177F9 /* completeBoard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98C218F014F96BAA002177F9 /* completeBoard.plist */; };
 		98C218F214F96BAA002177F9 /* completeBoard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98C218F014F96BAA002177F9 /* completeBoard.plist */; };
+		98E6E69E152004750001D956 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E6E69D152004750001D956 /* title.png */; };
 		A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */; };
 		A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61B014F5D1370024A2EC /* StationaryBlock.m */; };
 		FA4D148A14FD1CE40032FB74 /* LeaderboardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */; };
@@ -694,6 +695,7 @@
 		98657FDA14F412EE00584BD1 /* LockBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LockBlock.h; path = Cells/Blocks/LockBlock.h; sourceTree = "<group>"; };
 		98657FDB14F412EE00584BD1 /* LockBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LockBlock.m; path = Cells/Blocks/LockBlock.m; sourceTree = "<group>"; };
 		98C218F014F96BAA002177F9 /* completeBoard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = completeBoard.plist; path = Resources/Levels/completeBoard.plist; sourceTree = "<group>"; };
+		98E6E69D152004750001D956 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = Resources/title.png; sourceTree = "<group>"; };
 		A33E61AD14F5D1360024A2EC /* DestructiveBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DestructiveBlock.h; path = Cells/Blocks/DestructiveBlock.h; sourceTree = "<group>"; };
 		A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DestructiveBlock.m; path = Cells/Blocks/DestructiveBlock.m; sourceTree = "<group>"; };
 		A33E61AF14F5D1370024A2EC /* StationaryBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationaryBlock.h; path = Cells/Blocks/StationaryBlock.h; sourceTree = "<group>"; };
@@ -1033,6 +1035,7 @@
 		827036FA14DB0448008D7240 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				98E6E69D152004750001D956 /* title.png */,
 				8201099F151ECEED00DA8ECB /* Backgrounds */,
 				3893739A14FC6B6E00397E8E /* Controls */,
 				82470D0514F1BCC500F60A7C /* Levels */,
@@ -1704,6 +1707,7 @@
 				8201099B151E985100DA8ECB /* debris.png in Resources */,
 				820109A1151ECEF900DA8ECB /* background.png in Resources */,
 				820109A3151F8BCC00DA8ECB /* pause.png in Resources */,
+				98E6E69E152004750001D956 /* title.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
