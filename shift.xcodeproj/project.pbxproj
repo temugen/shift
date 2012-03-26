@@ -91,6 +91,9 @@
 		98E6E69E152004750001D956 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E6E69D152004750001D956 /* title.png */; };
 		98E6E6A21520B7720001D956 /* 3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98E6E6A11520B7720001D956 /* 3.plist */; };
 		98E6E6A41520B9E20001D956 /* 4.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98E6E6A31520B9E20001D956 /* 4.plist */; };
+		A323368A1520E34A00119D91 /* block_destructive.png in Resources */ = {isa = PBXBuildFile; fileRef = A32336891520E34900119D91 /* block_destructive.png */; };
+		A323368C1520E35400119D91 /* block_ram.png in Resources */ = {isa = PBXBuildFile; fileRef = A323368B1520E35300119D91 /* block_ram.png */; };
+		A323368F1520E37800119D91 /* RamBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A323368E1520E37600119D91 /* RamBlock.m */; };
 		A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */; };
 		A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61B014F5D1370024A2EC /* StationaryBlock.m */; };
 		FA4D148A14FD1CE40032FB74 /* LeaderboardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */; };
@@ -700,6 +703,10 @@
 		98E6E69D152004750001D956 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = Resources/title.png; sourceTree = "<group>"; };
 		98E6E6A11520B7720001D956 /* 3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = 3.plist; path = Resources/Levels/3.plist; sourceTree = "<group>"; };
 		98E6E6A31520B9E20001D956 /* 4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 4.plist; path = Resources/Levels/4.plist; sourceTree = "<group>"; };
+		A32336891520E34900119D91 /* block_destructive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_destructive.png; path = Resources/Cells/Blocks/block_destructive.png; sourceTree = "<group>"; };
+		A323368B1520E35300119D91 /* block_ram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_ram.png; path = Resources/Cells/Blocks/block_ram.png; sourceTree = "<group>"; };
+		A323368D1520E36900119D91 /* RamBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RamBlock.h; path = Cells/Blocks/RamBlock.h; sourceTree = "<group>"; };
+		A323368E1520E37600119D91 /* RamBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RamBlock.m; path = Cells/Blocks/RamBlock.m; sourceTree = "<group>"; };
 		A33E61AD14F5D1360024A2EC /* DestructiveBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DestructiveBlock.h; path = Cells/Blocks/DestructiveBlock.h; sourceTree = "<group>"; };
 		A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DestructiveBlock.m; path = Cells/Blocks/DestructiveBlock.m; sourceTree = "<group>"; };
 		A33E61AF14F5D1370024A2EC /* StationaryBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationaryBlock.h; path = Cells/Blocks/StationaryBlock.h; sourceTree = "<group>"; };
@@ -902,6 +909,8 @@
 		82470D0614F1BE7700F60A7C /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				A323368B1520E35300119D91 /* block_ram.png */,
+				A32336891520E34900119D91 /* block_destructive.png */,
 				82944770151312A5003F727A /* block.png */,
 				5ED0202414F98A1E0070387C /* block_wild.png */,
 				985265F514F6D94800353F61 /* blue_key.png */,
@@ -1010,6 +1019,8 @@
 		827036F914DB0448008D7240 /* shift */ = {
 			isa = PBXGroup;
 			children = (
+				A323368D1520E36900119D91 /* RamBlock.h */,
+				A323368E1520E37600119D91 /* RamBlock.m */,
 				8235A42014FCA94C0058C21F /* BlockTrain.h */,
 				8235A42114FCA94C0058C21F /* BlockTrain.m */,
 				8270386114DB052F008D7240 /* BoardLayer.h */,
@@ -1716,6 +1727,8 @@
 				98E6E69E152004750001D956 /* title.png in Resources */,
 				98E6E6A21520B7720001D956 /* 3.plist in Resources */,
 				98E6E6A41520B9E20001D956 /* 4.plist in Resources */,
+				A323368A1520E34A00119D91 /* block_destructive.png in Resources */,
+				A323368C1520E35400119D91 /* block_ram.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1784,6 +1797,7 @@
 				964847D3151ACBAA00355CC4 /* Achievement.m in Sources */,
 				8201099E151EC11800DA8ECB /* BackgroundLayer.m in Sources */,
 				820109A6151F8C9600DA8ECB /* InGameMenu.m in Sources */,
+				A323368F1520E37800119D91 /* RamBlock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
