@@ -131,7 +131,11 @@
     
     //Set the border and block position based on the position given. 
     border.position = ccp(border.position.x+TITLE_BORDER_SIZE*pos,border.position.y);
-    block.position = border.position;
+    
+    //Add some animation
+    id move = [CCMoveBy actionWithDuration:2 position:border.position];
+    id action = [CCEaseElasticIn actionWithAction:move];
+    [block runAction: action];
     
     //Add label to the block
     [TitleLayer createLabelWithText:text textBox:block];
