@@ -952,6 +952,8 @@
 		82470D2714F1BF6F00F60A7C /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				A323368D1520E36900119D91 /* RamBlock.h */,
+				A323368E1520E37600119D91 /* RamBlock.m */,
 				82470D2F14F1C03000F60A7C /* BlockSprite.h */,
 				82470D3014F1C03000F60A7C /* BlockSprite.m */,
 				A33E61AD14F5D1360024A2EC /* DestructiveBlock.h */,
@@ -1019,8 +1021,6 @@
 		827036F914DB0448008D7240 /* shift */ = {
 			isa = PBXGroup;
 			children = (
-				A323368D1520E36900119D91 /* RamBlock.h */,
-				A323368E1520E37600119D91 /* RamBlock.m */,
 				8235A42014FCA94C0058C21F /* BlockTrain.h */,
 				8235A42114FCA94C0058C21F /* BlockTrain.m */,
 				8270386114DB052F008D7240 /* BoardLayer.h */,
