@@ -10,7 +10,7 @@
 #import <GameKit/GameKit.h>
 #import "RootViewController.h"
 
-@interface GameCenterHub : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GKLeaderboardViewControllerDelegate, GKFriendRequestComposeViewControllerDelegate, GKAchievementViewControllerDelegate>
+@interface GameCenterHub : NSObject <GKMatchDelegate, GKLeaderboardViewControllerDelegate, GKFriendRequestComposeViewControllerDelegate, GKAchievementViewControllerDelegate, GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate>
 { 
   RootViewController* rootViewController;
   BOOL gameCenterAvailable;
@@ -19,8 +19,7 @@
   NSError* lastError;
   
   NSMutableDictionary* achievementDict;
-  
-  GKMatch* match;
+  GKTurnBasedMatch* currentMatch;
   BOOL matchStarted;
 }
 
@@ -28,8 +27,8 @@
 @property (nonatomic, weak, readonly) NSNotificationCenter* notificationCenter;
 @property (assign, readonly) BOOL gameCenterAvailable;
 @property (strong) RootViewController* rootViewController;
-@property (nonatomic, strong) GKMatch* match;
 @property (nonatomic, readonly) NSError* lastError;
+@property (nonatomic, strong) GKTurnBasedMatch* currentMatch;
 
 // Initialization functions
 + (GameCenterHub*)sharedInstance;
@@ -56,7 +55,11 @@
 
 // Matchmaking functions
 - (void) findRandomMatch;
-- (void) matchEnded;
+- (void) enterNewGame:(GKTurnBasedMatch*)match;
+- (void) layoutMatch:(GKTurnBasedMatch*)match;
+- (void) takeTurn:(GKTurnBasedMatch*)match;
+- (void) recieveEndGame:(GKTurnBasedMatch*)match;
+- (void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match;
 
 // Helper functions
 - (void) setError:(NSError*)error;

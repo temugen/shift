@@ -96,6 +96,7 @@
 		A323368F1520E37800119D91 /* RamBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A323368E1520E37600119D91 /* RamBlock.m */; };
 		A33E61B114F5D1370024A2EC /* DestructiveBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */; };
 		A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61B014F5D1370024A2EC /* StationaryBlock.m */; };
+		FA07E6281520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = FA07E6271520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m */; };
 		FA4D148A14FD1CE40032FB74 /* LeaderboardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
 		FAC8909C150C49EE000F816C /* GameCenterHub.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC89095150C49EE000F816C /* GameCenterHub.m */; };
@@ -711,6 +712,8 @@
 		A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DestructiveBlock.m; path = Cells/Blocks/DestructiveBlock.m; sourceTree = "<group>"; };
 		A33E61AF14F5D1370024A2EC /* StationaryBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationaryBlock.h; path = Cells/Blocks/StationaryBlock.h; sourceTree = "<group>"; };
 		A33E61B014F5D1370024A2EC /* StationaryBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StationaryBlock.m; path = Cells/Blocks/StationaryBlock.m; sourceTree = "<group>"; };
+		FA07E6261520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GKTurnBasedMatchmakerViewController-LandscapeOnly.h"; path = "shift/Game Center/GKTurnBasedMatchmakerViewController-LandscapeOnly.h"; sourceTree = "<group>"; };
+		FA07E6271520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GKTurnBasedMatchmakerViewController-LandscapeOnly.m"; path = "shift/Game Center/GKTurnBasedMatchmakerViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
 		FA4D148814FD1CE40032FB74 /* LeaderboardMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaderboardMenu.h; path = Menus/LeaderboardMenu.h; sourceTree = "<group>"; };
 		FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaderboardMenu.m; path = Menus/LeaderboardMenu.m; sourceTree = "<group>"; };
 		FAC182E614E3723100968475 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -1119,6 +1122,8 @@
 				FAC8909B150C49EE000F816C /* GKMatchMakerViewController-LandscapeOnly.m */,
 				964847D1151ACBAA00355CC4 /* Achievement.h */,
 				964847D2151ACBAA00355CC4 /* Achievement.m */,
+				FA07E6261520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.h */,
+				FA07E6271520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m */,
 			);
 			name = "Game Center";
 			path = ..;
@@ -1797,6 +1802,7 @@
 				964847D3151ACBAA00355CC4 /* Achievement.m in Sources */,
 				8201099E151EC11800DA8ECB /* BackgroundLayer.m in Sources */,
 				820109A6151F8C9600DA8ECB /* InGameMenu.m in Sources */,
+				FA07E6281520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m in Sources */,
 				A323368F1520E37800119D91 /* RamBlock.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
