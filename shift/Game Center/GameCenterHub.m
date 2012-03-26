@@ -16,7 +16,7 @@
 @synthesize rootViewController;
 @synthesize gameCenterAvailable;
 @synthesize lastError;
-@synthesize match;
+@synthesize currentMatch;
 
 static GameCenterHub* sharedHelper = nil;
 
@@ -68,10 +68,26 @@ static GameCenterHub* sharedHelper = nil;
 - (void) authenticateLocalPlayer
 {
   if (!gameCenterAvailable) return;
+
+  // Setup event handler
+  void (^setGKEventHandlerDelegate)(NSError *) = ^ (NSError *error)
+  {
+    GKTurnBasedEventHandler *ev = [GKTurnBasedEventHandler sharedTurnBasedEventHandler];
+    ev.delegate = self;
+  };
+
+  // Authenticate local player and setup GKEventHandlerDelegate
   if([GKLocalPlayer localPlayer].authenticated == NO)
   {
-    [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:nil];
+    [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:setGKEventHandlerDelegate];
   }
+  else
+  {
+    NSLog(@"Already authenticated.");
+    setGKEventHandlerDelegate(nil);
+  }
+  
+  // Get friends
   [self getPlayerFriends];
 }
 
@@ -250,101 +266,110 @@ static GameCenterHub* sharedHelper = nil;
   if (!gameCenterAvailable) return;
   
   matchStarted = NO;
-  match = nil;
   [rootViewController dismissModalViewControllerAnimated:NO];
   
   GKMatchRequest* request = [[GKMatchRequest alloc] init];
   request.minPlayers = 2;
   request.maxPlayers = 2;
   
-  GKMatchmakerViewController* matchmakerVc = [[GKMatchmakerViewController alloc] initWithMatchRequest:request];
-  matchmakerVc.matchmakerDelegate = self;
+  GKTurnBasedMatchmakerViewController* matchmakerVc = [[GKTurnBasedMatchmakerViewController alloc] initWithMatchRequest:request];
+  matchmakerVc.turnBasedMatchmakerDelegate = self;
   
   [rootViewController presentModalViewController:matchmakerVc animated:YES];
 }
 
-- (void) matchEnded
+- (void) enterNewGame:(GKTurnBasedMatch*)match 
+{
+  
+}
+- (void) layoutMatch:(GKTurnBasedMatch*)match
 {
   
 }
 
-/*
- ********** Callback methods for GKMatchViewController **********
+- (void) takeTurn:(GKTurnBasedMatch*)match 
+{
+  
+}
+
+- (void) recieveEndGame:(GKTurnBasedMatch*)match
+{
+  
+}
+- (void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match
+{
+  
+}
+
+
+/**
+ *  TurnBasedMatchmaker Callbacks
  */
-
-// Player cancels MM
-- (void) matchmakerViewControllerWasCancelled:(GKMatchmakerViewController *)viewController
+-(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)myMatch 
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
-}
-
-// Failed with an error
-- (void) matchmakerViewController:(GKMatchmakerViewController *)viewController didFailWithError:(NSError*)error
-{
-  [rootViewController dismissModalViewControllerAnimated:YES];
-  NSLog(@"Error:  Couldn't find match: %@", error.localizedDescription);
-}
-
-// An opponent has been found
-- (void) matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch*)myMatch
-{
-  [rootViewController dismissModalViewControllerAnimated:YES];
-  self.match = myMatch;
-  myMatch.delegate = self;
-  if (!matchStarted && myMatch.expectedPlayerCount == 0)
+  self.currentMatch = myMatch;
+  GKTurnBasedParticipant* firstParticipant = [myMatch.participants objectAtIndex:0];
+  if (firstParticipant.lastTurnDate) 
   {
-    NSLog(@"Ready to start");
+    if ([myMatch.currentParticipant.playerID 
+         isEqualToString:[GKLocalPlayer localPlayer].playerID]) {
+      // Your turn
+      [self takeTurn:myMatch];
+    } else {
+      // Not your turn display the game
+      [self layoutMatch:myMatch];
+    }     
+  } else 
+  {
+    [self enterNewGame:myMatch];
   }
 }
 
-
-/*
- ********** Callback methods for GKMatchDelegate **********
- */
-
-// Another player sends data to game
-- (void) match: (GKMatch*) myMatch didReceiveData:(NSData*)data fromPlayer:(NSString*)playerID
+-(void)turnBasedMatchmakerViewControllerWasCancelled:(GKTurnBasedMatchmakerViewController *)viewController 
 {
-  if (match != myMatch) return;
-  [self match:myMatch didReceiveData:data fromPlayer:playerID];
+  [rootViewController dismissModalViewControllerAnimated:YES];
+  NSLog(@"has cancelled");
 }
 
-//  Makes sure all players are connected
-- (void) match: (GKMatch*)myMatch player:(NSString*) playerID didChangeState:(GKPlayerConnectionState)state
+-(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFailWithError:(NSError *)error 
 {
-  if (match != myMatch) return;
-  switch (state)
-  {
-    case GKPlayerStateConnected:
-      if (!matchStarted && myMatch.expectedPlayerCount == 0)
-      {
-        NSLog(@"Ready to start");
-      }
+  [rootViewController dismissModalViewControllerAnimated:YES];
+  NSLog(@"Error finding match: %@", error.localizedDescription);
+}
+
+-(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController playerQuitForMatch:(GKTurnBasedMatch *)myMatch 
+{
+  NSUInteger currentIndex = [myMatch.participants indexOfObject:myMatch.currentParticipant];
+  GKTurnBasedParticipant *part;
+  
+  for (int i = 0; i < [myMatch.participants count]; i++) {
+    part = [myMatch.participants objectAtIndex:
+            (currentIndex + 1 + i) % myMatch.participants.count];
+    if (part.matchOutcome != GKTurnBasedMatchOutcomeQuit) {
       break;
-      
-    case GKPlayerStateDisconnected:
-      NSLog(@"Player disconnected");
-      matchStarted = NO;
-      [self matchEnded];
-      break;
+    } 
   }
+  NSLog(@"playerquitforMatch, %@, %@", myMatch, myMatch.currentParticipant);
+  [myMatch participantQuitInTurnWithOutcome: GKTurnBasedMatchOutcomeQuit nextParticipant:part                                matchData:myMatch.matchData completionHandler:nil];
 }
 
-// Error with connection
-- (void) match:(GKMatch*)myMatch connectionWithPlayerFailed:(NSString *)playerID withError:(NSError*)error
+/**
+ *  Event Handler
+ */
+- (void)handleInviteFromGameCenter:(NSArray*)playersToInvite 
 {
-  if (match != myMatch) return;
-  NSLog(@"Failed to connect: %@", error.localizedDescription);
-  [self matchEnded];
+  NSLog(@"new invite");
 }
 
-// Failure due to error
-- (void) match:(GKMatch*) myMatch didFailWithError:(NSError*)error
+- (void)handleTurnEventForMatch:(GKTurnBasedMatch*)myMatch 
 {
-  if (match != myMatch) return;
-  NSLog(@"Match failed with error: %@", error.localizedDescription);
-  matchStarted = NO;
-  [self matchEnded];
+  NSLog(@"Turn has happened");
+}
+
+- (void)handleMatchEnded:(GKTurnBasedMatch*)myMatch 
+{
+  NSLog(@"Game has ended");
 }
 
 
