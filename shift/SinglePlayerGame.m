@@ -32,6 +32,20 @@
     return self;
 }
 
+-(void) onGameStart
+{
+  //Your stuff here
+  
+  [super onGameStart];
+}
+
+-(void) onGameEnd
+{
+  [super onGameEnd];
+  
+  //Your stuff here
+}
+
 -(void) onNextGame
 {
     [self removeChild:board cleanup:YES];

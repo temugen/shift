@@ -16,7 +16,6 @@
   BOOL gameCenterAvailable;
   BOOL userAuthenticated;  
   NSNotificationCenter* __weak notificationCenter;
-  NSError* lastError;
   
   NSMutableDictionary* achievementDict;
   GKTurnBasedMatch* currentMatch;
@@ -27,8 +26,7 @@
 @property (nonatomic, weak, readonly) NSNotificationCenter* notificationCenter;
 @property (assign, readonly) BOOL gameCenterAvailable;
 @property (strong) RootViewController* rootViewController;
-@property (nonatomic, readonly) NSError* lastError;
-@property (nonatomic, strong) GKTurnBasedMatch* currentMatch;
+@property (strong) GKTurnBasedMatch* currentMatch;
 
 // Initialization functions
 + (GameCenterHub*)sharedInstance;
@@ -62,7 +60,6 @@
 - (void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match;
 
 // Helper functions
-- (void) setError:(NSError*)error;
 - (BOOL) isGameCenterAvailable;
 - (void) loadPlayerData:(NSArray*)identifiers;
 
