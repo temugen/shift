@@ -32,7 +32,7 @@
     return self;
 }
 
--(void) onBoardComplete:(NSNotification *)notification
+-(void) onNextGame
 {
     [self removeChild:board cleanup:YES];
     currentLevel++;

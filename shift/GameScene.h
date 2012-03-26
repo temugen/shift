@@ -13,7 +13,18 @@
 @interface GameScene : CCScene
 {
     BoardLayer *board;
+    NSDate *startTime;
+    BOOL inGame;
+    
     CGPoint boardCenter;
     CGSize cellSize;
+    NSTimeInterval elapsedTime;
 }
+
+@property(readonly) NSTimeInterval elapsedTime;
+
+-(void) onNextGame;
+-(void) onGameStart;
+-(void) onGameEnd;
+
 @end

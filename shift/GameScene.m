@@ -12,6 +12,8 @@
 
 @implementation GameScene
 
+@synthesize elapsedTime;
+
 -(id) init
 {
     if ((self = [super init])) {
@@ -43,6 +45,30 @@
     return self;
 }
 
+-(NSTimeInterval) getElapsedTime
+{
+    if (inGame)
+        return [startTime timeIntervalSinceNow];
+    else
+        return elapsedTime;
+}
+
+-(void) onNextGame
+{
+}
+
+-(void) onGameStart
+{
+    startTime = [NSDate date];
+    inGame = YES;
+}
+
+-(void) onGameEnd
+{
+    inGame = NO;
+    elapsedTime = [startTime timeIntervalSinceNow];
+}
+
 -(void) dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -50,6 +76,9 @@
 
 -(void) onBoardComplete:(NSNotification *)notification
 {
+    [self onGameEnd];
+    [self onNextGame];
+    [self onGameStart];
 }
 
 -(void) onResetButtonPressed:(NSNotification *)notification
