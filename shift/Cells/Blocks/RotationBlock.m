@@ -138,6 +138,7 @@
     
     //Remove ourself from the scene
     [board removeChild:self cleanup:YES];
+    [board isComplete];
 }
 
 @end
