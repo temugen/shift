@@ -83,6 +83,7 @@
 		985399B014F1905500713F65 /* AchievementsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399AE14F1905500713F65 /* AchievementsMenu.m */; };
 		985399B114F1905500713F65 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399AF14F1905500713F65 /* MainMenu.m */; };
 		9857981F15212121005CA702 /* title_block.png in Resources */ = {isa = PBXBuildFile; fileRef = 9857981E15212121005CA702 /* title_block.png */; };
+		985798A915225758005CA702 /* 5.plist in Resources */ = {isa = PBXBuildFile; fileRef = 985798A815225758005CA702 /* 5.plist */; };
 		985A8D51150E6659005E771A /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8243E92C15081AC1003DEBAA /* libcocos2d.a */; };
 		985A8D52150E6659005E771A /* libCocosDenshion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8243E93015081AC1003DEBAA /* libCocosDenshion.a */; };
 		98657FDC14F412EF00584BD1 /* KeyBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FD914F412EE00584BD1 /* KeyBlock.m */; };
@@ -704,6 +705,7 @@
 		985399AE14F1905500713F65 /* AchievementsMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AchievementsMenu.m; path = Menus/AchievementsMenu.m; sourceTree = "<group>"; };
 		985399AF14F1905500713F65 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenu.m; path = Menus/MainMenu.m; sourceTree = "<group>"; };
 		9857981E15212121005CA702 /* title_block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title_block.png; path = Resources/title_block.png; sourceTree = "<group>"; };
+		985798A815225758005CA702 /* 5.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 5.plist; path = Resources/Levels/5.plist; sourceTree = "<group>"; };
 		98657FD814F412EE00584BD1 /* KeyBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyBlock.h; path = Cells/Blocks/KeyBlock.h; sourceTree = "<group>"; };
 		98657FD914F412EE00584BD1 /* KeyBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyBlock.m; path = Cells/Blocks/KeyBlock.m; sourceTree = "<group>"; };
 		98657FDA14F412EE00584BD1 /* LockBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LockBlock.h; path = Cells/Blocks/LockBlock.h; sourceTree = "<group>"; };
@@ -921,6 +923,7 @@
 				82470D3814F1C7DB00F60A7C /* 2.plist */,
 				82470D2414F1BF5000F60A7C /* 1.plist */,
 				98E6E6A31520B9E20001D956 /* 4.plist */,
+				985798A815225758005CA702 /* 5.plist */,
 			);
 			name = Levels;
 			sourceTree = "<group>";
@@ -1781,6 +1784,7 @@
 				FA7D41071522325B009234BF /* gk-notification.png in Resources */,
 				FA7D41081522325B009234BF /* gk-notification@2x.png in Resources */,
 				FA7D41091522325B009234BF /* LICENSE in Resources */,
+				985798A915225758005CA702 /* 5.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
