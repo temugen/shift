@@ -13,6 +13,11 @@
 #import "OptionsMenu.h"
 #import "AchievementsMenu.h"
 #import "GameCenterHub.h"
+#import "GoalSprite.h"
+#import "BlockSprite.h"
+
+#define TEXT_BLOCK_SIZE 35
+#define TITLE_BORDER_SIZE 50
 
 @implementation MainMenu
 
@@ -97,10 +102,66 @@
 {
     if( (self=[super init] )) 
     {
-        CCSprite * title = [CCSprite spriteWithFile:@"title.png"];
-        [self addChild:title z:0];
+        [self addTileWithText:@"S" color:@"red" position:-2];
+        [self addTileWithText:@"H" color:@"blue" position:-1];
+        [self addTileWithText:@"I" color:@"orange" position:0];
+        [self addTileWithText:@"F" color:@"green" position:1];
+        [self addTileWithText:@"T" color:@"purple" position:2];
     }
     return self;
+}
+
+//Creates a title tile based on the text and color given. The position is the tile offset
+//of the current tile from the center of the title layer.
+-(void)addTileWithText:(NSString*)text color:(NSString*)color position:(int)pos
+{
+    //Initialize border and block
+    GoalSprite* border = [GoalSprite goalWithName:color];
+    CCSprite* block = [CCSprite spriteWithFile:@"title_block.png"];
+    
+    //Set the color of the block to the desired color
+    const ccColor3B *ccColor = [[colors objectForKey:color] bytes];
+    [block setColor:*ccColor];
+    
+    //Scale the block and the border
+    [block setScaleX:TEXT_BLOCK_SIZE/block.contentSize.width];
+    [block setScaleY:TEXT_BLOCK_SIZE/block.contentSize.height];
+    [border setScaleX:TITLE_BORDER_SIZE/border.contentSize.width];
+    [border setScaleY:TITLE_BORDER_SIZE/border.contentSize.height];
+    
+    //Set the border and block position based on the position given. 
+    border.position = ccp(border.position.x+TITLE_BORDER_SIZE*pos,border.position.y);
+    
+    //Add some animation
+    id move = [CCMoveBy actionWithDuration:2 position:border.position];
+    id action = [CCEaseElasticIn actionWithAction:move];
+    [block runAction: action];
+    
+    //Add label to the block
+    [TitleLayer createLabelWithText:text textBox:block];
+    
+    //Add the border and block to the title layer
+    [self addChild:border z:0];
+    [self addChild:block z:1];
+    
+}
+
+//Create a label for the given letter in the title
++(void)createLabelWithText:(NSString*)text textBox:(CCSprite*)textBox
+{
+    CCLabelTTF* label = [[CCLabelTTF alloc] initWithString:text 
+                                                dimensions:CGSizeMake([textBox contentSize].width, [textBox contentSize].height)  
+                                                 alignment:UITextAlignmentCenter 
+                                                  fontName:@"Helvetica-BoldOblique" 
+                                                  fontSize:100.0f];
+    
+    label.color = ccBLACK;
+    
+    //Attempt to center the label.
+    label.position = ccp(label.position.x+43,label.position.y+58);
+    
+    //Add label to the given block
+    [textBox addChild:label z:1];
 }
 
 @end
