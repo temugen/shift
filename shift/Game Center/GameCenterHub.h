@@ -29,38 +29,40 @@
 @property (strong) GKTurnBasedMatch* currentMatch;
 
 // Initialization functions
-+ (GameCenterHub*)sharedInstance;
-+ (id) alloc;
-- (id) init;
++(GameCenterHub*)sharedInstance;
++(id) alloc;
+-(id) init;
 
 // Authentication functions
-- (void) authenticateLocalPlayer;
-- (void) authenticationChanged;
-- (void) getPlayerFriends;
-- (void) inviteFriends:(NSArray*)identifiers;
+-(void) authenticateLocalPlayer;
+-(void) authenticationChanged;
+-(void) getPlayerFriends;
+-(void) loadPlayerData:(NSArray*)identifiers;
+-(void) inviteFriends:(NSArray*)identifiers;
 
 // Achievements functions
-- (void) showAchievements;
-- (void) loadAchievements;
-- (void) achievementViewControllerDidFinish:(GKAchievementViewController*) viewController;	  	
-- (void) retrieveAchievmentMetadata;
-- (void) reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent;
-- (GKAchievement*) addOrFindIdentifier:(NSString*)identifier;
+-(void) showAchievements;
+-(void) loadAchievements;
+-(void) achievementViewControllerDidFinish:(GKAchievementViewController*) viewController;	  	
+-(void) retrieveAchievmentMetadata;
+-(void) reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent;
+-(GKAchievement*) addOrFindIdentifier:(NSString*)identifier;
+-(void) achievementCompleted:(NSString*)title message:(NSString*)msg;
+- (void) resetAchievements;
 
 // LeaderBoard functions
-- (void) showLeaderboard:(NSString*)category;
-- (void) submitScore:(int64_t)score category:(NSString*)category;
+-(void) showLeaderboard:(NSString*)category;
+-(void) submitScore:(int64_t)score category:(NSString*)category;
 
 // Matchmaking functions
-- (void) findRandomMatch;
-- (void) enterNewGame:(GKTurnBasedMatch*)match;
-- (void) layoutMatch:(GKTurnBasedMatch*)match;
-- (void) takeTurn:(GKTurnBasedMatch*)match;
-- (void) recieveEndGame:(GKTurnBasedMatch*)match;
-- (void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match;
+-(void) findRandomMatch;
+-(void) enterNewGame:(GKTurnBasedMatch*)match;
+-(void) layoutMatch:(GKTurnBasedMatch*)match;
+-(void) takeTurn:(GKTurnBasedMatch*)match;
+-(void) recieveEndGame:(GKTurnBasedMatch*)match;
+-(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match;
 
 // Helper functions
-- (BOOL) isGameCenterAvailable;
-- (void) loadPlayerData:(NSArray*)identifiers;
+-(BOOL) isGameCenterAvailable;
 
 @end

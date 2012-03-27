@@ -8,6 +8,7 @@
 
 #import "SinglePlayerGame.h"
 #import "MainMenu.h"
+#import "GameCenterHub.h"
 
 @implementation SinglePlayerGame
 
@@ -43,7 +44,11 @@
 {
   [super onGameEnd];
   
-  //Your stuff here
+  GKAchievement* achievement = [[GameCenterHub sharedInstance] addOrFindIdentifier:@"beat_game"];
+  if (!achievement.isCompleted) {
+    [[GameCenterHub sharedInstance] reportAchievementIdentifier:@"beat_game" percentComplete:100];
+    [[GameCenterHub sharedInstance] achievementCompleted:@"Oh Shift! Conqueror" message:@"Successfully completed a level of Oh Shift!"];
+  }
 }
 
 -(void) onNextGame

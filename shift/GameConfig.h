@@ -41,6 +41,7 @@
 #error(unknown architecture)
 #endif
 
+
 //Describes the current movement occurring on a block train
 typedef enum Movement {
     kMovementColumn,
