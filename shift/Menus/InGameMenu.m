@@ -7,6 +7,7 @@
 //
 
 #import "InGameMenu.h"
+#import "SinglePlayerMenu.h"
 
 @implementation InGameMenu
 
@@ -14,12 +15,13 @@
 {
     if ((self = [super init])) {
         //Set up menu items
+        CCMenuItemFont *levelSelect = [CCMenuItemFont itemFromString:@"Level Select" target:self selector: @selector(onLevelSelect:)];
         CCMenuItemFont *mainMenu = [CCMenuItemFont itemFromString:@"Exit to Main Menu" target:self selector: @selector(onMainMenu:)];
         CCMenuItemFont *reset = [CCMenuItemFont itemFromString:@"Reset Board" target:self selector: @selector(onReset:)];
         CCMenuItemFont *play = [CCMenuItemFont itemFromString:@"Return to Play" target:self selector: @selector(onPlay:)];
         
         //Add items to menu
-        CCMenu *menu = [CCMenu menuWithItems:mainMenu, reset, play, nil];
+        CCMenu *menu = [CCMenu menuWithItems:levelSelect,mainMenu, reset, play, nil];
         
         [menu alignItemsVertically];
         
@@ -44,6 +46,12 @@
 -(void) onMainMenu:(id)sender
 {
     [self goBack:self];
+}
+
+-(void) onLevelSelect:(id)sender
+{
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime 
+                                                                                     scene:[SinglePlayerMenu scene]]];
 }
 
 @end
