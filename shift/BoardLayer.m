@@ -93,10 +93,38 @@
     if ((self = [self initWithNumberOfColumns:columns rows:rows center:center cellSize:size])) {
         [self randomize];
         [self saveSnapshot];
+        [self animateBlocks];
+        
         self.isTouchEnabled = YES;
     }
     
     return self;
+}
+
+-(void)animateBlocks
+{
+    [self animateBlock:self data:0];
+}
+
+-(void)animateBlock:(id)sender data:(int)index
+{
+    if(index < columnCount*rowCount)
+    {
+        BlockSprite* block = blocks[index];
+        if(block!=nil)
+        {
+            id move = [CCMoveTo actionWithDuration:0.15 position:block.position];
+            block.position = ccp(0,0);
+            id visible = [CCToggleVisibility action];
+            id action = [CCEaseExponentialOut actionWithAction:move];
+            id doneAction = [CCCallFuncND actionWithTarget:self selector:@selector(animateBlock:data:) data:(void*)index+1];
+            id actionSequence = [CCSequence actions: visible,action, doneAction,nil];
+            [block runAction: actionSequence];
+        }
+        else {
+            [self animateBlock:self data:index+1];
+        }
+    }
 }
 
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
@@ -172,6 +200,10 @@
             //Add the user block
             BlockSprite *block = [BlockSprite blockWithName:[colorNames objectAtIndex:randomIndex]];
             [self addBlock:block x:x y:y];
+            
+            //Hide the block
+            id action = [CCToggleVisibility action];
+            [block runAction: action];
         }
     }
     
