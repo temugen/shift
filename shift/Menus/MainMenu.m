@@ -107,6 +107,37 @@
         [self addTileWithText:@"I" color:@"orange" position:0];
         [self addTileWithText:@"F" color:@"green" position:1];
         [self addTileWithText:@"T" color:@"purple" position:2];
+        [self addTileWithText:@"!" color:@"yellow" position:3];
+        
+        
+        //Add "Oh" sprite to title
+        CCSprite *ohSprite = [CCSprite spriteWithFile:@"title_block.png"];
+        [ohSprite setScaleX:TITLE_BORDER_SIZE/ohSprite.contentSize.width];
+        [ohSprite setScaleY:TITLE_BORDER_SIZE/ohSprite.contentSize.height]; 
+        ohSprite.position = ccp(ohSprite.position.x-160,ohSprite.position.y+20);
+
+ 
+        CCLabelTTF* label = [[CCLabelTTF alloc] initWithString:@"Oh" 
+                                                    dimensions:CGSizeMake([ohSprite contentSize].width, [ohSprite contentSize].height)  
+                                                     alignment:UITextAlignmentCenter 
+                                                      fontName:@"Helvetica-BoldOblique" 
+                                                      fontSize:60.0f];
+        
+        label.color = ccBLACK;
+        
+        //Attempt to center the label.
+        label.position = ccp(label.position.x+45,label.position.y+34);
+        
+        //Add label to the given block
+        [ohSprite addChild:label z:1];
+        
+        //Rotate the sprite and add animation
+        ohSprite.rotation = -15.0f;
+        id scaleUp = [CCScaleTo actionWithDuration:0.5f scale:1.5f];
+        id scaleDown = [CCScaleTo actionWithDuration:0.5f scale:0.5f];
+        [ohSprite runAction:[CCSequence actions:scaleUp,scaleDown,nil]];
+        
+        [self addChild:ohSprite z:1];
     }
     return self;
 }
@@ -133,7 +164,7 @@
     border.position = ccp(border.position.x+TITLE_BORDER_SIZE*pos,border.position.y);
     
     //Add some animation
-    id move = [CCMoveBy actionWithDuration:2 position:border.position];
+    id move = [CCMoveBy actionWithDuration:1.5 position:border.position];
     id action = [CCEaseElasticIn actionWithAction:move];
     [block runAction: action];
     
