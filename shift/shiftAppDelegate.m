@@ -43,6 +43,11 @@
 {
 }
 
+- (RootViewController*) sharedViewController
+{
+  return viewController;
+}
+
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
 	// Init the window
@@ -111,7 +116,6 @@
 	// You can change anytime.
 	[CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
 
-	
 	// Removes the startup flicker
 	[self removeStartupFlicker];
 	
@@ -147,9 +151,7 @@
 	CCDirector *director = [CCDirector sharedDirector];
 	
 	[[director openGLView] removeFromSuperview];
-	
-	
-	
+
 	[director end];	
 }
 

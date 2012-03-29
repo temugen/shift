@@ -30,7 +30,8 @@ static GameCenterHub* sharedHelper = nil;
   return sharedHelper;
 }
 
-+(id) alloc{
++(id) alloc
+{
   @synchronized(self)
   {
     NSAssert(sharedHelper == nil, @"Attempted to alloc second GCHub");
@@ -47,6 +48,7 @@ static GameCenterHub* sharedHelper = nil;
     userAuthenticated = NO;
     gameCenterAvailable = [self isGameCenterAvailable];
     NSLog(@"GameCenter: %@", gameCenterAvailable ? @"Available" : @"Unavailable");
+    achievementDict = [NSMutableDictionary dictionaryWithCapacity:25];
     if (gameCenterAvailable)
     {
       notificationCenter = [NSNotificationCenter defaultCenter];
@@ -84,10 +86,11 @@ static GameCenterHub* sharedHelper = nil;
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:setGKEventHandlerDelegate];
     [self getPlayerFriends];
     [self loadAchievements];
+    NSLog(@"Authenticated user");
   }
   else
   {
-    NSLog(@"Already authenticated.");
+    NSLog(@"Already authenticated");
     setGKEventHandlerDelegate(nil);
   }
 }
@@ -193,7 +196,7 @@ static GameCenterHub* sharedHelper = nil;
      {
        for (GKAchievement* achievement in achievements)
        {
-         [self addOrFindIdentifier:achievement.identifier];
+         [achievementDict setObject:achievement forKey:achievement.identifier];
        }
      }
   }];
@@ -207,25 +210,10 @@ static GameCenterHub* sharedHelper = nil;
   if (achievement == nil)
   {
     achievement = [[GKAchievement alloc] initWithIdentifier:identifier];
-    [achievementDict setObject:achievement forKey:achievement.identifier];
+    [achievementDict setObject:achievement forKey:identifier];
   }
   
   return achievement;
-}
-
--(void) retrieveAchievmentMetadata
-{
-  [GKAchievementDescription loadAchievementDescriptionsWithCompletionHandler:^(NSArray* descriptions, NSError* error) 
-  {
-    if (error != nil)
-    {  
-      NSLog(@"retrieveAchievementMeta error: %@", error.description);
-    }
-    if (descriptions != nil)
-    {  
-       // process achievement descriptions
-    }
-  }];
 }
 
 -(void) achievementCompleted:(NSString *)title message:(NSString*) msg
@@ -236,18 +224,15 @@ static GameCenterHub* sharedHelper = nil;
 -(void) reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent
 {
   GKAchievement* achievement = [self addOrFindIdentifier:identifier];
-  if (achievement)
+  achievement.percentComplete = percent;
+  [achievement reportAchievementWithCompletionHandler:^(NSError* error)
   {
-    achievement.percentComplete = percent;
-    [achievement reportAchievementWithCompletionHandler:^(NSError* error)
+    if (error != nil)
     {
-      if (error != nil)
-      {
-        NSLog(@"reportAchievementID error: %@", error.description);
-        // Achievement not sent, add to local dict?  	
-      }
-    }];
-  }  	
+      NSLog(@"reportAchievementID error: %@", error.description);
+      // Achievement not sent, add to local dict?  	
+    }
+  }];
 }
 
 - (void) resetAchievements
@@ -295,7 +280,6 @@ static GameCenterHub* sharedHelper = nil;
      NSLog(@"submitScore error: %@", error.description);
    }];
 }
-
 
 
 /*

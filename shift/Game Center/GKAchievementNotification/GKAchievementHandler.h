@@ -27,7 +27,7 @@
 }
 
 /** Logo to display in notifications. */
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) UIImage* image;
 @property (nonatomic, strong) UIView* _topView;
 
 
@@ -41,7 +41,7 @@
  * Show an achievement notification with an actual achievement.
  * @param achievement  Achievement description object to notify user of.
  */
-- (void)notifyAchievement:(GKAchievementDescription *)achievement;
+- (void) notifyAchievement:(GKAchievementDescription *)achievement;
 
 /**
  * Show an achievement notification with a message manually added.

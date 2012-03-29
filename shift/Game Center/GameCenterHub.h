@@ -22,7 +22,7 @@
   BOOL matchStarted;
 }
 
-@property(nonatomic, strong) NSMutableDictionary* achievementDict;
+@property (strong) NSMutableDictionary* achievementDict;
 @property (nonatomic, weak, readonly) NSNotificationCenter* notificationCenter;
 @property (assign, readonly) BOOL gameCenterAvailable;
 @property (strong) RootViewController* rootViewController;
@@ -44,7 +44,6 @@
 -(void) showAchievements;
 -(void) loadAchievements;
 -(void) achievementViewControllerDidFinish:(GKAchievementViewController*) viewController;	  	
--(void) retrieveAchievmentMetadata;
 -(void) reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent;
 -(GKAchievement*) addOrFindIdentifier:(NSString*)identifier;
 -(void) achievementCompleted:(NSString*)title message:(NSString*)msg;

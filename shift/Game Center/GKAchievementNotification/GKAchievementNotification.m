@@ -95,7 +95,7 @@
         tBackground.image = backgroundStretch;
         self.background = tBackground;
         self.opaque = NO;
-        [self addSubview:self.background];
+        [self addSubview: self.background];
 
         CGRect r1 = kGKAchievementText1;
         CGRect r2 = kGKAchievementText2;

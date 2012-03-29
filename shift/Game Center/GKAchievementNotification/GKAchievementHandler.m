@@ -10,6 +10,7 @@
 #import "GKAchievementHandler.h"
 #import "GKAchievementNotification.h"
 #import "GameCenterHub.h"
+#import "shiftAppDelegate.h"
 
 static GKAchievementHandler *defaultHandler = nil;
 
@@ -62,7 +63,7 @@ static GKAchievementHandler *defaultHandler = nil;
     self = [super init];
     if (self != nil)
     {
-        _topView = [[UIApplication sharedApplication] keyWindow];
+        _topView = [[CCDirector sharedDirector] openGLView];
         _queue = [[NSMutableArray alloc] initWithCapacity:0];
         self.image = [UIImage imageNamed:@"gk-icon.png"];
     }
@@ -73,7 +74,7 @@ static GKAchievementHandler *defaultHandler = nil;
 
 - (void)notifyAchievement:(GKAchievementDescription *)achievement
 {
-    GKAchievementNotification *notification = [[GKAchievementNotification alloc] initWithAchievementDescription:achievement];
+    GKAchievementNotification *notification = [[GKAchievementNotification alloc]initWithAchievementDescription:achievement];
     notification.frame = kGKAchievementFrameStart;
     notification.handlerDelegate = self;
 
