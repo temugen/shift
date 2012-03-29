@@ -103,28 +103,46 @@
 
 -(void)animateBlocks
 {
-    [self animateBlock:self data:0];
-}
-
--(void)animateBlock:(id)sender data:(int)index
-{
-    if(index < columnCount*rowCount)
+    for (int x = 0; x < columnCount; x++) 
     {
-        BlockSprite* block = blocks[index];
-        if(block!=nil)
+        for (int y = 0; y < rowCount; y++) 
         {
-            id move = [CCMoveTo actionWithDuration:0.15 position:block.position];
-            block.position = ccp(0,0);
-            id visible = [CCToggleVisibility action];
-            id action = [CCEaseExponentialOut actionWithAction:move];
-            id doneAction = [CCCallFuncND actionWithTarget:self selector:@selector(animateBlock:data:) data:(void*)index+1];
-            id actionSequence = [CCSequence actions: visible,action, doneAction,nil];
-            [block runAction: actionSequence];
+            BlockSprite *block = [self blockAtX:x y:y];
+            if (block != nil) 
+            {
+                id move = [CCMoveTo actionWithDuration:1.5 position:block.position];
+                
+                //Randomly place blocks outside of screen
+                CGSize screenSize = [[CCDirector sharedDirector] winSize];
+                int randomX = screenSize.width+blockSize.width;
+                int randomY = screenSize.height+blockSize.height;
+                int side = arc4random()%4;
+                
+                switch (side) {
+                    case 0:
+                        block.position = ccp(blockSize.width*-1,randomY);
+                        break;
+                    case 1:
+                        block.position = ccp(screenSize.width+blockSize.width,randomY);
+                        break;
+                    case 2:
+                        block.position = ccp(randomX,blockSize.width*-1);
+                        break;
+                    case 3:
+                        block.position = ccp(randomX,screenSize.height+blockSize.height);
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+                id visible = [CCToggleVisibility action];
+                id action = [CCEaseExponentialIn actionWithAction:move];
+                id actionSequence = [CCSequence actions: visible,action, nil];
+                [block runAction: actionSequence];
+            }
         }
-        else {
-            [self animateBlock:self data:index+1];
-        }
-    }
+    } 
 }
 
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
