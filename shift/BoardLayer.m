@@ -114,8 +114,9 @@
                 
                 //Randomly place blocks outside of screen
                 CGSize screenSize = [[CCDirector sharedDirector] winSize];
-                int randomX = screenSize.width+blockSize.width;
-                int randomY = screenSize.height+blockSize.height;
+                int randomX = arc4random()%(int)screenSize.width;
+                int randomY = arc4random()%(int)screenSize.height;
+
                 int side = arc4random()%4;
                 
                 switch (side) {
