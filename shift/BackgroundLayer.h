@@ -8,10 +8,7 @@
 
 @interface BackgroundLayer : CCLayer
 {
-    @public
-    CCTexture2D *texture;
+    NSMutableArray *blocks;
 }
-
-@property(readonly) CCTexture2D *texture;
 
 @end
