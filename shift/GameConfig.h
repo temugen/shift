@@ -76,6 +76,9 @@ typedef enum gamemode {
 
 #define kMinCollisionForce 30.0
 
+//id lastQuickPlayGame = nil;
+//id lastSinglePlayerGame = nil;
+
 static NSMutableDictionary *colors;
 __attribute__((constructor))
 static void initialize_colors() {

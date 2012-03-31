@@ -16,7 +16,7 @@
 -(id) init
 {
     if( (self=[super init] )) {
-        CGSize screenSize = [[CCDirector sharedDirector] winSize];
+        CGSize screenSize = [[CCDirector sharedDirector] displaySizeInPixels];
         corners[0] = ccp(0, 0);
         corners[1] = ccp(0, screenSize.height);
         corners[2] = ccp(screenSize.width, screenSize.height);
