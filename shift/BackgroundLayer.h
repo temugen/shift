@@ -8,6 +8,7 @@
 
 @interface BackgroundLayer : CCLayer
 {
+    CGPoint corners[4];
     NSMutableArray *blocks;
 }
 

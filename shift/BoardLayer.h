@@ -16,6 +16,7 @@
     NSMutableSet *initialBlocks;
     NSMutableDictionary *blockTrains;
     
+    CCTexture2D *backgroundTexture;
     CGPoint corners[4];
     
     @public
@@ -27,6 +28,7 @@
 @property(readonly, assign) int rowCount, columnCount;
 @property(readonly, assign) CGRect boundingBox;
 @property(readonly, assign) CGSize cellSize, blockSize;
+@property(readonly) CCTexture2D *backgroundTexture;
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 +(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;

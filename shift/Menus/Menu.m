@@ -16,19 +16,14 @@
 -(id) init
 {
     if( (self=[super init] )) {
-        CGSize screenSize = [[CCDirector sharedDirector] displaySizeInPixels];
-        corners[0] = ccp(0, 0);
-        corners[1] = ccp(0, screenSize.height);
-        corners[2] = ccp(screenSize.width, screenSize.height);
-        corners[3] = ccp(screenSize.width, 0);
     }
     return self;
 }
 
 +(id) scene {
     CCScene *scene = [CCScene node];
-    [scene addChild:[[BackgroundLayer alloc] init]];
-    [scene addChild:[[[self class] alloc] init] z:1];
+    [scene addChild:[[BackgroundLayer alloc] init] z:-1];
+    [scene addChild:[[[self class] alloc] init]];
     return scene;
 }
 
@@ -36,8 +31,8 @@
 +(id) sceneWithMenu:(Menu *)menu
 {
     CCScene *scene = [CCScene node];
-    [scene addChild:[[BackgroundLayer alloc] init]];
-    [scene addChild:menu z:1];
+    [scene addChild:[[BackgroundLayer alloc] init] z:-1];
+    [scene addChild:menu];
     return scene;
 }
 
@@ -45,20 +40,5 @@
 {
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
-
--(void) draw
-{
-    //Draw dimmed background screen
-    glColor4ub(20, 20, 20, 150);
-	glDisable(GL_TEXTURE_2D);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-    glVertexPointer(2, GL_FLOAT, 0, corners);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-}
-
 
 @end

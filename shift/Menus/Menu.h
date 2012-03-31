@@ -10,7 +10,6 @@
 
 @interface Menu : CCLayer
 {
-    CGPoint corners[4];
 }
 
 +(id) scene;

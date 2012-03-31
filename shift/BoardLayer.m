@@ -35,6 +35,7 @@
 @synthesize rowCount, columnCount;
 @synthesize boundingBox;
 @synthesize cellSize, blockSize;
+@synthesize backgroundTexture;
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
 {
@@ -81,6 +82,19 @@
         corners[1] = ccp(CGRectGetMinX(boundingBox)-2, CGRectGetMaxY(boundingBox)+2);
         corners[2] = ccp(CGRectGetMaxX(boundingBox)+2, CGRectGetMaxY(boundingBox)+2);
         corners[3] = ccp(CGRectGetMaxX(boundingBox)+2, CGRectGetMinY(boundingBox)-2);
+        
+        
+        ccTexParams params = {GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT};
+        backgroundTexture = [[CCTextureCache sharedTextureCache] addImage:@"background.png"];
+        [backgroundTexture setTexParameters:&params];
+        CCSprite *background = [CCSprite spriteWithTexture:backgroundTexture
+                                                      rect:CGRectMake(0, 0,
+                                                                      CGRectGetWidth(boundingBox) + 4,
+                                                                      CGRectGetHeight(boundingBox) + 4)];
+        //darken the background texture
+        [background setColor:ccc3(120, 120, 120)];
+        background.position = ccp(center.x, center.y);
+        [self addChild:background z:-1];
         
         blockTrains = [NSMutableDictionary dictionaryWithCapacity:MAX(columns, rows)];
 	}
@@ -266,17 +280,6 @@
 
 -(void) draw
 {
-    //Draw filled in board background
-    glColor4ub(20, 20, 20, 255);
-	glDisable(GL_TEXTURE_2D);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-    glVertexPointer(2, GL_FLOAT, 0, corners);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-    
     //Draw white border
     glColor4ub(255, 255, 255, 255);
     ccDrawPoly(corners, 4, YES);

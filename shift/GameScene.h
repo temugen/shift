@@ -28,14 +28,3 @@
 -(void) onGameEnd;
 
 @end
-
-@interface GameBackgroundLayer : CCLayer
-{
-    @public
-        CCTexture2D *texture;
-}
-
-@property(readonly) CCTexture2D *texture;
-
-
-@end

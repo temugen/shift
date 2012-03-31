@@ -20,6 +20,12 @@
 {
     if ((self = [super init])) {
         
+        CGSize screenSize = [[CCDirector sharedDirector] displaySizeInPixels];
+        corners[0] = ccp(0, 0);
+        corners[1] = ccp(0, screenSize.height);
+        corners[2] = ccp(screenSize.width, screenSize.height);
+        corners[3] = ccp(screenSize.width, 0);
+        
         //Store blocks to check for collisions
         blocks = [NSMutableArray arrayWithCapacity:MAX_BLOCKS];
 
@@ -34,7 +40,7 @@
             
             block.visible = NO;
             
-            [self addChild:block];
+            [self addChild:block z:-1];
             [blocks addObject:block];
             
             [self createBackgroundBlock:block];
@@ -72,6 +78,20 @@
     {
         [block runAction:[CCSequence actions:[CCDelayTime actionWithDuration:delay],visible,move,doneAction,nil]];
     }
+}
+
+-(void) draw
+{
+    //Draw dimmed background screen
+    glColor4ub(20, 20, 20, 200);
+	glDisable(GL_TEXTURE_2D);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 0, corners);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnable(GL_TEXTURE_2D);
 }
 
 //Callback function called when block is done. Make the block invisible, and then reset it and send it again.
