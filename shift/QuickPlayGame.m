@@ -10,9 +10,16 @@
 
 @implementation QuickPlayGame
 
+static QuickPlayGame *lastGame = nil;
+
 +(QuickPlayGame *) gameWithNumberOfRows:(int)rows columns:(int)columns;
 {
     return [[QuickPlayGame alloc] initWithNumberOfRows:rows columns:columns];
+}
+
++(QuickPlayGame *) lastGame
+{
+    return lastGame;
 }
 
 -(id) initWithNumberOfRows:(int)rows columns:(int)columns
@@ -27,6 +34,8 @@
                                                     center:boardCenter
                                                   cellSize:cellSize];
         [self addChild:board];
+        
+        lastGame = self;
     }
     
     return self;

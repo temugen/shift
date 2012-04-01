@@ -12,9 +12,16 @@
 
 @implementation SinglePlayerGame
 
+static SinglePlayerGame *lastGame = nil;
+
 +(SinglePlayerGame *) gameWithLevel:(int)level
 {
     return [[SinglePlayerGame alloc] initWithLevel:level];
+}
+
++(SinglePlayerGame *) lastGame
+{
+    return lastGame;
 }
 
 -(id) initWithLevel:(int)level
@@ -29,6 +36,8 @@
                                      cellSize:cellSize];
         
         [self addChild:board];
+        
+        lastGame = self;
     }
     return self;
 }

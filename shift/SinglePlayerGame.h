@@ -14,6 +14,7 @@
 }
 
 +(SinglePlayerGame *) gameWithLevel:(int)level;
++(SinglePlayerGame *) lastGame;
 
 -(id) initWithLevel:(int)level;
 

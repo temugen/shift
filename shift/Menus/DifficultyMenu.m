@@ -11,6 +11,7 @@
 #import "MainMenu.h"
 #import "MultiplayerMenu.h"
 
+#define kDifficultyLast 3842384 //random
 
 @implementation DifficultyMenu
 
@@ -28,9 +29,16 @@
         CCMenuItemFont *hard= [CCMenuItemFont itemFromString:@"Hard" target:self selector: @selector(onSelection:)];
         [hard setTag:kDifficultyHard];
         CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
-
-        //Add items to menu
+        
         CCMenu *menu = [CCMenu menuWithItems: easy,medium,hard,back, nil];
+
+        QuickPlayGame *lastGame = [QuickPlayGame lastGame];
+        if (lastGame != nil) {
+            CCMenuItemFont *continu = [CCMenuItemFont itemFromString:@"Continue" target:self selector:@selector(onSelection:)];
+            [continu setTag:kDifficultyLast];
+            
+            [menu addChild:continu];
+        }
         
         [menu alignItemsVertically];
         
@@ -56,6 +64,10 @@
     {
         QuickPlayGame *game;
         switch (diff) {
+            case kDifficultyLast:
+                NSLog(@"User selected Continue Quickplay");
+                game = [QuickPlayGame lastGame];
+                break;
             case kDifficultyEasy:
                 //TODO: Generate random kDifficultyEasy puzzle
                 NSLog(@"User selected Easy Quickplay");

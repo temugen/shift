@@ -13,6 +13,7 @@
     int rowCount, columnCount;
 }
 
++(QuickPlayGame *) lastGame;
 +(QuickPlayGame *) gameWithNumberOfRows:(int)rows columns:(int)columns;
 
 -(id) initWithNumberOfRows:(int)rows columns:(int)columns;

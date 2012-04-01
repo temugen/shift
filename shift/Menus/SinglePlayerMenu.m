@@ -44,12 +44,20 @@
         CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
         [menu addChild:back];
         
+        SinglePlayerGame *lastGame = [SinglePlayerGame lastGame];
+        if (lastGame != nil) {
+            CCMenuItemFont *continu = [CCMenuItemFont itemFromString:@"Continue" target:self selector:@selector(continueLastGame:)];
+            
+            [menu addChild:continu];
+        }
+        
         [menu alignItemsInColumns:
          [NSNumber numberWithInt:5], 
          [NSNumber numberWithInt:5], 
          [NSNumber numberWithInt:5], 
          [NSNumber numberWithInt:5], 
-         [NSNumber numberWithInt:1], 
+         [NSNumber numberWithInt:1],
+         [NSNumber numberWithInt:1],
          nil];
                 
         //Add menu to layer
@@ -60,6 +68,11 @@
 }
 
 /* Callback functions for menu items */
+
+-(void) continueLastGame:(id)sender
+{
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerGame lastGame]]];
+}
 
 //Displays level based on selection by the user. If level is not unlocked, it does nothing.
 - (void) levelSelect: (id) sender

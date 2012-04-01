@@ -76,9 +76,5 @@ typedef enum gamemode {
 
 #define kMinCollisionForce 30.0
 
-//id lastQuickPlayGame = nil;
-//id lastSinglePlayerGame = nil;
-
-
 #endif // __GAME_CONFIG_H
 
