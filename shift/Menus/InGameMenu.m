@@ -14,6 +14,9 @@
 -(id) init
 {
     if ((self = [super init])) {
+        //Pause the background music
+        [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];        
+        
         //Set up menu items
         CCMenuItemFont *levelSelect = [CCMenuItemFont itemFromString:@"Level Select" target:self selector: @selector(onLevelSelect:)];
         CCMenuItemFont *mainMenu = [CCMenuItemFont itemFromString:@"Exit to Main Menu" target:self selector: @selector(onMainMenu:)];
@@ -34,24 +37,38 @@
 
 -(void) onReset:(id)sender
 {
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ResetButtonPressed" object:self];
     [self onPlay:self];
 }
 
 -(void) onPlay:(id)sender
 {
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
+    //Resume the background music
+    [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
+    
     [self.parent removeChild:self cleanup:YES];
 }
 
 -(void) onMainMenu:(id)sender
 {
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
     [self goBack:self];
 }
 
 -(void) onLevelSelect:(id)sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime 
-                                                                                     scene:[SinglePlayerMenu scene]]];
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
+    [[CCDirector sharedDirector] runWithScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerMenu scene]]];
 }
 
 @end

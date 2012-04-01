@@ -14,4 +14,6 @@
     NSInteger highestLevel;
 }
 
+//- (void) goBack:(id)sender;
+
 @end

@@ -35,36 +35,42 @@
 
 - (void) onEarned: (id) sender
 {
-  if ([GameCenterHub sharedInstance].gameCenterAvailable) 
-  {
-    [[GameCenterHub sharedInstance] showAchievements];
-  }
-  else
-  {
-     // Load local cache
-  }
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    if ([GameCenterHub sharedInstance].gameCenterAvailable) 
+    {
+        [[GameCenterHub sharedInstance] showAchievements];
+    }
+    else
+    {
+        // Load local cache
+    }
 }
 
 - (void) onAvailable: (id) sender
 {
-  if ([GameCenterHub sharedInstance].gameCenterAvailable) 
-  {
-    // TODO implement achievements and cache
-  }
-  else
-  {
-      // Show local cache
-  }
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    if ([GameCenterHub sharedInstance].gameCenterAvailable) 
+    {
+        // TODO implement achievements and cache
+    }
+    else
+    {
+        // Show local cache
+    }
 }
 
 - (void) onReset: (id) sender
 {
-  if ([GameCenterHub sharedInstance].gameCenterAvailable) 
-  {
-    [[GameCenterHub sharedInstance] resetAchievements];
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    if ([GameCenterHub sharedInstance].gameCenterAvailable) 
+    {
+        [[GameCenterHub sharedInstance] resetAchievements];
     
-    // TODO:  Clear local cache too!
-  }
+        // TODO:  Clear local cache too!
+    }
 }
 
 @end

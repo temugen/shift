@@ -47,6 +47,9 @@
     }
     else if(self.health <= 0)
     {
+        //Play block destroy sound
+        [[SimpleAudioEngine sharedEngine] playEffect:@SFX_DESTRUCT];
+        
         [self destroyBlock];
     }
     return NO;
