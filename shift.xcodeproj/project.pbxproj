@@ -10,16 +10,16 @@
 		5ED0202514F98A1F0070387C /* block_wild.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202414F98A1E0070387C /* block_wild.png */; };
 		5ED0202714F98BBA0070387C /* 19.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202614F98BBA0070387C /* 19.plist */; };
 		5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF053D314F338AF00177148 /* WildcardBlock.m */; };
-		7B740DEB1527F91500B665E0 /* shift_drop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B740DE11527F91500B665E0 /* shift_drop.mp3 */; };
-		7B740DEC1527F91500B665E0 /* shift_grab.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B740DE21527F91500B665E0 /* shift_grab.mp3 */; };
-		7B740DED1527F91500B665E0 /* shift_lock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B740DE31527F91500B665E0 /* shift_lock.mp3 */; };
-		7B740DEE1527F91500B665E0 /* shift_menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B740DE41527F91500B665E0 /* shift_menu.mp3 */; };
-		7B740DEF1527F91500B665E0 /* shift_ram.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B740DE51527F91500B665E0 /* shift_ram.mp3 */; };
-		7B740DF01527F91500B665E0 /* shift_destruct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B740DE61527F91500B665E0 /* shift_destruct.mp3 */; };
-		7B740DF11527F91500B665E0 /* shift_unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B740DE71527F91500B665E0 /* shift_unlock.mp3 */; };
-		7B740DF21527F91500B665E0 /* shift_bg_menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B740DE81527F91500B665E0 /* shift_bg_menu.mp3 */; };
-		7B740DF31527F91500B665E0 /* shift_bg_game.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B740DE91527F91500B665E0 /* shift_bg_game.mp3 */; };
-		7B740DF41527F91500B665E0 /* shift_rotator.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7B740DEA1527F91500B665E0 /* shift_rotator.mp3 */; };
+		7BBCC1CF15284B18001CB5A3 /* shift_bg_game.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC1C515284B18001CB5A3 /* shift_bg_game.mp3 */; };
+		7BBCC1D015284B18001CB5A3 /* shift_bg_menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC1C615284B18001CB5A3 /* shift_bg_menu.mp3 */; };
+		7BBCC1D115284B18001CB5A3 /* shift_destruct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC1C715284B18001CB5A3 /* shift_destruct.mp3 */; };
+		7BBCC1D215284B18001CB5A3 /* shift_drop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC1C815284B18001CB5A3 /* shift_drop.mp3 */; };
+		7BBCC1D315284B18001CB5A3 /* shift_grab.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC1C915284B18001CB5A3 /* shift_grab.mp3 */; };
+		7BBCC1D415284B18001CB5A3 /* shift_lock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC1CA15284B18001CB5A3 /* shift_lock.mp3 */; };
+		7BBCC1D515284B18001CB5A3 /* shift_menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC1CB15284B18001CB5A3 /* shift_menu.mp3 */; };
+		7BBCC1D615284B18001CB5A3 /* shift_ram.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC1CC15284B18001CB5A3 /* shift_ram.mp3 */; };
+		7BBCC1D715284B18001CB5A3 /* shift_rotator.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC1CD15284B18001CB5A3 /* shift_rotator.mp3 */; };
+		7BBCC1D815284B18001CB5A3 /* shift_unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC1CE15284B18001CB5A3 /* shift_unlock.mp3 */; };
 		8201099B151E985100DA8ECB /* debris.png in Resources */ = {isa = PBXBuildFile; fileRef = 8201099A151E985100DA8ECB /* debris.png */; };
 		8201099E151EC11800DA8ECB /* BackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201099D151EC11700DA8ECB /* BackgroundLayer.m */; };
 		820109A1151ECEF900DA8ECB /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 820109A0151ECEF900DA8ECB /* background.png */; };
@@ -616,16 +616,16 @@
 		5ED0202614F98BBA0070387C /* 19.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 19.plist; path = Resources/Levels/19.plist; sourceTree = "<group>"; };
 		5EF053D214F338AE00177148 /* WildcardBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardBlock.h; path = Cells/Blocks/WildcardBlock.h; sourceTree = "<group>"; };
 		5EF053D314F338AF00177148 /* WildcardBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WildcardBlock.m; path = Cells/Blocks/WildcardBlock.m; sourceTree = "<group>"; };
-		7B740DE11527F91500B665E0 /* shift_drop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_drop.mp3; sourceTree = "<group>"; };
-		7B740DE21527F91500B665E0 /* shift_grab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_grab.mp3; sourceTree = "<group>"; };
-		7B740DE31527F91500B665E0 /* shift_lock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_lock.mp3; sourceTree = "<group>"; };
-		7B740DE41527F91500B665E0 /* shift_menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_menu.mp3; sourceTree = "<group>"; };
-		7B740DE51527F91500B665E0 /* shift_ram.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_ram.mp3; sourceTree = "<group>"; };
-		7B740DE61527F91500B665E0 /* shift_destruct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_destruct.mp3; sourceTree = "<group>"; };
-		7B740DE71527F91500B665E0 /* shift_unlock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_unlock.mp3; sourceTree = "<group>"; };
-		7B740DE81527F91500B665E0 /* shift_bg_menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_bg_menu.mp3; sourceTree = "<group>"; };
-		7B740DE91527F91500B665E0 /* shift_bg_game.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_bg_game.mp3; sourceTree = "<group>"; };
-		7B740DEA1527F91500B665E0 /* shift_rotator.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_rotator.mp3; sourceTree = "<group>"; };
+		7BBCC1C515284B18001CB5A3 /* shift_bg_game.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_bg_game.mp3; sourceTree = "<group>"; };
+		7BBCC1C615284B18001CB5A3 /* shift_bg_menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_bg_menu.mp3; sourceTree = "<group>"; };
+		7BBCC1C715284B18001CB5A3 /* shift_destruct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_destruct.mp3; sourceTree = "<group>"; };
+		7BBCC1C815284B18001CB5A3 /* shift_drop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_drop.mp3; sourceTree = "<group>"; };
+		7BBCC1C915284B18001CB5A3 /* shift_grab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_grab.mp3; sourceTree = "<group>"; };
+		7BBCC1CA15284B18001CB5A3 /* shift_lock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_lock.mp3; sourceTree = "<group>"; };
+		7BBCC1CB15284B18001CB5A3 /* shift_menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_menu.mp3; sourceTree = "<group>"; };
+		7BBCC1CC15284B18001CB5A3 /* shift_ram.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_ram.mp3; sourceTree = "<group>"; };
+		7BBCC1CD15284B18001CB5A3 /* shift_rotator.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_rotator.mp3; sourceTree = "<group>"; };
+		7BBCC1CE15284B18001CB5A3 /* shift_unlock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_unlock.mp3; sourceTree = "<group>"; };
 		8201099A151E985100DA8ECB /* debris.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = debris.png; path = Resources/Effects/debris.png; sourceTree = "<group>"; };
 		8201099C151EC11700DA8ECB /* BackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayer.h; sourceTree = "<group>"; };
 		8201099D151EC11700DA8ECB /* BackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundLayer.m; sourceTree = "<group>"; };
@@ -812,21 +812,21 @@
 			path = Resources/Controls;
 			sourceTree = "<group>";
 		};
-		7B740DE01527F8CA00B665E0 /* Sounds */ = {
+		7BBCC1C415284B18001CB5A3 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				7B740DE11527F91500B665E0 /* shift_drop.mp3 */,
-				7B740DE21527F91500B665E0 /* shift_grab.mp3 */,
-				7B740DE31527F91500B665E0 /* shift_lock.mp3 */,
-				7B740DE41527F91500B665E0 /* shift_menu.mp3 */,
-				7B740DE51527F91500B665E0 /* shift_ram.mp3 */,
-				7B740DE61527F91500B665E0 /* shift_destruct.mp3 */,
-				7B740DE71527F91500B665E0 /* shift_unlock.mp3 */,
-				7B740DE81527F91500B665E0 /* shift_bg_menu.mp3 */,
-				7B740DE91527F91500B665E0 /* shift_bg_game.mp3 */,
-				7B740DEA1527F91500B665E0 /* shift_rotator.mp3 */,
+				7BBCC1C515284B18001CB5A3 /* shift_bg_game.mp3 */,
+				7BBCC1C615284B18001CB5A3 /* shift_bg_menu.mp3 */,
+				7BBCC1C715284B18001CB5A3 /* shift_destruct.mp3 */,
+				7BBCC1C815284B18001CB5A3 /* shift_drop.mp3 */,
+				7BBCC1C915284B18001CB5A3 /* shift_grab.mp3 */,
+				7BBCC1CA15284B18001CB5A3 /* shift_lock.mp3 */,
+				7BBCC1CB15284B18001CB5A3 /* shift_menu.mp3 */,
+				7BBCC1CC15284B18001CB5A3 /* shift_ram.mp3 */,
+				7BBCC1CD15284B18001CB5A3 /* shift_rotator.mp3 */,
+				7BBCC1CE15284B18001CB5A3 /* shift_unlock.mp3 */,
 			);
-			name = Sounds;
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		8201099F151ECEED00DA8ECB /* Backgrounds */ = {
@@ -1117,7 +1117,7 @@
 		827036FA14DB0448008D7240 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7B740DE01527F8CA00B665E0 /* Sounds */,
+				7BBCC1C415284B18001CB5A3 /* Sounds */,
 				8270370C14DB0448008D7240 /* iTunesArtwork */,
 				8270370B14DB0448008D7240 /* Info.plist */,
 				827036FB14DB0448008D7240 /* Default.png */,
@@ -1831,16 +1831,16 @@
 				985798A915225758005CA702 /* 7.plist in Resources */,
 				985798AD1522C2AD005CA702 /* 5.plist in Resources */,
 				985798AF1522CA16005CA702 /* 4.plist in Resources */,
-				7B740DEB1527F91500B665E0 /* shift_drop.mp3 in Resources */,
-				7B740DEC1527F91500B665E0 /* shift_grab.mp3 in Resources */,
-				7B740DED1527F91500B665E0 /* shift_lock.mp3 in Resources */,
-				7B740DEE1527F91500B665E0 /* shift_menu.mp3 in Resources */,
-				7B740DEF1527F91500B665E0 /* shift_ram.mp3 in Resources */,
-				7B740DF01527F91500B665E0 /* shift_destruct.mp3 in Resources */,
-				7B740DF11527F91500B665E0 /* shift_unlock.mp3 in Resources */,
-				7B740DF21527F91500B665E0 /* shift_bg_menu.mp3 in Resources */,
-				7B740DF31527F91500B665E0 /* shift_bg_game.mp3 in Resources */,
-				7B740DF41527F91500B665E0 /* shift_rotator.mp3 in Resources */,
+				7BBCC1CF15284B18001CB5A3 /* shift_bg_game.mp3 in Resources */,
+				7BBCC1D015284B18001CB5A3 /* shift_bg_menu.mp3 in Resources */,
+				7BBCC1D115284B18001CB5A3 /* shift_destruct.mp3 in Resources */,
+				7BBCC1D215284B18001CB5A3 /* shift_drop.mp3 in Resources */,
+				7BBCC1D315284B18001CB5A3 /* shift_grab.mp3 in Resources */,
+				7BBCC1D415284B18001CB5A3 /* shift_lock.mp3 in Resources */,
+				7BBCC1D515284B18001CB5A3 /* shift_menu.mp3 in Resources */,
+				7BBCC1D615284B18001CB5A3 /* shift_ram.mp3 in Resources */,
+				7BBCC1D715284B18001CB5A3 /* shift_rotator.mp3 in Resources */,
+				7BBCC1D815284B18001CB5A3 /* shift_unlock.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
