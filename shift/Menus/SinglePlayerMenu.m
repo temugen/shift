@@ -8,6 +8,7 @@
 
 #import "SinglePlayerMenu.h"
 #import "SinglePlayerGame.h"
+#import "InGameMenu.h"
 #import "MainMenu.h"
 
 @implementation SinglePlayerMenu
@@ -64,6 +65,9 @@
 //Displays level based on selection by the user. If level is not unlocked, it does nothing.
 - (void) levelSelect: (id) sender
 {
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
     int levelNum = [sender tag];
     
     if(levelNum<=highestLevel)
@@ -72,6 +76,37 @@
         [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:kSceneTransitionTime scene:game]];
     }
 }
+
+//Proposed fix for SinglePlayerMenu's goBack bug:
+// Music is playing if user comes from main menu,
+// but no music is playing if they come from the pause menu.
+// --
+//This code causes the menu linkage to be correct, but upon
+// entering the Level Select menu from the Pause menu, the user's
+// current game board disappears. Thus, the user can get back to
+// the Pause menu and press Return to Play, but then there is no Pause
+// button or game board and the user becomes stuck.
+// Note: Pause->Reset board allows causes the user to get stuck.
+// However, Pause->Main Menu and/or Pause->Level Select-># allow the
+// user to continue.
+/*- (void) goBack: (id) sender
+{
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
+    bool music_en = [[SimpleAudioEngine sharedEngine] isBackgroundMusicPlaying];
+    
+    if (!music_en) 
+    {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[InGameMenu scene]]];
+    }
+    else
+    {
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
+    }
+        
+    
+}*/
 
 
 @end

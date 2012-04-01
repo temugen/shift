@@ -83,6 +83,17 @@
 	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
 	if( ! [director enableRetinaDisplay:YES] )
 		CCLOG(@"Retina Display Not supported");
+    
+    // Preload the background music (reduces startup time for background music)
+    SimpleAudioEngine *sae = [SimpleAudioEngine sharedEngine];
+    if (sae != nil) 
+    {
+        [sae preloadBackgroundMusic:@BGM_MENU];
+        if (sae.willPlayBackgroundMusic)
+        {
+            sae.backgroundMusicVolume = 0.5f;
+        }
+    }
 	
 	//
 	// VERY IMPORTANT:
@@ -127,27 +138,39 @@
 }
 
 
-- (void)applicationWillResignActive:(UIApplication *)application {
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
 	[[CCDirector sharedDirector] pause];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
 	[[CCDirector sharedDirector] resume];
+    [[SimpleAudioEngine sharedEngine]resumeBackgroundMusic];
 }
 
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
+{
 	[[CCDirector sharedDirector] purgeCachedData];
 }
 
--(void) applicationDidEnterBackground:(UIApplication*)application {
+-(void) applicationDidEnterBackground:(UIApplication*)application
+{
+    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
 	[[CCDirector sharedDirector] stopAnimation];
 }
 
--(void) applicationWillEnterForeground:(UIApplication*)application {
+-(void) applicationWillEnterForeground:(UIApplication*)application
+{
 	[[CCDirector sharedDirector] startAnimation];
+    [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+    
 	CCDirector *director = [CCDirector sharedDirector];
 	
 	[[director openGLView] removeFromSuperview];
@@ -155,11 +178,13 @@
 	[director end];	
 }
 
-- (void)applicationSignificantTimeChange:(UIApplication *)application {
+- (void)applicationSignificantTimeChange:(UIApplication *)application
+{
 	[[CCDirector sharedDirector] setNextDeltaTimeZero:YES];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
 	[CCDirector sharedDirector];
 }
 

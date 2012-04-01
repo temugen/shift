@@ -41,13 +41,19 @@
 
 - (void) onOppSelection: (id) sender
 {
-  [[GameCenterHub sharedInstance] findRandomMatch];
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
+    [[GameCenterHub sharedInstance] findRandomMatch];
 }
 
 - (void) onLeaderboard: (id) sender
 {
-  gamemode selection = [sender tag];
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu sceneWithMode:selection]]];
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
+    gamemode selection = [sender tag];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu sceneWithMode:selection]]];
 }
 
 

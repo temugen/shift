@@ -431,6 +431,7 @@
         if ([self isOutOfBoundsAtX:column y:row])
             return;
         
+        
         //Tell the block it was clicked or double-tapped.
         BlockSprite *block = [self blockAtX:column y:row];
         if (block != nil) {
@@ -440,6 +441,9 @@
                 [block onTap];
             [block onTouch];
         }
+        
+        //Play block grab sound
+        [[SimpleAudioEngine sharedEngine] playEffect:@SFX_GRAB];
         
         if (block == nil || block.movable) {
             BlockTrain *train = [BlockTrain trainFromBoard:self atPoint:location];
@@ -467,6 +471,8 @@
     for (UITouch *touch in touches) {
         BlockTrain *train = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
         if (train != nil) {
+            //Play block drop sound
+            [[SimpleAudioEngine sharedEngine] playEffect:@SFX_DROP];
             [train snap];
             [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
             [self isComplete];

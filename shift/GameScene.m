@@ -17,6 +17,10 @@
 -(id) init
 {
     if ((self = [super init])) {
+        //Play the background music
+        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_GAME];
+        
         //Add Background Layer
         BackgroundLayer *background = [[BackgroundLayer alloc] init];
         [self addChild:background z:-1];

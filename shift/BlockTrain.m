@@ -152,7 +152,7 @@
     if ([blocks count] == 0) {
         return;
     }
-
+    
     ribbon = [CCRibbon ribbonWithWidth:10 image:@"block_connector.png" length:10000 color:ccc4(255, 255, 255, 255) fade:0.5];
     [board addChild:ribbon z:0];
     BlockSprite *lowBlock = [blocks objectAtIndex:0];
