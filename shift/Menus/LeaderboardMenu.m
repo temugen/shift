@@ -46,17 +46,26 @@
 
 - (void) onHardTimeSelection: (id) sender
 {
-  [[GameCenterHub sharedInstance] showLeaderboard:@"hard_time"];
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
+    [[GameCenterHub sharedInstance] showLeaderboard:@"hard_time"];
 }
 
 - (void) onHardMoves: (id) sender
 {
-  [[GameCenterHub sharedInstance] showLeaderboard:@"hard_moves"];
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
+    [[GameCenterHub sharedInstance] showLeaderboard:@"hard_moves"];
 }
 
 - (void) goBack: (id) sender
 {
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
 }
 
 

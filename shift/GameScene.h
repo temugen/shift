@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+//The in-game background music file
+#define BGM_GAME "shift_bg_game.mp3"
+
 #import "BoardLayer.h"
 #import "ControlLayer.h"
 #import "BackgroundLayer.h"

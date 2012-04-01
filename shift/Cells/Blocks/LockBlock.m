@@ -34,6 +34,9 @@
 
 -(void) unlock
 {    
+    //Play unlock sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_UNLOCK];
+    
     NSString *filename = [NSString stringWithFormat:@"%@_key.png",name];
     [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
     self.movable = YES;
@@ -47,6 +50,9 @@
         //If a key is able to be added, lock the block
         if([self dropKey])
         {
+            //Play lock sound
+            [[SimpleAudioEngine sharedEngine] playEffect:@SFX_LOCK];
+            
             NSString *filename = [NSString stringWithFormat:@"%@_lock.png",name];
             [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
             self.movable = NO;

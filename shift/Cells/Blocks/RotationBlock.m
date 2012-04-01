@@ -97,6 +97,8 @@
 
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    //Play rotation sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_ROTATE];
 	UITouch *touch = [touches anyObject];
 	CGPoint location = [touch locationInView:[touch view]];
 	location = [[CCDirector sharedDirector] convertToGL:location];
