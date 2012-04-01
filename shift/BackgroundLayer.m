@@ -8,6 +8,7 @@
 
 #import "BackgroundLayer.h"
 #import "BlockSprite.h"
+#import "ColorPalette.h"
 
 #define SIZE 35
 #define MAX_BLOCKS 10
@@ -55,10 +56,7 @@
 -(void) createBackgroundBlock:(BlockSprite*) block
 {
     //Choose color
-    NSArray *colorNames = [colors allKeys];
-    int colorIndex = arc4random() % [colors count];
-    const ccColor3B *ccColor = [[colors objectForKey:[colorNames objectAtIndex:colorIndex]] bytes];
-    [block setColor:*ccColor];
+    [block setColor:[[ColorPalette sharedPalette] randomColor]];
     
     //Get start and destination positions
     CGPoint destination = [self randomizePosition:block];

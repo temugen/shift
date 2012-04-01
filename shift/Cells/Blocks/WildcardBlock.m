@@ -8,6 +8,7 @@
 
 #import "WildcardBlock.h"
 #import "BoardLayer.h"
+#import "ColorPalette.h"
 
 @implementation WildcardBlock
 
@@ -24,11 +25,10 @@
 
 -(BOOL) onDoubleTap
 {
-    int rand = arc4random_uniform(6);
-    NSString* const rand_color = [colors objectForKey:[[colors allKeys] objectAtIndex:rand]];
-    NSString *filename = [NSString stringWithFormat:@"block_%@.png",rand_color];
+    NSString *randomColorName = [[ColorPalette sharedPalette] randomColorName];
+    NSString *filename = [NSString stringWithFormat:@"block_%@.png", randomColorName];
     [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
-    [self setName:rand_color];
+    [self setName:randomColorName];
     return NO;
 }
 

@@ -8,6 +8,7 @@
 
 #import "BoardLayer.h"
 #import "BlockTrain.h"
+#import "ColorPalette.h"
 
 @interface BoardLayer()
 
@@ -212,7 +213,6 @@
 {
     [self clear];
     
-    NSArray *colorNames = [colors allKeys];
     //Fill the board in with new, random blocks
     for (int x = 0; x < columnCount; x++) {
         for (int y = 0; y < rowCount; y++) {
@@ -224,14 +224,14 @@
                 continue;
             }
             
-            int randomIndex = arc4random() % [colors count];
+            NSString *randomColor = [[ColorPalette sharedPalette] randomColorName];
             
             //Add the goal block
-            GoalSprite *goal = [GoalSprite goalWithName:[colorNames objectAtIndex:randomIndex]];
+            GoalSprite *goal = [GoalSprite goalWithName:randomColor];
             [self addGoal:goal x:x y:y];
             
             //Add the user block
-            BlockSprite *block = [BlockSprite blockWithName:[colorNames objectAtIndex:randomIndex]];
+            BlockSprite *block = [BlockSprite blockWithName:randomColor];
             [self addBlock:block x:x y:y];
             
             //Hide the block

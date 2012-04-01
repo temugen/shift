@@ -18,6 +18,7 @@
 		8235A41F14FCA9350058C21F /* ControlLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A41E14FCA9350058C21F /* ControlLayer.m */; };
 		8235A42214FCA94C0058C21F /* BlockTrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A42114FCA94C0058C21F /* BlockTrain.m */; };
 		8235A42F150556E90058C21F /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8235A42E150556E80058C21F /* GameScene.m */; };
+		82389468152802C7006B30DD /* ColorPalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 82389467152802C7006B30DD /* ColorPalette.m */; };
 		8243EA311508205A003DEBAA /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8243E92C15081AC1003DEBAA /* libcocos2d.a */; };
 		8243EA321508205A003DEBAA /* libCocosDenshion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8243E93015081AC1003DEBAA /* libCocosDenshion.a */; };
 		82470CC914EC882A00F60A7C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82470CC814EC882A00F60A7C /* SenTestingKit.framework */; };
@@ -619,6 +620,8 @@
 		8235A42114FCA94C0058C21F /* BlockTrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockTrain.m; sourceTree = "<group>"; };
 		8235A42D150556E70058C21F /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		8235A42E150556E80058C21F /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		82389466152802C7006B30DD /* ColorPalette.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPalette.h; sourceTree = "<group>"; };
+		82389467152802C7006B30DD /* ColorPalette.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPalette.m; sourceTree = "<group>"; };
 		8243E8A415081ABF003DEBAA /* cocos2d-ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "cocos2d-ios.xcodeproj"; path = "cocos2d/cocos2d-ios.xcodeproj"; sourceTree = "<group>"; };
 		82470CC714EC882A00F60A7C /* shiftLogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shiftLogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82470CC814EC882A00F60A7C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -1057,6 +1060,8 @@
 				8201099D151EC11700DA8ECB /* BackgroundLayer.m */,
 				8235A41D14FCA9350058C21F /* ControlLayer.h */,
 				8235A41E14FCA9350058C21F /* ControlLayer.m */,
+				82389466152802C7006B30DD /* ColorPalette.h */,
+				82389467152802C7006B30DD /* ColorPalette.m */,
 				8235A42D150556E70058C21F /* GameScene.h */,
 				8235A42E150556E80058C21F /* GameScene.m */,
 				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
@@ -1865,6 +1870,7 @@
 				A323368F1520E37800119D91 /* RamBlock.m in Sources */,
 				FA7D41031522325B009234BF /* GKAchievementHandler.m in Sources */,
 				FA7D41041522325B009234BF /* GKAchievementNotification.m in Sources */,
+				82389468152802C7006B30DD /* ColorPalette.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

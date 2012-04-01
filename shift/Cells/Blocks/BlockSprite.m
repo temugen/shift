@@ -7,6 +7,7 @@
 //
 
 #import "BlockSprite.h"
+#import "ColorPalette.h"
 
 @implementation BlockSprite
 
@@ -14,8 +15,7 @@
 {
     if ((self = [super initWithFilename:[NSString stringWithFormat:@"block.png", color]])) {
         name = color;
-        const ccColor3B *ccColor = [[colors objectForKey:color] bytes];
-        [self setColor:*ccColor];
+        [self setColor:[[ColorPalette sharedPalette] colorWithName:color]];
     }
     return self;
 }

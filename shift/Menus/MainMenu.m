@@ -15,6 +15,7 @@
 #import "GameCenterHub.h"
 #import "GoalSprite.h"
 #import "BlockSprite.h"
+#import "ColorPalette.h"
 
 #define TEXT_BLOCK_SIZE 35
 #define TITLE_BORDER_SIZE 50
@@ -151,8 +152,7 @@
     CCSprite* block = [CCSprite spriteWithFile:@"title_block.png"];
     
     //Set the color of the block to the desired color
-    const ccColor3B *ccColor = [[colors objectForKey:color] bytes];
-    [block setColor:*ccColor];
+    [block setColor:[[ColorPalette sharedPalette] colorWithName:color]];
     
     //Scale the block and the border
     [block setScaleX:TEXT_BLOCK_SIZE/block.contentSize.width];
