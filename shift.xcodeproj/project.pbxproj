@@ -100,6 +100,7 @@
 		985A8D52150E6659005E771A /* libCocosDenshion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8243E93015081AC1003DEBAA /* libCocosDenshion.a */; };
 		98657FDC14F412EF00584BD1 /* KeyBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FD914F412EE00584BD1 /* KeyBlock.m */; };
 		98657FDD14F412EF00584BD1 /* LockBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FDB14F412EE00584BD1 /* LockBlock.m */; };
+		987EEBFB152A71040010CE38 /* CCScrollLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 987EEBFA152A71040010CE38 /* CCScrollLayer.m */; };
 		98C218F114F96BAA002177F9 /* completeBoard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98C218F014F96BAA002177F9 /* completeBoard.plist */; };
 		98C218F214F96BAA002177F9 /* completeBoard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98C218F014F96BAA002177F9 /* completeBoard.plist */; };
 		98E6E6A21520B7720001D956 /* 3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98E6E6A11520B7720001D956 /* 3.plist */; };
@@ -734,6 +735,8 @@
 		98657FD914F412EE00584BD1 /* KeyBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyBlock.m; path = Cells/Blocks/KeyBlock.m; sourceTree = "<group>"; };
 		98657FDA14F412EE00584BD1 /* LockBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LockBlock.h; path = Cells/Blocks/LockBlock.h; sourceTree = "<group>"; };
 		98657FDB14F412EE00584BD1 /* LockBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LockBlock.m; path = Cells/Blocks/LockBlock.m; sourceTree = "<group>"; };
+		987EEBF9152A71040010CE38 /* CCScrollLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCScrollLayer.h; path = Menus/CCScrollLayer.h; sourceTree = "<group>"; };
+		987EEBFA152A71040010CE38 /* CCScrollLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCScrollLayer.m; path = Menus/CCScrollLayer.m; sourceTree = "<group>"; };
 		98C218F014F96BAA002177F9 /* completeBoard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = completeBoard.plist; path = Resources/Levels/completeBoard.plist; sourceTree = "<group>"; };
 		98E6E6A11520B7720001D956 /* 3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = 3.plist; path = Resources/Levels/3.plist; sourceTree = "<group>"; };
 		98E6E6A31520B9E20001D956 /* 6.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 6.plist; path = Resources/Levels/6.plist; sourceTree = "<group>"; };
@@ -1170,6 +1173,8 @@
 				985399A814F18CE600713F65 /* SinglePlayerMenu.m */,
 				820109A4151F8C9600DA8ECB /* InGameMenu.h */,
 				820109A5151F8C9600DA8ECB /* InGameMenu.m */,
+				987EEBF9152A71040010CE38 /* CCScrollLayer.h */,
+				987EEBFA152A71040010CE38 /* CCScrollLayer.m */,
 			);
 			name = Menus;
 			sourceTree = "<group>";
@@ -1913,6 +1918,7 @@
 				FA7D41031522325B009234BF /* GKAchievementHandler.m in Sources */,
 				FA7D41041522325B009234BF /* GKAchievementNotification.m in Sources */,
 				82389468152802C7006B30DD /* ColorPalette.m in Sources */,
+				987EEBFB152A71040010CE38 /* CCScrollLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
