@@ -10,6 +10,8 @@
 
 @implementation ColorPalette
 
+@synthesize paletteNames;
+
 +(ColorPalette *) sharedPalette
 {
     static ColorPalette *sharedPalette = nil;
@@ -30,20 +32,27 @@
         NSString *extension = [filename pathExtension];
         NSString *baseName = [filename stringByDeletingPathExtension];
         
-        colors = [[NSMutableDictionary alloc] initWithCapacity:20];
         NSString *path = [[NSBundle mainBundle] pathForResource:baseName ofType:extension];
-        NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
-        NSDictionary *defaults = [plist objectForKey:@"default"];
-        NSArray *colorNames = [defaults allKeys];
-        for (NSArray *colorName in colorNames) {
-            NSArray *colorValues = [defaults objectForKey:colorName];
-            ccColor3B color = ccc3([[colorValues objectAtIndex:0] intValue],
-                                   [[colorValues objectAtIndex:1] intValue],
-                                   [[colorValues objectAtIndex:2] intValue]);
-            [colors setObject:[NSData dataWithBytes:&color length:sizeof(color)] forKey:colorName];
-        }
+        palettes = [NSDictionary dictionaryWithContentsOfFile:path];
+        paletteNames = [palettes allKeys];
+        
+        [self setPalette:@"default"];
     }
     return self;
+}
+
+-(void) setPalette:(NSString *)paletteName
+{
+    NSDictionary *palette = [palettes objectForKey:paletteName];
+    colors = [NSMutableDictionary dictionaryWithCapacity:[palette count]];
+    NSArray *colorNames = [palette allKeys];
+    for (NSArray *colorName in colorNames) {
+        NSArray *colorValues = [palette objectForKey:colorName];
+        ccColor3B color = ccc3([[colorValues objectAtIndex:0] intValue],
+                               [[colorValues objectAtIndex:1] intValue],
+                               [[colorValues objectAtIndex:2] intValue]);
+        [colors setObject:[NSData dataWithBytes:&color length:sizeof(color)] forKey:colorName];
+    }
 }
 
 -(NSString *) randomColorName
