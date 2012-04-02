@@ -44,7 +44,7 @@
             [self addChild:block z:-1];
             [blocks addObject:block];
             
-            [self createBackgroundBlock:block];
+            //[self createBackgroundBlock:block];
         }
     }
     
@@ -76,6 +76,14 @@
     {
         [block runAction:[CCSequence actions:[CCDelayTime actionWithDuration:delay],visible,move,doneAction,nil]];
     }
+}
+
+-(void) onEnter
+{
+    for(BlockSprite *sprite in [self children]) {
+        [self createBackgroundBlock:sprite];
+    }
+    [super onEnter];
 }
 
 -(void) draw
