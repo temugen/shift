@@ -16,12 +16,13 @@
     NSMutableSet *initialBlocks;
     NSMutableDictionary *blockTrains;
     
-    CCTexture2D *backgroundTexture;
     CGPoint corners[4];
+    CCSprite *background;
     
     @public
     CGRect boundingBox;
     int rowCount, columnCount;
+    CCTexture2D *backgroundTexture;
     CGSize cellSize, blockSize;
 }
 
@@ -31,10 +32,12 @@
 @property(readonly) CCTexture2D *backgroundTexture;
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
-+(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;
++(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size; 
 
 -(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
 -(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;
+
+-(CCSprite *) screenshot;
 
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
 -(BlockSprite *) blockAtX:(int)x y:(int)y;
