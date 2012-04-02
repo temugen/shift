@@ -23,8 +23,6 @@
 
 +(id) colorPalette;
 
--(id) initWithFile:(NSString *)filename;
-
 -(void) setPalette:(NSString *)paletteName;
 -(NSString *) randomColorName;
 -(ccColor3B) randomColor;

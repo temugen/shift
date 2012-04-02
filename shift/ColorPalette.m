@@ -8,6 +8,13 @@
 
 #import "ColorPalette.h"
 
+@interface ColorPalette()
+
+/* Private Functions */
+-(id) initWithFile:(NSString *)filename;
+
+@end
+
 @implementation ColorPalette
 
 @synthesize paletteNames;
@@ -28,7 +35,16 @@
 
 +(id) colorPalette
 {
-    return [[ColorPalette alloc] initWithFile:@"colors.plist"];
+    return [[ColorPalette alloc] init];
+}
+
+-(id) init
+{
+    if ((self = [self initWithFile:@"colors.plist"])) {
+        [self setPalette:@"default"];
+    }
+    
+    return self;
 }
 
 -(id) initWithFile:(NSString *)filename
@@ -40,9 +56,8 @@
         NSString *path = [[NSBundle mainBundle] pathForResource:baseName ofType:extension];
         palettes = [NSDictionary dictionaryWithContentsOfFile:path];
         paletteNames = [palettes allKeys];
-        
-        [self setPalette:@"default"];
     }
+    
     return self;
 }
 
