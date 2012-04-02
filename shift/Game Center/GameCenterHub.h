@@ -35,6 +35,7 @@
 
 // Authentication functions
 -(void) authenticateLocalPlayer;
+-(BOOL) isGameCenterAvailable;
 -(void) authenticationChanged;
 -(void) getPlayerFriends;
 -(void) loadPlayerData:(NSArray*)identifiers;
@@ -47,7 +48,8 @@
 -(void) reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent;
 -(GKAchievement*) addOrFindIdentifier:(NSString*)identifier;
 -(void) achievementCompleted:(NSString*)title message:(NSString*)msg;
-- (void) resetAchievements;
+-(void) resetAchievements;
+-(void) saveAchievements;
 
 // LeaderBoard functions
 -(void) showLeaderboard:(NSString*)category;
@@ -60,8 +62,5 @@
 -(void) takeTurn:(GKTurnBasedMatch*)match;
 -(void) recieveEndGame:(GKTurnBasedMatch*)match;
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match;
-
-// Helper functions
--(BOOL) isGameCenterAvailable;
 
 @end

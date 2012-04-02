@@ -73,7 +73,6 @@
 		8294476F151311B0003F727A /* block_connector.png in Resources */ = {isa = PBXBuildFile; fileRef = 8294476E151311B0003F727A /* block_connector.png */; };
 		82944771151312A5003F727A /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = 82944770151312A5003F727A /* block.png */; };
 		82944773151312AF003F727A /* goal.png in Resources */ = {isa = PBXBuildFile; fileRef = 82944772151312AF003F727A /* goal.png */; };
-		964847D3151ACBAA00355CC4 /* Achievement.m in Sources */ = {isa = PBXBuildFile; fileRef = 964847D2151ACBAA00355CC4 /* Achievement.m */; };
 		985265D714F5ACA800353F61 /* blue_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D214F5ACA800353F61 /* blue_lock.png */; };
 		985265D814F5ACA800353F61 /* green_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D314F5ACA800353F61 /* green_lock.png */; };
 		985265D914F5ACA800353F61 /* orange_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D414F5ACA800353F61 /* orange_lock.png */; };
@@ -119,6 +118,7 @@
 		FA7D41071522325B009234BF /* gk-notification.png in Resources */ = {isa = PBXBuildFile; fileRef = FA7D40FF1522325B009234BF /* gk-notification.png */; };
 		FA7D41081522325B009234BF /* gk-notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA7D41001522325B009234BF /* gk-notification@2x.png */; };
 		FA7D41091522325B009234BF /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = FA7D41011522325B009234BF /* LICENSE */; };
+		FA851229152A2FCE0046A9DF /* MultiplayerGame.m in Sources */ = {isa = PBXBuildFile; fileRef = FA851228152A2FCE0046A9DF /* MultiplayerGame.m */; };
 		FAC182E714E3723100968475 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC182E614E3723100968475 /* GameKit.framework */; };
 		FAC8909C150C49EE000F816C /* GameCenterHub.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC89095150C49EE000F816C /* GameCenterHub.m */; };
 		FAC8909D150C49EE000F816C /* GKAchievementViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC89097150C49EE000F816C /* GKAchievementViewController-LandscapeOnly.m */; };
@@ -701,8 +701,6 @@
 		8294476E151311B0003F727A /* block_connector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_connector.png; path = Resources/Effects/block_connector.png; sourceTree = "<group>"; };
 		82944770151312A5003F727A /* block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block.png; path = Resources/Cells/Blocks/block.png; sourceTree = "<group>"; };
 		82944772151312AF003F727A /* goal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goal.png; path = Resources/Cells/Goals/goal.png; sourceTree = "<group>"; };
-		964847D1151ACBAA00355CC4 /* Achievement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Achievement.h; path = "shift/Game Center/Achievement.h"; sourceTree = "<group>"; };
-		964847D2151ACBAA00355CC4 /* Achievement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Achievement.m; path = "shift/Game Center/Achievement.m"; sourceTree = "<group>"; };
 		985265D214F5ACA800353F61 /* blue_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blue_lock.png; path = Resources/Cells/Blocks/blue_lock.png; sourceTree = "<group>"; };
 		985265D314F5ACA800353F61 /* green_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = green_lock.png; path = Resources/Cells/Blocks/green_lock.png; sourceTree = "<group>"; };
 		985265D414F5ACA800353F61 /* orange_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = orange_lock.png; path = Resources/Cells/Blocks/orange_lock.png; sourceTree = "<group>"; };
@@ -761,6 +759,8 @@
 		FA7D40FF1522325B009234BF /* gk-notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gk-notification.png"; sourceTree = "<group>"; };
 		FA7D41001522325B009234BF /* gk-notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gk-notification@2x.png"; sourceTree = "<group>"; };
 		FA7D41011522325B009234BF /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		FA851227152A2FCD0046A9DF /* MultiplayerGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiplayerGame.h; sourceTree = "<group>"; };
+		FA851228152A2FCE0046A9DF /* MultiplayerGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiplayerGame.m; sourceTree = "<group>"; };
 		FAC182E614E3723100968475 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		FAC89094150C49EE000F816C /* GameCenterHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameCenterHub.h; path = "shift/Game Center/GameCenterHub.h"; sourceTree = "<group>"; };
 		FAC89095150C49EE000F816C /* GameCenterHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameCenterHub.m; path = "shift/Game Center/GameCenterHub.m"; sourceTree = "<group>"; };
@@ -1106,6 +1106,8 @@
 				82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */,
 				82470D3514F1C28000F60A7C /* SinglePlayerGame.h */,
 				82470D3614F1C28000F60A7C /* SinglePlayerGame.m */,
+				FA851227152A2FCD0046A9DF /* MultiplayerGame.h */,
+				FA851228152A2FCE0046A9DF /* MultiplayerGame.m */,
 				8270384E14DB044A008D7240 /* RootViewController.h */,
 				8270384F14DB044A008D7240 /* RootViewController.m */,
 				8270386514DB057A008D7240 /* shiftAppDelegate.h */,
@@ -1214,8 +1216,6 @@
 				FAC89099150C49EE000F816C /* GKLeaderboardViewController-LandscapeOnly.m */,
 				FAC8909A150C49EE000F816C /* GKMatchMakerViewController-LandscapeOnly.h */,
 				FAC8909B150C49EE000F816C /* GKMatchMakerViewController-LandscapeOnly.m */,
-				964847D1151ACBAA00355CC4 /* Achievement.h */,
-				964847D2151ACBAA00355CC4 /* Achievement.m */,
 				FA07E6261520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.h */,
 				FA07E6271520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m */,
 			);
@@ -1911,7 +1911,6 @@
 				FAC8909E150C49EE000F816C /* GKLeaderboardViewController-LandscapeOnly.m in Sources */,
 				FAC8909F150C49EE000F816C /* GKMatchMakerViewController-LandscapeOnly.m in Sources */,
 				8235A42F150556E90058C21F /* GameScene.m in Sources */,
-				964847D3151ACBAA00355CC4 /* Achievement.m in Sources */,
 				8201099E151EC11800DA8ECB /* BackgroundLayer.m in Sources */,
 				820109A6151F8C9600DA8ECB /* InGameMenu.m in Sources */,
 				FA07E6281520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m in Sources */,
@@ -1919,6 +1918,7 @@
 				FA7D41031522325B009234BF /* GKAchievementHandler.m in Sources */,
 				FA7D41041522325B009234BF /* GKAchievementNotification.m in Sources */,
 				82389468152802C7006B30DD /* ColorPalette.m in Sources */,
+				FA851229152A2FCE0046A9DF /* MultiplayerGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

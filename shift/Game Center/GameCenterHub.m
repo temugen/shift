@@ -185,7 +185,12 @@ static GameCenterHub* sharedHelper = nil;
 }
 
 -(void) loadAchievements
-{    
+{      
+  NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString* documentsDirectory = [paths objectAtIndex:0];
+  NSString* filePath = [documentsDirectory stringByAppendingPathComponent:@"local_achievements"];  
+  achievementDict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];  
+  
   [GKAchievement loadAchievementsWithCompletionHandler:^(NSArray* achievements, NSError* error) 
   {
      if (error != nil)
@@ -196,13 +201,18 @@ static GameCenterHub* sharedHelper = nil;
      {
        for (GKAchievement* achievement in achievements)
        {
-         [achievementDict setObject:achievement forKey:achievement.identifier];
+         GKAchievement* local = [self addOrFindIdentifier:achievement.identifier];
+         if (achievement.percentComplete > local.percentComplete)
+         {
+           local.percentComplete = achievement.percentComplete;
+           [self saveAchievements];
+         }
        }
      }
   }];
 }
 
-// Tests for existing identifier, if not then allocs it
+//Tests for existing identifier, if not then allocs it
 -(GKAchievement*) addOrFindIdentifier:(NSString*)identifier
 {
   GKAchievement* achievement = [achievementDict objectForKey:identifier];
@@ -230,22 +240,33 @@ static GameCenterHub* sharedHelper = nil;
     if (error != nil)
     {
       NSLog(@"reportAchievementID error: %@", error.description);
-      // Achievement not sent, add to local dict?  	
     }
   }];
+  [self saveAchievements];
 }
 
 - (void) resetAchievements
 {
+  // Confirm reset
   achievementDict = [[NSMutableDictionary alloc] init];
   [GKAchievement resetAchievementsWithCompletionHandler:^(NSError *error)
   {
      if (error != nil) 
-     {
+     {	
        NSLog(@"ResetAchievements: %@", error.description);
      }
   }];
 }
+
+- (void) saveAchievements
+{
+  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString *documentsDirectory = [paths objectAtIndex:0];
+  NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"local_achievements"];
+  
+  [NSKeyedArchiver archiveRootObject:achievementDict toFile:filePath];
+}
+
 
 /*
  ********** Leaderboard Functions **********
