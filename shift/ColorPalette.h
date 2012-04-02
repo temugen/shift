@@ -21,6 +21,8 @@
 
 +(ColorPalette *) sharedPalette;
 
++(id) colorPalette;
+
 -(id) initWithFile:(NSString *)filename;
 
 -(void) setPalette:(NSString *)paletteName;

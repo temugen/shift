@@ -21,9 +21,14 @@
     @synchronized(self)
     {
         if (sharedPalette == nil)
-            sharedPalette = [[ColorPalette alloc] initWithFile:@"colors.plist"];
+            sharedPalette = [ColorPalette colorPalette];
     }
     return sharedPalette;
+}
+
++(id) colorPalette
+{
+    return [[ColorPalette alloc] initWithFile:@"colors.plist"];
 }
 
 -(id) initWithFile:(NSString *)filename
