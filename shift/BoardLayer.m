@@ -169,13 +169,7 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:extension];
     
     //Open the file and put its contents into a dictionary
-    NSData *plistData = [NSData dataWithContentsOfFile:path];
-    NSString *error;
-    NSPropertyListFormat format;
-    NSDictionary *plist = [NSPropertyListSerialization propertyListFromData:plistData
-                                             mutabilityOption:NSPropertyListImmutable
-                                                       format:&format
-                                             errorDescription:&error];
+    NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
     
     //Get the board attributes
     NSDictionary *board = [plist objectForKey:@"board"];
