@@ -10,16 +10,6 @@
 		5ED0202514F98A1F0070387C /* block_wild.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202414F98A1E0070387C /* block_wild.png */; };
 		5ED0202714F98BBA0070387C /* 19.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ED0202614F98BBA0070387C /* 19.plist */; };
 		5EF053D414F338AF00177148 /* WildcardBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF053D314F338AF00177148 /* WildcardBlock.m */; };
-		7BBCC20E15285031001CB5A3 /* shift_bg_game.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC20415285031001CB5A3 /* shift_bg_game.mp3 */; };
-		7BBCC20F15285031001CB5A3 /* shift_bg_menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC20515285031001CB5A3 /* shift_bg_menu.mp3 */; };
-		7BBCC21015285031001CB5A3 /* shift_destruct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC20615285031001CB5A3 /* shift_destruct.mp3 */; };
-		7BBCC21115285031001CB5A3 /* shift_drop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC20715285031001CB5A3 /* shift_drop.mp3 */; };
-		7BBCC21215285031001CB5A3 /* shift_grab.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC20815285031001CB5A3 /* shift_grab.mp3 */; };
-		7BBCC21315285031001CB5A3 /* shift_lock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC20915285031001CB5A3 /* shift_lock.mp3 */; };
-		7BBCC21415285031001CB5A3 /* shift_menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC20A15285031001CB5A3 /* shift_menu.mp3 */; };
-		7BBCC21515285031001CB5A3 /* shift_ram.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC20B15285031001CB5A3 /* shift_ram.mp3 */; };
-		7BBCC21615285031001CB5A3 /* shift_rotator.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC20C15285031001CB5A3 /* shift_rotator.mp3 */; };
-		7BBCC21715285031001CB5A3 /* shift_unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7BBCC20D15285031001CB5A3 /* shift_unlock.mp3 */; };
 		8201099B151E985100DA8ECB /* debris.png in Resources */ = {isa = PBXBuildFile; fileRef = 8201099A151E985100DA8ECB /* debris.png */; };
 		8201099E151EC11800DA8ECB /* BackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201099D151EC11700DA8ECB /* BackgroundLayer.m */; };
 		820109A1151ECEF900DA8ECB /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 820109A0151ECEF900DA8ECB /* background.png */; };
@@ -48,6 +38,16 @@
 		82470D3914F1C7DB00F60A7C /* 2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82470D3814F1C7DB00F60A7C /* 2.plist */; };
 		82470D3C14F1CC8B00F60A7C /* QuickPlayGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */; };
 		82470D6B14F5E25A00F60A7C /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82470D6A14F5E25A00F60A7C /* test.plist */; };
+		8268C192152B5C9700CC730D /* shift_bg_game.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C188152B5C9700CC730D /* shift_bg_game.mp3 */; };
+		8268C193152B5C9700CC730D /* shift_bg_menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C189152B5C9700CC730D /* shift_bg_menu.mp3 */; };
+		8268C194152B5C9700CC730D /* shift_destruct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C18A152B5C9700CC730D /* shift_destruct.mp3 */; };
+		8268C195152B5C9700CC730D /* shift_drop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C18B152B5C9700CC730D /* shift_drop.mp3 */; };
+		8268C196152B5C9700CC730D /* shift_grab.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C18C152B5C9700CC730D /* shift_grab.mp3 */; };
+		8268C197152B5C9700CC730D /* shift_lock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C18D152B5C9700CC730D /* shift_lock.mp3 */; };
+		8268C198152B5C9700CC730D /* shift_menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C18E152B5C9700CC730D /* shift_menu.mp3 */; };
+		8268C199152B5C9700CC730D /* shift_ram.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C18F152B5C9700CC730D /* shift_ram.mp3 */; };
+		8268C19A152B5C9700CC730D /* shift_rotator.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C190152B5C9700CC730D /* shift_rotator.mp3 */; };
+		8268C19B152B5C9700CC730D /* shift_unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C191152B5C9700CC730D /* shift_unlock.mp3 */; };
 		827036EA14DB0448008D7240 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036E914DB0448008D7240 /* QuartzCore.framework */; };
 		827036EC14DB0448008D7240 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036EB14DB0448008D7240 /* OpenGLES.framework */; };
 		827036EE14DB0448008D7240 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036ED14DB0448008D7240 /* OpenAL.framework */; };
@@ -617,16 +617,6 @@
 		5ED0202614F98BBA0070387C /* 19.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 19.plist; path = Resources/Levels/19.plist; sourceTree = "<group>"; };
 		5EF053D214F338AE00177148 /* WildcardBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WildcardBlock.h; path = Cells/Blocks/WildcardBlock.h; sourceTree = "<group>"; };
 		5EF053D314F338AF00177148 /* WildcardBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WildcardBlock.m; path = Cells/Blocks/WildcardBlock.m; sourceTree = "<group>"; };
-		7BBCC20415285031001CB5A3 /* shift_bg_game.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_bg_game.mp3; sourceTree = "<group>"; };
-		7BBCC20515285031001CB5A3 /* shift_bg_menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_bg_menu.mp3; sourceTree = "<group>"; };
-		7BBCC20615285031001CB5A3 /* shift_destruct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_destruct.mp3; sourceTree = "<group>"; };
-		7BBCC20715285031001CB5A3 /* shift_drop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_drop.mp3; sourceTree = "<group>"; };
-		7BBCC20815285031001CB5A3 /* shift_grab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_grab.mp3; sourceTree = "<group>"; };
-		7BBCC20915285031001CB5A3 /* shift_lock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_lock.mp3; sourceTree = "<group>"; };
-		7BBCC20A15285031001CB5A3 /* shift_menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_menu.mp3; sourceTree = "<group>"; };
-		7BBCC20B15285031001CB5A3 /* shift_ram.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_ram.mp3; sourceTree = "<group>"; };
-		7BBCC20C15285031001CB5A3 /* shift_rotator.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_rotator.mp3; sourceTree = "<group>"; };
-		7BBCC20D15285031001CB5A3 /* shift_unlock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shift_unlock.mp3; sourceTree = "<group>"; };
 		8201099A151E985100DA8ECB /* debris.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = debris.png; path = Resources/Effects/debris.png; sourceTree = "<group>"; };
 		8201099C151EC11700DA8ECB /* BackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayer.h; sourceTree = "<group>"; };
 		8201099D151EC11700DA8ECB /* BackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundLayer.m; sourceTree = "<group>"; };
@@ -669,6 +659,16 @@
 		82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickPlayGame.h; sourceTree = "<group>"; };
 		82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickPlayGame.m; sourceTree = "<group>"; };
 		82470D6A14F5E25A00F60A7C /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = test.plist; path = Resources/Levels/test.plist; sourceTree = "<group>"; };
+		8268C188152B5C9700CC730D /* shift_bg_game.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_bg_game.mp3; path = shift/Resources/Sounds/shift_bg_game.mp3; sourceTree = SOURCE_ROOT; };
+		8268C189152B5C9700CC730D /* shift_bg_menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_bg_menu.mp3; path = shift/Resources/Sounds/shift_bg_menu.mp3; sourceTree = SOURCE_ROOT; };
+		8268C18A152B5C9700CC730D /* shift_destruct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_destruct.mp3; path = shift/Resources/Sounds/shift_destruct.mp3; sourceTree = SOURCE_ROOT; };
+		8268C18B152B5C9700CC730D /* shift_drop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_drop.mp3; path = shift/Resources/Sounds/shift_drop.mp3; sourceTree = SOURCE_ROOT; };
+		8268C18C152B5C9700CC730D /* shift_grab.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_grab.mp3; path = shift/Resources/Sounds/shift_grab.mp3; sourceTree = SOURCE_ROOT; };
+		8268C18D152B5C9700CC730D /* shift_lock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_lock.mp3; path = shift/Resources/Sounds/shift_lock.mp3; sourceTree = SOURCE_ROOT; };
+		8268C18E152B5C9700CC730D /* shift_menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_menu.mp3; path = shift/Resources/Sounds/shift_menu.mp3; sourceTree = SOURCE_ROOT; };
+		8268C18F152B5C9700CC730D /* shift_ram.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_ram.mp3; path = shift/Resources/Sounds/shift_ram.mp3; sourceTree = SOURCE_ROOT; };
+		8268C190152B5C9700CC730D /* shift_rotator.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_rotator.mp3; path = shift/Resources/Sounds/shift_rotator.mp3; sourceTree = SOURCE_ROOT; };
+		8268C191152B5C9700CC730D /* shift_unlock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_unlock.mp3; path = shift/Resources/Sounds/shift_unlock.mp3; sourceTree = SOURCE_ROOT; };
 		827036E514DB0448008D7240 /* shift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827036E914DB0448008D7240 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		827036EB14DB0448008D7240 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -818,16 +818,16 @@
 		7BBCC20315285031001CB5A3 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				7BBCC20415285031001CB5A3 /* shift_bg_game.mp3 */,
-				7BBCC20515285031001CB5A3 /* shift_bg_menu.mp3 */,
-				7BBCC20615285031001CB5A3 /* shift_destruct.mp3 */,
-				7BBCC20715285031001CB5A3 /* shift_drop.mp3 */,
-				7BBCC20815285031001CB5A3 /* shift_grab.mp3 */,
-				7BBCC20915285031001CB5A3 /* shift_lock.mp3 */,
-				7BBCC20A15285031001CB5A3 /* shift_menu.mp3 */,
-				7BBCC20B15285031001CB5A3 /* shift_ram.mp3 */,
-				7BBCC20C15285031001CB5A3 /* shift_rotator.mp3 */,
-				7BBCC20D15285031001CB5A3 /* shift_unlock.mp3 */,
+				8268C188152B5C9700CC730D /* shift_bg_game.mp3 */,
+				8268C189152B5C9700CC730D /* shift_bg_menu.mp3 */,
+				8268C18A152B5C9700CC730D /* shift_destruct.mp3 */,
+				8268C18B152B5C9700CC730D /* shift_drop.mp3 */,
+				8268C18C152B5C9700CC730D /* shift_grab.mp3 */,
+				8268C18D152B5C9700CC730D /* shift_lock.mp3 */,
+				8268C18E152B5C9700CC730D /* shift_menu.mp3 */,
+				8268C18F152B5C9700CC730D /* shift_ram.mp3 */,
+				8268C190152B5C9700CC730D /* shift_rotator.mp3 */,
+				8268C191152B5C9700CC730D /* shift_unlock.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -1094,7 +1094,6 @@
 				8270386114DB052F008D7240 /* BoardLayer.h */,
 				8270386014DB052F008D7240 /* BoardLayer.m */,
 				8201099C151EC11700DA8ECB /* BackgroundLayer.h */,
-				7BBCC20315285031001CB5A3 /* Sounds */,
 				8201099D151EC11700DA8ECB /* BackgroundLayer.m */,
 				8235A41D14FCA9350058C21F /* ControlLayer.h */,
 				8235A41E14FCA9350058C21F /* ControlLayer.m */,
@@ -1134,6 +1133,7 @@
 				8270370714DB0448008D7240 /* Icon.png */,
 				8270370914DB0448008D7240 /* Icon@2x.png */,
 				9857981E15212121005CA702 /* title_block.png */,
+				7BBCC20315285031001CB5A3 /* Sounds */,
 				8201099F151ECEED00DA8ECB /* Backgrounds */,
 				82470D0414F1BCAB00F60A7C /* Cells */,
 				3893739A14FC6B6E00397E8E /* Controls */,
@@ -1836,16 +1836,16 @@
 				985798A915225758005CA702 /* 7.plist in Resources */,
 				985798AD1522C2AD005CA702 /* 5.plist in Resources */,
 				985798AF1522CA16005CA702 /* 4.plist in Resources */,
-				7BBCC20E15285031001CB5A3 /* shift_bg_game.mp3 in Resources */,
-				7BBCC20F15285031001CB5A3 /* shift_bg_menu.mp3 in Resources */,
-				7BBCC21015285031001CB5A3 /* shift_destruct.mp3 in Resources */,
-				7BBCC21115285031001CB5A3 /* shift_drop.mp3 in Resources */,
-				7BBCC21215285031001CB5A3 /* shift_grab.mp3 in Resources */,
-				7BBCC21315285031001CB5A3 /* shift_lock.mp3 in Resources */,
-				7BBCC21415285031001CB5A3 /* shift_menu.mp3 in Resources */,
-				7BBCC21515285031001CB5A3 /* shift_ram.mp3 in Resources */,
-				7BBCC21615285031001CB5A3 /* shift_rotator.mp3 in Resources */,
-				7BBCC21715285031001CB5A3 /* shift_unlock.mp3 in Resources */,
+				8268C192152B5C9700CC730D /* shift_bg_game.mp3 in Resources */,
+				8268C193152B5C9700CC730D /* shift_bg_menu.mp3 in Resources */,
+				8268C194152B5C9700CC730D /* shift_destruct.mp3 in Resources */,
+				8268C195152B5C9700CC730D /* shift_drop.mp3 in Resources */,
+				8268C196152B5C9700CC730D /* shift_grab.mp3 in Resources */,
+				8268C197152B5C9700CC730D /* shift_lock.mp3 in Resources */,
+				8268C198152B5C9700CC730D /* shift_menu.mp3 in Resources */,
+				8268C199152B5C9700CC730D /* shift_ram.mp3 in Resources */,
+				8268C19A152B5C9700CC730D /* shift_rotator.mp3 in Resources */,
+				8268C19B152B5C9700CC730D /* shift_unlock.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
