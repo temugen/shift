@@ -14,12 +14,14 @@
 @synthesize health;
 @synthesize comparable, movable;
 @synthesize name;
+@synthesize tutorial;
 
 -(id) initWithFilename:(NSString *)filename
 {
     CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:filename];
     if ((self = [super initWithTexture:texture])) {
         textureFilename = [filename copy];
+        tutorial = nil;
         comparable = YES;
         movable = YES;
         destructible = NO;
@@ -58,27 +60,21 @@
 
 -(BOOL) onCompareWithCell:(CellSprite *)cell
 {
-    if (cell == nil || ![cell.name isEqualToString:name]) {
-        return NO;
-    }
-    return YES;
+    return NO;
 }
 
 -(BOOL) onTap
 {
-    NSLog(@"%@ was tapped", name);
     return NO;
 }
 
 -(BOOL) onTouch
 {
-    NSLog(@"%@ was touched", name);
     return NO;
 }
 
 -(BOOL) onDoubleTap
 {
-    NSLog(@"%@ was double-tapped", name);
     return NO;
 }
 
@@ -89,9 +85,11 @@
 
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force
 {
-    if (force > 20.0) {
-        NSLog(@"%@ collided with %@ with force %f", name, cell.name, force);
-    }
+    return NO;
+}
+
+-(BOOL) onSnap
+{
     return NO;
 }
 

@@ -52,7 +52,6 @@ static MultiplayerGame *lastGame = nil;
 -(void) onGameEnd
 {
   [super onGameEnd];
-
   //MY STUFF
 }
 

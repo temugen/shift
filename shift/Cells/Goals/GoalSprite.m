@@ -25,4 +25,17 @@
     return [[self alloc] initWithName:name];
 }
 
+-(BOOL) onCompareWithCell:(CellSprite *)cell
+{
+    if (tutorial != nil) {
+        [tutorial complete];
+    }
+    
+    if (cell == nil || ![cell.name isEqualToString:name]) {
+        return NO;
+    }
+    
+    return YES;
+}
+
 @end

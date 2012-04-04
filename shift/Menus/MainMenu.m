@@ -162,27 +162,26 @@
 {
     //Initialize border and block
     GoalSprite* border = [GoalSprite goalWithName:color];
-    CCSprite* block = [CCSprite spriteWithFile:@"title_block.png"];
+    BlockSprite* block = [BlockSprite blockWithName:color];
     
     //Set the color of the block to the desired color
-    [block setColor:[[ColorPalette sharedPalette] colorWithName:color]];
+    //[block setColor:[[ColorPalette sharedPalette] colorWithName:color]];
+    
+    //Add label to the block
+    [TitleLayer createLabelWithText:text textBox:block];
     
     //Scale the block and the border
-    [block setScaleX:TEXT_BLOCK_SIZE/block.contentSize.width];
-    [block setScaleY:TEXT_BLOCK_SIZE/block.contentSize.height];
-    [border setScaleX:TITLE_BORDER_SIZE/border.contentSize.width];
-    [border setScaleY:TITLE_BORDER_SIZE/border.contentSize.height];
+    CGSize screenSize = [[CCDirector sharedDirector] winSize];
+    CGPoint factors = [block resize:CGSizeMake(screenSize.height / 8, screenSize.height / 8)];
+    [border scaleWithFactors:factors];
     
     //Set the border and block position based on the position given. 
-    border.position = ccp(border.position.x+TITLE_BORDER_SIZE*pos,border.position.y);
+    border.position = ccp(border.position.x + (CGRectGetWidth([border boundingBox]) * pos), border.position.y);
     
     //Add some animation
     id move = [CCMoveBy actionWithDuration:1.5 position:border.position];
     id action = [CCEaseElasticIn actionWithAction:move];
     [block runAction: action];
-    
-    //Add label to the block
-    [TitleLayer createLabelWithText:text textBox:block];
     
     //Add the border and block to the title layer
     [self addChild:border z:0];
@@ -193,16 +192,14 @@
 //Create a label for the given letter in the title
 +(void)createLabelWithText:(NSString*)text textBox:(CCSprite*)textBox
 {
-    CCLabelTTF* label = [[CCLabelTTF alloc] initWithString:text 
-                                                dimensions:CGSizeMake([textBox contentSize].width, [textBox contentSize].height)  
-                                                 alignment:UITextAlignmentCenter 
-                                                  fontName:@"Helvetica-BoldOblique" 
-                                                  fontSize:100.0f];
+    CCLabelTTF* label = [[CCLabelTTF alloc] initWithString:text
+                                                  fontName:@"Helvetica-Bold"
+                                                  fontSize:CGRectGetWidth([textBox boundingBox])];
     
     label.color = ccBLACK;
     
     //Attempt to center the label.
-    label.position = ccp(label.position.x+43,label.position.y+58);
+    label.position = ccp(textBox.contentSize.width / 2, textBox.contentSize.height / 2);
     
     //Add label to the given block
     [textBox addChild:label z:1];

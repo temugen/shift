@@ -7,6 +7,7 @@
 //
 
 #import "QuickPlayGame.h"
+#import "GameCenterHub.h"
 
 @implementation QuickPlayGame
 
@@ -39,6 +40,27 @@ static QuickPlayGame *lastGame = nil;
     }
     
     return self;
+}
+
+-(void) onGameEnd
+{
+  [super onGameEnd];
+  
+  // Need to implement move counter so each file
+  
+  //Send score for leaderboard
+  switch (rowCount)
+  {
+    case kDifficultyEasy:
+//      [[GameCenterHub sharedInstance] submitScore:elapsedTime category:@"easy_time"];
+      break;
+    case kDifficultyMedium:
+//      [[GameCenterHub sharedInstance] submitScore:elapsedTime category:@"medium_time"];
+      break;
+    case kDifficultyHard:
+      [[GameCenterHub sharedInstance] submitScore:elapsedTime category:@"hard_time"];
+      break;
+  }
 }
 
 -(void) onNextGame

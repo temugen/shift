@@ -7,6 +7,7 @@
 //
 
 #import "OptionsMenu.h"
+#import "SinglePlayerGame.h"
 
 @implementation OptionsMenu
 
@@ -22,6 +23,10 @@
         [menu alignItemsVertically];
         
         [self addChild: menu];        
+        
+        CCSprite *preview = [SinglePlayerGame previewForLevel:1];
+        preview.position = ccp(100, 100);
+        [self addChild:preview];
     }
     return self;
 }

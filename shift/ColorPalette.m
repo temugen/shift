@@ -8,7 +8,16 @@
 
 #import "ColorPalette.h"
 
+@interface ColorPalette()
+
+/* Private Functions */
+-(id) initWithFile:(NSString *)filename;
+
+@end
+
 @implementation ColorPalette
+
+@synthesize paletteNames;
 
 +(ColorPalette *) sharedPalette
 {
@@ -19,9 +28,23 @@
     @synchronized(self)
     {
         if (sharedPalette == nil)
-            sharedPalette = [[ColorPalette alloc] initWithFile:@"colors.plist"];
+            sharedPalette = [ColorPalette colorPalette];
     }
     return sharedPalette;
+}
+
++(id) colorPalette
+{
+    return [[ColorPalette alloc] init];
+}
+
+-(id) init
+{
+    if ((self = [self initWithFile:@"colors.plist"])) {
+        [self setPalette:@"default"];
+    }
+    
+    return self;
 }
 
 -(id) initWithFile:(NSString *)filename
@@ -30,20 +53,26 @@
         NSString *extension = [filename pathExtension];
         NSString *baseName = [filename stringByDeletingPathExtension];
         
-        colors = [[NSMutableDictionary alloc] initWithCapacity:20];
         NSString *path = [[NSBundle mainBundle] pathForResource:baseName ofType:extension];
-        NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
-        NSDictionary *defaults = [plist objectForKey:@"default"];
-        NSArray *colorNames = [defaults allKeys];
-        for (NSArray *colorName in colorNames) {
-            NSArray *colorValues = [defaults objectForKey:colorName];
-            ccColor3B color = ccc3([[colorValues objectAtIndex:0] intValue],
-                                   [[colorValues objectAtIndex:1] intValue],
-                                   [[colorValues objectAtIndex:2] intValue]);
-            [colors setObject:[NSData dataWithBytes:&color length:sizeof(color)] forKey:colorName];
-        }
+        palettes = [NSDictionary dictionaryWithContentsOfFile:path];
+        paletteNames = [palettes allKeys];
     }
+    
     return self;
+}
+
+-(void) setPalette:(NSString *)paletteName
+{
+    NSDictionary *palette = [palettes objectForKey:paletteName];
+    colors = [NSMutableDictionary dictionaryWithCapacity:[palette count]];
+    NSArray *colorNames = [palette allKeys];
+    for (NSArray *colorName in colorNames) {
+        NSArray *colorValues = [palette objectForKey:colorName];
+        ccColor3B color = ccc3([[colorValues objectAtIndex:0] intValue],
+                               [[colorValues objectAtIndex:1] intValue],
+                               [[colorValues objectAtIndex:2] intValue]);
+        [colors setObject:[NSData dataWithBytes:&color length:sizeof(color)] forKey:colorName];
+    }
 }
 
 -(NSString *) randomColorName

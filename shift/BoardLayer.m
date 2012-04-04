@@ -88,10 +88,10 @@
         ccTexParams params = {GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT};
         backgroundTexture = [[CCTextureCache sharedTextureCache] addImage:@"background.png"];
         [backgroundTexture setTexParameters:&params];
-        CCSprite *background = [CCSprite spriteWithTexture:backgroundTexture
-                                                      rect:CGRectMake(0, 0,
-                                                                      CGRectGetWidth(boundingBox) + 4,
-                                                                      CGRectGetHeight(boundingBox) + 4)];
+        background = [CCSprite spriteWithTexture:backgroundTexture
+                                            rect:CGRectMake(0, 0,
+                                                            CGRectGetWidth(boundingBox) + 4,
+                                                            CGRectGetHeight(boundingBox) + 4)];
         //darken the background texture
         [background setColor:ccc3(120, 120, 120)];
         background.position = ccp(center.x, center.y);
@@ -183,16 +183,26 @@
             
             //Get the cell's attributes
             NSString *class = [cell objectForKey:@"class"], *name = [cell objectForKey:@"name"];
+            NSString *tutorialMessage = [cell objectForKey:@"tutorial"];
             int row = [[cell objectForKey:@"row"] intValue], column = [[cell objectForKey:@"column"] intValue];
             
             //Add the cell to the board
+            CellSprite *cell = nil;
             if ([class isEqualToString:@"GoalSprite"]) {
                 GoalSprite *goal = [GoalSprite goalWithName:name];
                 [self addGoal:goal x:column y:row];
+                cell = goal;
             }
             else {
                 BlockSprite *block = [NSClassFromString(class) blockWithName:name];
                 [self addBlock:block x:column y:row];
+                cell = block;
+            }
+            
+            //Add tutorial if one was requested
+            if (tutorialMessage != nil && cell != nil) {
+                Tutorial *tutorial = [[Tutorial alloc] initWithMessage:tutorialMessage forCell:cell];
+                cell.tutorial = tutorial;
             }
         }
         
@@ -270,6 +280,25 @@
         [train moveTo:endPoint];
         [train snap];
     }
+}
+
+-(CCSprite *) screenshot
+{
+    CGSize screenSize = [[CCDirector sharedDirector] winSize];
+    CCRenderTexture *canvas = [CCRenderTexture renderTextureWithWidth:screenSize.width
+                                                               height:screenSize.height];
+    
+    //Render board on canvas
+    [canvas beginWithClear:0 g:0 b:0 a:0];
+    background.visible = NO;
+    [self visit];
+    background.visible = YES;
+    [canvas end];
+    
+    //Crop out board
+    CCSprite *sprite = [canvas sprite];
+    [sprite setTextureRect:boundingBox];
+    return sprite;
 }
 
 -(void) draw
