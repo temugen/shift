@@ -48,6 +48,7 @@
 		8268C199152B5C9700CC730D /* shift_ram.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C18F152B5C9700CC730D /* shift_ram.mp3 */; };
 		8268C19A152B5C9700CC730D /* shift_rotator.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C190152B5C9700CC730D /* shift_rotator.mp3 */; };
 		8268C19B152B5C9700CC730D /* shift_unlock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C191152B5C9700CC730D /* shift_unlock.mp3 */; };
+		8268C19E152B600700CC730D /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 8268C19D152B600600CC730D /* Tutorial.m */; };
 		827036EA14DB0448008D7240 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036E914DB0448008D7240 /* QuartzCore.framework */; };
 		827036EC14DB0448008D7240 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036EB14DB0448008D7240 /* OpenGLES.framework */; };
 		827036EE14DB0448008D7240 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 827036ED14DB0448008D7240 /* OpenAL.framework */; };
@@ -669,6 +670,8 @@
 		8268C18F152B5C9700CC730D /* shift_ram.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_ram.mp3; path = shift/Resources/Sounds/shift_ram.mp3; sourceTree = SOURCE_ROOT; };
 		8268C190152B5C9700CC730D /* shift_rotator.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_rotator.mp3; path = shift/Resources/Sounds/shift_rotator.mp3; sourceTree = SOURCE_ROOT; };
 		8268C191152B5C9700CC730D /* shift_unlock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_unlock.mp3; path = shift/Resources/Sounds/shift_unlock.mp3; sourceTree = SOURCE_ROOT; };
+		8268C19C152B600600CC730D /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tutorial.h; sourceTree = "<group>"; };
+		8268C19D152B600600CC730D /* Tutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tutorial.m; sourceTree = "<group>"; };
 		827036E514DB0448008D7240 /* shift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		827036E914DB0448008D7240 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		827036EB14DB0448008D7240 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1099,6 +1102,8 @@
 				8235A41E14FCA9350058C21F /* ControlLayer.m */,
 				82389466152802C7006B30DD /* ColorPalette.h */,
 				82389467152802C7006B30DD /* ColorPalette.m */,
+				8268C19C152B600600CC730D /* Tutorial.h */,
+				8268C19D152B600600CC730D /* Tutorial.m */,
 				8235A42D150556E70058C21F /* GameScene.h */,
 				8235A42E150556E80058C21F /* GameScene.m */,
 				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
@@ -1919,6 +1924,7 @@
 				FA7D41041522325B009234BF /* GKAchievementNotification.m in Sources */,
 				82389468152802C7006B30DD /* ColorPalette.m in Sources */,
 				987EEBFB152A71040010CE38 /* CCScrollLayer.m in Sources */,
+				8268C19E152B600700CC730D /* Tutorial.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

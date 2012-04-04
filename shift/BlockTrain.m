@@ -223,41 +223,44 @@
         ribbon.position = ccp(ribbon.position.x, ribbon.position.y + limitedDistance);
     
     //Let blocks know if they collided with each other
-    if (immovable != nil && ABS(limitedDistance) < ABS(distance) && ABS(distance) > kMinCollisionForce) {
+    if (immovable != nil && ABS(limitedDistance) < ABS(distance)) {
         [immovable onCollideWithCell:block force:ABS(distance)];
         [block onCollideWithCell:immovable force:ABS(distance)];
         
-        CCParticleGalaxy *debris  = [[CCParticleGalaxy alloc] initWithTotalParticles:10];
-        [debris setEmitterMode:kCCParticleModeRadius];
-        debris.texture = [[CCTextureCache sharedTextureCache] addImage:@"debris.png"];
-        
-        float position;
-        if (distance < 0)
-            position = lowPositionLimit;
-        else
-            position = highPositionLimit;
-        
-        if (movement == kMovementColumn)
-            debris.position = ccp(immovable.position.x, position);
-        else if (movement == kMovementRow)
-            debris.position = ccp(position, immovable.position.y);
-        
-        debris.startSize = 10;
-        debris.endSize = 15;
-        
-        ccColor4F white = {1.0, 1.0, 1.0, 1.0};
-        debris.startColor = white;
-        debris.endColor = white;
-        
-        debris.life = 0.05;
-        debris.duration = 0.05;
-        
-        debris.emissionRate = 100;
-        
-        debris.startRadius = 10;
-        debris.endRadius = 15;
-        
-        [board addChild:debris z:10];
+        //Only show smoke if there is a forceful collision
+        if (ABS(distance) > kMinCollisionForce) {
+            CCParticleGalaxy *debris  = [[CCParticleGalaxy alloc] initWithTotalParticles:10];
+            [debris setEmitterMode:kCCParticleModeRadius];
+            debris.texture = [[CCTextureCache sharedTextureCache] addImage:@"debris.png"];
+            
+            float position;
+            if (distance < 0)
+                position = lowPositionLimit;
+            else
+                position = highPositionLimit;
+            
+            if (movement == kMovementColumn)
+                debris.position = ccp(immovable.position.x, position);
+            else if (movement == kMovementRow)
+                debris.position = ccp(position, immovable.position.y);
+            
+            debris.startSize = 10;
+            debris.endSize = 15;
+            
+            ccColor4F white = {1.0, 1.0, 1.0, 1.0};
+            debris.startColor = white;
+            debris.endColor = white;
+            
+            debris.life = 0.05;
+            debris.duration = 0.05;
+            
+            debris.emissionRate = 100;
+            
+            debris.startRadius = 10;
+            debris.endRadius = 15;
+            
+            [board addChild:debris z:10];
+        }
     }
 }
 
@@ -277,6 +280,7 @@
         column = (int)roundf((block.position.x - board.cellSize.width / 2 -CGRectGetMinX(board.boundingBox)) / board.cellSize.width);
         row = (int)roundf((block.position.y - board.cellSize.height / 2 - CGRectGetMinY(board.boundingBox)) / board.cellSize.height);
         [board moveBlock:block x:column y:row];
+        [block onSnap];
     }
 }
 

@@ -183,16 +183,26 @@
             
             //Get the cell's attributes
             NSString *class = [cell objectForKey:@"class"], *name = [cell objectForKey:@"name"];
+            NSString *tutorialMessage = [cell objectForKey:@"tutorial"];
             int row = [[cell objectForKey:@"row"] intValue], column = [[cell objectForKey:@"column"] intValue];
             
             //Add the cell to the board
+            CellSprite *cell = nil;
             if ([class isEqualToString:@"GoalSprite"]) {
                 GoalSprite *goal = [GoalSprite goalWithName:name];
                 [self addGoal:goal x:column y:row];
+                cell = goal;
             }
             else {
                 BlockSprite *block = [NSClassFromString(class) blockWithName:name];
                 [self addBlock:block x:column y:row];
+                cell = block;
+            }
+            
+            //Add tutorial if one was requested
+            if (tutorialMessage != nil && cell != nil) {
+                Tutorial *tutorial = [[Tutorial alloc] initWithMessage:tutorialMessage forCell:cell];
+                cell.tutorial = tutorial;
             }
         }
         
