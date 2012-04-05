@@ -8,8 +8,13 @@
 
 #import "SinglePlayerMenu.h"
 #import "SinglePlayerGame.h"
-#import "InGameMenu.h"
+#import "CCScrollLayer.h"
 #import "MainMenu.h"
+
+#define SPRITES_PER_PAGE 4
+#define PADDING 40
+
+NSInteger highestLevel;
 
 @implementation SinglePlayerMenu
 
@@ -21,105 +26,136 @@
         //Retrieve highest completed level by user (set to 0 if user defaults are not saved)
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         highestLevel = [defaults integerForKey:@"highestLevel"];
-        if (highestLevel == 0) {
+        if (highestLevel == 0) 
+        {
             highestLevel = 1;
-        }
-
-        //Set up menu items
-        CCMenu *menu = [CCMenu menuWithItems:nil];
-        CCMenuItemLabel *levelLabel;
+        }   
         
-        //Add an entry for every level
-        for (int i = 1; i <= NUM_LEVELS; i++) {
-            levelLabel = [CCMenuItemLabel itemWithLabel:[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", i] fontName:@"Marker Felt" fontSize:32.0f]target:self selector:@selector(levelSelect:)];
-            [levelLabel setTag:i];
-            
-            //Set the colors based on which levels are unlocked.
+        NSMutableArray * pages = [NSMutableArray arrayWithCapacity:NUM_LEVELS];
+        CGSize screenSize = [CCDirector sharedDirector].winSize;
+        int spriteWidth = screenSize.width/8;
+        
+        CCLayer *page = [[CCLayer alloc] init];
+        CCSprite * prev = nil;
+        
+        CCSprite* backgroundSprite = [SinglePlayerMenu createRectForWidth:spriteWidth+20 height:spriteWidth*2];
+        
+        for (int i=1;i<=NUM_LEVELS;i++)
+        {
+            //Only display textures for unlocked levels
             if(i<=highestLevel)
-                [levelLabel setColor:ccWHITE];
-            else
-                [levelLabel setColor:ccGRAY];
-
-            [menu addChild:levelLabel];
-        }
-        CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
-        [menu addChild:back];
-        
-        SinglePlayerGame *lastGame = [SinglePlayerGame lastGame];
-        if (lastGame != nil) {
-            CCMenuItemFont *continu = [CCMenuItemFont itemFromString:@"Continue" target:self selector:@selector(continueLastGame:)];
-            
-            [menu addChild:continu];
-        }
-        
-        [menu alignItemsInColumns:
-         [NSNumber numberWithInt:5], 
-         [NSNumber numberWithInt:5], 
-         [NSNumber numberWithInt:5], 
-         [NSNumber numberWithInt:5], 
-         [NSNumber numberWithInt:1],
-         [NSNumber numberWithInt:1],
-         nil];
+            {
+                //Create level texture
+                CCSprite *levelSprite = [SinglePlayerGame previewForLevel:i];
+                [levelSprite setTag:i];
+                levelSprite.scaleX = spriteWidth/levelSprite.contentSize.width;
+                levelSprite.scaleY = -levelSprite.scaleX;
                 
-        //Add menu to layer
-        [self addChild: menu];
+                //If there is already a level on the page, position this one next to it.
+                if(prev)
+                {
+                    levelSprite.position = ccp(prev.position.x+spriteWidth+PADDING,screenSize.height/2);
+                }
+                else 
+                {
+                    float offsetFactor = SPRITES_PER_PAGE/2.0 - 0.5;
+                    float paddingOffset = PADDING*(SPRITES_PER_PAGE-1)/2;
+                    levelSprite.position = ccp(screenSize.width/2-(offsetFactor*spriteWidth)-paddingOffset,screenSize.height/2);
+                }
+                [page addChild:levelSprite];
+                
+                //Add rounded rectangle behind texture
+                CCSprite* rectSprite = [CCSprite spriteWithTexture:[backgroundSprite texture]];
+                rectSprite.position = levelSprite.position;
+                [rectSprite setTag:i];
+                [page addChild:rectSprite z:-1];
+                
+                prev = levelSprite;
+                
+                //If we filled up the page, create a new page
+                if(i%SPRITES_PER_PAGE == 0)
+                {
+                    [pages addObject:page];
+                    page = [[CCLayer alloc] init];
+                    
+                    prev = nil;
+                }
+            }
+            else 
+            {
+                //TODO: display something for unbeaten levels
+            }
+        }
         
+        //Don't add the page if there's nothing on it.
+        if([[page children] count]>0)
+        {
+            [pages addObject:page];
+        }
+        
+        CCScrollLayer *scroller = [[CCScrollLayer alloc] initWithLayers:pages widthOffset: 0];
+        
+        //Set display page to page containing highest level completed by user
+        int pageSelection = highestLevel/SPRITES_PER_PAGE;
+        [scroller selectPage:pageSelection];
+        
+        [self addChild:scroller];
+        
+        [self addBackButton];
     }
     return self;
 }
 
-/* Callback functions for menu items */
-
--(void) continueLastGame:(id)sender
+-(void) addBackButton
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerGame lastGame]]];
+    CGSize screenSize = [[CCDirector sharedDirector] winSize];
+    CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
+    float width = CGRectGetWidth([back boundingBox]);
+    float height = CGRectGetHeight([back boundingBox]);
+    
+    // Set button positions
+    back.position = ccp(screenSize.width - width,screenSize.height - height);
+    
+    [self addChild:back];
 }
 
-//Displays level based on selection by the user. If level is not unlocked, it does nothing.
-- (void) levelSelect: (id) sender
++(CCSprite*) createRectForWidth:(int)width height:(int)height
 {
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    CGSize size = CGSizeMake(width, height);
+    CGPoint center = CGPointMake(size.width/2, size.height/2); 
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     
-    int levelNum = [sender tag];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetLineWidth(context, 2); 
+    CGContextSetRGBStrokeColor(context, 100.0, 0.0, 0.0, 1.0);
     
+    CGMutablePathRef boxPath = CGPathCreateMutable();
+    CGFloat radius = 10.0;
+    
+    CGPathMoveToPoint(boxPath, nil, center.x , center.y - height/2);
+    CGPathAddArcToPoint(boxPath, nil, center.x + width/2, center.y - height/2, center.x + width/2, center.y + height/2, radius);
+    CGPathAddArcToPoint(boxPath, nil, center.x + width/2, center.y + height/2, center.x - width/2, center.y + height/2, radius);
+    CGPathAddArcToPoint(boxPath, nil, center.x - width/2, center.y + height/2, center.x - width/2, center.y, radius);
+    CGPathAddArcToPoint(boxPath, nil, center.x - width/2, center.y - height/2, center.x, center.y - height/2, radius);
+    
+    CGPathCloseSubpath(boxPath);
+    
+    CGContextAddPath(context, boxPath);
+    CGContextStrokePath(context);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    CCSprite* sprite = [CCSprite spriteWithCGImage:image.CGImage key:@"image"];
+    return sprite;
+}
+
++(void) levelSelect: (int) levelNum
+{    
     if(levelNum<=highestLevel)
     {
         SinglePlayerGame *game = [SinglePlayerGame gameWithLevel:levelNum];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:kSceneTransitionTime scene:game]];
     }
 }
-
-//Proposed fix for SinglePlayerMenu's goBack bug:
-// Music is playing if user comes from main menu,
-// but no music is playing if they come from the pause menu.
-// --
-//This code causes the menu linkage to be correct, but upon
-// entering the Level Select menu from the Pause menu, the user's
-// current game board disappears. Thus, the user can get back to
-// the Pause menu and press Return to Play, but then there is no Pause
-// button or game board and the user becomes stuck.
-// Note: Pause->Reset board allows causes the user to get stuck.
-// However, Pause->Main Menu and/or Pause->Level Select-># allow the
-// user to continue.
-/*- (void) goBack: (id) sender
-{
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    
-    bool music_en = [[SimpleAudioEngine sharedEngine] isBackgroundMusicPlaying];
-    
-    if (!music_en) 
-    {
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[InGameMenu scene]]];
-    }
-    else
-    {
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
-    }
-        
-    
-}*/
 
 
 @end
