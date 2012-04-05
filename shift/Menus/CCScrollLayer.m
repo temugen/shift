@@ -32,6 +32,7 @@
 
 #import "CCScrollLayer.h"
 #import "CCGL.h"
+#import "SinglePlayerMenu.h"
 
 enum 
 {
@@ -123,7 +124,7 @@ enum
 		
 		// Save array of layers.
 		layers_ = [[NSMutableArray alloc] initWithArray:layers copyItems:NO];
-        
+
 		[self updatePages];			
 		
 	}
@@ -429,6 +430,21 @@ enum
 
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
+    if(touch.tapCount == 1)
+    {
+        CCLayer* currPage = [layers_ objectAtIndex:currentScreen_];
+        
+        for(CCMenuItemSprite* curr in [currPage children])
+        {
+            CGPoint point = [touch locationInView: [touch view]];
+            point = [[CCDirector sharedDirector] convertToGL: point];
+            if(CGRectContainsPoint([curr boundingBox], point))
+            {
+                [SinglePlayerMenu levelSelect:[curr tag]];
+            }
+        }
+    }
+    
 	if( scrollTouch_ != touch )
 		return;
 	scrollTouch_ = nil;

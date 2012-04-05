@@ -11,9 +11,9 @@
 
 @interface SinglePlayerMenu : Menu
 {
-    NSInteger highestLevel;
 }
 
++(void)levelSelect:(int)levelNum;
 //- (void) goBack:(id)sender;
 
 @end
