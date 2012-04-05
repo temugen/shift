@@ -10,6 +10,8 @@
 #import "QuickPlayGame.h"
 #import "MainMenu.h"
 #import "MultiplayerMenu.h"
+#import "MultiplayerGame.h"
+#import "GameCenterHub.h"
 
 #define kDifficultyLast 3842384 //random
 
@@ -18,9 +20,10 @@
 //Initialize the Quickplay layer
 -(id) initWithMode:(gamemode)gameSelection
 {
-    if( (self=[super init] )) {
-        mode = gameSelection;
-        
+    if( (self=[super init] )) 
+    {
+        mode = gameSelection;      
+      
         //Set up menu items
         CCMenuItemFont *easy = [CCMenuItemFont itemFromString:@"Easy" target:self selector: @selector(onSelection:)];
         [easy setTag:kDifficultyEasy];
@@ -28,16 +31,16 @@
         [medium setTag:kDifficultyMedium];
         CCMenuItemFont *hard= [CCMenuItemFont itemFromString:@"Hard" target:self selector: @selector(onSelection:)];
         [hard setTag:kDifficultyHard];
-        CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
+        CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)];         
+        CCMenu* menu = [CCMenu menuWithItems: easy,medium,hard,back, nil];
         
-        CCMenu *menu = [CCMenu menuWithItems: easy,medium,hard,back, nil];
-
         QuickPlayGame *lastGame = [QuickPlayGame lastGame];
-        if (lastGame != nil) {
-            CCMenuItemFont *continu = [CCMenuItemFont itemFromString:@"Continue" target:self selector:@selector(onSelection:)];
-            [continu setTag:kDifficultyLast];
-            
-            [menu addChild:continu];
+        if (lastGame != nil && gameSelection != MULTIPLAYER) 
+        {
+          CCMenuItemFont *continu = [CCMenuItemFont itemFromString:@"Continue" target:self selector:@selector(onSelection:)];
+          [continu setTag:kDifficultyLast];
+          
+          [menu addChild:continu];
         }
         
         [menu alignItemsVertically];
@@ -93,17 +96,24 @@
     }
     else //Multiplayer game
     {
-        if(mode == RANDOMMULTI)
-        {
-            //TODO: Setup Random Multiplayer Game
-            NSLog(@"User selected Random Opponent Multiplayer");   
-        }
-        else //User selected Friend Opponent
-        {               
-            //TODO: Setup Friend Multiplayer game
-            NSLog(@"User selected Friend Opponent Multiplayer");   
-
-        }
+      MultiplayerGame *game;
+      switch (diff) {
+        case kDifficultyEasy:
+          NSLog(@"User selected Easy Multiplayer");
+          game = [MultiplayerGame gameWithNumberOfRows:kDifficultyEasy columns:kDifficultyEasy];
+          break;
+        case kDifficultyMedium:
+          NSLog(@"User selected Medium Multiplayer");
+          game = [MultiplayerGame gameWithNumberOfRows:kDifficultyMedium columns:kDifficultyMedium];
+          break;
+        case kDifficultyHard:
+          NSLog(@"User selected Hard Multiplayer");
+          game = [MultiplayerGame gameWithNumberOfRows:kDifficultyHard columns:kDifficultyHard];
+          break;
+        default:
+          break;
+      }
+      [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:kSceneTransitionTime scene:game]];
     }
 }
 
@@ -112,14 +122,13 @@
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
     
-    if(mode==QUICKPLAY) //Return to Main Menu
+    if(mode == QUICKPLAY) //Return to Main Menu
     {
         [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
     }
     else //Return to Multiplayer menu
     {
-        [[CCDirector sharedDirector] replaceScene:
-                                        [CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
+      [[GameCenterHub sharedInstance] findMatch];
     }
 }
 

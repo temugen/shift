@@ -58,11 +58,7 @@ typedef enum Difficulty {
 typedef enum gamemode {
     QUICKPLAY,
     SINGLE,
-    RANDOMMULTI,
-    FRIENDMULTI,
-    LEADERBOARD,
-    HARDTIMELB,
-    HARDMOVELB
+    MULTIPLAYER
 } gamemode;
 
 //NOTE: if you change this value, you must change the way the levels are displayed in SinglePlayerMenu.m to correspond with

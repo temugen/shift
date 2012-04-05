@@ -56,7 +56,7 @@
 -(void) submitScore:(int64_t)score category:(NSString*)category;
 
 // Matchmaking functions
--(void) findRandomMatch;
+-(void) findMatch;
 -(void) enterNewGame:(GKTurnBasedMatch*)match;
 -(void) layoutMatch:(GKTurnBasedMatch*)match;
 -(void) takeTurn:(GKTurnBasedMatch*)match;

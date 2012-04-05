@@ -24,8 +24,7 @@
         CCMenuItemFont *leaderboard= [CCMenuItemFont itemFromString:@"Leaderboard" target:self selector: @selector(onLeaderboard:)];  
         CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
 
-        [play setTag:FRIENDMULTI];
-        [leaderboard setTag:LEADERBOARD];
+        [play setTag:MULTIPLAYER];
       
         //Add items to menu
         CCMenu *menu = [CCMenu menuWithItems: play, leaderboard, back, nil];
@@ -43,8 +42,8 @@
 {
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    
-    [[GameCenterHub sharedInstance] findRandomMatch];
+  if (![GameCenterHub sharedInstance].gameCenterAvailable) return;
+  [[GameCenterHub sharedInstance] findMatch];
 }
 
 - (void) onLeaderboard: (id) sender
@@ -55,7 +54,6 @@
     gamemode selection = [sender tag];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu sceneWithMode:selection]]];
 }
-
 
 
 @end

@@ -8,7 +8,9 @@
 
 #import <GameKit/GameKit.h>
 #import "GameCenterHub.h"
+#import "cocos2d.h"
 #import "GKAchievementNotification/GKAchievementHandler.h"
+#import "DifficultyMenu.h"
 
 @implementation GameCenterHub
 
@@ -101,7 +103,6 @@ static GameCenterHub* sharedHelper = nil;
   {
     NSLog(@"Auth changed; player authenticated.");
     userAuthenticated = YES;
-//    [self getPlayerFriends];
     [self loadAchievements];
   }
   else if (![GKLocalPlayer localPlayer].isAuthenticated && userAuthenticated)
@@ -247,7 +248,7 @@ static GameCenterHub* sharedHelper = nil;
 
 - (void) resetAchievements
 {
-  // Confirm reset
+  // TODO:  Confirm reset
   achievementDict = [[NSMutableDictionary alloc] init];
   [GKAchievement resetAchievementsWithCompletionHandler:^(NSError *error)
   {
@@ -307,7 +308,7 @@ static GameCenterHub* sharedHelper = nil;
  ********** Matchmaking functions **********
  */
 
--(void) findRandomMatch
+-(void) findMatch
 {
   if (!gameCenterAvailable) return;
   
@@ -327,7 +328,8 @@ static GameCenterHub* sharedHelper = nil;
 
 -(void) enterNewGame:(GKTurnBasedMatch*)match 
 {
-  // TODO:  Implement method
+  NSLog(@"Entering a new game");
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu sceneWithMode:MULTIPLAYER]]];
 }
 
 -(void) layoutMatch:(GKTurnBasedMatch*)match

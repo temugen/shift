@@ -21,12 +21,8 @@
         
         // Menu Items
         CCMenuItemFont* hardTime = [CCMenuItemFont itemFromString:@"Hard Times" target:self selector: @selector(onHardTimeSelection:)];
-        CCMenuItemFont *hardMoves = [CCMenuItemFont itemFromString:@"Hard Moves" target:self selector: @selector(onHardMoves:)];
-        CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
-        
-        // Set tags
-        [hardMoves setTag:HARDMOVELB];
-        [hardTime setTag:HARDTIMELB];
+        CCMenuItemFont* hardMoves = [CCMenuItemFont itemFromString:@"Hard Moves" target:self selector: @selector(onHardMoves:)];
+        CCMenuItemFont* back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
         
         // Set items
         CCMenu *menu = [CCMenu menuWithItems: hardTime, hardMoves, back, nil];
@@ -46,18 +42,22 @@
 
 - (void) onHardTimeSelection: (id) sender
 {
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    
-    [[GameCenterHub sharedInstance] showLeaderboard:@"hard_time"];
+  //Play menu selection sound
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
+  if (![GameCenterHub sharedInstance].gameCenterAvailable) return;
+  
+  [[GameCenterHub sharedInstance] showLeaderboard:@"hard_time"];
 }
 
 - (void) onHardMoves: (id) sender
 {
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    
-    [[GameCenterHub sharedInstance] showLeaderboard:@"hard_moves"];
+  //Play menu selection sound
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
+  if (![GameCenterHub sharedInstance].gameCenterAvailable) return;
+  
+  [[GameCenterHub sharedInstance] showLeaderboard:@"hard_moves"];
 }
 
 - (void) goBack: (id) sender
