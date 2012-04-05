@@ -9,6 +9,13 @@
 #import "QuickPlayGame.h"
 #import "GameCenterHub.h"
 
+@interface QuickPlayGame()
+
+-(void) animatePopulation;
+-(void) onCellPopulated:(BlockSprite *)block;
+
+@end
+
 @implementation QuickPlayGame
 
 static QuickPlayGame *lastGame = nil;
@@ -35,11 +42,19 @@ static QuickPlayGame *lastGame = nil;
                                                   cellSize:cellSize];
         board.position = boardCenter;
         [self addChild:board];
+        [self animatePopulation];
         
         lastGame = self;
     }
     
     return self;
+}
+
+-(void) onGameStart
+{
+    [self animatePopulation];
+    
+    [super onGameStart];
 }
 
 -(void) onGameEnd
@@ -72,6 +87,64 @@ static QuickPlayGame *lastGame = nil;
                                               cellSize:cellSize];
     board.position = boardCenter;
     [self addChild:board];
+}
+
+-(void) onCellPopulated:(BlockSprite *)block
+{
+    BlockSprite *origBlock = [board blockAtX:block.column y:block.row];
+    origBlock.visible = YES;
+    [block removeFromParentAndCleanup:YES];
+}
+
+-(void) animatePopulation
+{
+    CGSize screenSize = [[CCDirector sharedDirector] winSize];
+    
+    for (int x = 0; x < columnCount; x++) 
+    {
+        for (int y = 0; y < rowCount; y++) 
+        {
+            BlockSprite *origBlock = [board blockAtX:x y:y];
+            
+            if (origBlock != nil) 
+            {
+                origBlock.visible = NO;
+                id actionMove = [CCMoveTo actionWithDuration:1.5 position:[board convertToWorldSpace:origBlock.position]];
+                
+                BlockSprite *block = [origBlock copy];
+                [self addChild:block];
+                
+                //Randomly place blocks outside of screen
+                int randomX = arc4random() % (int)screenSize.width;
+                int randomY = arc4random() % (int)screenSize.height;
+                
+                int side = arc4random() % 4;
+                
+                switch (side) {
+                    case 0:
+                        block.position = ccp(-cellSize.width, randomY);
+                        break;
+                    case 1:
+                        block.position = ccp(screenSize.width + cellSize.width, randomY);
+                        break;
+                    case 2:
+                        block.position = ccp(randomX, -cellSize.height);
+                        break;
+                    case 3:
+                        block.position = ccp(randomX, screenSize.height + cellSize.height);
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+                actionMove = [CCEaseExponentialIn actionWithAction:actionMove];
+                id actionCall = [CCCallFuncO actionWithTarget:self selector:@selector(onCellPopulated:) object:block];
+                id actionSequence = [CCSequence actions: actionMove, actionCall, nil];
+                [block runAction: actionSequence];
+            }
+        }
+    } 
 }
 
 @end

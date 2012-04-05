@@ -29,8 +29,6 @@
 -(void) clearBlocks;
 -(void) clearGoals;
 
--(void) animatePopulation;
-
 @end
 
 @implementation BoardLayer
@@ -107,58 +105,11 @@
     if ((self = [self initWithNumberOfColumns:columns rows:rows cellSize:size])) {
         [self randomize];
         [self saveSnapshot];
-        [self animatePopulation];
         
         self.isTouchEnabled = YES;
     }
     
     return self;
-}
-
--(void)animatePopulation
-{
-    for (int x = 0; x < columnCount; x++) 
-    {
-        for (int y = 0; y < rowCount; y++) 
-        {
-            BlockSprite *block = [self blockAtX:x y:y];
-            if (block != nil) 
-            {
-                id move = [CCMoveTo actionWithDuration:1.5 position:block.position];
-                
-                //Randomly place blocks outside of screen
-                CGSize screenSize = [[CCDirector sharedDirector] winSize];
-                int randomX = arc4random()%(int)screenSize.width;
-                int randomY = arc4random()%(int)screenSize.height;
-
-                int side = arc4random()%4;
-                
-                switch (side) {
-                    case 0:
-                        block.position = ccp(-blockSize.width,randomY);
-                        break;
-                    case 1:
-                        block.position = ccp(screenSize.width+blockSize.width,randomY);
-                        break;
-                    case 2:
-                        block.position = ccp(randomX,-blockSize.height);
-                        break;
-                    case 3:
-                        block.position = ccp(randomX,screenSize.height+blockSize.height);
-                        break;
-                        
-                    default:
-                        break;
-                }
-                block.position = [self convertToNodeSpace:block.position];
-                
-                id visible = [CCToggleVisibility action];
-                id action = [CCEaseExponentialIn actionWithAction:move];
-                id actionSequence = [CCSequence actions: visible,action, nil];
-                [block runAction: actionSequence];
-            }
-        }
-    } 
 }
 
 -(id) initWithFilename:(NSString *)filename cellSize:(CGSize)size
@@ -237,10 +188,6 @@
             //Add the user block
             BlockSprite *block = [BlockSprite blockWithName:randomColor];
             [self addBlock:block x:x y:y];
-            
-            //Hide the block
-            id action = [CCToggleVisibility action];
-            [block runAction: action];
         }
     }
     
