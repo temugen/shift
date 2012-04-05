@@ -63,7 +63,6 @@ static SinglePlayerGame *lastGame = nil;
 
 +(CCSprite *)previewForLevel:(int)level
 {
-    CGSize screenSize = [[CCDirector sharedDirector] winSize];
     BoardLayer *board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", level]\
                                  cellSize:CGSizeMake(20, 20)];
     return [board screenshot];
