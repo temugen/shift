@@ -15,10 +15,10 @@
 {
     if( (self=[super init] )) {
 
-      CCMenuItemFont *earned = [CCMenuItemFont itemFromString:@"Earned Achievements" target:self selector: @selector(onEarned:)];
-      CCMenuItemFont *available = [CCMenuItemFont itemFromString:@"Available Achievements" target:self selector: @selector(onAvailable:)];
-      CCMenuItemFont *reset = [CCMenuItemFont itemFromString:@"Reset Achievements" target:self selector: @selector(onReset:)];
-      CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
+      CCMenuItemFont* earned = [CCMenuItemFont itemFromString:@"Earned Achievements" target:self selector: @selector(onEarned:)];
+      CCMenuItemFont* available = [CCMenuItemFont itemFromString:@"Available Achievements" target:self selector: @selector(onAvailable:)];
+      CCMenuItemFont* reset = [CCMenuItemFont itemFromString:@"Reset Achievements" target:self selector: @selector(onReset:)];
+      CCMenuItemFont* back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
       
         
       //Add items to menu
@@ -37,40 +37,33 @@
 {
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    if ([GameCenterHub sharedInstance].gameCenterAvailable) 
-    {
-        [[GameCenterHub sharedInstance] showAchievements];
-    }
-    else
-    {
-        // Load local cache
-    }
+  if (![GameCenterHub sharedInstance].gameCenterAvailable)
+  {
+    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to view your achievements"]; 
+    return;
+  }
+  [[GameCenterHub sharedInstance] showAchievements];
 }
 
 - (void) onAvailable: (id) sender
 {
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    if ([GameCenterHub sharedInstance].gameCenterAvailable) 
-    {
-        // TODO implement achievements and cache
-    }
-    else
-    {
-        // Show local cache
-    }
+  if (![GameCenterHub sharedInstance].gameCenterAvailable) return;
 }
 
 - (void) onReset: (id) sender
 {
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    if ([GameCenterHub sharedInstance].gameCenterAvailable) 
-    {
-        [[GameCenterHub sharedInstance] resetAchievements];
-    
-        // TODO:  Clear local cache too!
-    }
+  //Play menu selection sound
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
+  if (![GameCenterHub sharedInstance].gameCenterAvailable)
+  {
+    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to use any of the achievement features"]; 
+    return;
+  }   
+  [[GameCenterHub sharedInstance] resetAchievements];
+  [[GameCenterHub sharedInstance] saveAchievements];
 }
 
 @end

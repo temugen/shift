@@ -22,7 +22,7 @@
 
 static GameCenterHub* sharedHelper = nil;
 
-// Singleton instance of gchub
+
 +(GameCenterHub*) sharedInstance
 {
   if (!sharedHelper) 
@@ -329,7 +329,7 @@ static GameCenterHub* sharedHelper = nil;
 -(void) enterNewGame:(GKTurnBasedMatch*)match 
 {
   NSLog(@"Entering a new game");
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu sceneWithMode:MULTIPLAYER]]];
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu sceneWithMatch:match]]];
 }
 
 -(void) layoutMatch:(GKTurnBasedMatch*)match
@@ -428,6 +428,7 @@ static GameCenterHub* sharedHelper = nil;
   request.playersToInvite = playersToInvite;
   request.maxPlayers = 2;
   request.minPlayers = 2;
+  
   GKTurnBasedMatchmakerViewController* viewController = [[GKTurnBasedMatchmakerViewController alloc] initWithMatchRequest:request];
   viewController.showExistingMatches = NO;
   viewController.turnBasedMatchmakerDelegate = self;
@@ -487,6 +488,11 @@ static GameCenterHub* sharedHelper = nil;
   NSString* currSysVer = [[UIDevice currentDevice] systemVersion];
   BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
   return (localPlayerClassAvailable && osVersionSupported);
+}
+
+-(void) noGameCenterNotification:(NSString*) message
+{
+  [[[UIAlertView alloc] initWithTitle:@"GameCenter Error" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
 }
 
 @end

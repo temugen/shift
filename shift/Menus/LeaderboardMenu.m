@@ -45,7 +45,11 @@
   //Play menu selection sound
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
-  if (![GameCenterHub sharedInstance].gameCenterAvailable) return;
+  if (![GameCenterHub sharedInstance].gameCenterAvailable) 
+  {
+    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to view the leaderboard"]; 
+    return;
+  }
   
   [[GameCenterHub sharedInstance] showLeaderboard:@"hard_time"];
 }
@@ -55,8 +59,11 @@
   //Play menu selection sound
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
-  if (![GameCenterHub sharedInstance].gameCenterAvailable) return;
-  
+  if (![GameCenterHub sharedInstance].gameCenterAvailable)
+  {
+    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to view any leaderboard"]; 
+    return;
+  }
   [[GameCenterHub sharedInstance] showLeaderboard:@"hard_moves"];
 }
 

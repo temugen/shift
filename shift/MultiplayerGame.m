@@ -7,6 +7,7 @@
 //
 
 #import "MultiplayerGame.h"
+#import "GameCenterHub.h"
 
 @implementation MultiplayerGame
 
@@ -45,18 +46,12 @@ static MultiplayerGame *lastGame = nil;
 -(void) onGameStart
 {
   //Your stuff here
-  
   [super onGameStart];
 }
 
 -(void) onGameEnd
 {
   [super onGameEnd];
-  //MY STUFF
-}
-
--(void) onNextGame
-{
 }
 
 @end

@@ -50,12 +50,44 @@
     return self;
 }
 
+
+-(id) initWithMatch:(GKTurnBasedMatch*) myMatch
+{
+  if( (self=[super init] )) 
+  {
+    mode = MULTIPLAYER;      
+    match = myMatch;
+    
+    //Set up menu items
+    CCMenuItemFont* easy = [CCMenuItemFont itemFromString:@"Easy" target:self selector: @selector(onSelection:)];
+    [easy setTag:kDifficultyEasy];
+    CCMenuItemFont* medium = [CCMenuItemFont itemFromString:@"Medium" target:self selector: @selector(onSelection:)];
+    [medium setTag:kDifficultyMedium];
+    CCMenuItemFont* hard= [CCMenuItemFont itemFromString:@"Hard" target:self selector: @selector(onSelection:)];
+    [hard setTag:kDifficultyHard];
+    CCMenuItemFont* back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)];         
+    CCMenu* menu = [CCMenu menuWithItems: easy,medium,hard,back, nil];
+    
+    [menu alignItemsVertically];
+    [self addChild: menu];        
+  }
+  return self;
+}
+
 //Create scene with quickplay menu
 +(id) sceneWithMode:(gamemode) gameSelection
 {
     DifficultyMenu *menu = [[DifficultyMenu alloc] initWithMode:gameSelection];
     return [Menu sceneWithMenu:menu];
 }
+
+//Create scene with quickplay menu
++(id) sceneWithMatch:(GKTurnBasedMatch*) match
+{
+  DifficultyMenu *menu = [[DifficultyMenu alloc] initWithMatch:match];
+  return [Menu sceneWithMenu:menu];
+}
+
 
 /* Callback functions for menu items */
 

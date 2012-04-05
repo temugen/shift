@@ -42,7 +42,12 @@
 {
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  if (![GameCenterHub sharedInstance].gameCenterAvailable) return;
+  
+  if (![GameCenterHub sharedInstance].gameCenterAvailable)
+  {
+    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game center is required to use matchmaking"];
+    return;
+  }
   [[GameCenterHub sharedInstance] findMatch];
 }
 

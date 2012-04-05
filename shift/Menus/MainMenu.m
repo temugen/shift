@@ -90,7 +90,7 @@
     }
     else
     {
-        [[[UIAlertView alloc] initWithTitle:@"GameCenter Error" message:@"GameCenter is required to use any of the multiplayer features" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+      [[GameCenterHub sharedInstance] noGameCenterNotification:@"GameCenter is required to use any of the multiplayer features"];
     }
 }
 
@@ -105,7 +105,15 @@
 {
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+
+  if ([GameCenterHub sharedInstance].gameCenterAvailable)
+  { 
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[AchievementsMenu scene]]];
+  }
+  else
+  {
+    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to view your achievements"];
+  }
 }
 
 @end
