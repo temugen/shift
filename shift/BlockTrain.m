@@ -104,7 +104,7 @@
     
     [blocks removeAllObjects];
     lowImmovable = highImmovable = nil;
-    lowPositionLimit = rectMin(board.boundingBox), highPositionLimit = rectMax(board.boundingBox);
+    lowPositionLimit = 0, highPositionLimit = (movement == kMovementColumn ? board.contentSize.height : board.contentSize.width);
     
     int i, row, column;
     //Find the lowest index block that we can move, and mark the first unmoveable block if it exists
@@ -277,8 +277,8 @@
     NSEnumerator *enumerator = [blocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
         //Move the block to the closest cell's position on the board
-        column = (int)roundf((block.position.x - board.cellSize.width / 2 -CGRectGetMinX(board.boundingBox)) / board.cellSize.width);
-        row = (int)roundf((block.position.y - board.cellSize.height / 2 - CGRectGetMinY(board.boundingBox)) / board.cellSize.height);
+        column = (int)roundf((block.position.x - board.cellSize.width / 2) / board.cellSize.width);
+        row = (int)roundf((block.position.y - board.cellSize.height / 2) / board.cellSize.height);
         [board moveBlock:block x:column y:row];
         [block onSnap];
     }

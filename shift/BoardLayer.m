@@ -13,7 +13,7 @@
 @interface BoardLayer()
 
 /* Private Functions */
--(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
+-(id) initWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size;
 
 -(void) setBlock:(BlockSprite *)block x:(int)x y:(int)y;
 -(void) setGoal:(GoalSprite *)goal x:(int)x y:(int)y;
@@ -29,26 +29,27 @@
 -(void) clearBlocks;
 -(void) clearGoals;
 
+-(void) animatePopulation;
+
 @end
 
 @implementation BoardLayer
 
 @synthesize rowCount, columnCount;
-@synthesize boundingBox;
 @synthesize cellSize, blockSize;
 @synthesize backgroundTexture;
 
-+(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
++(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size
 {
-    return [[BoardLayer alloc] initRandomWithNumberOfColumns:columns rows:rows center:center cellSize:size];
+    return [[BoardLayer alloc] initRandomWithNumberOfColumns:columns rows:rows cellSize:size];
 }
 
-+(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
++(BoardLayer *) boardWithFilename:(NSString *)filename cellSize:(CGSize)size
 {
-    return [[BoardLayer alloc] initWithFilename:filename center:center cellSize:size];
+    return [[BoardLayer alloc] initWithFilename:filename cellSize:size];
 }
 
--(id) initWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
+-(id) initWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size
 {
 	if((self = [super init])) {
         //Don't allow touch input until the pieces are loaded
@@ -74,15 +75,13 @@
         blockSize = [sampleBlock scaleWithFactors:scalingFactors];
 
         //Calculate the bounding box for the board.
-        boundingBox.size.width = columnCount * cellSize.width;
-        boundingBox.size.height = rowCount * cellSize.height;
-        boundingBox.origin.x = center.x - (CGRectGetWidth(boundingBox) / 2);
-        boundingBox.origin.y = center.y - (CGRectGetHeight(boundingBox) / 2);
+        self.isRelativeAnchorPoint = YES;
+        self.contentSize = CGSizeMake(columnCount * cellSize.width, rowCount * cellSize.height);
         
-        corners[0] = ccp(CGRectGetMinX(boundingBox)-2, CGRectGetMinY(boundingBox)-2);
-        corners[1] = ccp(CGRectGetMinX(boundingBox)-2, CGRectGetMaxY(boundingBox)+2);
-        corners[2] = ccp(CGRectGetMaxX(boundingBox)+2, CGRectGetMaxY(boundingBox)+2);
-        corners[3] = ccp(CGRectGetMaxX(boundingBox)+2, CGRectGetMinY(boundingBox)-2);
+        corners[0] = ccp(-2, -2);
+        corners[1] = ccp(-2, self.contentSize.height+2);
+        corners[2] = ccp(self.contentSize.width+2, self.contentSize.height+2);
+        corners[3] = ccp(self.contentSize.width+2, -2);
         
         
         ccTexParams params = {GL_LINEAR, GL_LINEAR, GL_REPEAT, GL_REPEAT};
@@ -90,11 +89,11 @@
         [backgroundTexture setTexParameters:&params];
         background = [CCSprite spriteWithTexture:backgroundTexture
                                             rect:CGRectMake(0, 0,
-                                                            CGRectGetWidth(boundingBox) + 4,
-                                                            CGRectGetHeight(boundingBox) + 4)];
+                                                            self.contentSize.width + 4,
+                                                            self.contentSize.height + 4)];
         //darken the background texture
         [background setColor:ccc3(120, 120, 120)];
-        background.position = ccp(center.x, center.y);
+        background.position = ccp(self.contentSize.width / 2, self.contentSize.height / 2);
         [self addChild:background z:-1];
         
         blockTrains = [NSMutableDictionary dictionaryWithCapacity:MAX(columns, rows)];
@@ -103,12 +102,12 @@
 	return self;
 }
 
--(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size
+-(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size
 {	
-    if ((self = [self initWithNumberOfColumns:columns rows:rows center:center cellSize:size])) {
+    if ((self = [self initWithNumberOfColumns:columns rows:rows cellSize:size])) {
         [self randomize];
         [self saveSnapshot];
-        [self animateBlocks];
+        [self animatePopulation];
         
         self.isTouchEnabled = YES;
     }
@@ -116,7 +115,7 @@
     return self;
 }
 
--(void)animateBlocks
+-(void)animatePopulation
 {
     for (int x = 0; x < columnCount; x++) 
     {
@@ -136,13 +135,13 @@
                 
                 switch (side) {
                     case 0:
-                        block.position = ccp(blockSize.width*-1,randomY);
+                        block.position = ccp(-blockSize.width,randomY);
                         break;
                     case 1:
                         block.position = ccp(screenSize.width+blockSize.width,randomY);
                         break;
                     case 2:
-                        block.position = ccp(randomX,blockSize.width*-1);
+                        block.position = ccp(randomX,-blockSize.height);
                         break;
                     case 3:
                         block.position = ccp(randomX,screenSize.height+blockSize.height);
@@ -151,6 +150,7 @@
                     default:
                         break;
                 }
+                block.position = [self convertToNodeSpace:block.position];
                 
                 id visible = [CCToggleVisibility action];
                 id action = [CCEaseExponentialIn actionWithAction:move];
@@ -161,7 +161,7 @@
     } 
 }
 
--(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size
+-(id) initWithFilename:(NSString *)filename cellSize:(CGSize)size
 {
     //Find the path to the file
     NSString *extension = [filename pathExtension];
@@ -175,7 +175,7 @@
     NSDictionary *board = [plist objectForKey:@"board"];
     int rows = [[board objectForKey:@"rows"] intValue], columns = [[board objectForKey:@"columns"] intValue];
                    
-    if ((self = [self initWithNumberOfColumns:columns rows:rows center:center cellSize:size])) {        
+    if ((self = [self initWithNumberOfColumns:columns rows:rows cellSize:size])) {        
         //Loop through all of the cells
         NSArray *cells = [board objectForKey:@"cells"];
         NSEnumerator *enumerator = [cells objectEnumerator];
@@ -253,8 +253,8 @@
     for (int i = 0; i < (rowCount * columnCount) * (rowCount * columnCount); i++) {
         int direction = arc4random() % 2;
         int column = arc4random() % columnCount, row = arc4random() % rowCount;
-        CGPoint startPoint = CGPointMake(CGRectGetMinX(boundingBox) + column * cellSize.width,
-                                         CGRectGetMinY(boundingBox) + row * cellSize.height);
+        CGPoint startPoint = CGPointMake( + column * cellSize.width,
+                                          + row * cellSize.height);
         
         int reverse = 1;
         if (arc4random() % 2 == 0)
@@ -297,7 +297,7 @@
     
     //Crop out board
     CCSprite *sprite = [canvas sprite];
-    [sprite setTextureRect:boundingBox];
+    [sprite setTextureRect:self.boundingBox];
     return sprite;
 }
 
@@ -374,8 +374,8 @@
     
     //Update the block's location information
     if (block != nil) {
-        block.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
-                             CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
+        block.position = ccp( + x * cellSize.width + cellSize.width / 2,
+                              + y * cellSize.height + cellSize.height / 2);
     }
 }
 
@@ -386,8 +386,8 @@
     
     //Update the goal's location information
     if (goal != nil) {
-        goal.position = ccp(CGRectGetMinX(boundingBox) + x * cellSize.width + cellSize.width / 2,
-                            CGRectGetMinY(boundingBox) + y * cellSize.height + cellSize.height / 2);
+        goal.position = ccp( + x * cellSize.width + cellSize.width / 2,
+                             + y * cellSize.height + cellSize.height / 2);
     }
 }
 
@@ -446,8 +446,7 @@
 {
 	for(UITouch *touch in touches)
     {
-        CGPoint location = [touch locationInView:[touch view]];
-        location = [[CCDirector sharedDirector] convertToGL:location];
+        CGPoint location = [self convertTouchToNodeSpace:touch];
         int row = [self rowAtPoint:location], column = [self columnAtPoint:location];
         
         //If the user touched something outside the board, do nothing
@@ -479,8 +478,7 @@
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     for (UITouch *touch in touches) {
-        CGPoint location = [touch locationInView:[touch view]];
-        location = [[CCDirector sharedDirector] convertToGL:location];
+        CGPoint location = [self convertTouchToNodeSpace:touch];
         
         BlockTrain *train = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
         if (train != nil) {
@@ -532,12 +530,12 @@
 
 -(int) rowAtPoint:(CGPoint)point
 {
-    return (int)floorf((point.y - CGRectGetMinY(boundingBox)) / cellSize.height);
+    return (int)floorf(point.y / cellSize.height);
 }
 
 -(int) columnAtPoint:(CGPoint)point
 {
-    return (int)floorf((point.x - CGRectGetMinX(boundingBox)) / cellSize.width);
+    return (int)floorf(point.x / cellSize.width);
 }
 
 @end

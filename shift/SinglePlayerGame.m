@@ -32,8 +32,8 @@ static SinglePlayerGame *lastGame = nil;
         boardCenter = CGPointMake((screenSize.width / 2), (screenSize.height / 2));
         
         board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
-                                       center:boardCenter
                                      cellSize:cellSize];
+        board.position = boardCenter;
         
         [self addChild:board];
         
@@ -65,8 +65,7 @@ static SinglePlayerGame *lastGame = nil;
 {
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
     CGPoint boardCenter = CGPointMake((screenSize.width / 2), (screenSize.height / 2));
-    BoardLayer *board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", level]
-                                   center:boardCenter
+    BoardLayer *board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", level]\
                                  cellSize:CGSizeMake(20, 20)];
     return [board screenshot];
 }
@@ -94,8 +93,8 @@ static SinglePlayerGame *lastGame = nil;
     else
     {
         board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
-                                   center:boardCenter
                                  cellSize:cellSize];
+        board.position = boardCenter;
         [self addChild:board];
     }
 }

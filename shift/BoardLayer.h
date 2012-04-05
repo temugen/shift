@@ -20,22 +20,20 @@
     CCSprite *background;
     
     @public
-    CGRect boundingBox;
     int rowCount, columnCount;
     CCTexture2D *backgroundTexture;
     CGSize cellSize, blockSize;
 }
 
 @property(readonly, assign) int rowCount, columnCount;
-@property(readonly, assign) CGRect boundingBox;
 @property(readonly, assign) CGSize cellSize, blockSize;
 @property(readonly) CCTexture2D *backgroundTexture;
 
-+(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
-+(BoardLayer *) boardWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size; 
++(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size;
++(BoardLayer *) boardWithFilename:(NSString *)filename cellSize:(CGSize)size; 
 
--(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows center:(CGPoint)center cellSize:(CGSize)size;
--(id) initWithFilename:(NSString *)filename center:(CGPoint)center cellSize:(CGSize)size;
+-(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size;
+-(id) initWithFilename:(NSString *)filename cellSize:(CGSize)size;
 
 -(CCSprite *) screenshot;
 

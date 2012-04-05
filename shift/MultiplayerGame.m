@@ -28,8 +28,8 @@
     boardCenter = CGPointMake((screenSize.width / 2), (screenSize.height / 2));
     board = [BoardLayer randomBoardWithNumberOfColumns:columnCount
                                                   rows:rowCount
-                                                center:boardCenter
                                               cellSize:cellSize];
+    board.position = boardCenter;
     myMatch = match;
     [self addChild:board];
   }
