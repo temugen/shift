@@ -237,14 +237,25 @@
     
     //Render board on canvas
     [canvas beginWithClear:0 g:0 b:0 a:0];
-    background.visible = NO;
-    [self visit];
-    background.visible = YES;
+    for (int x = 0; x < columnCount; x++) {
+        for (int y = 0; y < rowCount; y++) {
+            GoalSprite *goal = [self goalAtX:x y:y];
+            BlockSprite *block = [self blockAtX:x y:y];
+            
+            if (goal != nil) {
+                [goal visit];
+            }
+            
+            if (block != nil) {
+                [block visit];
+            }
+        }
+    }
     [canvas end];
     
     //Crop out board
     CCSprite *sprite = [canvas sprite];
-    [sprite setTextureRect:self.boundingBox];
+    [sprite setTextureRect:CGRectMake(0, 0, self.contentSize.width, self.contentSize.height)];
     return sprite;
 }
 
