@@ -44,7 +44,6 @@
         }
         
         [menu alignItemsVertically];
-        
         [self addChild: menu];        
     }
     return self;
@@ -132,15 +131,15 @@
       switch (diff) {
         case kDifficultyEasy:
           NSLog(@"User selected Easy Multiplayer");
-          game = [MultiplayerGame gameWithNumberOfRows:kDifficultyEasy columns:kDifficultyEasy];
+          game = [MultiplayerGame gameWithNumberOfRows:kDifficultyEasy columns:kDifficultyEasy match:match];
           break;
         case kDifficultyMedium:
           NSLog(@"User selected Medium Multiplayer");
-          game = [MultiplayerGame gameWithNumberOfRows:kDifficultyMedium columns:kDifficultyMedium];
+          game = [MultiplayerGame gameWithNumberOfRows:kDifficultyMedium columns:kDifficultyMedium match:match];
           break;
         case kDifficultyHard:
           NSLog(@"User selected Hard Multiplayer");
-          game = [MultiplayerGame gameWithNumberOfRows:kDifficultyHard columns:kDifficultyHard];
+          game = [MultiplayerGame gameWithNumberOfRows:kDifficultyHard columns:kDifficultyHard match:match];
           break;
         default:
           break;
@@ -160,7 +159,7 @@
     }
     else //Return to Multiplayer menu
     {
-      [[GameCenterHub sharedInstance] findMatch];
+      [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
     }
 }
 

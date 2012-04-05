@@ -11,22 +11,17 @@
 
 @implementation MultiplayerGame
 
-static MultiplayerGame *lastGame = nil;
+@synthesize myMatch;
 
-
-+(MultiplayerGame *) gameWithNumberOfRows:(int)rows columns:(int)columns;
++(MultiplayerGame *) gameWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*)match;
 {
-  return [[MultiplayerGame alloc] initWithNumberOfRows:rows columns:columns];
+  return [[MultiplayerGame alloc] initWithNumberOfRows:rows columns:columns match:match];
 }
 
-+(MultiplayerGame *) lastGame
+-(id) initWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*) match
 {
-  return lastGame;
-}
-
--(id) initWithNumberOfRows:(int)rows columns:(int)columns
-{
-  if ((self = [super init])) {
+  if ((self = [super init])) 
+  {
     rowCount = rows;
     columnCount = columns;
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
@@ -35,13 +30,12 @@ static MultiplayerGame *lastGame = nil;
                                                   rows:rowCount
                                                 center:boardCenter
                                               cellSize:cellSize];
+    myMatch = match;
     [self addChild:board];
-    
-    lastGame = self;
   }
-  
   return self;
 }
+
 
 -(void) onGameStart
 {
@@ -52,6 +46,8 @@ static MultiplayerGame *lastGame = nil;
 -(void) onGameEnd
 {
   [super onGameEnd];
+  NSLog(@"matchmaking match has ended!");
+  [[GameCenterHub sharedInstance] takeTurn:myMatch];
 }
 
 @end

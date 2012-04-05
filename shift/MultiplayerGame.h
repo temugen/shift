@@ -8,15 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "GameScene.h"
+#import <GameKit/GameKit.h>
 
 @interface MultiplayerGame : GameScene
 {
   int rowCount, columnCount;
+  GKTurnBasedMatch* myMatch;
 }
 
-+(MultiplayerGame*) lastGame;
-+(MultiplayerGame*) gameWithNumberOfRows:(int)rows columns:(int)columns;
++(MultiplayerGame*) gameWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*) match;
+-(id) initWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*) match;
 
--(id) initWithNumberOfRows:(int)rows columns:(int)columns;
+@property (strong, atomic) GKTurnBasedMatch* myMatch;
 
 @end
