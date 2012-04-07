@@ -27,6 +27,8 @@
 		823D591A1530FCB400696EA5 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 823D59191530FCB400696EA5 /* Icon-72.png */; };
 		823D591C1530FD5200696EA5 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 823D591B1530FD5200696EA5 /* Icon@2x.png */; };
 		823D591E1530FD9000696EA5 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 823D591D1530FD9000696EA5 /* Icon.png */; };
+		823D59231531070C00696EA5 /* Santa Fe LET.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 823D59221531070C00696EA5 /* Santa Fe LET.ttf */; };
+		823D59241531088D00696EA5 /* Santa Fe LET.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 823D59221531070C00696EA5 /* Santa Fe LET.ttf */; };
 		8243EA311508205A003DEBAA /* libcocos2d.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8243E92C15081AC1003DEBAA /* libcocos2d.a */; };
 		8243EA321508205A003DEBAA /* libCocosDenshion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8243E93015081AC1003DEBAA /* libCocosDenshion.a */; };
 		82470CC914EC882A00F60A7C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82470CC814EC882A00F60A7C /* SenTestingKit.framework */; };
@@ -647,6 +649,7 @@
 		823D59191530FCB400696EA5 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Resources/Icons/Icon-72.png"; sourceTree = "<group>"; };
 		823D591B1530FD5200696EA5 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/Icons/Icon@2x.png"; sourceTree = "<group>"; };
 		823D591D1530FD9000696EA5 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icons/Icon.png; sourceTree = "<group>"; };
+		823D59221531070C00696EA5 /* Santa Fe LET.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Santa Fe LET.ttf"; path = "Resources/Fonts/Santa Fe LET.ttf"; sourceTree = "<group>"; };
 		8243E8A415081ABF003DEBAA /* cocos2d-ios.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "cocos2d-ios.xcodeproj"; path = "cocos2d/cocos2d-ios.xcodeproj"; sourceTree = "<group>"; };
 		82470CC714EC882A00F60A7C /* shiftLogicTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shiftLogicTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		82470CC814EC882A00F60A7C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -879,6 +882,14 @@
 				823D591D1530FD9000696EA5 /* Icon.png */,
 			);
 			name = Icons;
+			sourceTree = "<group>";
+		};
+		823D591F1531049F00696EA5 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				823D59221531070C00696EA5 /* Santa Fe LET.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		8243E8A515081ABF003DEBAA /* Products */ = {
@@ -1158,7 +1169,6 @@
 		827036FA14DB0448008D7240 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				823D590E1530F55A00696EA5 /* Icons */,
 				8270370C14DB0448008D7240 /* iTunesArtwork */,
 				8270370B14DB0448008D7240 /* Info.plist */,
 				827036FD14DB0448008D7240 /* fps_images.png */,
@@ -1166,6 +1176,8 @@
 				8270370314DB0448008D7240 /* Icon-Small.png */,
 				8270370514DB0448008D7240 /* Icon-Small@2x.png */,
 				9857981E15212121005CA702 /* title_block.png */,
+				823D591F1531049F00696EA5 /* Fonts */,
+				823D590E1530F55A00696EA5 /* Icons */,
 				7BBCC20315285031001CB5A3 /* Sounds */,
 				8201099F151ECEED00DA8ECB /* Backgrounds */,
 				82470D0414F1BCAB00F60A7C /* Cells */,
@@ -1815,6 +1827,7 @@
 			files = (
 				82470CD114EC882A00F60A7C /* InfoPlist.strings in Resources */,
 				98C218F214F96BAA002177F9 /* completeBoard.plist in Resources */,
+				823D59231531070C00696EA5 /* Santa Fe LET.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1822,6 +1835,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				823D59241531088D00696EA5 /* Santa Fe LET.ttf in Resources */,
 				827036FE14DB0448008D7240 /* fps_images.png in Resources */,
 				8270370214DB0448008D7240 /* Icon-Small-50.png in Resources */,
 				8270370414DB0448008D7240 /* Icon-Small.png in Resources */,

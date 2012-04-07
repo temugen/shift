@@ -102,8 +102,8 @@
 //Create a label for the given letter in the title
 +(void)createLabelWithText:(NSString*)text textBox:(CCSprite*)textBox
 {
-    CCLabelTTF* label = [[CCLabelTTF alloc] initWithString:text
-                                                  fontName:@"Helvetica-Bold"
+    CCLabelTTF* label = [CCLabelTTF labelWithString:text
+                                                  fontName:@"Santa Fe LET"
                                                   fontSize:CGRectGetWidth([textBox boundingBox])];
     
     label.color = ccBLACK;

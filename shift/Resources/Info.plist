@@ -51,6 +51,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array/>
+	<array>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Santa Fe LET.ttf</string>
+	</array>
 </dict>
 </plist>
