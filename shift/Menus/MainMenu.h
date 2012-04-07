@@ -19,5 +19,3 @@
 
 @end
 
-@interface TitleLayer : CCLayer
-@end

@@ -7,6 +7,8 @@
 //
 
 #import "boardTests.h"
+#import "StationaryBlock.h"
+#import "RotationBlock.h"
 
 @implementation boardTests
 
