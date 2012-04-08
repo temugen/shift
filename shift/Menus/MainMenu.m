@@ -38,11 +38,11 @@
         
         CCMenuItemImage *single = [CCMenuItemImage itemFromNormalImage:@"singleplayer.png"
                                                         selectedImage:@"singleplayer.png" target:self selector: @selector(onSinglePlayer:)];
-        single.color = [[ColorPalette defaultPalette] colorWithName:@"blue"];
+        single.color = [[ColorPalette defaultPalette] colorWithName:@"orange"];
         
         CCMenuItemImage *multi = [CCMenuItemImage itemFromNormalImage:@"multiplayer.png"
                                                        selectedImage:@"multiplayer.png" target:self selector: @selector(onMultiplayer:)];
-        multi.color = [[ColorPalette defaultPalette] colorWithName:@"pink"];
+        multi.color = [[ColorPalette defaultPalette] colorWithName:@"purple"];
         
         CCMenuItemImage *achievements = [CCMenuItemImage itemFromNormalImage:@"achievements.png"
                                                               selectedImage:@"achievements.png" target:self selector: @selector(onAchievements:)];
@@ -62,6 +62,7 @@
         
         //Add menu to main menu layer
         [self addChild: menu];
+        menu.position = ccp(menu.position.x, achievements.contentSize.height / 2 + platformPadding);
         
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         TitleLayer *title = [[TitleLayer alloc] init];
