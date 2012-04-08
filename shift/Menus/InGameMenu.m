@@ -52,7 +52,7 @@
     //Resume the background music
     [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
     
-    [self.parent removeChild:self cleanup:YES];
+    [self removeFromParentAndCleanup:YES];
 }
 
 -(void) onMainMenu:(id)sender
