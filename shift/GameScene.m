@@ -29,12 +29,7 @@
         ControlLayer *controls = [[ControlLayer alloc] init];
         [self addChild:controls z:1];
         
-        //Set cell size for platform
-        CGSize screenSize = [[CCDirector sharedDirector] winSize];
-        GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
-        float sampleSize = CGRectGetWidth([sampleGoal boundingBox]);
-        float requestedCellSize = MIN(sampleSize, (screenSize.height - kBufferSpace) / kDifficultyHard);
-        cellSize = CGSizeMake(requestedCellSize, requestedCellSize);
+        cellSize = currentCellSize;
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onBoardComplete:)

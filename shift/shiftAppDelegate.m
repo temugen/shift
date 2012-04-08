@@ -137,8 +137,15 @@
 	// Run the intro Scene
 	[[CCDirector sharedDirector] runWithScene: [MainMenu scene]];
   
-  [[GameCenterHub sharedInstance] authenticateLocalPlayer];
-  [GameCenterHub sharedInstance].rootViewController = viewController;
+    [[GameCenterHub sharedInstance] authenticateLocalPlayer];
+    [GameCenterHub sharedInstance].rootViewController = viewController;
+    
+    //Set cell size for platform
+    CGSize screenSize = [director winSize];
+    GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
+    float sampleSize = CGRectGetWidth([sampleGoal boundingBox]);
+    float requestedCellSize = MIN(sampleSize, (screenSize.height - kBoardBufferSpace) / kDifficultyHard);
+    currentCellSize = CGSizeMake(requestedCellSize, requestedCellSize);
 }
 
 
