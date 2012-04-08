@@ -33,6 +33,20 @@
     return sharedPalette;
 }
 
++(ColorPalette *) defaultPalette
+{
+    static ColorPalette *defaultPalette = nil;
+    if (defaultPalette != nil)
+        return defaultPalette;
+    
+    @synchronized(self)
+    {
+        if (defaultPalette == nil)
+            defaultPalette = [ColorPalette colorPalette];
+    }
+    return defaultPalette;
+}
+
 +(id) colorPalette
 {
     return [[ColorPalette alloc] init];

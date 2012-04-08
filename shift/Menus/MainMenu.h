@@ -15,7 +15,6 @@
 }
 
 -(id) init;
-+(id) scene;
 
 @end
 

@@ -129,6 +129,10 @@
 
 	// Removes the startup flicker
 	[self removeStartupFlicker];
+    
+    [CCFileUtils setiPadSuffix:@"~ipad"];
+    [CCFileUtils setiPhoneRetinaDisplaySuffix:@"@2x"];
+    [CCFileUtils setiPadRetinaDisplaySuffix:@"@2x~ipad"];
 	
 	// Run the intro Scene
 	[[CCDirector sharedDirector] runWithScene: [MainMenu scene]];

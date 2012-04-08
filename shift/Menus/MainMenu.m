@@ -42,27 +42,20 @@
         menu = [CCMenu menuWithItems: quickplay, single, multi, achievements, options, nil];
         
         //Shift menu down slightly to accomodate title
-        menu.position = ccp(menu.position.x,menu.position.y-40);
+        //menu.position = ccp(menu.position.x,menu.position.y-40);
         
         [menu alignItemsVertically];
         
         //Add menu to main menu layer
         [self addChild: menu];
         
+        CGSize screenSize = [[CCDirector sharedDirector] winSize];
+        TitleLayer *title = [[TitleLayer alloc] init];
+        title.position = ccp(menu.position.x, screenSize.height - title.contentSize.height / 2);
+        [self addChild:title];
+        
     }
     return self;
-}
-
-//Create scene with main menu
-+(id) scene
-{
-    MainMenu *mainMenu = [MainMenu node];
-    TitleLayer *title = [TitleLayer node];
-    title.position = ccp(mainMenu->menu.position.x,mainMenu->menu.position.y+140);
-    
-    CCScene* scene = [super sceneWithMenu:mainMenu];
-    [scene addChild:title z:1];
-    return scene;
 }
 
 /* Callback functions for main menu items */

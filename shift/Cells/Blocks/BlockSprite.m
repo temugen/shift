@@ -15,7 +15,7 @@
 {
     if ((self = [super initWithFilename:[NSString stringWithFormat:@"block.png", color]])) {
         name = color;
-        [self setColor:[[ColorPalette sharedPalette] colorWithName:color]];
+        self.color = [[ColorPalette sharedPalette] colorWithName:color];
     }
     return self;
 }

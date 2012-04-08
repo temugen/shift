@@ -20,6 +20,7 @@
 @property(readonly) NSArray *paletteNames;
 
 +(ColorPalette *) sharedPalette;
++(ColorPalette *) defaultPalette;
 
 +(id) colorPalette;
 

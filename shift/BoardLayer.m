@@ -107,6 +107,8 @@
         [self saveSnapshot];
         
         self.isTouchEnabled = YES;
+        
+        [[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
     }
     
     return self;
