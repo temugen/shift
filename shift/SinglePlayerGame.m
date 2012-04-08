@@ -28,13 +28,9 @@ static SinglePlayerGame *lastGame = nil;
 {
     if ((self = [super init])) {
         currentLevel = level;
-        CGSize screenSize = [[CCDirector sharedDirector] winSize];
-        boardCenter = CGPointMake((screenSize.width / 2), (screenSize.height / 2));
-        
         board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
                                      cellSize:cellSize];
         board.position = boardCenter;
-        
         [self addChild:board];
         
         lastGame = self;

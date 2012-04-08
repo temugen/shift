@@ -51,7 +51,7 @@
         
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         TitleLayer *title = [[TitleLayer alloc] init];
-        title.position = ccp(menu.position.x, screenSize.height - title.contentSize.height / 2);
+        title.position = ccp(menu.position.x, screenSize.height - title.contentSize.height / 2 - platformBorderSpace);
         [self addChild:title];
         
     }

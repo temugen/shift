@@ -9,7 +9,7 @@
 
 @interface ControlLayer : CCLayer
 {
-    CCSprite *menuButton;
+    CCSprite *pauseButton;
 }
 
 @end

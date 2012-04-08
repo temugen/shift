@@ -26,6 +26,7 @@
 
 @property(readonly) NSTimeInterval elapsedTime;
 
+-(void) onPause;
 -(void) onNextGame;
 -(void) onGameStart;
 -(void) onGameEnd;

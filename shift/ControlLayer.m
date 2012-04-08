@@ -14,35 +14,14 @@
 - (id) init 
 {
     if ((self = [super init])) {
-        // Enable touch
         self.isTouchEnabled = YES;
         
-        // Create buttons
-        NSString *menuButtonFileName = [NSString stringWithFormat:@"pause.png"];
-        CCTexture2D *menuButtonTexture = [[CCTextureCache sharedTextureCache] addImage:menuButtonFileName];
-        menuButton = [CCSprite spriteWithTexture:menuButtonTexture];
-        
-        // Get screen size
-        CGSize screenSize = [[CCDirector sharedDirector] winSize];
-        float screenWidth = screenSize.width;
-        float screenHeight = screenSize.height;
-        
-        // Resize images
-        float scaleX = 0.3;
-        float scaleY = 0.3;
-        
-        menuButton.scaleX = scaleX;
-        menuButton.scaleY = scaleY;
-        
-        // Get width and height of buttons
-        float menuButtonWidth = CGRectGetWidth([menuButton boundingBox]);
-        float menuButtonHeight = CGRectGetHeight([menuButton boundingBox]);
-        
-        // Set button positions
-        menuButton.position = ccp(screenWidth - menuButtonWidth, 
-                                  screenHeight - menuButtonHeight);
-        
-        [self addChild:menuButton];
+        CCTexture2D *pauseButtonTexture = [[CCTextureCache sharedTextureCache] addImage:@"pause.png"];
+        pauseButton = [CCSprite spriteWithTexture:pauseButtonTexture];
+        self.isRelativeAnchorPoint = YES;
+        self.contentSize = pauseButton.contentSize;
+        pauseButton.position = ccp(self.contentSize.width / 2, self.contentSize.height / 2);
+        [self addChild:pauseButton];
     }
     return self;
 }
@@ -50,12 +29,10 @@
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {    
 	for (UITouch *touch in touches) {
-        CGPoint location = [touch locationInView:[touch view]];
-        location = [[CCDirector sharedDirector] convertToGL:location];
+        CGPoint location = [self convertTouchToNodeSpace:touch];
         
-        if (CGRectContainsPoint([menuButton boundingBox], location)) {
-            InGameMenu *menu = [[InGameMenu alloc] init];
-            [self addChild:menu];
+        if (CGRectContainsPoint([pauseButton boundingBox], location)) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PauseButtonPressed" object:self];
         }
     }
 }

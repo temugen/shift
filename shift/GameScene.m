@@ -7,8 +7,7 @@
 //
 
 #import "GameScene.h"
-
-#define kBufferSpace 20
+#import "InGameMenu.h"
 
 @implementation GameScene
 
@@ -17,19 +16,20 @@
 -(id) init
 {
     if ((self = [super init])) {
-        //Play the background music
+        CGSize screenSize = [[CCDirector sharedDirector] winSize];
+        boardCenter = ccp(screenSize.width / 2, screenSize.height / 2);
+        cellSize = platformCellSize;
+        
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_GAME];
         
-        //Add Background Layer
         BackgroundLayer *background = [[BackgroundLayer alloc] init];
         [self addChild:background z:-1];
         
-        //Add Control Layer (Reset, Menu)
         ControlLayer *controls = [[ControlLayer alloc] init];
+        controls.position = ccp(screenSize.width - controls.contentSize.width / 2 - platformBorderSpace,
+                                screenSize.height - controls.contentSize.height / 2 - platformBorderSpace);
         [self addChild:controls z:1];
-        
-        cellSize = currentCellSize;
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onBoardComplete:)
@@ -38,6 +38,10 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onResetButtonPressed:)
                                                      name:@"ResetButtonPressed"
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onPauseButtonPressed:)
+                                                     name:@"PauseButtonPressed"
                                                    object:nil];
     }
     
@@ -69,6 +73,10 @@
     elapsedTime = [startTime timeIntervalSinceNow];
 }
 
+-(void) onPause
+{
+}
+
 -(void) dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -83,8 +91,14 @@
 
 -(void) onResetButtonPressed:(NSNotification *)notification
 {
-    NSLog(@"Reset Button Pressed");
     [board reset];
+}
+
+-(void) onPauseButtonPressed:(NSNotification *)notification
+{
+    InGameMenu *menu = [[InGameMenu alloc] init];
+    [self addChild:menu z:10];
+    [self onPause];
 }
 
 @end

@@ -35,8 +35,6 @@ static QuickPlayGame *lastGame = nil;
     if ((self = [super init])) {
         rowCount = rows;
         columnCount = columns;
-        CGSize screenSize = [[CCDirector sharedDirector] winSize];
-        boardCenter = CGPointMake((screenSize.width / 2), (screenSize.height / 2));
         board = [BoardLayer randomBoardWithNumberOfColumns:columnCount
                                                       rows:rowCount
                                                   cellSize:cellSize];
@@ -87,6 +85,7 @@ static QuickPlayGame *lastGame = nil;
                                               cellSize:cellSize];
     board.position = boardCenter;
     [self addChild:board];
+    [self animatePopulation];
 }
 
 -(void) onCellPopulated:(BlockSprite *)block
