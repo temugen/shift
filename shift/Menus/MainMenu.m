@@ -35,13 +35,19 @@
         CCMenuItemFont *quickplay = [CCMenuItemImage itemFromNormalImage:@"quickplay.png"
                                                            selectedImage:@"quickplay.png" target:self selector: @selector(onQuickplay:)];
         quickplay.color = [[ColorPalette defaultPalette] colorWithName:@"pink"];
+        
         CCMenuItemFont *single = [CCMenuItemImage itemFromNormalImage:@"singleplayer.png"
                                                         selectedImage:@"singleplayer.png" target:self selector: @selector(onSinglePlayer:)];
         single.color = [[ColorPalette defaultPalette] colorWithName:@"blue"];
+        
         CCMenuItemFont *multi = [CCMenuItemImage itemFromNormalImage:@"multiplayer.png"
                                                        selectedImage:@"multiplayer.png" target:self selector: @selector(onMultiplayer:)];
         multi.color = [[ColorPalette defaultPalette] colorWithName:@"pink"];
-        CCMenuItemFont *achievements= [CCMenuItemFont itemFromString:@"Achievements" target:self selector: @selector(onAchievements:)];
+        
+        CCMenuItemFont *achievements = [CCMenuItemImage itemFromNormalImage:@"achievements.png"
+                                                              selectedImage:@"achievements.png" target:self selector: @selector(onAchievements:)];
+        achievements.color = [[ColorPalette defaultPalette] colorWithName:@"gold"];
+        
         CCMenuItemFont *options = [CCMenuItemFont itemFromString:@"Options" target:self selector: @selector(onOptions:)];
         
         //Add items to menu

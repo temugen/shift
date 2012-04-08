@@ -43,6 +43,12 @@
 	</dict>
 	<key>app</key>
 	<dict>
+		<key>gold</key>
+		<array>
+			<integer>193</integer>
+			<integer>160</integer>
+			<integer>4</integer>
+		</array>
 		<key>pink</key>
 		<array>
 			<integer>255</integer>

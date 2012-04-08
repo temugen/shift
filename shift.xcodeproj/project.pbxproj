@@ -99,6 +99,10 @@
 		82A9D7FF1531585F00D05BAA /* multiplayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7FB1531585F00D05BAA /* multiplayer@2x.png */; };
 		82A9D8001531585F00D05BAA /* multiplayer@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7FC1531585F00D05BAA /* multiplayer@2x~ipad.png */; };
 		82A9D8011531585F00D05BAA /* multiplayer~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7FD1531585F00D05BAA /* multiplayer~ipad.png */; };
+		82A9D806153160F400D05BAA /* achievements.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D802153160F400D05BAA /* achievements.png */; };
+		82A9D807153160F400D05BAA /* achievements@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D803153160F400D05BAA /* achievements@2x.png */; };
+		82A9D808153160F400D05BAA /* achievements@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D804153160F400D05BAA /* achievements@2x~ipad.png */; };
+		82A9D809153160F400D05BAA /* achievements~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D805153160F400D05BAA /* achievements~ipad.png */; };
 		9635BFFD152FEB790091081B /* TitleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635BFFC152FEB790091081B /* TitleLayer.m */; };
 		985265D714F5ACA800353F61 /* blue_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D214F5ACA800353F61 /* blue_lock.png */; };
 		985265D814F5ACA800353F61 /* green_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D314F5ACA800353F61 /* green_lock.png */; };
@@ -755,6 +759,10 @@
 		82A9D7FB1531585F00D05BAA /* multiplayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "multiplayer@2x.png"; sourceTree = "<group>"; };
 		82A9D7FC1531585F00D05BAA /* multiplayer@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "multiplayer@2x~ipad.png"; sourceTree = "<group>"; };
 		82A9D7FD1531585F00D05BAA /* multiplayer~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "multiplayer~ipad.png"; sourceTree = "<group>"; };
+		82A9D802153160F400D05BAA /* achievements.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = achievements.png; sourceTree = "<group>"; };
+		82A9D803153160F400D05BAA /* achievements@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "achievements@2x.png"; sourceTree = "<group>"; };
+		82A9D804153160F400D05BAA /* achievements@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "achievements@2x~ipad.png"; sourceTree = "<group>"; };
+		82A9D805153160F400D05BAA /* achievements~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "achievements~ipad.png"; sourceTree = "<group>"; };
 		9635BFFB152FEB790091081B /* TitleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleLayer.h; path = Menus/TitleLayer.h; sourceTree = "<group>"; };
 		9635BFFC152FEB790091081B /* TitleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleLayer.m; path = Menus/TitleLayer.m; sourceTree = "<group>"; };
 		985265D214F5ACA800353F61 /* blue_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blue_lock.png; path = Resources/Cells/Blocks/blue_lock.png; sourceTree = "<group>"; };
@@ -883,6 +891,10 @@
 				82A9D7FB1531585F00D05BAA /* multiplayer@2x.png */,
 				82A9D7FC1531585F00D05BAA /* multiplayer@2x~ipad.png */,
 				82A9D7FD1531585F00D05BAA /* multiplayer~ipad.png */,
+				82A9D802153160F400D05BAA /* achievements.png */,
+				82A9D803153160F400D05BAA /* achievements@2x.png */,
+				82A9D804153160F400D05BAA /* achievements@2x~ipad.png */,
+				82A9D805153160F400D05BAA /* achievements~ipad.png */,
 			);
 			name = Controls;
 			path = Resources/Controls;
@@ -1991,6 +2003,10 @@
 				82A9D7FF1531585F00D05BAA /* multiplayer@2x.png in Resources */,
 				82A9D8001531585F00D05BAA /* multiplayer@2x~ipad.png in Resources */,
 				82A9D8011531585F00D05BAA /* multiplayer~ipad.png in Resources */,
+				82A9D806153160F400D05BAA /* achievements.png in Resources */,
+				82A9D807153160F400D05BAA /* achievements@2x.png in Resources */,
+				82A9D808153160F400D05BAA /* achievements@2x~ipad.png in Resources */,
+				82A9D809153160F400D05BAA /* achievements~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

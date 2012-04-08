@@ -89,7 +89,7 @@
 -(void) draw
 {
     //Draw dimmed background screen
-    glColor4ub(20, 20, 20, 200);
+    glColor4ub(0, 0, 0, 200);
 	glDisable(GL_TEXTURE_2D);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
