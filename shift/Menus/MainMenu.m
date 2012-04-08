@@ -34,7 +34,7 @@
         //Set up menu items
         CCMenuItemFont *quickplay = [CCMenuItemImage itemFromNormalImage:@"quickplay.png"
                                                            selectedImage:@"quickplay.png" target:self selector: @selector(onQuickplay:)];
-        quickplay.color = [[ColorPalette defaultPalette] colorWithName:@"pink"];
+        quickplay.color = [[ColorPalette defaultPalette] colorWithName:@"green"];
         
         CCMenuItemFont *single = [CCMenuItemImage itemFromNormalImage:@"singleplayer.png"
                                                         selectedImage:@"singleplayer.png" target:self selector: @selector(onSinglePlayer:)];
