@@ -32,10 +32,15 @@
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_MENU];
         
         //Set up menu items
-        CCMenuItemFont *quickplay = [CCMenuItemImage itemFromNormalImage:@"quickplay.png" selectedImage:@"quickplay.png" target:self selector: @selector(onQuickplay:)];
-        quickplay.color = [[ColorPalette defaultPalette] colorWithName:@"blue"];
-        CCMenuItemFont *single = [CCMenuItemFont itemFromString:@"Single Player" target:self selector: @selector(onSinglePlayer:)];
-        CCMenuItemFont *multi = [CCMenuItemFont itemFromString:@"Multiplayer" target:self selector: @selector(onMultiplayer:)];
+        CCMenuItemFont *quickplay = [CCMenuItemImage itemFromNormalImage:@"quickplay.png"
+                                                           selectedImage:@"quickplay.png" target:self selector: @selector(onQuickplay:)];
+        quickplay.color = [[ColorPalette defaultPalette] colorWithName:@"pink"];
+        CCMenuItemFont *single = [CCMenuItemImage itemFromNormalImage:@"singleplayer.png"
+                                                        selectedImage:@"singleplayer.png" target:self selector: @selector(onSinglePlayer:)];
+        single.color = [[ColorPalette defaultPalette] colorWithName:@"blue"];
+        CCMenuItemFont *multi = [CCMenuItemImage itemFromNormalImage:@"multiplayer.png"
+                                                       selectedImage:@"multiplayer.png" target:self selector: @selector(onMultiplayer:)];
+        multi.color = [[ColorPalette defaultPalette] colorWithName:@"pink"];
         CCMenuItemFont *achievements= [CCMenuItemFont itemFromString:@"Achievements" target:self selector: @selector(onAchievements:)];
         CCMenuItemFont *options = [CCMenuItemFont itemFromString:@"Options" target:self selector: @selector(onOptions:)];
         
@@ -45,14 +50,14 @@
         //Shift menu down slightly to accomodate title
         //menu.position = ccp(menu.position.x,menu.position.y-40);
         
-        [menu alignItemsVertically];
+        [menu alignItemsHorizontallyWithPadding:platformPadding];
         
         //Add menu to main menu layer
         [self addChild: menu];
         
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         TitleLayer *title = [[TitleLayer alloc] init];
-        title.position = ccp(menu.position.x, screenSize.height - title.contentSize.height / 2 - platformBorderSpace);
+        title.position = ccp(menu.position.x, screenSize.height - title.contentSize.height / 2 - platformPadding);
         [self addChild:title];
         
     }

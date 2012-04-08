@@ -27,8 +27,8 @@
         [self addChild:background z:-1];
         
         ControlLayer *controls = [[ControlLayer alloc] init];
-        controls.position = ccp(screenSize.width - controls.contentSize.width / 2 - platformBorderSpace,
-                                screenSize.height - controls.contentSize.height / 2 - platformBorderSpace);
+        controls.position = ccp(screenSize.width - controls.contentSize.width / 2 - platformPadding,
+                                screenSize.height - controls.contentSize.height / 2 - platformPadding);
         [self addChild:controls z:1];
         
         [[NSNotificationCenter defaultCenter] addObserver:self

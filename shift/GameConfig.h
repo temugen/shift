@@ -73,7 +73,7 @@ typedef enum gamemode {
 #define kMinCollisionForce 30.0
 
 CGSize platformCellSize;
-float platformBorderSpace;
+float platformPadding;
 
 #endif // __GAME_CONFIG_H
 

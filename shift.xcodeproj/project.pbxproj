@@ -91,6 +91,14 @@
 		82A9D7EF1531542D00D05BAA /* quickplay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7EB1531542D00D05BAA /* quickplay@2x.png */; };
 		82A9D7F01531542D00D05BAA /* quickplay@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7EC1531542D00D05BAA /* quickplay@2x~ipad.png */; };
 		82A9D7F11531542D00D05BAA /* quickplay~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7ED1531542D00D05BAA /* quickplay~ipad.png */; };
+		82A9D7F61531567300D05BAA /* singleplayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7F21531567300D05BAA /* singleplayer.png */; };
+		82A9D7F71531567300D05BAA /* singleplayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7F31531567300D05BAA /* singleplayer@2x.png */; };
+		82A9D7F81531567300D05BAA /* singleplayer@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7F41531567300D05BAA /* singleplayer@2x~ipad.png */; };
+		82A9D7F91531567300D05BAA /* singleplayer~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7F51531567300D05BAA /* singleplayer~ipad.png */; };
+		82A9D7FE1531585F00D05BAA /* multiplayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7FA1531585F00D05BAA /* multiplayer.png */; };
+		82A9D7FF1531585F00D05BAA /* multiplayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7FB1531585F00D05BAA /* multiplayer@2x.png */; };
+		82A9D8001531585F00D05BAA /* multiplayer@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7FC1531585F00D05BAA /* multiplayer@2x~ipad.png */; };
+		82A9D8011531585F00D05BAA /* multiplayer~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7FD1531585F00D05BAA /* multiplayer~ipad.png */; };
 		9635BFFD152FEB790091081B /* TitleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635BFFC152FEB790091081B /* TitleLayer.m */; };
 		985265D714F5ACA800353F61 /* blue_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D214F5ACA800353F61 /* blue_lock.png */; };
 		985265D814F5ACA800353F61 /* green_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D314F5ACA800353F61 /* green_lock.png */; };
@@ -739,6 +747,14 @@
 		82A9D7EB1531542D00D05BAA /* quickplay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quickplay@2x.png"; sourceTree = "<group>"; };
 		82A9D7EC1531542D00D05BAA /* quickplay@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quickplay@2x~ipad.png"; sourceTree = "<group>"; };
 		82A9D7ED1531542D00D05BAA /* quickplay~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quickplay~ipad.png"; sourceTree = "<group>"; };
+		82A9D7F21531567300D05BAA /* singleplayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = singleplayer.png; sourceTree = "<group>"; };
+		82A9D7F31531567300D05BAA /* singleplayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "singleplayer@2x.png"; sourceTree = "<group>"; };
+		82A9D7F41531567300D05BAA /* singleplayer@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "singleplayer@2x~ipad.png"; sourceTree = "<group>"; };
+		82A9D7F51531567300D05BAA /* singleplayer~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "singleplayer~ipad.png"; sourceTree = "<group>"; };
+		82A9D7FA1531585F00D05BAA /* multiplayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = multiplayer.png; sourceTree = "<group>"; };
+		82A9D7FB1531585F00D05BAA /* multiplayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "multiplayer@2x.png"; sourceTree = "<group>"; };
+		82A9D7FC1531585F00D05BAA /* multiplayer@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "multiplayer@2x~ipad.png"; sourceTree = "<group>"; };
+		82A9D7FD1531585F00D05BAA /* multiplayer~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "multiplayer~ipad.png"; sourceTree = "<group>"; };
 		9635BFFB152FEB790091081B /* TitleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleLayer.h; path = Menus/TitleLayer.h; sourceTree = "<group>"; };
 		9635BFFC152FEB790091081B /* TitleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleLayer.m; path = Menus/TitleLayer.m; sourceTree = "<group>"; };
 		985265D214F5ACA800353F61 /* blue_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blue_lock.png; path = Resources/Cells/Blocks/blue_lock.png; sourceTree = "<group>"; };
@@ -859,6 +875,14 @@
 				82A9D7EB1531542D00D05BAA /* quickplay@2x.png */,
 				82A9D7EC1531542D00D05BAA /* quickplay@2x~ipad.png */,
 				82A9D7ED1531542D00D05BAA /* quickplay~ipad.png */,
+				82A9D7F21531567300D05BAA /* singleplayer.png */,
+				82A9D7F31531567300D05BAA /* singleplayer@2x.png */,
+				82A9D7F41531567300D05BAA /* singleplayer@2x~ipad.png */,
+				82A9D7F51531567300D05BAA /* singleplayer~ipad.png */,
+				82A9D7FA1531585F00D05BAA /* multiplayer.png */,
+				82A9D7FB1531585F00D05BAA /* multiplayer@2x.png */,
+				82A9D7FC1531585F00D05BAA /* multiplayer@2x~ipad.png */,
+				82A9D7FD1531585F00D05BAA /* multiplayer~ipad.png */,
 			);
 			name = Controls;
 			path = Resources/Controls;
@@ -1959,6 +1983,14 @@
 				82A9D7EF1531542D00D05BAA /* quickplay@2x.png in Resources */,
 				82A9D7F01531542D00D05BAA /* quickplay@2x~ipad.png in Resources */,
 				82A9D7F11531542D00D05BAA /* quickplay~ipad.png in Resources */,
+				82A9D7F61531567300D05BAA /* singleplayer.png in Resources */,
+				82A9D7F71531567300D05BAA /* singleplayer@2x.png in Resources */,
+				82A9D7F81531567300D05BAA /* singleplayer@2x~ipad.png in Resources */,
+				82A9D7F91531567300D05BAA /* singleplayer~ipad.png in Resources */,
+				82A9D7FE1531585F00D05BAA /* multiplayer.png in Resources */,
+				82A9D7FF1531585F00D05BAA /* multiplayer@2x.png in Resources */,
+				82A9D8001531585F00D05BAA /* multiplayer@2x~ipad.png in Resources */,
+				82A9D8011531585F00D05BAA /* multiplayer~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
