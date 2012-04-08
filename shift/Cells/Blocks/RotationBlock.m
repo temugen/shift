@@ -100,8 +100,7 @@
     //Play rotation sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_ROTATE];
 	UITouch *touch = [touches anyObject];
-	CGPoint location = [touch locationInView:[touch view]];
-	location = [[CCDirector sharedDirector] convertToGL:location];
+	CGPoint location = [self convertTouchToNodeSpace:touch];
     float dx = location.x - center.x, dy = location.y - center.y;
     float angle = atan2f(dx, dy);
     float distance = (dx * dx) + (dy * dy);
