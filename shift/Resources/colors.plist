@@ -41,5 +41,50 @@
 			<integer>0</integer>
 		</array>
 	</dict>
+	<key>app</key>
+	<dict>
+		<key>pink</key>
+		<array>
+			<integer>255</integer>
+			<integer>110</integer>
+			<integer>119</integer>
+		</array>
+		<key>purple</key>
+		<array>
+			<integer>153</integer>
+			<integer>0</integer>
+			<integer>255</integer>
+		</array>
+		<key>yellow</key>
+		<array>
+			<integer>230</integer>
+			<integer>255</integer>
+			<integer>0</integer>
+		</array>
+		<key>orange</key>
+		<array>
+			<integer>255</integer>
+			<integer>153</integer>
+			<integer>0</integer>
+		</array>
+		<key>blue</key>
+		<array>
+			<integer>77</integer>
+			<integer>77</integer>
+			<integer>255</integer>
+		</array>
+		<key>green</key>
+		<array>
+			<integer>0</integer>
+			<integer>255</integer>
+			<integer>26</integer>
+		</array>
+		<key>red</key>
+		<array>
+			<integer>255</integer>
+			<integer>26</integer>
+			<integer>0</integer>
+		</array>
+	</dict>
 </dict>
 </plist>

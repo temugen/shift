@@ -42,7 +42,10 @@
     @synchronized(self)
     {
         if (defaultPalette == nil)
+        {
             defaultPalette = [ColorPalette colorPalette];
+            [defaultPalette setPalette:@"app"];
+        }
     }
     return defaultPalette;
 }
