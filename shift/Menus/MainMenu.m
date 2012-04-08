@@ -48,7 +48,9 @@
                                                               selectedImage:@"achievements.png" target:self selector: @selector(onAchievements:)];
         achievements.color = [[ColorPalette defaultPalette] colorWithName:@"gold"];
         
-        CCMenuItemFont *options = [CCMenuItemFont itemFromString:@"Options" target:self selector: @selector(onOptions:)];
+        CCMenuItemFont *options = [CCMenuItemImage itemFromNormalImage:@"options.png"
+                                                         selectedImage:@"options.png" target:self selector: @selector(onOptions:)];
+        options.color = [[ColorPalette defaultPalette] colorWithName:@"silver"];
         
         //Add items to menu
         menu = [CCMenu menuWithItems: quickplay, single, multi, achievements, options, nil];
