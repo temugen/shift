@@ -32,7 +32,8 @@
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_MENU];
         
         //Set up menu items
-        CCMenuItemFont *quickplay = [CCMenuItemFont itemFromString:@"Quickplay" target:self selector: @selector(onQuickplay:)];
+        CCMenuItemFont *quickplay = [CCMenuItemImage itemFromNormalImage:@"quickplay.png" selectedImage:@"quickplay.png" target:self selector: @selector(onQuickplay:)];
+        quickplay.color = [[ColorPalette defaultPalette] colorWithName:@"blue"];
         CCMenuItemFont *single = [CCMenuItemFont itemFromString:@"Single Player" target:self selector: @selector(onSinglePlayer:)];
         CCMenuItemFont *multi = [CCMenuItemFont itemFromString:@"Multiplayer" target:self selector: @selector(onMultiplayer:)];
         CCMenuItemFont *achievements= [CCMenuItemFont itemFromString:@"Achievements" target:self selector: @selector(onAchievements:)];

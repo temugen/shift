@@ -87,6 +87,10 @@
 		82A9D7E615314BD700D05BAA /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7E415314BD700D05BAA /* pause.png */; };
 		82A9D7E715314BD700D05BAA /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7E515314BD700D05BAA /* pause@2x.png */; };
 		82A9D7E91531502500D05BAA /* colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7E81531502500D05BAA /* colors.plist */; };
+		82A9D7EE1531542D00D05BAA /* quickplay.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7EA1531542D00D05BAA /* quickplay.png */; };
+		82A9D7EF1531542D00D05BAA /* quickplay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7EB1531542D00D05BAA /* quickplay@2x.png */; };
+		82A9D7F01531542D00D05BAA /* quickplay@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7EC1531542D00D05BAA /* quickplay@2x~ipad.png */; };
+		82A9D7F11531542D00D05BAA /* quickplay~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7ED1531542D00D05BAA /* quickplay~ipad.png */; };
 		9635BFFD152FEB790091081B /* TitleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635BFFC152FEB790091081B /* TitleLayer.m */; };
 		985265D714F5ACA800353F61 /* blue_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D214F5ACA800353F61 /* blue_lock.png */; };
 		985265D814F5ACA800353F61 /* green_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D314F5ACA800353F61 /* green_lock.png */; };
@@ -731,6 +735,10 @@
 		82A9D7E415314BD700D05BAA /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		82A9D7E515314BD700D05BAA /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
 		82A9D7E81531502500D05BAA /* colors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = colors.plist; path = Resources/colors.plist; sourceTree = "<group>"; };
+		82A9D7EA1531542D00D05BAA /* quickplay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quickplay.png; sourceTree = "<group>"; };
+		82A9D7EB1531542D00D05BAA /* quickplay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quickplay@2x.png"; sourceTree = "<group>"; };
+		82A9D7EC1531542D00D05BAA /* quickplay@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quickplay@2x~ipad.png"; sourceTree = "<group>"; };
+		82A9D7ED1531542D00D05BAA /* quickplay~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quickplay~ipad.png"; sourceTree = "<group>"; };
 		9635BFFB152FEB790091081B /* TitleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleLayer.h; path = Menus/TitleLayer.h; sourceTree = "<group>"; };
 		9635BFFC152FEB790091081B /* TitleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleLayer.m; path = Menus/TitleLayer.m; sourceTree = "<group>"; };
 		985265D214F5ACA800353F61 /* blue_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blue_lock.png; path = Resources/Cells/Blocks/blue_lock.png; sourceTree = "<group>"; };
@@ -847,6 +855,10 @@
 				82A9D7E21531454700D05BAA /* pause~ipad.png */,
 				82A9D7E515314BD700D05BAA /* pause@2x.png */,
 				82A9D7E415314BD700D05BAA /* pause.png */,
+				82A9D7EA1531542D00D05BAA /* quickplay.png */,
+				82A9D7EB1531542D00D05BAA /* quickplay@2x.png */,
+				82A9D7EC1531542D00D05BAA /* quickplay@2x~ipad.png */,
+				82A9D7ED1531542D00D05BAA /* quickplay~ipad.png */,
 			);
 			name = Controls;
 			path = Resources/Controls;
@@ -1943,6 +1955,10 @@
 				82A9D7E615314BD700D05BAA /* pause.png in Resources */,
 				82A9D7E715314BD700D05BAA /* pause@2x.png in Resources */,
 				82A9D7E91531502500D05BAA /* colors.plist in Resources */,
+				82A9D7EE1531542D00D05BAA /* quickplay.png in Resources */,
+				82A9D7EF1531542D00D05BAA /* quickplay@2x.png in Resources */,
+				82A9D7F01531542D00D05BAA /* quickplay@2x~ipad.png in Resources */,
+				82A9D7F11531542D00D05BAA /* quickplay~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
