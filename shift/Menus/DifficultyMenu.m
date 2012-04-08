@@ -63,12 +63,12 @@
     CCMenuItemFont* medium = [CCMenuItemFont itemFromString:@"Medium" target:self selector: @selector(onSelection:)];
     [medium setTag:kDifficultyMedium];
     CCMenuItemFont* hard= [CCMenuItemFont itemFromString:@"Hard" target:self selector: @selector(onSelection:)];
-    [hard setTag:kDifficultyHard];
-    CCMenuItemFont* back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)];         
-    CCMenu* menu = [CCMenu menuWithItems: easy,medium,hard,back, nil];
+    [hard setTag:kDifficultyHard];        
+    CCMenu* menu = [CCMenu menuWithItems: easy,medium,hard, nil];
     
     [menu alignItemsVertically];
-    [self addChild: menu];        
+    [self addChild: menu];
+      [self addBackButton];
   }
   return self;
 }

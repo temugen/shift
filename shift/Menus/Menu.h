@@ -20,6 +20,7 @@
 +(id) scene;
 +(id) sceneWithMenu:(Menu *)menu;
 
+-(void) addBackButton;
 -(void) goBack:(id)sender;
 
 @end

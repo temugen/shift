@@ -9,9 +9,9 @@
 #import "Menu.h"
 #import "MainMenu.h"
 #import "BackgroundLayer.h"
+#import "ColorPalette.h"
 
 @implementation Menu
-
 
 -(id) init
 {
@@ -36,7 +36,19 @@
     return scene;
 }
 
-- (void) goBack: (id) sender
+-(void) addBackButton
+{
+    CCMenuItemImage *back = [CCMenuItemImage itemFromNormalImage:@"back.png"
+                                                  selectedImage:@"back.png" target:self selector: @selector(goBack:)];
+    back.color = [[ColorPalette defaultPalette] colorWithName:@"red"];
+    CGSize screenSize = [[CCDirector sharedDirector] winSize];
+    CCMenu *menu = [CCMenu menuWithItems:back, nil];
+    menu.position = ccp(platformPadding + back.contentSize.width / 2,
+                        screenSize.height - platformPadding - back.contentSize.height / 2);
+    [self addChild:menu];
+}
+
+-(void) goBack:(id)sender
 {
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];

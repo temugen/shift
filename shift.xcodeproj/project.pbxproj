@@ -107,6 +107,10 @@
 		82A9D80F153164DD00D05BAA /* options@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D80B153164DD00D05BAA /* options@2x.png */; };
 		82A9D810153164DD00D05BAA /* options@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D80C153164DD00D05BAA /* options@2x~ipad.png */; };
 		82A9D811153164DD00D05BAA /* options~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D80D153164DD00D05BAA /* options~ipad.png */; };
+		82A9D8161531676900D05BAA /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D8121531676900D05BAA /* back.png */; };
+		82A9D8171531676900D05BAA /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D8131531676900D05BAA /* back@2x.png */; };
+		82A9D8181531676900D05BAA /* back@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D8141531676900D05BAA /* back@2x~ipad.png */; };
+		82A9D8191531676900D05BAA /* back~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D8151531676900D05BAA /* back~ipad.png */; };
 		9635BFFD152FEB790091081B /* TitleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635BFFC152FEB790091081B /* TitleLayer.m */; };
 		985265D714F5ACA800353F61 /* blue_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D214F5ACA800353F61 /* blue_lock.png */; };
 		985265D814F5ACA800353F61 /* green_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D314F5ACA800353F61 /* green_lock.png */; };
@@ -771,6 +775,10 @@
 		82A9D80B153164DD00D05BAA /* options@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "options@2x.png"; sourceTree = "<group>"; };
 		82A9D80C153164DD00D05BAA /* options@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "options@2x~ipad.png"; sourceTree = "<group>"; };
 		82A9D80D153164DD00D05BAA /* options~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "options~ipad.png"; sourceTree = "<group>"; };
+		82A9D8121531676900D05BAA /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		82A9D8131531676900D05BAA /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
+		82A9D8141531676900D05BAA /* back@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x~ipad.png"; sourceTree = "<group>"; };
+		82A9D8151531676900D05BAA /* back~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back~ipad.png"; sourceTree = "<group>"; };
 		9635BFFB152FEB790091081B /* TitleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleLayer.h; path = Menus/TitleLayer.h; sourceTree = "<group>"; };
 		9635BFFC152FEB790091081B /* TitleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleLayer.m; path = Menus/TitleLayer.m; sourceTree = "<group>"; };
 		985265D214F5ACA800353F61 /* blue_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blue_lock.png; path = Resources/Cells/Blocks/blue_lock.png; sourceTree = "<group>"; };
@@ -907,6 +915,10 @@
 				82A9D80B153164DD00D05BAA /* options@2x.png */,
 				82A9D80C153164DD00D05BAA /* options@2x~ipad.png */,
 				82A9D80D153164DD00D05BAA /* options~ipad.png */,
+				82A9D8121531676900D05BAA /* back.png */,
+				82A9D8131531676900D05BAA /* back@2x.png */,
+				82A9D8141531676900D05BAA /* back@2x~ipad.png */,
+				82A9D8151531676900D05BAA /* back~ipad.png */,
 			);
 			name = Controls;
 			path = Resources/Controls;
@@ -2023,6 +2035,10 @@
 				82A9D80F153164DD00D05BAA /* options@2x.png in Resources */,
 				82A9D810153164DD00D05BAA /* options@2x~ipad.png in Resources */,
 				82A9D811153164DD00D05BAA /* options~ipad.png in Resources */,
+				82A9D8161531676900D05BAA /* back.png in Resources */,
+				82A9D8171531676900D05BAA /* back@2x.png in Resources */,
+				82A9D8181531676900D05BAA /* back@2x~ipad.png in Resources */,
+				82A9D8191531676900D05BAA /* back~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

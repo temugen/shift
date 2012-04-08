@@ -106,19 +106,6 @@ NSInteger highestLevel;
     return self;
 }
 
--(void) addBackButton
-{
-    CGSize screenSize = [[CCDirector sharedDirector] winSize];
-    CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
-    float width = CGRectGetWidth([back boundingBox]);
-    float height = CGRectGetHeight([back boundingBox]);
-    
-    // Set button positions
-    back.position = ccp(screenSize.width - width,screenSize.height - height);
-    
-    [self addChild:back];
-}
-
 +(CCSprite*) createRectForWidth:(int)width height:(int)height
 {
     CGSize size = CGSizeMake(width, height);

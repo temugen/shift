@@ -22,14 +22,14 @@
         // Menu Items
         CCMenuItemFont* hardTime = [CCMenuItemFont itemFromString:@"Hard Times" target:self selector: @selector(onHardTimeSelection:)];
         CCMenuItemFont* hardMoves = [CCMenuItemFont itemFromString:@"Hard Moves" target:self selector: @selector(onHardMoves:)];
-        CCMenuItemFont* back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
         
         // Set items
-        CCMenu *menu = [CCMenu menuWithItems: hardTime, hardMoves, back, nil];
+        CCMenu *menu = [CCMenu menuWithItems: hardTime, hardMoves, nil];
         
         [menu alignItemsVertically];
         
-        [self addChild: menu];        
+        [self addChild: menu]; 
+        [self addBackButton];
     }
     return self;
 }

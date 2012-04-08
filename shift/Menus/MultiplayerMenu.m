@@ -21,17 +21,17 @@
         
         //Set up menu items
         CCMenuItemFont *play = [CCMenuItemFont itemFromString:@"Find Opponent" target:self selector: @selector(onOppSelection:)];
-        CCMenuItemFont *leaderboard= [CCMenuItemFont itemFromString:@"Leaderboard" target:self selector: @selector(onLeaderboard:)];  
-        CCMenuItemFont *back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
+        CCMenuItemFont *leaderboard= [CCMenuItemFont itemFromString:@"Leaderboard" target:self selector: @selector(onLeaderboard:)];
 
         [play setTag:MULTIPLAYER];
       
         //Add items to menu
-        CCMenu *menu = [CCMenu menuWithItems: play, leaderboard, back, nil];
+        CCMenu *menu = [CCMenu menuWithItems: play, leaderboard, nil];
         
         [menu alignItemsVertically];
         
         [self addChild: menu];        
+        [self addBackButton];
     }
     return self;
 }

@@ -22,7 +22,7 @@
         self.isRelativeAnchorPoint = YES;
         self.contentSize = pauseButton.contentSize;
         pauseButton.position = ccp(self.contentSize.width / 2, self.contentSize.height / 2);
-        pauseButton.color = [[ColorPalette defaultPalette] colorWithName:@"blue"];
+        pauseButton.color = [[ColorPalette defaultPalette] colorWithName:@"red"];
         [self addChild:pauseButton];
     }
     return self;

@@ -13,19 +13,18 @@
 
 -(id) init
 {
-    if( (self=[super init] )) {
-
-      CCMenuItemFont* earned = [CCMenuItemFont itemFromString:@"Earned Achievements" target:self selector: @selector(onEarned:)];
-      CCMenuItemFont* available = [CCMenuItemFont itemFromString:@"Available Achievements" target:self selector: @selector(onAvailable:)];
-      CCMenuItemFont* reset = [CCMenuItemFont itemFromString:@"Reset Achievements" target:self selector: @selector(onReset:)];
-      CCMenuItemFont* back = [CCMenuItemFont itemFromString:@"Back" target:self selector: @selector(goBack:)]; 
-      
+    if ((self = [super init])) {
+        CCMenuItemFont* earned = [CCMenuItemFont itemFromString:@"Earned Achievements" target:self selector: @selector(onEarned:)];
+        CCMenuItemFont* available = [CCMenuItemFont itemFromString:@"Available Achievements" target:self selector: @selector(onAvailable:)];
+        CCMenuItemFont* reset = [CCMenuItemFont itemFromString:@"Reset Achievements" target:self selector: @selector(onReset:)];
         
-      //Add items to menu
-      CCMenu *menu = [CCMenu menuWithItems: earned, available, reset, back, nil];
-      
-      [menu alignItemsVertically];
-      [self addChild: menu];        
+        //Add items to menu
+        CCMenu *menu = [CCMenu menuWithItems: earned, available, reset, nil];
+        
+        [menu alignItemsVertically];
+        [self addChild:menu];
+        
+        [self addBackButton];
     }
     return self;
 }

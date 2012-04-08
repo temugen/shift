@@ -32,23 +32,23 @@
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_MENU];
         
         //Set up menu items
-        CCMenuItemFont *quickplay = [CCMenuItemImage itemFromNormalImage:@"quickplay.png"
+        CCMenuItemImage *quickplay = [CCMenuItemImage itemFromNormalImage:@"quickplay.png"
                                                            selectedImage:@"quickplay.png" target:self selector: @selector(onQuickplay:)];
         quickplay.color = [[ColorPalette defaultPalette] colorWithName:@"green"];
         
-        CCMenuItemFont *single = [CCMenuItemImage itemFromNormalImage:@"singleplayer.png"
+        CCMenuItemImage *single = [CCMenuItemImage itemFromNormalImage:@"singleplayer.png"
                                                         selectedImage:@"singleplayer.png" target:self selector: @selector(onSinglePlayer:)];
         single.color = [[ColorPalette defaultPalette] colorWithName:@"blue"];
         
-        CCMenuItemFont *multi = [CCMenuItemImage itemFromNormalImage:@"multiplayer.png"
+        CCMenuItemImage *multi = [CCMenuItemImage itemFromNormalImage:@"multiplayer.png"
                                                        selectedImage:@"multiplayer.png" target:self selector: @selector(onMultiplayer:)];
         multi.color = [[ColorPalette defaultPalette] colorWithName:@"pink"];
         
-        CCMenuItemFont *achievements = [CCMenuItemImage itemFromNormalImage:@"achievements.png"
+        CCMenuItemImage *achievements = [CCMenuItemImage itemFromNormalImage:@"achievements.png"
                                                               selectedImage:@"achievements.png" target:self selector: @selector(onAchievements:)];
         achievements.color = [[ColorPalette defaultPalette] colorWithName:@"gold"];
         
-        CCMenuItemFont *options = [CCMenuItemImage itemFromNormalImage:@"options.png"
+        CCMenuItemImage *options = [CCMenuItemImage itemFromNormalImage:@"options.png"
                                                          selectedImage:@"options.png" target:self selector: @selector(onOptions:)];
         options.color = [[ColorPalette defaultPalette] colorWithName:@"silver"];
         
