@@ -113,11 +113,11 @@ NSInteger highestLevel;
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(context, 2); 
-    CGContextSetRGBStrokeColor(context, 100.0, 0.0, 0.0, 1.0);
     
     CGMutablePathRef boxPath = CGPathCreateMutable();
     CGFloat radius = 10.0;
+    
+    CGContextBeginPath(context);
     
     CGPathMoveToPoint(boxPath, nil, center.x , center.y - height/2);
     CGPathAddArcToPoint(boxPath, nil, center.x + width/2, center.y - height/2, center.x + width/2, center.y + height/2, radius);
@@ -126,13 +126,34 @@ NSInteger highestLevel;
     CGPathAddArcToPoint(boxPath, nil, center.x - width/2, center.y - height/2, center.x, center.y - height/2, radius);
     
     CGPathCloseSubpath(boxPath);
-    
-    CGContextAddPath(context, boxPath);
-    CGContextStrokePath(context);
+    CGContextAddPath(context, boxPath);    
+    CGContextClosePath(context);
+    CGContextClip(context);
+
+    CGRect rect = CGRectMake(center.x-width/2, center.y-height/2, width, height);
+    [SinglePlayerMenu createGradient:rect];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     CCSprite* sprite = [CCSprite spriteWithCGImage:image.CGImage key:@"image"];
     return sprite;
+}
+
++(void) createGradient:(CGRect) rect
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
+		
+	size_t num_locations = 2;
+	CGFloat locations[2] = { 0.0, 0.5 };
+	CGFloat components[8] = {  0.92, 0.92, 0.92, 1.0, 0.82, 0.82, 0.82, 0.4 };
+	
+	CGGradientRef gradient = CGGradientCreateWithColorComponents (space, components, locations, num_locations);
+    
+    CGPoint startPoint, endPoint;
+    startPoint = CGPointMake(CGRectGetMinX(rect), CGRectGetMidY(rect)); 
+    endPoint = CGPointMake(CGRectGetMaxX(rect), CGRectGetMidY(rect));
+    
+    CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
 }
 
 +(void) levelSelect: (int) levelNum
