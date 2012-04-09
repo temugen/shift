@@ -13,7 +13,6 @@
 @interface CellSprite : CCSprite <NSCopying>
 {
     NSString *textureFilename;
-    Tutorial *tutorial;
     
     @public
 	int row, column;
@@ -22,13 +21,14 @@
     BOOL movable;
     BOOL destructible;
     NSString *name;
+    Tutorial *tutorial;
 }
 
 @property(nonatomic, assign) int row, column;
 @property(nonatomic, assign) int health;
 @property(nonatomic, assign) BOOL comparable, movable;
 @property(nonatomic, copy) NSString *name;
-@property(strong) Tutorial *tutorial;
+@property(nonatomic, retain) Tutorial *tutorial;
 
 -(id) initWithFilename:(NSString *)filename;
 
@@ -36,6 +36,8 @@
 -(CGPoint) resize:(CGSize)size;
 //Returns size after scaling
 -(CGSize) scaleWithFactors:(CGPoint)factors;
+
+-(void) completeTutorial;
 
 //Override if you want to handle events
 -(BOOL) onCompareWithCell:(CellSprite *)cell;

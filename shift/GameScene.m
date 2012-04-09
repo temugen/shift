@@ -97,6 +97,11 @@
 -(void) onPauseButtonPressed:(NSNotification *)notification
 {
     InGameMenu *menu = [[InGameMenu alloc] init];
+    CCLabelTTF *moveCount = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Count : %d", board.moveCount]
+                                               fontName:@"Helvetica" fontSize:24];
+    CGSize screenSize = [[CCDirector sharedDirector] winSize];
+    moveCount.position = ccp(moveCount.contentSize.width / 2, screenSize.height - moveCount.contentSize.height / 2);
+    [menu addChild:moveCount];
     [self addChild:menu z:10];
     [self onPause];
 }
