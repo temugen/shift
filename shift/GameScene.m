@@ -12,6 +12,7 @@
 @implementation GameScene
 
 @synthesize elapsedTime;
+@synthesize board;
 
 -(id) init
 {

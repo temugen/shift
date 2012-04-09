@@ -15,7 +15,11 @@
 
 +(MultiplayerGame*) gameWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*)match;
 {
-  return [[MultiplayerGame alloc] initWithNumberOfRows:rows columns:columns match:match];
+  MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithNumberOfRows:rows columns:columns match:match];
+  NSDictionary* boardlayout = [newGame.board serialize];
+  NSData* boardData = [NSKeyedArchiver archivedDataWithRootObject:boardlayout];
+  [[GameCenterHub sharedInstance] sendTurn:self data:boardData];
+  return newGame;
 }
 
 -(id) initWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*) match

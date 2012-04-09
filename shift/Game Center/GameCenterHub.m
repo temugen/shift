@@ -348,26 +348,19 @@ static GameCenterHub* sharedHelper = nil;
 
 -(void) clearMatches
 {
-  if ([GKLocalPlayer localPlayer].authenticated == NO) 
-  {     
-    [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError * error) 
-    {
-      [GKTurnBasedMatch loadMatchesWithCompletionHandler:^(NSArray *matches, NSError *error)
-      {
-        for (GKTurnBasedMatch *match in matches) 
-        { 
-          NSLog(@"%@", match.matchID); 
-          [match removeWithCompletionHandler:^(NSError *error)
+  if ([GKLocalPlayer localPlayer].authenticated)
+  {
+    [GKTurnBasedMatch loadMatchesWithCompletionHandler:^(NSArray *matches, NSError *error)
+     {
+       for (GKTurnBasedMatch *match in matches) 
+       { 
+         NSLog(@"%@", match.matchID); 
+         [match removeWithCompletionHandler:^(NSError *error)
           {
             NSLog(@"%@", error);
           }]; 
-        }
-      }];
-   }];        
-  } 
-  else 
-  {
-    NSLog(@"Already authenticated!");
+       }
+     }];  
   }
 }
 
@@ -380,13 +373,11 @@ static GameCenterHub* sharedHelper = nil;
 -(void) layoutMatch:(GKTurnBasedMatch*)match
 {
   // TODO:  Implement method, show current match board
-  [self checkForEnd:match.matchData];
 }
 
 -(void) takeTurn:(GKTurnBasedMatch*)match 
 {
   // TODO:  Implement method
-  [self checkForEnd:match.matchData];
 }
 
 -(IBAction)sendTurn:(id)sender data:(NSData*)data
@@ -416,11 +407,6 @@ static GameCenterHub* sharedHelper = nil;
 {
   UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"Your turn in another game" message:notice delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
   [av show];
-}
-
--(void) checkForEnd:(NSData*) data
-{
-  // Not needed in our current structure
 }
 
 
