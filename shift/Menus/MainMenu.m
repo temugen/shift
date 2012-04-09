@@ -34,23 +34,23 @@
         //Set up menu items
         CCMenuItemImage *quickplay = [CCMenuItemImage itemFromNormalImage:@"quickplay.png"
                                                            selectedImage:@"quickplay.png" target:self selector: @selector(onQuickplay:)];
-        quickplay.color = [[ColorPalette defaultPalette] colorWithName:@"green"];
+        quickplay.color = [[ColorPalette sharedPalette] colorWithName:@"green" fromPalette:@"_app"];
         
         CCMenuItemImage *single = [CCMenuItemImage itemFromNormalImage:@"singleplayer.png"
                                                         selectedImage:@"singleplayer.png" target:self selector: @selector(onSinglePlayer:)];
-        single.color = [[ColorPalette defaultPalette] colorWithName:@"orange"];
+        single.color = [[ColorPalette sharedPalette] colorWithName:@"orange" fromPalette:@"_app"];
         
         CCMenuItemImage *multi = [CCMenuItemImage itemFromNormalImage:@"multiplayer.png"
                                                        selectedImage:@"multiplayer.png" target:self selector: @selector(onMultiplayer:)];
-        multi.color = [[ColorPalette defaultPalette] colorWithName:@"purple"];
+        multi.color = [[ColorPalette sharedPalette] colorWithName:@"purple" fromPalette:@"_app"];
         
         CCMenuItemImage *achievements = [CCMenuItemImage itemFromNormalImage:@"achievements.png"
                                                               selectedImage:@"achievements.png" target:self selector: @selector(onAchievements:)];
-        achievements.color = [[ColorPalette defaultPalette] colorWithName:@"gold"];
-        
+        achievements.color = [[ColorPalette sharedPalette] colorWithName:@"gold"fromPalette:@"_app"];
+         
         CCMenuItemImage *options = [CCMenuItemImage itemFromNormalImage:@"options.png"
                                                          selectedImage:@"options.png" target:self selector: @selector(onOptions:)];
-        options.color = [[ColorPalette defaultPalette] colorWithName:@"silver"];
+        options.color = [[ColorPalette sharedPalette] colorWithName:@"silver" fromPalette:@"_app"];
         
         //Add items to menu
         menu = [CCMenu menuWithItems: quickplay, single, multi, achievements, options, nil];

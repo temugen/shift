@@ -40,7 +40,7 @@
 {
     CCMenuItemImage *back = [CCMenuItemImage itemFromNormalImage:@"back.png"
                                                   selectedImage:@"back.png" target:self selector: @selector(goBack:)];
-    back.color = [[ColorPalette defaultPalette] colorWithName:@"red"];
+    back.color = [[ColorPalette sharedPalette] colorWithName:@"red" fromPalette:@"_app"];
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
     CCMenu *menu = [CCMenu menuWithItems:back, nil];
     menu.position = ccp(platformPadding + back.contentSize.width / 2,

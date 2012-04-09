@@ -27,41 +27,12 @@
     
     @synchronized(self)
     {
-        if (sharedPalette == nil)
-            sharedPalette = [ColorPalette colorPalette];
-    }
-    return sharedPalette;
-}
-
-+(ColorPalette *) defaultPalette
-{
-    static ColorPalette *defaultPalette = nil;
-    if (defaultPalette != nil)
-        return defaultPalette;
-    
-    @synchronized(self)
-    {
-        if (defaultPalette == nil)
-        {
-            defaultPalette = [ColorPalette colorPalette];
-            [defaultPalette setPalette:@"app"];
+        if (sharedPalette == nil) {
+            sharedPalette = [[ColorPalette alloc] initWithFile:@"colors.plist"];
+            [sharedPalette setPalette:@"default"];
         }
     }
-    return defaultPalette;
-}
-
-+(id) colorPalette
-{
-    return [[ColorPalette alloc] init];
-}
-
--(id) init
-{
-    if ((self = [self initWithFile:@"colors.plist"])) {
-        [self setPalette:@"default"];
-    }
-    
-    return self;
+    return sharedPalette;
 }
 
 -(id) initWithFile:(NSString *)filename
@@ -73,6 +44,7 @@
         NSString *path = [[NSBundle mainBundle] pathForResource:baseName ofType:extension];
         palettes = [NSDictionary dictionaryWithContentsOfFile:path];
         paletteNames = [palettes allKeys];
+        [self setPalette:[paletteNames objectAtIndex:0]];
     }
     
     return self;
@@ -90,6 +62,7 @@
                                [[colorValues objectAtIndex:2] intValue]);
         [colors setObject:[NSData dataWithBytes:&color length:sizeof(color)] forKey:colorName];
     }
+    currentPalette = paletteName;
 }
 
 -(NSString *) randomColorName
@@ -108,6 +81,15 @@
 {
     const ccColor3B *ccColor = [[colors objectForKey:colorName] bytes];
     return *ccColor;
+}
+
+-(ccColor3B) colorWithName:(NSString *)colorName fromPalette:(NSString *)paletteName
+{
+    NSString *previousPalette = currentPalette;
+    [self setPalette:paletteName];
+    ccColor3B color = [self colorWithName:colorName];
+    [self setPalette:previousPalette];
+    return color;
 }
 
 @end
