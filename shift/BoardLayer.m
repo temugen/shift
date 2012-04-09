@@ -106,7 +106,6 @@
     if ((self = [self initWithNumberOfColumns:columns rows:rows cellSize:size])) {
         [self randomize];
         [self saveSnapshot];
-        [self serialize];
         
         self.isTouchEnabled = YES;
     }
