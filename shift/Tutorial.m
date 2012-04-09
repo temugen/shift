@@ -1,42 +1,53 @@
 //
-//  Tutorial.m
+//  TutorialLayer.m
 //  shift
 //
-//  Created by Brad Misik on 4/3/12.
+//  Created by Brad Misik on 4/4/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "Tutorial.h"
 #import "CellSprite.h"
-#import "BoardLayer.h"
 
 @implementation Tutorial
 
-@synthesize message;
-
--(id) initWithMessage:(NSString *)msg forCell:(CellSprite *)cell
+-(id) init
 {
     if ((self = [super init])) {
-        message = msg;
-        board = (BoardLayer *)cell.parent;
+        tutorialsLookup = [NSMutableDictionary dictionary];
+        tutorials = [NSMutableArray array];
         
-        icon = [cell copy];
-        icon.position = ccp(CGRectGetWidth([icon boundingBox]) / 2, CGRectGetHeight([icon boundingBox]) / 2);
-        [board addChild:icon];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onNewTutorial:)
+                                                     name:@"NewTutorial"
+                                                   object:nil];
         
-        label = [CCLabelTTF labelWithString:msg fontName:@"Helvetica" fontSize:24];
-        label.position = ccp(CGRectGetMaxX([icon boundingBox]) + label.contentSize.width / 2,
-                             label.contentSize.height / 2);
-        [board addChild:label];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onTutorialComplete:)
+                                                     name:@"TutorialComplete"
+                                                   object:nil];
     }
-    
     return self;
 }
 
--(void) complete
+-(void) dealloc
 {
-    [board removeChild:icon cleanup:YES];
-    [board removeChild:label cleanup:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void) onNewTutorial:(NSNotification *)notification
+{
+    CellSprite *cell = [[notification userInfo] valueForKey:@"cell"];
+    [tutorials addObject:[notification userInfo]];
+    [tutorialsLookup setObject:[NSNumber numberWithInt:[tutorials count] - 1] forKey:cell];
+}
+
+-(void) onTutorialComplete:(NSNotification *)notification
+{
+    CellSprite *cell = [notification object];
+    NSNumber *index = [tutorialsLookup objectForKey:cell];
+    [tutorials removeObjectAtIndex:[index intValue]];
+    [tutorialsLookup removeObjectForKey:cell];
 }
 
 @end

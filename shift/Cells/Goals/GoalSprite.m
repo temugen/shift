@@ -27,9 +27,7 @@
 
 -(BOOL) onCompareWithCell:(CellSprite *)cell
 {
-    if (tutorial != nil) {
-        [tutorial complete];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TutorialComplete" object:self];
     
     if (cell == nil || ![cell.name isEqualToString:name]) {
         return NO;

@@ -6,14 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Tutorial.h"
-
 @class BoardLayer;
 
 @interface CellSprite : CCSprite <NSCopying>
 {
     NSString *textureFilename;
-    Tutorial *tutorial;
     
     @public
 	int row, column;
@@ -28,7 +25,6 @@
 @property(nonatomic, assign) int health;
 @property(nonatomic, assign) BOOL comparable, movable;
 @property(nonatomic, copy) NSString *name;
-@property(strong) Tutorial *tutorial;
 
 -(id) initWithFilename:(NSString *)filename;
 

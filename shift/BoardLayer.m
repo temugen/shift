@@ -154,8 +154,8 @@
             
             //Add tutorial if one was requested
             if (tutorialMessage != nil && cell != nil) {
-                Tutorial *tutorial = [[Tutorial alloc] initWithMessage:tutorialMessage forCell:cell];
-                cell.tutorial = tutorial;
+                NSDictionary *tutorial = [NSDictionary dictionaryWithObjectsAndKeys:cell, @"cell", tutorialMessage, @"message", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"NewTutorial" object:self userInfo:tutorial];
             }
         }
         

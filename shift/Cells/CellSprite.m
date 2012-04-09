@@ -14,14 +14,12 @@
 @synthesize health;
 @synthesize comparable, movable;
 @synthesize name;
-@synthesize tutorial;
 
 -(id) initWithFilename:(NSString *)filename
 {
     CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:filename];
     if ((self = [super initWithTexture:texture])) {
         textureFilename = [filename copy];
-        tutorial = nil;
         comparable = YES;
         movable = YES;
         destructible = NO;
