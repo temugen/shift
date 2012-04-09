@@ -11,43 +11,22 @@
 
 @implementation Tutorial
 
--(id) init
+@synthesize cell;
+@synthesize message;
+
+-(id) initWithMessage:(NSString *)msg forCell:(CellSprite *)tutorialCell
 {
     if ((self = [super init])) {
-        tutorialsLookup = [NSMutableDictionary dictionary];
-        tutorials = [NSMutableArray array];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onNewTutorial:)
-                                                     name:@"NewTutorial"
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onTutorialComplete:)
-                                                     name:@"TutorialComplete"
-                                                   object:nil];
+        message = msg;
+        cell = tutorialCell;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"NewTutorial" object:self];
     }
     return self;
 }
 
--(void) dealloc
+-(void) complete
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
--(void) onNewTutorial:(NSNotification *)notification
-{
-    CellSprite *cell = [[notification userInfo] valueForKey:@"cell"];
-    [tutorials addObject:[notification userInfo]];
-    [tutorialsLookup setObject:[NSNumber numberWithInt:[tutorials count] - 1] forKey:cell];
-}
-
--(void) onTutorialComplete:(NSNotification *)notification
-{
-    CellSprite *cell = [notification object];
-    NSNumber *index = [tutorialsLookup objectForKey:cell];
-    [tutorials removeObjectAtIndex:[index intValue]];
-    [tutorialsLookup removeObjectForKey:cell];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TutorialComplete" object:self];
 }
 
 @end

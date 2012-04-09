@@ -27,7 +27,7 @@
 
 -(BOOL) onMoveWithDistance:(float)distance vertically:(BOOL)vertically
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"TutorialComplete" object:self];
+    [self completeTutorial];
     return NO;
 }
 

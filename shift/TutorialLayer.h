@@ -7,5 +7,9 @@
 //
 
 @interface TutorialLayer : CCLayer
+{
+    NSMutableArray *tutorials;
+    NSMutableDictionary *tutorialsLookup;
+}
 
 @end

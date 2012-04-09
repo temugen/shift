@@ -6,10 +6,22 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-@interface Tutorial : CCLayer
+#import <Foundation/Foundation.h>
+
+@class CellSprite;
+
+@interface Tutorial : NSObject
 {
-    NSMutableArray *tutorials;
-    NSMutableDictionary *tutorialsLookup;
+    @public
+    CellSprite *cell;
+    NSString *message;
 }
+
+@property(readonly) CellSprite *cell;
+@property(readonly) NSString *message;
+
+-(id) initWithMessage:(NSString *)msg forCell:(CellSprite *)tutorialCell;
+
+-(void) complete;
 
 @end

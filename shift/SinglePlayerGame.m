@@ -30,8 +30,8 @@ static SinglePlayerGame *lastGame = nil;
     if ((self = [super init])) {
         currentLevel = level;
         
-        //Tutorial *tutorials = [[Tutorial alloc] init];
-        //[self addChild:tutorials];
+        TutorialLayer *tutorials = [[TutorialLayer alloc] init];
+        [self addChild:tutorials];
         
         board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
                                      cellSize:cellSize];
