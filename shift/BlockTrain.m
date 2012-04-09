@@ -179,6 +179,8 @@
         highMiddleLeft.y += blockSize.height / 2;
         [ribbon addPointAt:highMiddleLeft width:10.0];
     }
+    
+    
 }
 
 -(void) moveBlocksWithDistance:(float)distance
@@ -273,14 +275,24 @@
     
     [board removeChild:ribbon cleanup:YES];
     
+    BOOL hasMoved = NO;
     int row,column;
     NSEnumerator *enumerator = [blocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
         //Move the block to the closest cell's position on the board
         column = (int)roundf((block.position.x - board.cellSize.width / 2) / board.cellSize.width);
         row = (int)roundf((block.position.y - board.cellSize.height / 2) / board.cellSize.height);
+        
+        if (block.row != row || block.column != column) {
+            hasMoved = YES;
+        }
+        
         [board moveBlock:block x:column y:row];
         [block onSnap];
+    }
+    
+    if (hasMoved) {
+        board.moveCount++;
     }
 }
 

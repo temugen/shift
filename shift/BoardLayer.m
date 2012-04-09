@@ -33,7 +33,7 @@
 
 @implementation BoardLayer
 
-@synthesize rowCount, columnCount;
+@synthesize rowCount, columnCount, moveCount;
 @synthesize cellSize, blockSize;
 @synthesize backgroundTexture;
 
@@ -55,6 +55,7 @@
         
         columnCount = columns;
         rowCount = rows;
+        moveCount = 0;
         
         //Make room in our board array for all of the blocks
         int cellCount = rowCount * columnCount;
@@ -107,8 +108,6 @@
         [self saveSnapshot];
         
         self.isTouchEnabled = YES;
-        
-        [[CCTextureCache sharedTextureCache] dumpCachedTextureInfo];
     }
     
     return self;
@@ -125,19 +124,19 @@
     NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
     
     //Get the board attributes
-    NSDictionary *board = [plist objectForKey:@"board"];
-    int rows = [[board objectForKey:@"rows"] intValue], columns = [[board objectForKey:@"columns"] intValue];
+    NSDictionary *board = [plist valueForKey:@"board"];
+    int rows = [[board objectForKey:@"rows"] intValue], columns = [[board valueForKey:@"columns"] intValue];
                    
     if ((self = [self initWithNumberOfColumns:columns rows:rows cellSize:size])) {        
         //Loop through all of the cells
-        NSArray *cells = [board objectForKey:@"cells"];
+        NSArray *cells = [board valueForKey:@"cells"];
         NSEnumerator *enumerator = [cells objectEnumerator];
         for (NSDictionary *cell in enumerator) {
             
             //Get the cell's attributes
-            NSString *class = [cell objectForKey:@"class"], *name = [cell objectForKey:@"name"];
+            NSString *class = [cell valueForKey:@"class"], *name = [cell valueForKey:@"name"];
             NSString *tutorialMessage = [cell objectForKey:@"tutorial"];
-            int row = [[cell objectForKey:@"row"] intValue], column = [[cell objectForKey:@"column"] intValue];
+            int row = [[cell valueForKey:@"row"] intValue], column = [[cell valueForKey:@"column"] intValue];
             
             //Add the cell to the board
             CellSprite *cell = nil;
@@ -154,8 +153,7 @@
             
             //Add tutorial if one was requested
             if (tutorialMessage != nil && cell != nil) {
-                Tutorial *tutorial = [[Tutorial alloc] initWithMessage:tutorialMessage forCell:cell];
-                cell.tutorial = tutorial;
+                cell.tutorial = [[Tutorial alloc] initWithMessage:tutorialMessage forCell:cell];
             }
         }
         
@@ -164,6 +162,41 @@
     }
     
     return self;
+}
+
+-(NSDictionary *) serialize
+{
+    NSMutableDictionary *board = [NSMutableDictionary dictionaryWithCapacity:(3)];
+    [board setValue:[NSNumber numberWithInt:rowCount] forKey:@"rows"];
+    [board setValue:[NSNumber numberWithInt:columnCount] forKey:@"columns"];
+    
+    NSMutableArray *cells = [NSMutableArray arrayWithCapacity:(rowCount * columnCount)];
+    
+    for (int x = 0; x < columnCount; x++) {
+        for (int y = 0; y < rowCount; y++) {
+            
+            CellSprite *cell;
+            if ((cell = [self blockAtX:x y:y]) != nil) {
+                NSDictionary *block = [NSDictionary dictionaryWithObjectsAndKeys:[[cell class] description], @"class",
+                                       cell.name, @"name",
+                                       [NSNumber numberWithInt:cell.row], @"row",
+                                       [NSNumber numberWithInt:cell.column], @"column", nil];
+                [cells addObject:block];
+            }
+            
+            if ((cell = [self goalAtX:x y:y]) != nil) {
+                NSDictionary *goal = [NSDictionary dictionaryWithObjectsAndKeys:[[cell class] description], @"class",
+                                       cell.name, @"name",
+                                      [NSNumber numberWithInt:cell.row], @"row",
+                                      [NSNumber numberWithInt:cell.column], @"column", nil];
+                [cells addObject:goal];
+            }
+        }
+    }
+    [board setValue:cells forKey:@"cells"];
+    
+    NSDictionary *level = [NSDictionary dictionaryWithObjectsAndKeys:board, @"board", nil];
+    return level;
 }
 
 -(void) randomize
@@ -229,6 +262,8 @@
         [train moveTo:endPoint];
         [train snap];
     }
+    
+    moveCount = 0;
 }
 
 -(CCSprite *) screenshot

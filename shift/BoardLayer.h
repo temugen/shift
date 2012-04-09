@@ -20,7 +20,7 @@
     CCSprite *background;
     
     @public
-    int rowCount, columnCount;
+    int rowCount, columnCount, moveCount;
     CCTexture2D *backgroundTexture;
     CGSize cellSize, blockSize;
 }
@@ -28,6 +28,7 @@
 @property(readonly, assign) int rowCount, columnCount;
 @property(readonly, assign) CGSize cellSize, blockSize;
 @property(readonly) CCTexture2D *backgroundTexture;
+@property(readwrite, assign) int moveCount;
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size;
 +(BoardLayer *) boardWithFilename:(NSString *)filename cellSize:(CGSize)size; 
@@ -35,6 +36,7 @@
 -(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size;
 -(id) initWithFilename:(NSString *)filename cellSize:(CGSize)size;
 
+-(NSDictionary *)serialize;
 -(CCSprite *) screenshot;
 
 -(GoalSprite *) goalAtX:(int)x y:(int)y;

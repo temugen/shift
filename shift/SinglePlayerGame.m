@@ -9,6 +9,7 @@
 #import "SinglePlayerGame.h"
 #import "MainMenu.h"
 #import "GameCenterHub.h"
+#import "TutorialLayer.h"
 
 @implementation SinglePlayerGame
 
@@ -28,6 +29,10 @@ static SinglePlayerGame *lastGame = nil;
 {
     if ((self = [super init])) {
         currentLevel = level;
+        
+        TutorialLayer *tutorials = [[TutorialLayer alloc] init];
+        [self addChild:tutorials];
+        
         board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
                                      cellSize:cellSize];
         board.position = boardCenter;

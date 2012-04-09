@@ -27,9 +27,7 @@
 
 -(BOOL) onCompareWithCell:(CellSprite *)cell
 {
-    if (tutorial != nil) {
-        [tutorial complete];
-    }
+    [self completeTutorial];
     
     if (cell == nil || ![cell.name isEqualToString:name]) {
         return NO;
