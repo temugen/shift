@@ -22,11 +22,12 @@
         //Set up menu items
         CCMenuItemFont *play = [CCMenuItemFont itemFromString:@"Find Opponent" target:self selector: @selector(onOppSelection:)];
         CCMenuItemFont *leaderboard= [CCMenuItemFont itemFromString:@"Leaderboard" target:self selector: @selector(onLeaderboard:)];
+        CCMenuItemFont *matchclear= [CCMenuItemFont itemFromString:@"Clear Matches" target:self selector: @selector(onClear:)];
 
         [play setTag:MULTIPLAYER];
       
         //Add items to menu
-        CCMenu *menu = [CCMenu menuWithItems: play, leaderboard, nil];
+        CCMenu *menu = [CCMenu menuWithItems: play, leaderboard, matchclear, nil];
         
         [menu alignItemsVertically];
         
@@ -60,5 +61,13 @@
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu sceneWithMode:selection]]];
 }
 
+
+- (void) onClear: (id) sender
+{
+  //Play menu selection sound
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
+  [[GameCenterHub sharedInstance] clearMatches];
+}
 
 @end

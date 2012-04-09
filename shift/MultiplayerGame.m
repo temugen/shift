@@ -13,7 +13,7 @@
 
 @synthesize myMatch;
 
-+(MultiplayerGame *) gameWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*)match;
++(MultiplayerGame*) gameWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*)match;
 {
   return [[MultiplayerGame alloc] initWithNumberOfRows:rows columns:columns match:match];
 }
@@ -46,8 +46,10 @@
 -(void) onGameEnd
 {
   [super onGameEnd];
-  NSLog(@"matchmaking match has ended!");
-  [[GameCenterHub sharedInstance] takeTurn:myMatch];
+  NSLog(@"Current match has ended!");
+  NSString* stringdata = @"Testing send";
+  NSData* data = [stringdata dataUsingEncoding:NSUTF8StringEncoding];
+  [[GameCenterHub sharedInstance] sendTurn:self data:data];
 }
 
 @end
