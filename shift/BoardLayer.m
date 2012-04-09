@@ -33,7 +33,7 @@
 
 @implementation BoardLayer
 
-@synthesize rowCount, columnCount;
+@synthesize rowCount, columnCount, moveCount;
 @synthesize cellSize, blockSize;
 @synthesize backgroundTexture;
 
@@ -55,6 +55,7 @@
         
         columnCount = columns;
         rowCount = rows;
+        moveCount = 0;
         
         //Make room in our board array for all of the blocks
         int cellCount = rowCount * columnCount;
@@ -262,6 +263,8 @@
         [train moveTo:endPoint];
         [train snap];
     }
+    
+    moveCount = 0;
 }
 
 -(CCSprite *) screenshot
