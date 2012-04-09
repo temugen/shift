@@ -155,8 +155,7 @@
             
             //Add tutorial if one was requested
             if (tutorialMessage != nil && cell != nil) {
-                Tutorial *tutorial = [[Tutorial alloc] initWithMessage:tutorialMessage forCell:cell];
-                cell.tutorial = tutorial;
+                cell.tutorial = [[Tutorial alloc] initWithMessage:tutorialMessage forCell:cell];
             }
         }
         

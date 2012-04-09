@@ -21,11 +21,11 @@
     CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:filename];
     if ((self = [super initWithTexture:texture])) {
         textureFilename = [filename copy];
-        tutorial = nil;
         comparable = YES;
         movable = YES;
         destructible = NO;
         name = @"";
+        tutorial = nil;
     }
     return self;
 }
@@ -40,7 +40,8 @@
     cell.health = health;
     cell.comparable = comparable;
     cell.movable = movable;
-    [cell setColor:self.color];
+    cell.tutorial = tutorial;
+    cell.color = self.color;
     return cell;
 }
 
@@ -56,6 +57,14 @@
     self.scaleX = factors.x;
     self.scaleY = factors.y;
     return [self boundingBox].size;
+}
+
+-(void) completeTutorial
+{
+    if (tutorial != nil) {
+        [tutorial complete];
+        tutorial = nil;
+    }
 }
 
 -(BOOL) onCompareWithCell:(CellSprite *)cell

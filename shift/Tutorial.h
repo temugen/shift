@@ -1,27 +1,26 @@
 //
-//  Tutorial.h
+//  TutorialLayer.h
 //  shift
 //
-//  Created by Brad Misik on 4/3/12.
+//  Created by Brad Misik on 4/4/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-@class CellSprite;
-@class BoardLayer;
+#import <Foundation/Foundation.h>
 
-@interface Tutorial : CCNode
+@class CellSprite;
+
+@interface Tutorial : NSObject
 {
-    CellSprite *icon;
-    CCLabelTTF *label;
-    BoardLayer *board;
-    
     @public
+    CellSprite *cell;
     NSString *message;
 }
 
+@property(readonly) CellSprite *cell;
 @property(readonly) NSString *message;
 
--(id) initWithMessage:(NSString *)msg forCell:(CellSprite *)cell;
+-(id) initWithMessage:(NSString *)msg forCell:(CellSprite *)tutorialCell;
 
 -(void) complete;
 
