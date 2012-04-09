@@ -111,6 +111,7 @@
 		82A9D8171531676900D05BAA /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D8131531676900D05BAA /* back@2x.png */; };
 		82A9D8181531676900D05BAA /* back@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D8141531676900D05BAA /* back@2x~ipad.png */; };
 		82A9D8191531676900D05BAA /* back~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D8151531676900D05BAA /* back~ipad.png */; };
+		82B0858D15327AEB005F8D40 /* TutorialLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B0858C15327AEB005F8D40 /* TutorialLayer.m */; };
 		9635BFFD152FEB790091081B /* TitleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635BFFC152FEB790091081B /* TitleLayer.m */; };
 		985265D714F5ACA800353F61 /* blue_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D214F5ACA800353F61 /* blue_lock.png */; };
 		985265D814F5ACA800353F61 /* green_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265D314F5ACA800353F61 /* green_lock.png */; };
@@ -782,6 +783,8 @@
 		82A9D8131531676900D05BAA /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		82A9D8141531676900D05BAA /* back@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x~ipad.png"; sourceTree = "<group>"; };
 		82A9D8151531676900D05BAA /* back~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back~ipad.png"; sourceTree = "<group>"; };
+		82B0858B15327AEB005F8D40 /* TutorialLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialLayer.h; sourceTree = "<group>"; };
+		82B0858C15327AEB005F8D40 /* TutorialLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialLayer.m; sourceTree = "<group>"; };
 		9635BFFB152FEB790091081B /* TitleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleLayer.h; path = Menus/TitleLayer.h; sourceTree = "<group>"; };
 		9635BFFC152FEB790091081B /* TitleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleLayer.m; path = Menus/TitleLayer.m; sourceTree = "<group>"; };
 		985265D214F5ACA800353F61 /* blue_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blue_lock.png; path = Resources/Cells/Blocks/blue_lock.png; sourceTree = "<group>"; };
@@ -1237,6 +1240,8 @@
 				82389467152802C7006B30DD /* ColorPalette.m */,
 				8268C19C152B600600CC730D /* Tutorial.h */,
 				8268C19D152B600600CC730D /* Tutorial.m */,
+				82B0858B15327AEB005F8D40 /* TutorialLayer.h */,
+				82B0858C15327AEB005F8D40 /* TutorialLayer.m */,
 				8235A42D150556E70058C21F /* GameScene.h */,
 				8235A42E150556E80058C21F /* GameScene.m */,
 				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
@@ -2079,6 +2084,7 @@
 			files = (
 				82470CD414EC882A00F60A7C /* shiftLogicTests.m in Sources */,
 				82470CDE14EC8D2B00F60A7C /* boardTests.m in Sources */,
+				82B0858D15327AEB005F8D40 /* TutorialLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
