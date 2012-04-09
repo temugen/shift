@@ -35,6 +35,7 @@
 -(id) initRandomWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size;
 -(id) initWithFilename:(NSString *)filename cellSize:(CGSize)size;
 
+-(NSDictionary *)serialize;
 -(CCSprite *) screenshot;
 
 -(GoalSprite *) goalAtX:(int)x y:(int)y;
