@@ -50,16 +50,12 @@ static QuickPlayGame *lastGame = nil;
 
 -(void) onGameStart
 {
-    [self animatePopulation];
-    
     [super onGameStart];
 }
 
 -(void) onGameEnd
 {
   [super onGameEnd];
-  
-  // Need to implement move counter so each file
   
   //Send score for leaderboard
   switch (rowCount)
