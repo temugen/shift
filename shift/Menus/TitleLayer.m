@@ -22,12 +22,12 @@
         
         GoalSprite *goal = [GoalSprite goalWithName:@"blue"];
         CGPoint factors = [goal resize:CGSizeMake(title.contentSize.height, title.contentSize.height)];
-        goal.color = [[ColorPalette defaultPalette] colorWithName:@"blue"];
+        goal.color = [[ColorPalette sharedPalette] colorWithName:@"blue" fromPalette:@"_app"];
         [self addChild:goal];
         
         BlockSprite *block = [BlockSprite blockWithName:@"blue"];
         [block scaleWithFactors:factors];
-        block.color = [[ColorPalette defaultPalette] colorWithName:@"blue"];
+        block.color = [[ColorPalette sharedPalette] colorWithName:@"blue" fromPalette:@"_app"];
         [self addChild:block];
         
         self.isRelativeAnchorPoint = YES;
