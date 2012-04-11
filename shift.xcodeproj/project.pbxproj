@@ -125,6 +125,8 @@
 		985265FF14F6D94800353F61 /* purple_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265F914F6D94800353F61 /* purple_key.png */; };
 		9852660014F6D94800353F61 /* red_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 985265FA14F6D94800353F61 /* red_key.png */; };
 		9852660314F6DAE900353F61 /* 20.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9852660214F6DAE900353F61 /* 20.plist */; };
+		985386E815364FE800E85869 /* SinglePlayerGameMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985386E715364FE800E85869 /* SinglePlayerGameMenu.m */; };
+		985386EB1536503400E85869 /* QuickplayGameMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985386EA1536503400E85869 /* QuickplayGameMenu.m */; };
 		985399A914F18CE600713F65 /* DifficultyMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9853999F14F18CE600713F65 /* DifficultyMenu.m */; };
 		985399AA14F18CE600713F65 /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399A214F18CE600713F65 /* Menu.m */; };
 		985399AB14F18CE600713F65 /* MultiplayerMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 985399A414F18CE600713F65 /* MultiplayerMenu.m */; };
@@ -144,6 +146,7 @@
 		987EED9215326A280010CE38 /* 9.plist in Resources */ = {isa = PBXBuildFile; fileRef = 987EED8E15326A280010CE38 /* 9.plist */; };
 		987EED9415326A280010CE38 /* 10.plist in Resources */ = {isa = PBXBuildFile; fileRef = 987EED9015326A280010CE38 /* 10.plist */; };
 		987EED9515326A280010CE38 /* 8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 987EED9115326A280010CE38 /* 8.plist */; };
+		987EEF2A153386660010CE38 /* RoundedRectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 987EEF29153386660010CE38 /* RoundedRectangle.m */; };
 		98C218F114F96BAA002177F9 /* completeBoard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98C218F014F96BAA002177F9 /* completeBoard.plist */; };
 		98C218F214F96BAA002177F9 /* completeBoard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98C218F014F96BAA002177F9 /* completeBoard.plist */; };
 		98E6E6A21520B7720001D956 /* 3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98E6E6A11520B7720001D956 /* 3.plist */; };
@@ -799,6 +802,10 @@
 		985265F914F6D94800353F61 /* purple_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = purple_key.png; path = Resources/Cells/Blocks/purple_key.png; sourceTree = "<group>"; };
 		985265FA14F6D94800353F61 /* red_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = red_key.png; path = Resources/Cells/Blocks/red_key.png; sourceTree = "<group>"; };
 		9852660214F6DAE900353F61 /* 20.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 20.plist; path = Resources/Levels/20.plist; sourceTree = "<group>"; };
+		985386E615364FE800E85869 /* SinglePlayerGameMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SinglePlayerGameMenu.h; path = Menus/SinglePlayerGameMenu.h; sourceTree = "<group>"; };
+		985386E715364FE800E85869 /* SinglePlayerGameMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SinglePlayerGameMenu.m; path = Menus/SinglePlayerGameMenu.m; sourceTree = "<group>"; };
+		985386E91536503400E85869 /* QuickplayGameMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuickplayGameMenu.h; path = Menus/QuickplayGameMenu.h; sourceTree = "<group>"; };
+		985386EA1536503400E85869 /* QuickplayGameMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuickplayGameMenu.m; path = Menus/QuickplayGameMenu.m; sourceTree = "<group>"; };
 		9853999D14F18CE600713F65 /* AchievementsMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AchievementsMenu.h; path = Menus/AchievementsMenu.h; sourceTree = "<group>"; };
 		9853999E14F18CE600713F65 /* DifficultyMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DifficultyMenu.h; path = Menus/DifficultyMenu.h; sourceTree = "<group>"; };
 		9853999F14F18CE600713F65 /* DifficultyMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DifficultyMenu.m; path = Menus/DifficultyMenu.m; sourceTree = "<group>"; };
@@ -826,6 +833,8 @@
 		987EED8E15326A280010CE38 /* 9.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 9.plist; path = Resources/Levels/9.plist; sourceTree = "<group>"; };
 		987EED9015326A280010CE38 /* 10.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 10.plist; path = Resources/Levels/10.plist; sourceTree = "<group>"; };
 		987EED9115326A280010CE38 /* 8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 8.plist; path = Resources/Levels/8.plist; sourceTree = "<group>"; };
+		987EEF28153386660010CE38 /* RoundedRectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundedRectangle.h; path = Menus/RoundedRectangle.h; sourceTree = "<group>"; };
+		987EEF29153386660010CE38 /* RoundedRectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundedRectangle.m; path = Menus/RoundedRectangle.m; sourceTree = "<group>"; };
 		98C218F014F96BAA002177F9 /* completeBoard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = completeBoard.plist; path = Resources/Levels/completeBoard.plist; sourceTree = "<group>"; };
 		98E6E6A11520B7720001D956 /* 3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = 3.plist; path = Resources/Levels/3.plist; sourceTree = "<group>"; };
 		98E6E6A31520B9E20001D956 /* 4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 4.plist; path = Resources/Levels/4.plist; sourceTree = "<group>"; };
@@ -1345,6 +1354,12 @@
 				987EEBFA152A71040010CE38 /* CCScrollLayer.m */,
 				9635BFFB152FEB790091081B /* TitleLayer.h */,
 				9635BFFC152FEB790091081B /* TitleLayer.m */,
+				987EEF28153386660010CE38 /* RoundedRectangle.h */,
+				987EEF29153386660010CE38 /* RoundedRectangle.m */,
+				985386E615364FE800E85869 /* SinglePlayerGameMenu.h */,
+				985386E715364FE800E85869 /* SinglePlayerGameMenu.m */,
+				985386E91536503400E85869 /* QuickplayGameMenu.h */,
+				985386EA1536503400E85869 /* QuickplayGameMenu.m */,
 			);
 			name = Menus;
 			sourceTree = "<group>";
@@ -2133,6 +2148,9 @@
 				9635BFFD152FEB790091081B /* TitleLayer.m in Sources */,
 				827A11B9153350BB001BF50B /* Tutorial.m in Sources */,
 				827A11BA153350BB001BF50B /* TutorialLayer.m in Sources */,
+				987EEF2A153386660010CE38 /* RoundedRectangle.m in Sources */,
+				985386E815364FE800E85869 /* SinglePlayerGameMenu.m in Sources */,
+				985386EB1536503400E85869 /* QuickplayGameMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
