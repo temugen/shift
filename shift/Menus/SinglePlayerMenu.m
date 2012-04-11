@@ -10,6 +10,7 @@
 #import "SinglePlayerGame.h"
 #import "CCScrollLayer.h"
 #import "MainMenu.h"
+#import "RoundedRectangle.h"
 
 #define SPRITES_PER_PAGE 4
 #define PADDING 40
@@ -38,8 +39,8 @@ NSInteger highestLevel;
         CCLayer *page = [[CCLayer alloc] init];
         CCSprite * prev = nil;
         
-        CCSprite* backgroundSprite = [SinglePlayerMenu createRectForWidth:spriteWidth+20 height:spriteWidth*2];
-        
+        RoundedRectangle* backgroundSprite = [[RoundedRectangle alloc] initWithWidth:spriteWidth+20 height:spriteWidth*2];
+
         for (int i=1;i<=NUM_LEVELS;i++)
         {
             //Only display textures for unlocked levels
@@ -104,56 +105,6 @@ NSInteger highestLevel;
         [self addBackButton];
     }
     return self;
-}
-
-+(CCSprite*) createRectForWidth:(int)width height:(int)height
-{
-    CGSize size = CGSizeMake(width, height);
-    CGPoint center = CGPointMake(size.width/2, size.height/2); 
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGMutablePathRef boxPath = CGPathCreateMutable();
-    CGFloat radius = 10.0;
-    
-    CGContextBeginPath(context);
-    
-    CGPathMoveToPoint(boxPath, nil, center.x , center.y - height/2);
-    CGPathAddArcToPoint(boxPath, nil, center.x + width/2, center.y - height/2, center.x + width/2, center.y + height/2, radius);
-    CGPathAddArcToPoint(boxPath, nil, center.x + width/2, center.y + height/2, center.x - width/2, center.y + height/2, radius);
-    CGPathAddArcToPoint(boxPath, nil, center.x - width/2, center.y + height/2, center.x - width/2, center.y, radius);
-    CGPathAddArcToPoint(boxPath, nil, center.x - width/2, center.y - height/2, center.x, center.y - height/2, radius);
-    
-    CGPathCloseSubpath(boxPath);
-    CGContextAddPath(context, boxPath);    
-    CGContextClosePath(context);
-    CGContextClip(context);
-
-    CGRect rect = CGRectMake(center.x-width/2, center.y-height/2, width, height);
-    [SinglePlayerMenu createGradient:rect];
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    CCSprite* sprite = [CCSprite spriteWithCGImage:image.CGImage key:@"image"];
-    return sprite;
-}
-
-+(void) createGradient:(CGRect) rect
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
-		
-	size_t num_locations = 2;
-	CGFloat locations[2] = { 0.0, 0.5 };
-	CGFloat components[8] = {  0.92, 0.92, 0.92, 1.0, 0.82, 0.82, 0.82, 0.4 };
-	
-	CGGradientRef gradient = CGGradientCreateWithColorComponents (space, components, locations, num_locations);
-    
-    CGPoint startPoint, endPoint;
-    startPoint = CGPointMake(CGRectGetMinX(rect), CGRectGetMidY(rect)); 
-    endPoint = CGPointMake(CGRectGetMaxX(rect), CGRectGetMidY(rect));
-    
-    CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
 }
 
 +(void) levelSelect: (int) levelNum
