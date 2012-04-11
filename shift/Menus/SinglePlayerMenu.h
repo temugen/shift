@@ -13,7 +13,8 @@
 {
 }
 
++(void) createGradient:(CGRect) rect;
 +(void)levelSelect:(int)levelNum;
-//- (void) goBack:(id)sender;
++(CCSprite*) createRectForWidth:(int)width height:(int)height;
 
 @end
