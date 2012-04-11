@@ -79,6 +79,7 @@ static GameCenterHub* sharedHelper = nil;
 
 -(void) authenticateLocalPlayer
 {
+  [self loadAchievements];
   if (!gameCenterAvailable) return;
 
   // Setup event handler
@@ -93,7 +94,6 @@ static GameCenterHub* sharedHelper = nil;
   {
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:setGKEventHandlerDelegate];
     [self getPlayerFriends];
-    [self loadAchievements];
     NSLog(@"Authenticated user");
   }
   else
@@ -105,6 +105,7 @@ static GameCenterHub* sharedHelper = nil;
 
 -(void) authenticationChanged 
 {
+  [self loadAchievements];
   if ([GKLocalPlayer localPlayer].isAuthenticated && !userAuthenticated)
   {
     NSLog(@"Auth changed; player authenticated.");
@@ -199,6 +200,8 @@ static GameCenterHub* sharedHelper = nil;
   NSString* documentsDirectory = [paths objectAtIndex:0];
   NSString* filePath = [documentsDirectory stringByAppendingPathComponent:@"local_achievements"];  
   achievementDict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];  
+  
+  if (!gameCenterAvailable) return;
   
   [GKAchievement loadAchievementsWithCompletionHandler:^(NSArray* achievements, NSError* error) 
   {
@@ -370,19 +373,23 @@ static GameCenterHub* sharedHelper = nil;
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu sceneWithMatch:match]]];
 }
 
+// Show current match board
 -(void) layoutMatch:(GKTurnBasedMatch*)match
 {
+  // TO STOP MOVEMENTS, Board.isTouchEnabled
   // TODO:  Implement method, show current match board
 }
 
+// 
 -(void) takeTurn:(GKTurnBasedMatch*)match 
 {
   // TODO:  Implement method
 }
 
+// Sends data to the other player and ends your turn
 -(IBAction)sendTurn:(id)sender data:(NSData*)data
 {
-  GKTurnBasedMatch *match =  self.currentMatch;
+  GKTurnBasedMatch* match =  self.currentMatch;
   NSUInteger currentIndex = [currentMatch.participants indexOfObject:match.currentParticipant];
   GKTurnBasedParticipant* nextParticipant = [match.participants objectAtIndex:((currentIndex + 1) % [currentMatch.participants count ])];
   [currentMatch endTurnWithNextParticipant:nextParticipant 
@@ -397,12 +404,14 @@ static GameCenterHub* sharedHelper = nil;
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
+// End of game has been received from the other player
 -(void) recieveEndGame:(GKTurnBasedMatch*)match
 {
   [self layoutMatch:match];
   // TODO:  Implement method
 }
 
+// Gives player a notice when turns have changed and it is there turn
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match
 {
   UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"Your turn in another game" message:notice delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
