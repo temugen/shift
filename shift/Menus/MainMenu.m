@@ -17,6 +17,7 @@
 #import "GoalSprite.h"
 #import "BlockSprite.h"
 #import "ColorPalette.h"
+#import "RoundedRectangle.h"
 
 #define TEXT_BLOCK_SIZE 35
 #define TITLE_BORDER_SIZE 50
@@ -35,40 +36,37 @@
         CCMenuItemImage *quickplay = [CCMenuItemImage itemFromNormalImage:@"quickplay.png"
                                                            selectedImage:@"quickplay.png" target:self selector: @selector(onQuickplay:)];
         quickplay.color = [[ColorPalette sharedPalette] colorWithName:@"green" fromPalette:@"_app"];
-        
         CCMenuItemImage *single = [CCMenuItemImage itemFromNormalImage:@"singleplayer.png"
                                                         selectedImage:@"singleplayer.png" target:self selector: @selector(onSinglePlayer:)];
         single.color = [[ColorPalette sharedPalette] colorWithName:@"orange" fromPalette:@"_app"];
-        
         CCMenuItemImage *multi = [CCMenuItemImage itemFromNormalImage:@"multiplayer.png"
                                                        selectedImage:@"multiplayer.png" target:self selector: @selector(onMultiplayer:)];
         multi.color = [[ColorPalette sharedPalette] colorWithName:@"purple" fromPalette:@"_app"];
-        
         CCMenuItemImage *achievements = [CCMenuItemImage itemFromNormalImage:@"achievements.png"
                                                               selectedImage:@"achievements.png" target:self selector: @selector(onAchievements:)];
         achievements.color = [[ColorPalette sharedPalette] colorWithName:@"gold"fromPalette:@"_app"];
-         
         CCMenuItemImage *options = [CCMenuItemImage itemFromNormalImage:@"options.png"
                                                          selectedImage:@"options.png" target:self selector: @selector(onOptions:)];
         options.color = [[ColorPalette sharedPalette] colorWithName:@"silver" fromPalette:@"_app"];
         
-        //Add items to menu
         menu = [CCMenu menuWithItems: quickplay, single, multi, achievements, options, nil];
-        
-        //Shift menu down slightly to accomodate title
-        //menu.position = ccp(menu.position.x,menu.position.y-40);
-        
         [menu alignItemsHorizontallyWithPadding:platformPadding];
-        
-        //Add menu to main menu layer
-        [self addChild: menu];
-        menu.position = ccp(menu.position.x, achievements.contentSize.height / 2 + platformPadding);
         
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         TitleLayer *title = [[TitleLayer alloc] init];
         title.position = ccp(menu.position.x, screenSize.height - title.contentSize.height / 2 - platformPadding);
         [self addChild:title];
         
+        float barWidth = (options.position.x + options.contentSize.width / 2) - (quickplay.position.x - quickplay.contentSize.width / 2);
+        float barHeight = options.contentSize.height;
+        barWidth += platformPadding * 2;
+        RoundedRectangle *bar = [[RoundedRectangle alloc] initWithWidth:barWidth height:barHeight];
+        bar.position = ccp(menu.position.x, bar.contentSize.height / 2 + platformPadding);
+        bar.skewX = 20;
+        [self addChild:bar z:-1];
+        
+        menu.position = ccp(menu.position.x, bar.position.y + bar.contentSize.height / 2);
+        [self addChild: menu];
     }
     return self;
 }

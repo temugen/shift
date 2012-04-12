@@ -38,8 +38,9 @@
     gradientBox = CGRectMake(center.x-width/2, center.y-height/2, width, height);
     [self createGradient];
     
+    static int counter = 0;
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    self = [CCSprite spriteWithCGImage:image.CGImage key:@"image"];
+    self = [CCSprite spriteWithCGImage:image.CGImage key:[NSString stringWithFormat:@"image%d", counter++]];
     return self;
 }
 
@@ -55,8 +56,8 @@
 	CGGradientRef gradient = CGGradientCreateWithColorComponents (space, components, locations, num_locations);
     
     CGPoint startPoint, endPoint;
-    startPoint = CGPointMake(CGRectGetMinX(gradientBox), CGRectGetMidY(gradientBox)); 
-    endPoint = CGPointMake(CGRectGetMaxX(gradientBox), CGRectGetMidY(gradientBox));
+    startPoint = CGPointMake(CGRectGetMidX(gradientBox), CGRectGetMaxY(gradientBox)); 
+    endPoint = CGPointMake(CGRectGetMidX(gradientBox), CGRectGetMinY(gradientBox));
     
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
 }
