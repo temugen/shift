@@ -158,6 +158,7 @@
 		A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61B014F5D1370024A2EC /* StationaryBlock.m */; };
 		FA07E6281520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = FA07E6271520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m */; };
 		FA4D148A14FD1CE40032FB74 /* LeaderboardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */; };
+		FA780B101536554500704708 /* SoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA780B0F1536554500704708 /* SoundPlayer.m */; };
 		FA7D41031522325B009234BF /* GKAchievementHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7D40F91522325B009234BF /* GKAchievementHandler.m */; };
 		FA7D41041522325B009234BF /* GKAchievementNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7D40FB1522325B009234BF /* GKAchievementNotification.m */; };
 		FA7D41051522325B009234BF /* gk-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA7D40FD1522325B009234BF /* gk-icon.png */; };
@@ -850,6 +851,8 @@
 		FA07E6271520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GKTurnBasedMatchmakerViewController-LandscapeOnly.m"; path = "shift/Game Center/GKTurnBasedMatchmakerViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
 		FA4D148814FD1CE40032FB74 /* LeaderboardMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaderboardMenu.h; path = Menus/LeaderboardMenu.h; sourceTree = "<group>"; };
 		FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaderboardMenu.m; path = Menus/LeaderboardMenu.m; sourceTree = "<group>"; };
+		FA780B0E1536554500704708 /* SoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundPlayer.h; sourceTree = "<group>"; };
+		FA780B0F1536554500704708 /* SoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundPlayer.m; sourceTree = "<group>"; };
 		FA7D40F81522325B009234BF /* GKAchievementHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKAchievementHandler.h; sourceTree = "<group>"; };
 		FA7D40F91522325B009234BF /* GKAchievementHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKAchievementHandler.m; sourceTree = "<group>"; };
 		FA7D40FA1522325B009234BF /* GKAchievementNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKAchievementNotification.h; sourceTree = "<group>"; };
@@ -1237,35 +1240,37 @@
 		827036F914DB0448008D7240 /* shift */ = {
 			isa = PBXGroup;
 			children = (
+				8201099C151EC11700DA8ECB /* BackgroundLayer.h */,
+				8201099D151EC11700DA8ECB /* BackgroundLayer.m */,
 				8235A42014FCA94C0058C21F /* BlockTrain.h */,
 				8235A42114FCA94C0058C21F /* BlockTrain.m */,
 				8270386114DB052F008D7240 /* BoardLayer.h */,
 				8270386014DB052F008D7240 /* BoardLayer.m */,
-				8201099C151EC11700DA8ECB /* BackgroundLayer.h */,
-				8201099D151EC11700DA8ECB /* BackgroundLayer.m */,
-				8235A41D14FCA9350058C21F /* ControlLayer.h */,
-				8235A41E14FCA9350058C21F /* ControlLayer.m */,
 				82389466152802C7006B30DD /* ColorPalette.h */,
 				82389467152802C7006B30DD /* ColorPalette.m */,
-				827A11B5153350BA001BF50B /* Tutorial.h */,
-				827A11B6153350BA001BF50B /* Tutorial.m */,
-				827A11B7153350BA001BF50B /* TutorialLayer.h */,
-				827A11B8153350BA001BF50B /* TutorialLayer.m */,
+				8235A41D14FCA9350058C21F /* ControlLayer.h */,
+				8235A41E14FCA9350058C21F /* ControlLayer.m */,
+				8270385414DB044A008D7240 /* GameConfig.h */,
 				8235A42D150556E70058C21F /* GameScene.h */,
 				8235A42E150556E80058C21F /* GameScene.m */,
-				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
-				82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */,
-				82470D3514F1C28000F60A7C /* SinglePlayerGame.h */,
-				82470D3614F1C28000F60A7C /* SinglePlayerGame.m */,
 				FA851227152A2FCD0046A9DF /* MultiplayerGame.h */,
 				FA851228152A2FCE0046A9DF /* MultiplayerGame.m */,
+				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
+				82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */,
 				8270384E14DB044A008D7240 /* RootViewController.h */,
 				8270384F14DB044A008D7240 /* RootViewController.m */,
 				8270386514DB057A008D7240 /* shiftAppDelegate.h */,
 				8270386614DB057A008D7240 /* shiftAppDelegate.m */,
-				8270385414DB044A008D7240 /* GameConfig.h */,
-				82470D2614F1BF6700F60A7C /* Cells */,
+				82470D3514F1C28000F60A7C /* SinglePlayerGame.h */,
+				82470D3614F1C28000F60A7C /* SinglePlayerGame.m */,
+				FA780B0E1536554500704708 /* SoundPlayer.h */,
+				FA780B0F1536554500704708 /* SoundPlayer.m */,
+				827A11B5153350BA001BF50B /* Tutorial.h */,
+				827A11B6153350BA001BF50B /* Tutorial.m */,
+				827A11B7153350BA001BF50B /* TutorialLayer.h */,
+				827A11B8153350BA001BF50B /* TutorialLayer.m */,
 				FAD50AD914F98B8F0008CF7C /* Game Center */,
+				82470D2614F1BF6700F60A7C /* Cells */,
 				988E795914EDD1D500DFB957 /* Menus */,
 				827036FA14DB0448008D7240 /* Resources */,
 				8270384714DB044A008D7240 /* Supporting Files */,
@@ -2151,6 +2156,7 @@
 				987EEF2A153386660010CE38 /* RoundedRectangle.m in Sources */,
 				985386E815364FE800E85869 /* SinglePlayerGameMenu.m in Sources */,
 				985386EB1536503400E85869 /* QuickplayGameMenu.m in Sources */,
+				FA780B101536554500704708 /* SoundPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

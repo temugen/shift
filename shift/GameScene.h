@@ -27,6 +27,7 @@
 }
 
 @property(readonly) NSTimeInterval elapsedTime;
+@property BoardLayer* board;
 
 -(void) onPause;
 -(void) onNextGame;
