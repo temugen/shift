@@ -16,7 +16,7 @@
 -(id) init
 {
     if ((self = [super init])) {
-        NSString *shift = @"shift!";
+        NSString *shift = @"SHIFT!";
         NSString *colors[] = {@"blue", @"purple", @"red", @"orange", @"yellow", @"green"};
         BlockSprite *blocks[[shift length]];
         CCLabelTTF *labels[[shift length]];
