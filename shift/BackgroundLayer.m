@@ -8,9 +8,9 @@
 
 #import "BackgroundLayer.h"
 #import "BlockSprite.h"
+#import "GoalSprite.h"
 #import "ColorPalette.h"
 
-#define SIZE 35
 #define MAX_BLOCKS 10
 #define TRAVEL_TIME 3.0 
 
@@ -36,15 +36,15 @@
             BlockSprite* block = [BlockSprite blockWithName:@"red"];
             
             //Scale the block
-            [block setScaleX:SIZE/block.contentSize.width];
-            [block setScaleY:SIZE/block.contentSize.height];
+            GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
+            CGPoint scalingFactors = [sampleGoal resize:platformCellSize];
+            blockSize = [block scaleWithFactors:scalingFactors];
             
             block.visible = NO;
             
             [self addChild:block z:-1];
             [blocks addObject:block];
             
-            //[self createBackgroundBlock:block];
         }
     }
     
@@ -112,7 +112,7 @@
     NSEnumerator *enumerator = [blocks objectEnumerator];
     for (BlockSprite *curr in enumerator) 
     {
-        if(curr!=block && fabs(block.position.x-curr.position.x)<=SIZE && fabs(block.position.x-curr.position.x)<=SIZE)
+        if(curr!=block && fabs(block.position.x-curr.position.x)<=blockSize.width)
             return YES;
     }
     return NO;
@@ -123,26 +123,26 @@
 {
     CGPoint destination;
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
-    int randomX = arc4random()%(int)(screenSize.width/SIZE);
-    int randomY = arc4random()%(int)(screenSize.height/SIZE);
+    int randomX = arc4random()%(int)(screenSize.width/blockSize.width);
+    int randomY = arc4random()%(int)(screenSize.height/blockSize.width);
     int side = arc4random()%4;
     
     switch (side) {
         case 0:
-            block.position = ccp(SIZE*-1,randomY*SIZE);
-            destination = ccp(screenSize.width+SIZE,randomY*SIZE);
+            block.position = ccp(blockSize.width*-1,randomY*blockSize.width);
+            destination = ccp(screenSize.width+blockSize.width,randomY*blockSize.width);
             break;
         case 1:
-            block.position = ccp(screenSize.width+SIZE,randomY*SIZE);
-            destination = ccp(SIZE*-1,randomY*SIZE);
+            block.position = ccp(screenSize.width+blockSize.width,randomY*blockSize.width);
+            destination = ccp(blockSize.width*-1,randomY*blockSize.width);
             break;
         case 2:
-            block.position = ccp(randomX*SIZE,SIZE*-1);
-            destination = ccp(randomX*SIZE,screenSize.height+SIZE);
+            block.position = ccp(randomX*blockSize.width,blockSize.width*-1);
+            destination = ccp(randomX*blockSize.width,screenSize.height+blockSize.width);
             break;
         case 3:
-            block.position = ccp(randomX*SIZE,screenSize.height+SIZE);
-            destination = ccp(randomX*SIZE,SIZE*-1);
+            block.position = ccp(randomX*blockSize.width,screenSize.height+blockSize.width);
+            destination = ccp(randomX*blockSize.width,blockSize.width*-1);
             break;
             
         default:

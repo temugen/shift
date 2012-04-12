@@ -10,6 +10,7 @@
 {
     CGPoint corners[4];
     NSMutableArray *blocks;
+    CGSize blockSize;
 }
 
 @end
