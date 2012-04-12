@@ -10,5 +10,6 @@
 
 @interface InGameMenu : Menu
 {
+    CCMenu* menu;
 }
 @end

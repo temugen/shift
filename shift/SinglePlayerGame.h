@@ -19,5 +19,5 @@
 -(id) initWithLevel:(int)level;
 
 +(CCSprite *)previewForLevel:(int)level;
-
+-(void) onPauseButtonPressed:(NSNotification *)notification;
 @end

@@ -10,6 +10,7 @@
 #import "MainMenu.h"
 #import "GameCenterHub.h"
 #import "TutorialLayer.h"
+#import "SinglePlayerGameMenu.h"
 
 @implementation SinglePlayerGame
 
@@ -96,6 +97,12 @@ static SinglePlayerGame *lastGame = nil;
         board.position = boardCenter;
         [self addChild:board];
     }
+}
+
+-(void) onPauseButtonPressed:(NSNotification *)notification
+{
+    InGameMenu *menu = [[SinglePlayerGameMenu alloc] init];
+    [super onPauseButtonPressed:notification menu:menu];
 }
                              
 @end

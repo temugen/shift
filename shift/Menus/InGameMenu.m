@@ -18,18 +18,21 @@
         [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];        
         
         //Set up menu items
-        CCMenuItemFont *levelSelect = [CCMenuItemFont itemFromString:@"Level Select" target:self selector: @selector(onLevelSelect:)];
-        CCMenuItemFont *mainMenu = [CCMenuItemFont itemFromString:@"Exit to Main Menu" target:self selector: @selector(onMainMenu:)];
-        CCMenuItemFont *reset = [CCMenuItemFont itemFromString:@"Reset Board" target:self selector: @selector(onReset:)];
         CCMenuItemFont *play = [CCMenuItemFont itemFromString:@"Return to Play" target:self selector: @selector(onPlay:)];
+        CCMenuItemFont *reset = [CCMenuItemFont itemFromString:@"Reset Board" target:self selector: @selector(onReset:)];
+        CCMenuItemFont *mainMenu = [CCMenuItemFont itemFromString:@"Exit to Main Menu" target:self selector: @selector(onMainMenu:)];
         
         //Add items to menu
-        CCMenu *menu = [CCMenu menuWithItems:levelSelect,mainMenu, reset, play, nil];
+        menu = [CCMenu menuWithItems:play,reset,mainMenu, nil];
         
         [menu alignItemsVertically];
         
         //Add menu to main menu layer
         [self addChild: menu];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onPlay:)
+                                                     name:@"onPlay"
+                                                   object:nil];
     }
     
     return self;
@@ -63,12 +66,41 @@
     [self goBack:self];
 }
 
--(void) onLevelSelect:(id)sender
+-(void) dealloc
 {
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void) draw
+{
+    CGPoint corners[4];
+    CGSize screenSize = [[CCDirector sharedDirector] displaySizeInPixels];
+    corners[0] = ccp(0, 0);
+    corners[1] = ccp(0, screenSize.height);
+    corners[2] = ccp(screenSize.width, screenSize.height);
+    corners[3] = ccp(screenSize.width, 0);
     
-    [[CCDirector sharedDirector] runWithScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerMenu scene]]];
+    glColor4ub(0, 0, 0, 255);
+	glDisable(GL_TEXTURE_2D);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 0, corners);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnable(GL_TEXTURE_2D);
+}
+
+- (void)onEnter
+{
+	[super onEnter];
+	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:YES];
+}
+
+- (void)onExit
+{
+	[[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
+	[super onExit];
 }
 
 @end

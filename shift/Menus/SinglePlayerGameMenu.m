@@ -7,7 +7,30 @@
 //
 
 #import "SinglePlayerGameMenu.h"
+#import "SinglePlayerMenu.h"
 
 @implementation SinglePlayerGameMenu
+
+-(id) init
+{
+    if ((self = [super init])) {        
+        
+        CCMenuItemFont *levelSelect = [CCMenuItemFont itemFromString:@"Level Select" target:self selector: @selector(onLevelSelect:)];
+        
+        [menu addChild:levelSelect];
+        
+        [menu alignItemsVertically];
+    }
+    
+    return self;
+}
+
+-(void) onLevelSelect:(id)sender
+{
+    //Play menu selection sound
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
+    [[CCDirector sharedDirector] runWithScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerMenu scene]]];
+}
 
 @end

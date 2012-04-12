@@ -12,6 +12,8 @@
 #import "BoardLayer.h"
 #import "ControlLayer.h"
 #import "BackgroundLayer.h"
+#import "InGameMenu.h"
+
 
 @interface GameScene : CCScene
 {
@@ -30,5 +32,6 @@
 -(void) onNextGame;
 -(void) onGameStart;
 -(void) onGameEnd;
+-(void) onPauseButtonPressed:(NSNotification *)notification menu:(InGameMenu*)menu;
 
 @end

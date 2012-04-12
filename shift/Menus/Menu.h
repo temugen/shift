@@ -10,7 +10,6 @@
 #define BGM_MENU "shift_bg_menu.mp3"
 #define SFX_MENU "shift_menu.mp3"
 
-#import "cocos2d.h"
 #import "SimpleAudioEngine.h"
 
 @interface Menu : CCLayer

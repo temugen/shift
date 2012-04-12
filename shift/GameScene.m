@@ -7,7 +7,7 @@
 //
 
 #import "GameScene.h"
-#import "InGameMenu.h"
+#import "QuickplayGameMenu.h"
 
 @implementation GameScene
 
@@ -94,9 +94,8 @@
     [board reset];
 }
 
--(void) onPauseButtonPressed:(NSNotification *)notification
+-(void) onPauseButtonPressed:(NSNotification *)notification menu:(InGameMenu*)menu
 {
-    InGameMenu *menu = [[InGameMenu alloc] init];
     CCLabelTTF *moveCount = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Count : %d", board.moveCount]
                                                fontName:@"Helvetica" fontSize:24];
     CGSize screenSize = [[CCDirector sharedDirector] winSize];

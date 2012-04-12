@@ -8,6 +8,7 @@
 
 #import "QuickPlayGame.h"
 #import "GameCenterHub.h"
+#import "QuickplayGameMenu.h"
 
 @interface QuickPlayGame()
 
@@ -43,6 +44,11 @@ static QuickPlayGame *lastGame = nil;
         [self animatePopulation];
         
         lastGame = self;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onNewPuzzleButtonPressed:)
+                                                     name:@"NewPuzzle"
+                                                   object:nil];
     }
     
     return self;
@@ -140,6 +146,17 @@ static QuickPlayGame *lastGame = nil;
             }
         }
     } 
+}
+
+-(void) onPauseButtonPressed:(NSNotification *)notification
+{
+    InGameMenu *menu = [[QuickplayGameMenu alloc] init];
+    [super onPauseButtonPressed:notification menu:menu];
+}
+
+-(void) onNewPuzzleButtonPressed:(NSNotification *)notification
+{
+    [self onNextGame];
 }
 
 @end
