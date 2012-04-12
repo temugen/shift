@@ -72,6 +72,7 @@
 		8270386714DB057A008D7240 /* shiftAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8270386614DB057A008D7240 /* shiftAppDelegate.m */; };
 		827A11B9153350BB001BF50B /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 827A11B6153350BA001BF50B /* Tutorial.m */; };
 		827A11BA153350BB001BF50B /* TutorialLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 827A11B8153350BA001BF50B /* TutorialLayer.m */; };
+		827A12C9153688BF001BF50B /* CCLabelTTFStroked.m in Sources */ = {isa = PBXBuildFile; fileRef = 827A12C8153688BF001BF50B /* CCLabelTTFStroked.m */; };
 		8294476F151311B0003F727A /* block_connector.png in Resources */ = {isa = PBXBuildFile; fileRef = 8294476E151311B0003F727A /* block_connector.png */; };
 		82944771151312A5003F727A /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = 82944770151312A5003F727A /* block.png */; };
 		82944773151312AF003F727A /* goal.png in Resources */ = {isa = PBXBuildFile; fileRef = 82944772151312AF003F727A /* goal.png */; };
@@ -749,6 +750,8 @@
 		827A11B6153350BA001BF50B /* Tutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tutorial.m; sourceTree = "<group>"; };
 		827A11B7153350BA001BF50B /* TutorialLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialLayer.h; sourceTree = "<group>"; };
 		827A11B8153350BA001BF50B /* TutorialLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialLayer.m; sourceTree = "<group>"; };
+		827A12C7153688BF001BF50B /* CCLabelTTFStroked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLabelTTFStroked.h; sourceTree = "<group>"; };
+		827A12C8153688BF001BF50B /* CCLabelTTFStroked.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLabelTTFStroked.m; sourceTree = "<group>"; };
 		8294476E151311B0003F727A /* block_connector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_connector.png; path = Resources/Effects/block_connector.png; sourceTree = "<group>"; };
 		82944770151312A5003F727A /* block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block.png; path = Resources/Cells/Blocks/block.png; sourceTree = "<group>"; };
 		82944772151312AF003F727A /* goal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goal.png; path = Resources/Cells/Goals/goal.png; sourceTree = "<group>"; };
@@ -1269,6 +1272,8 @@
 				827A11B6153350BA001BF50B /* Tutorial.m */,
 				827A11B7153350BA001BF50B /* TutorialLayer.h */,
 				827A11B8153350BA001BF50B /* TutorialLayer.m */,
+				827A12C7153688BF001BF50B /* CCLabelTTFStroked.h */,
+				827A12C8153688BF001BF50B /* CCLabelTTFStroked.m */,
 				FAD50AD914F98B8F0008CF7C /* Game Center */,
 				82470D2614F1BF6700F60A7C /* Cells */,
 				988E795914EDD1D500DFB957 /* Menus */,
@@ -2157,6 +2162,7 @@
 				985386E815364FE800E85869 /* SinglePlayerGameMenu.m in Sources */,
 				985386EB1536503400E85869 /* QuickplayGameMenu.m in Sources */,
 				FA780B101536554500704708 /* SoundPlayer.m in Sources */,
+				827A12C9153688BF001BF50B /* CCLabelTTFStroked.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
