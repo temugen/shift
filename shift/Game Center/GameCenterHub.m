@@ -214,6 +214,7 @@ static GameCenterHub* sharedHelper = nil;
        for (GKAchievement* achievement in achievements)
        {
          GKAchievement* local = [self addOrFindIdentifier:achievement.identifier];
+         
          if (achievement.percentComplete > local.percentComplete)
          {
            local.percentComplete = achievement.percentComplete;
