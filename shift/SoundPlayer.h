@@ -10,4 +10,8 @@
 
 @interface SoundPlayer : NSObject
 
+
++(SoundPlayer*) sharedInstance;
+-(id) init;
+
 @end
