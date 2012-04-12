@@ -37,14 +37,16 @@
             
             //Scale the block
             GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
-            CGPoint scalingFactors = [sampleGoal resize:platformCellSize];
+            CGPoint scalingFactors = [sampleGoal resize:CGSizeMake(platformCellSize.width * 2, platformCellSize.height * 2)];
             blockSize = [block scaleWithFactors:scalingFactors];
             
             block.visible = NO;
+            block.opacity = 50;
             
-            [self addChild:block z:-1];
+            [self addChild:[CCLayerGradient layerWithColor:ccc4(255, 255, 255, 180) fadingTo:ccc4(0, 0, 0, 180)] z:-1];
+            [self addChild:block];
+            
             [blocks addObject:block];
-            
         }
     }
     
@@ -56,7 +58,7 @@
 -(void) createBackgroundBlock:(BlockSprite*) block
 {
     //Choose color
-    [block setColor:[[ColorPalette sharedPalette] randomColor]];
+    block.color = [[ColorPalette sharedPalette] randomColor];
     
     //Get start and destination positions
     CGPoint destination = [self randomizePosition:block];
@@ -80,24 +82,10 @@
 
 -(void) onEnter
 {
-    for(BlockSprite *sprite in [self children]) {
-        [self createBackgroundBlock:sprite];
+    for(BlockSprite *block in blocks) {
+        [self createBackgroundBlock:block];
     }
     [super onEnter];
-}
-
--(void) draw
-{
-    //Draw dimmed background screen
-    glColor4ub(0, 0, 0, 200);
-	glDisable(GL_TEXTURE_2D);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-    glVertexPointer(2, GL_FLOAT, 0, corners);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
 }
 
 //Callback function called when block is done. Make the block invisible, and then reset it and send it again.
