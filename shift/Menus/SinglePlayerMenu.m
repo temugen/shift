@@ -37,13 +37,35 @@ NSInteger highestLevel;
         int spriteWidth = screenSize.width/8;
         
         CCLayer *page = [[CCLayer alloc] init];
-        CCSprite * prev = nil;
+        BOOL prev;
+        CGPoint position,prevPos;
         
         RoundedRectangle* backgroundSprite = [[RoundedRectangle alloc] initWithWidth:spriteWidth+20 height:spriteWidth*2];
 
         for (int i=1;i<=NUM_LEVELS;i++)
         {
-            //Only display textures for unlocked levels
+            //Determine position of sprite. If there is already a level on the page, position this one next to it.
+            if(prev)
+            {
+                position = ccp(prevPos.x+spriteWidth+PADDING,screenSize.height/2);
+            }
+            else 
+            {
+                float offsetFactor = SPRITES_PER_PAGE/2.0 - 0.5;
+                float paddingOffset = PADDING*(SPRITES_PER_PAGE-1)/2;
+                position = ccp(screenSize.width/2-(offsetFactor*spriteWidth)-paddingOffset,screenSize.height/2);
+                prev = YES;
+            }
+            
+            //Add rounded rectangle
+            CCSprite* rectSprite = [CCSprite spriteWithTexture:[backgroundSprite texture]];
+            rectSprite.position = position;
+            [rectSprite setTag:i];
+            [page addChild:rectSprite z:-1];
+            
+            prevPos = position;
+
+            //Only display level previews for unlocked levels
             if(i<=highestLevel)
             {
                 //Create level texture
@@ -51,40 +73,26 @@ NSInteger highestLevel;
                 [levelSprite setTag:i];
                 levelSprite.scaleX = spriteWidth/levelSprite.contentSize.width;
                 levelSprite.scaleY = -levelSprite.scaleX;
+                levelSprite.position = position;
                 
-                //If there is already a level on the page, position this one next to it.
-                if(prev)
-                {
-                    levelSprite.position = ccp(prev.position.x+spriteWidth+PADDING,screenSize.height/2);
-                }
-                else 
-                {
-                    float offsetFactor = SPRITES_PER_PAGE/2.0 - 0.5;
-                    float paddingOffset = PADDING*(SPRITES_PER_PAGE-1)/2;
-                    levelSprite.position = ccp(screenSize.width/2-(offsetFactor*spriteWidth)-paddingOffset,screenSize.height/2);
-                }
                 [page addChild:levelSprite];
-                
-                //Add rounded rectangle behind texture
-                CCSprite* rectSprite = [CCSprite spriteWithTexture:[backgroundSprite texture]];
-                rectSprite.position = levelSprite.position;
-                [rectSprite setTag:i];
-                [page addChild:rectSprite z:-1];
-                
-                prev = levelSprite;
-                
-                //If we filled up the page, create a new page
-                if(i%SPRITES_PER_PAGE == 0)
-                {
-                    [pages addObject:page];
-                    page = [[CCLayer alloc] init];
-                    
-                    prev = nil;
-                }
             }
             else 
             {
-                //TODO: display something for unbeaten levels
+                CCSprite *lockSprite = [CCSprite spriteWithFile:@"blue_lock.png"];
+                lockSprite.scaleX = spriteWidth/lockSprite.contentSize.width;
+                lockSprite.position = position;
+                
+                [page addChild:lockSprite];            
+            }
+            
+            //If we filled up the page, create a new page
+            if(i%SPRITES_PER_PAGE == 0)
+            {
+                [pages addObject:page];
+                page = [[CCLayer alloc] init];
+                
+                prev = NO;
             }
         }
         
