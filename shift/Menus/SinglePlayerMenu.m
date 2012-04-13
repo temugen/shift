@@ -14,6 +14,7 @@
 
 #define SPRITES_PER_PAGE 4
 #define PADDING 40
+#define LOCKED -1
 
 NSInteger highestLevel;
 
@@ -41,7 +42,7 @@ NSInteger highestLevel;
         CGPoint position,prevPos;
         
         RoundedRectangle* backgroundSprite = [[RoundedRectangle alloc] initWithWidth:spriteWidth+20 height:spriteWidth*2];
-
+        
         for (int i=1;i<=NUM_LEVELS;i++)
         {
             //Determine position of sprite. If there is already a level on the page, position this one next to it.
@@ -64,7 +65,7 @@ NSInteger highestLevel;
             [page addChild:rectSprite z:-1];
             
             prevPos = position;
-
+            
             //Only display level previews for unlocked levels
             if(i<=highestLevel)
             {
@@ -80,6 +81,7 @@ NSInteger highestLevel;
             else 
             {
                 CCSprite *lockSprite = [CCSprite spriteWithFile:@"blue_lock.png"];
+                [lockSprite setTag:LOCKED];
                 lockSprite.scaleX = spriteWidth/lockSprite.contentSize.width;
                 lockSprite.position = position;
                 
@@ -117,7 +119,7 @@ NSInteger highestLevel;
 
 +(void) levelSelect: (int) levelNum
 {    
-    if(levelNum<=highestLevel)
+    if(levelNum != LOCKED && levelNum<=highestLevel)
     {
         SinglePlayerGame *game = [SinglePlayerGame gameWithLevel:levelNum];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:kSceneTransitionTime scene:game]];
