@@ -27,6 +27,10 @@
         corners[2] = ccp(screenSize.width, screenSize.height);
         corners[3] = ccp(screenSize.width, 0);
         
+        CCLayerGradient *gradient = [CCLayerGradient layerWithColor:ccc4(255, 255, 255, 180) fadingTo:ccc4(0, 0, 0, 180)];
+        gradient.compressedInterpolation = NO;
+        [self addChild:gradient z:-1];
+        
         //Store blocks to check for collisions
         blocks = [NSMutableArray arrayWithCapacity:MAX_BLOCKS];
 
@@ -43,7 +47,6 @@
             block.visible = NO;
             block.opacity = 50;
             
-            [self addChild:[CCLayerGradient layerWithColor:ccc4(255, 255, 255, 180) fadingTo:ccc4(0, 0, 0, 180)] z:-1];
             [self addChild:block];
             
             [blocks addObject:block];
