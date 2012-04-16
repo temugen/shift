@@ -101,7 +101,9 @@ NSInteger highestLevel;
         CCScrollLayer *scroller = [[CCScrollLayer alloc] initWithLayers:pages widthOffset: 0];
         
         //Set display page to page containing highest level completed by user
-        int pageSelection = highestLevel/SPRITES_PER_PAGE;
+        //Make highestLevel 0-based for this calculation.
+        int pageSelection = (highestLevel-1)/SPRITES_PER_PAGE;
+        
         [scroller selectPage:pageSelection];
         
         [self addChild:scroller];

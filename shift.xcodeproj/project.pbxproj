@@ -148,6 +148,7 @@
 		987EED9415326A280010CE38 /* 10.plist in Resources */ = {isa = PBXBuildFile; fileRef = 987EED9015326A280010CE38 /* 10.plist */; };
 		987EED9515326A280010CE38 /* 8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 987EED9115326A280010CE38 /* 8.plist */; };
 		987EEF2A153386660010CE38 /* RoundedRectangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 987EEF29153386660010CE38 /* RoundedRectangle.m */; };
+		988F4C22153C95BF00F98DE5 /* 11.plist in Resources */ = {isa = PBXBuildFile; fileRef = 988F4C21153C95BF00F98DE5 /* 11.plist */; };
 		98C218F114F96BAA002177F9 /* completeBoard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98C218F014F96BAA002177F9 /* completeBoard.plist */; };
 		98C218F214F96BAA002177F9 /* completeBoard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98C218F014F96BAA002177F9 /* completeBoard.plist */; };
 		98E6E6A21520B7720001D956 /* 3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98E6E6A11520B7720001D956 /* 3.plist */; };
@@ -839,6 +840,7 @@
 		987EED9115326A280010CE38 /* 8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 8.plist; path = Resources/Levels/8.plist; sourceTree = "<group>"; };
 		987EEF28153386660010CE38 /* RoundedRectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundedRectangle.h; path = Menus/RoundedRectangle.h; sourceTree = "<group>"; };
 		987EEF29153386660010CE38 /* RoundedRectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundedRectangle.m; path = Menus/RoundedRectangle.m; sourceTree = "<group>"; };
+		988F4C21153C95BF00F98DE5 /* 11.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 11.plist; path = Resources/Levels/11.plist; sourceTree = "<group>"; };
 		98C218F014F96BAA002177F9 /* completeBoard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = completeBoard.plist; path = Resources/Levels/completeBoard.plist; sourceTree = "<group>"; };
 		98E6E6A11520B7720001D956 /* 3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = 3.plist; path = Resources/Levels/3.plist; sourceTree = "<group>"; };
 		98E6E6A31520B9E20001D956 /* 4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 4.plist; path = Resources/Levels/4.plist; sourceTree = "<group>"; };
@@ -1110,6 +1112,7 @@
 		82470D0514F1BCC500F60A7C /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				988F4C21153C95BF00F98DE5 /* 11.plist */,
 				987EED8E15326A280010CE38 /* 9.plist */,
 				987EED9015326A280010CE38 /* 10.plist */,
 				987EED9115326A280010CE38 /* 8.plist */,
@@ -2081,6 +2084,7 @@
 				987EED9215326A280010CE38 /* 9.plist in Resources */,
 				987EED9415326A280010CE38 /* 10.plist in Resources */,
 				987EED9515326A280010CE38 /* 8.plist in Resources */,
+				988F4C22153C95BF00F98DE5 /* 11.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
