@@ -8,7 +8,6 @@
 
 #import "DestructiveBlock.h"
 #import "BoardLayer.h"
-
 @implementation DestructiveBlock
 
 -(id) initWithName:(NSString *)blockName
@@ -48,8 +47,8 @@
     else if(self.health <= 0)
     {
         //Play block destroy sound
-        [[SimpleAudioEngine sharedEngine] playEffect:@SFX_DESTRUCT];
-        
+        //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_DESTRUCT];
+        [[SoundPlayer sharedInstance]playSound:@SFX_DESTRUCT];
         [self destroyBlock];
     }
     return NO;

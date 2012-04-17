@@ -7,7 +7,7 @@
 //
 
 #import "QuickplayGameMenu.h"
-
+#import "SoundPlayer.h"
 @implementation QuickplayGameMenu
 
 -(id) init
@@ -27,8 +27,9 @@
 -(void) onNewPuzzle:(id)sender
 {
     //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    
+    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NewPuzzle" object:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"onPlay" object:self];
 }

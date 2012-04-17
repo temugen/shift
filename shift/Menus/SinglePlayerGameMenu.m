@@ -8,7 +8,7 @@
 
 #import "SinglePlayerGameMenu.h"
 #import "SinglePlayerMenu.h"
-
+#import "SoundPlayer.h"
 @implementation SinglePlayerGameMenu
 
 -(id) init
@@ -28,8 +28,9 @@
 -(void) onLevelSelect:(id)sender
 {
     //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    
+    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
+
     [[CCDirector sharedDirector] runWithScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerMenu scene]]];
 }
 

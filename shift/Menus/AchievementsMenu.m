@@ -35,7 +35,9 @@
 - (void) onEarned: (id) sender
 {
     //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
+    
   if (![GameCenterHub sharedInstance].gameCenterAvailable)
   {
     [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to view your achievements"]; 
@@ -47,15 +49,18 @@
 - (void) onAvailable: (id) sender
 {
     //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
+
   if (![GameCenterHub sharedInstance].gameCenterAvailable) return;
 }
 
 - (void) onReset: (id) sender
 {
   //Play menu selection sound
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
+  //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
+
   if (![GameCenterHub sharedInstance].gameCenterAvailable)
   {
     [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to use any of the achievement features"]; 

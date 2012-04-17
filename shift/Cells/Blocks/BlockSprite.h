@@ -17,6 +17,7 @@
 
 #import "CellSprite.h"
 #import "SimpleAudioEngine.h"
+#import "SoundPlayer.h"
 
 @interface BlockSprite : CellSprite
 {

@@ -29,8 +29,9 @@
 {
     if( (self=[super init] )) {
         //Play background music
-        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_MENU];
+        //[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_MENU];
+        [[SoundPlayer sharedInstance] playBackground:@BGM_MENU];
         
         //Set up menu items
         CCMenuItemImage *quickplay = [CCMenuItemImage itemFromNormalImage:@"quickplay.png"
@@ -76,21 +77,27 @@
 - (void) onQuickplay: (id) sender
 {
     //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
+
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu sceneWithMode:QUICKPLAY]]];
 }
 
 - (void) onSinglePlayer: (id) sender
 {
     //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
+
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerMenu scene]]];
 }
 
 - (void) onMultiplayer: (id) sender
 {
     //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
+
     if ([GameCenterHub sharedInstance].gameCenterAvailable) 
     { 
         [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
@@ -104,14 +111,18 @@
 - (void) onOptions: (id) sender
 {
     //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
+
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[OptionsMenu scene]]];
 }
 
 - (void) onAchievements: (id) sender
 {
     //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
+
 
   if ([GameCenterHub sharedInstance].gameCenterAvailable)
   { 

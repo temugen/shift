@@ -160,7 +160,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
 	[[CCDirector sharedDirector] resume];
-    [[SimpleAudioEngine sharedEngine]resumeBackgroundMusic];
+    if ([SoundPlayer sharedInstance]->enable==true)
+        [[SimpleAudioEngine sharedEngine]resumeBackgroundMusic];
 }
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
@@ -177,7 +178,8 @@
 -(void) applicationWillEnterForeground:(UIApplication*)application
 {
 	[[CCDirector sharedDirector] startAnimation];
-    [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
+    if ([SoundPlayer sharedInstance]->enable==true)
+        [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
