@@ -11,7 +11,7 @@
 @implementation RoundedRectangle
 
 
--(id) initWithWidth:(float)width height:(float)height
+-(id) initWithWidth:(float)width height:(float)height pressed:(BOOL)pressed
 {
     CGSize size = CGSizeMake(width, height);
     CGPoint center = CGPointMake(size.width/2, size.height/2); 
@@ -36,7 +36,13 @@
     CGContextClip(context);
     
     gradientBox = CGRectMake(center.x-width/2, center.y-height/2, width, height);
-    [self createGradient];
+    
+    if(pressed){
+        [self createGradientWithInvert:YES];
+    }
+    else {
+        [self createGradientWithInvert:NO];
+    }
     
     static int counter = 0;
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -44,7 +50,7 @@
     return self;
 }
 
--(void) createGradient
+-(void) createGradientWithInvert:(BOOL)pressed
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
@@ -56,8 +62,16 @@
 	CGGradientRef gradient = CGGradientCreateWithColorComponents (space, components, locations, num_locations);
     
     CGPoint startPoint, endPoint;
-    startPoint = CGPointMake(CGRectGetMidX(gradientBox), CGRectGetMaxY(gradientBox)); 
-    endPoint = CGPointMake(CGRectGetMidX(gradientBox), CGRectGetMinY(gradientBox));
+    if(pressed)
+    {
+        startPoint = CGPointMake(CGRectGetMidX(gradientBox), CGRectGetMinY(gradientBox)); 
+        endPoint = CGPointMake(CGRectGetMidX(gradientBox), CGRectGetMaxY(gradientBox));
+    }
+    else
+    {
+        startPoint = CGPointMake(CGRectGetMidX(gradientBox), CGRectGetMaxY(gradientBox)); 
+        endPoint = CGPointMake(CGRectGetMidX(gradientBox), CGRectGetMinY(gradientBox));
+    }
     
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
 }

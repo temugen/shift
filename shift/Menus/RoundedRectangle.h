@@ -11,7 +11,7 @@
     CGRect gradientBox;
 }
 
--(id) initWithWidth:(float)width height:(float)height;
--(void) createGradient;
+-(id) initWithWidth:(float)width height:(float)height pressed:(BOOL)pressed;
+-(void) createGradientWithInvert:(BOOL)pressed;
 
 @end

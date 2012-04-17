@@ -32,7 +32,6 @@
 
 #import "CCScrollLayer.h"
 #import "CCGL.h"
-#import "SinglePlayerMenu.h"
 
 enum 
 {
@@ -380,7 +379,24 @@ enum
 	
 	CGPoint touchPoint = [touch locationInView:[touch view]];
 	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
-	
+
+    CCLayer* currPage = [layers_ objectAtIndex:currentScreen_];
+    
+    for(CCSprite* curr in [currPage children])
+    {
+        if(CGRectContainsPoint([curr boundingBox], touchPoint) && [curr tag] > 0)
+        {
+            RoundedRectangle* rectSprite = [[RoundedRectangle alloc] initWithWidth:curr.contentSize.width 
+                                                                            height:curr.contentSize.height
+                                                                           pressed:YES];
+            rectSprite.position = curr.position;
+            [rectSprite setTag:[curr tag]];
+            [currPage addChild:rectSprite z:-1];
+            [currPage removeChild:curr cleanup:YES];            
+            highlightedSprite = rectSprite;
+        }
+    }
+    
 	startSwipe_ = touchPoint.x;
 	state_ = kCCScrollLayerStateIdle;
 	return YES;
@@ -394,7 +410,6 @@ enum
 	
 	CGPoint touchPoint = [touch locationInView:[touch view]];
 	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
-	
 	
 	// If finger is dragged for more distance then minimum - start sliding and cancel pressed buttons.
 	// Of course only if we not already in sliding mode
@@ -430,28 +445,38 @@ enum
 
 - (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    if(touch.tapCount == 1)
+	if( scrollTouch_ != touch )
+		return;
+	scrollTouch_ = nil;
+	
+    CCLayer* currPage = [layers_ objectAtIndex:currentScreen_];
+    
+    if(highlightedSprite)
     {
-        CCLayer* currPage = [layers_ objectAtIndex:currentScreen_];
-        
-        for(CCMenuItemSprite* curr in [currPage children])
+        RoundedRectangle* rectSprite = [[RoundedRectangle alloc] initWithWidth:highlightedSprite.contentSize.width 
+                                                                        height:highlightedSprite.contentSize.height
+                                                                       pressed:NO];
+        rectSprite.position = highlightedSprite.position;
+        [rectSprite setTag:[highlightedSprite tag]];
+        [currPage addChild:rectSprite z:-1];
+        [currPage removeChild:highlightedSprite cleanup:YES];
+        highlightedSprite = nil;
+    }
+    
+	CGPoint touchPoint = [touch locationInView:[touch view]];
+	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
+	
+    if(touch.tapCount == 1)
+    {        
+        for(CCSprite* curr in [currPage children])
         {
-            CGPoint point = [touch locationInView: [touch view]];
-            point = [[CCDirector sharedDirector] convertToGL: point];
-            if(CGRectContainsPoint([curr boundingBox], point))
+            if(CGRectContainsPoint([curr boundingBox], touchPoint))
             {
                 [SinglePlayerMenu levelSelect:[curr tag]];
             }
         }
     }
     
-	if( scrollTouch_ != touch )
-		return;
-	scrollTouch_ = nil;
-	
-	CGPoint touchPoint = [touch locationInView:[touch view]];
-	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
-	
 	int selectedPage = currentScreen_;
 	CGFloat delta = touchPoint.x - startSwipe_;
 	if (fabsf(delta) >= self.minimumTouchLengthToChangePage)

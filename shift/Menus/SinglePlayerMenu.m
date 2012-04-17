@@ -12,10 +12,6 @@
 #import "MainMenu.h"
 #import "RoundedRectangle.h"
 
-#define SPRITES_PER_PAGE 4
-#define PADDING 40
-#define LOCKED -1
-
 NSInteger highestLevel;
 
 @implementation SinglePlayerMenu
@@ -40,9 +36,7 @@ NSInteger highestLevel;
         CCLayer *page = [[CCLayer alloc] init];
         BOOL prev;
         CGPoint position,prevPos;
-        
-        RoundedRectangle* backgroundSprite = [[RoundedRectangle alloc] initWithWidth:spriteWidth+20 height:spriteWidth*2];
-        
+                
         for (int i=1;i<=NUM_LEVELS;i++)
         {
             //Determine position of sprite. If there is already a level on the page, position this one next to it.
@@ -59,7 +53,7 @@ NSInteger highestLevel;
             }
             
             //Add rounded rectangle
-            CCSprite* rectSprite = [CCSprite spriteWithTexture:[backgroundSprite texture]];
+            RoundedRectangle* rectSprite = [[RoundedRectangle alloc] initWithWidth:spriteWidth+20 height:spriteWidth*2 pressed:NO];
             rectSprite.position = position;
             [rectSprite setTag:i];
             [page addChild:rectSprite z:-1];
@@ -71,7 +65,7 @@ NSInteger highestLevel;
             {
                 //Create level texture
                 CCSprite *levelSprite = [SinglePlayerGame previewForLevel:i];
-                [levelSprite setTag:i];
+                [levelSprite setTag:LEVEL_TEXTURE];
                 levelSprite.scaleX = spriteWidth/levelSprite.contentSize.width;
                 levelSprite.scaleY = -levelSprite.scaleX;
                 levelSprite.position = position;
@@ -107,7 +101,9 @@ NSInteger highestLevel;
         CCScrollLayer *scroller = [[CCScrollLayer alloc] initWithLayers:pages widthOffset: 0];
         
         //Set display page to page containing highest level completed by user
-        int pageSelection = highestLevel/SPRITES_PER_PAGE;
+        //Make highestLevel 0-based for this calculation.
+        int pageSelection = (highestLevel-1)/SPRITES_PER_PAGE;
+        
         [scroller selectPage:pageSelection];
         
         [self addChild:scroller];

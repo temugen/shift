@@ -29,7 +29,8 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "cocos2d.h"
+#import "SinglePlayerMenu.h"
+#import "RoundedRectangle.h"
 
 @class CCScrollLayer;
 @protocol CCScrollLayerDelegate
@@ -66,6 +67,8 @@
 	
 	// The x coord of initial point the user starts their swipe.
 	CGFloat startSwipe_;
+    
+    RoundedRectangle* highlightedSprite;
 	
 	// For what distance user must slide finger to start scrolling menu.
 	CGFloat minimumTouchLengthToSlide_; 

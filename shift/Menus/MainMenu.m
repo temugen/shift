@@ -61,7 +61,7 @@
         float barWidth = (options.position.x + options.contentSize.width / 2) - (quickplay.position.x - quickplay.contentSize.width / 2);
         float barHeight = options.contentSize.height;
         barWidth += platformPadding * 2;
-        RoundedRectangle *bar = [[RoundedRectangle alloc] initWithWidth:barWidth height:barHeight];
+        RoundedRectangle *bar = [[RoundedRectangle alloc] initWithWidth:barWidth height:barHeight pressed:NO];
         bar.position = ccp(menu.position.x, bar.contentSize.height / 2 + platformPadding);
         bar.skewX = 20;
         [self addChild:bar z:-1];
