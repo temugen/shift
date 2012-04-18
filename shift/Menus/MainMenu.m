@@ -50,7 +50,7 @@
         options.color = [[ColorPalette sharedPalette] colorWithName:@"silver" fromPalette:@"_app"];
         
         menu = [CCMenu menuWithItems: quickplay, single, multi, achievements, options, nil];
-        [menu alignItemsHorizontallyWithPadding:platformPadding];
+        [menu alignItemsVertically];
         
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         TitleLayer *title = [[TitleLayer alloc] init];
@@ -58,14 +58,13 @@
         [self addChild:title];
         
         float barWidth = (options.position.x + options.contentSize.width / 2) - (quickplay.position.x - quickplay.contentSize.width / 2);
-        float barHeight = options.contentSize.height;
+        float barHeight = options.contentSize.height * 6;
         barWidth += platformPadding * 2;
         RoundedRectangle *bar = [[RoundedRectangle alloc] initWithWidth:barWidth height:barHeight pressed:NO];
         bar.position = ccp(menu.position.x, bar.contentSize.height / 2 + platformPadding);
-        bar.skewX = 20;
         [self addChild:bar z:-1];
         
-        menu.position = ccp(menu.position.x, bar.position.y + bar.contentSize.height / 2);
+        menu.position = ccp(menu.position.x, bar.position.y);
         [self addChild: menu];
     }
     return self;

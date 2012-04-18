@@ -134,13 +134,13 @@
     [CCFileUtils setiPhoneRetinaDisplaySuffix:@"@2x"];
     [CCFileUtils setiPadRetinaDisplaySuffix:@"@2x~ipad"];
 	
-    platformPadding = 20;
+    platformPadding = 10;
 
     //Set cell size for platform
     CGSize screenSize = [director winSize];
     GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
     float sampleSize = CGRectGetWidth([sampleGoal boundingBox]);
-    float requestedCellSize = MIN(sampleSize, (screenSize.height - platformPadding) / kDifficultyHard);
+    float requestedCellSize = MIN(sampleSize, (screenSize.height - platformPadding * 2) / kDifficultyHard);
     platformCellSize = CGSizeMake(requestedCellSize, requestedCellSize);
     
 	// Run the intro Scene
