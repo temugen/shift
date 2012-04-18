@@ -57,11 +57,11 @@
         title.position = ccp(menu.position.x, screenSize.height - title.contentSize.height / 2 - platformPadding);
         [self addChild:title];
         
-        float barWidth = (options.position.x + options.contentSize.width / 2) - (quickplay.position.x - quickplay.contentSize.width / 2);
+        float barWidth = title.contentSize.width;
         float barHeight = options.contentSize.height * 6;
         barWidth += platformPadding * 2;
         RoundedRectangle *bar = [[RoundedRectangle alloc] initWithWidth:barWidth height:barHeight pressed:NO];
-        bar.position = ccp(menu.position.x, bar.contentSize.height / 2 + platformPadding);
+        bar.position = ccp(menu.position.x, CGRectGetMinY(title.boundingBox) / 2);
         [self addChild:bar z:-1];
         
         menu.position = ccp(menu.position.x, bar.position.y);
