@@ -77,6 +77,7 @@
 		82944773151312AF003F727A /* goal.png in Resources */ = {isa = PBXBuildFile; fileRef = 82944772151312AF003F727A /* goal.png */; };
 		829BF364153F747400A2FF71 /* CCLabelTTFStroked.m in Sources */ = {isa = PBXBuildFile; fileRef = 829BF361153F747400A2FF71 /* CCLabelTTFStroked.m */; };
 		829BF365153F747400A2FF71 /* CCScrollLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 829BF363153F747400A2FF71 /* CCScrollLayer.m */; };
+		829BF368153F7FE700A2FF71 /* ButtonList.m in Sources */ = {isa = PBXBuildFile; fileRef = 829BF367153F7FE700A2FF71 /* ButtonList.m */; };
 		82A9D7D315313C7A00D05BAA /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7CF15313C7A00D05BAA /* title.png */; };
 		82A9D7D415313C7A00D05BAA /* title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7D015313C7A00D05BAA /* title@2x.png */; };
 		82A9D7D515313C7A00D05BAA /* title@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7D115313C7A00D05BAA /* title@2x~ipad.png */; };
@@ -759,6 +760,8 @@
 		829BF361153F747400A2FF71 /* CCLabelTTFStroked.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCLabelTTFStroked.m; path = Cocos2DExt/CCLabelTTFStroked.m; sourceTree = "<group>"; };
 		829BF362153F747400A2FF71 /* CCScrollLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCScrollLayer.h; path = Cocos2DExt/CCScrollLayer.h; sourceTree = "<group>"; };
 		829BF363153F747400A2FF71 /* CCScrollLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCScrollLayer.m; path = Cocos2DExt/CCScrollLayer.m; sourceTree = "<group>"; };
+		829BF366153F7FE700A2FF71 /* ButtonList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ButtonList.h; path = Menus/ButtonList.h; sourceTree = "<group>"; };
+		829BF367153F7FE700A2FF71 /* ButtonList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ButtonList.m; path = Menus/ButtonList.m; sourceTree = "<group>"; };
 		82A9D7CF15313C7A00D05BAA /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = Resources/Title/title.png; sourceTree = "<group>"; };
 		82A9D7D015313C7A00D05BAA /* title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "title@2x.png"; path = "Resources/Title/title@2x.png"; sourceTree = "<group>"; };
 		82A9D7D115313C7A00D05BAA /* title@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "title@2x~ipad.png"; path = "Resources/Title/title@2x~ipad.png"; sourceTree = "<group>"; };
@@ -1382,6 +1385,8 @@
 				985386E715364FE800E85869 /* SinglePlayerGameMenu.m */,
 				985386E91536503400E85869 /* QuickplayGameMenu.h */,
 				985386EA1536503400E85869 /* QuickplayGameMenu.m */,
+				829BF366153F7FE700A2FF71 /* ButtonList.h */,
+				829BF367153F7FE700A2FF71 /* ButtonList.m */,
 			);
 			name = Menus;
 			sourceTree = "<group>";
@@ -2177,6 +2182,7 @@
 				985386EB1536503400E85869 /* QuickplayGameMenu.m in Sources */,
 				829BF364153F747400A2FF71 /* CCLabelTTFStroked.m in Sources */,
 				829BF365153F747400A2FF71 /* CCScrollLayer.m in Sources */,
+				829BF368153F7FE700A2FF71 /* ButtonList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
