@@ -162,7 +162,6 @@
 		A33E61B214F5D1370024A2EC /* StationaryBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A33E61B014F5D1370024A2EC /* StationaryBlock.m */; };
 		FA07E6281520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = FA07E6271520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m */; };
 		FA4D148A14FD1CE40032FB74 /* LeaderboardMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */; };
-		FA780B101536554500704708 /* SoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA780B0F1536554500704708 /* SoundPlayer.m */; };
 		FA7D41031522325B009234BF /* GKAchievementHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7D40F91522325B009234BF /* GKAchievementHandler.m */; };
 		FA7D41041522325B009234BF /* GKAchievementNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7D40FB1522325B009234BF /* GKAchievementNotification.m */; };
 		FA7D41051522325B009234BF /* gk-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA7D40FD1522325B009234BF /* gk-icon.png */; };
@@ -860,8 +859,6 @@
 		FA07E6271520E58600AE0807 /* GKTurnBasedMatchmakerViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GKTurnBasedMatchmakerViewController-LandscapeOnly.m"; path = "shift/Game Center/GKTurnBasedMatchmakerViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
 		FA4D148814FD1CE40032FB74 /* LeaderboardMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaderboardMenu.h; path = Menus/LeaderboardMenu.h; sourceTree = "<group>"; };
 		FA4D148914FD1CE40032FB74 /* LeaderboardMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaderboardMenu.m; path = Menus/LeaderboardMenu.m; sourceTree = "<group>"; };
-		FA780B0E1536554500704708 /* SoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundPlayer.h; sourceTree = "<group>"; };
-		FA780B0F1536554500704708 /* SoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundPlayer.m; sourceTree = "<group>"; };
 		FA7D40F81522325B009234BF /* GKAchievementHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKAchievementHandler.h; sourceTree = "<group>"; };
 		FA7D40F91522325B009234BF /* GKAchievementHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKAchievementHandler.m; sourceTree = "<group>"; };
 		FA7D40FA1522325B009234BF /* GKAchievementNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKAchievementNotification.h; sourceTree = "<group>"; };
@@ -1275,8 +1272,6 @@
 				8270386614DB057A008D7240 /* shiftAppDelegate.m */,
 				82470D3514F1C28000F60A7C /* SinglePlayerGame.h */,
 				82470D3614F1C28000F60A7C /* SinglePlayerGame.m */,
-				FA780B0E1536554500704708 /* SoundPlayer.h */,
-				FA780B0F1536554500704708 /* SoundPlayer.m */,
 				827A11B5153350BA001BF50B /* Tutorial.h */,
 				827A11B6153350BA001BF50B /* Tutorial.m */,
 				827A11B7153350BA001BF50B /* TutorialLayer.h */,
@@ -2173,7 +2168,6 @@
 				987EEF2A153386660010CE38 /* RoundedRectangle.m in Sources */,
 				985386E815364FE800E85869 /* SinglePlayerGameMenu.m in Sources */,
 				985386EB1536503400E85869 /* QuickplayGameMenu.m in Sources */,
-				FA780B101536554500704708 /* SoundPlayer.m in Sources */,
 				827A12C9153688BF001BF50B /* CCLabelTTFStroked.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

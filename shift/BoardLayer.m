@@ -9,7 +9,6 @@
 #import "BoardLayer.h"
 #import "BlockTrain.h"
 #import "ColorPalette.h"
-#import "SoundPlayer.h"
 
 @interface BoardLayer()
 

@@ -7,7 +7,7 @@
 //
 
 #import "InGameMenu.h"
-#import "SinglePlayerMenu.h"
+#import "BackgroundLayer.h"
 
 @implementation InGameMenu
 
@@ -24,6 +24,8 @@
         
         //Add items to menu
         menu = [CCMenu menuWithItems:play,reset,mainMenu, nil];
+        
+        [self addChild:[[BackgroundLayer alloc] init] z:-1];
         
         [menu alignItemsVertically];
         
@@ -71,7 +73,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
--(void) draw
+/*-(void) draw
 {
     CGPoint corners[4];
     CGSize screenSize = [[CCDirector sharedDirector] displaySizeInPixels];
@@ -89,7 +91,7 @@
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnable(GL_TEXTURE_2D);
-}
+}*/
 
 - (void)onEnter
 {
