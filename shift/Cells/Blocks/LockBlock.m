@@ -9,7 +9,7 @@
 #import "LockBlock.h"
 #import "BoardLayer.h"
 #import "KeyBlock.h"
-#import "SoundPlayer.h"
+
 @implementation LockBlock
 
 -(id) initWithName:(NSString *)blockName
@@ -35,8 +35,8 @@
 -(void) unlock
 {    
     //Play unlock sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_UNLOCK];
-    [[SoundPlayer sharedInstance]playSound:@SFX_UNLOCK];
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_UNLOCK];
+    
     NSString *filename = [NSString stringWithFormat:@"%@_key.png",name];
     [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
     self.movable = YES;
@@ -51,8 +51,8 @@
         if([self dropKey])
         {
             //Play lock sound
-            //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_LOCK];
-            [[SoundPlayer sharedInstance]playSound:@SFX_LOCK];
+            [[SimpleAudioEngine sharedEngine] playEffect:@SFX_LOCK];
+            
             NSString *filename = [NSString stringWithFormat:@"%@_lock.png",name];
             [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
             self.movable = NO;

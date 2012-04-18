@@ -8,7 +8,7 @@
 
 #import "RotationBlock.h"
 #import "BoardLayer.h"
-#import "SoundPlayer.h"
+
 @interface RotationBlockLayer : CCLayer {
     RotationBlock *rotationBlock;
     BoardLayer *board;
@@ -98,8 +98,7 @@
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     //Play rotation sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_ROTATE];
-    [[SoundPlayer sharedInstance]playSound:@SFX_ROTATE];
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_ROTATE];
 	UITouch *touch = [touches anyObject];
 	CGPoint location = [self convertTouchToNodeSpace:touch];
     float dx = location.x - center.x, dy = location.y - center.y;

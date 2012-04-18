@@ -17,7 +17,6 @@ static SoundPlayer* instance = nil;
   if (instance == nil)
   {
     instance = [[SoundPlayer alloc] init];
-    instance->enable = false;
   }
   return instance;
 }
@@ -27,22 +26,9 @@ static SoundPlayer* instance = nil;
   NSAssert(instance == nil, @"Tried to create a second instance of sound player");
   if( (self = [super init]) ) 
   {
-      //instance->enable = true;
   }
   return self;
 }
 
--(void) playSound:(NSString *)str
-{
-    if (instance->enable==true)
-        [[SimpleAudioEngine sharedEngine] playEffect:str];
-}
-
--(void)playBackground:(NSString*) str
-{
-    [[SimpleAudioEngine sharedEngine]stopBackgroundMusic];
-    if (instance->enable==true)
-        [[SimpleAudioEngine sharedEngine]playBackgroundMusic:str loop:true];
-}
 
 @end

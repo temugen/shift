@@ -11,7 +11,7 @@
 #define SFX_MENU "shift_menu.mp3"
 
 #import "SimpleAudioEngine.h"
-#import "SoundPlayer.h"
+
 @interface Menu : CCLayer
 {
 }

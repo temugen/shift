@@ -93,9 +93,8 @@
 - (void) onSelection: (id) sender
 {
     //Play menu selection sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
-
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
     Difficulty diff = [sender tag];
     
     if(mode == QUICKPLAY)
@@ -152,9 +151,8 @@
 - (void) goBack: (id) sender
 {
     //Play menu selection sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
-
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
     if(mode == QUICKPLAY) //Return to Main Menu
     {
         [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];

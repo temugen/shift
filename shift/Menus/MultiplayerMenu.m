@@ -42,9 +42,8 @@
 - (void) onOppSelection: (id) sender
 {
     //Play menu selection sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
-
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
   if (![GameCenterHub sharedInstance].gameCenterAvailable)
   {
     [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game center is required to use matchmaking"];
@@ -56,9 +55,8 @@
 - (void) onLeaderboard: (id) sender
 {
     //Play menu selection sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
-
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
     gamemode selection = [sender tag];
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu sceneWithMode:selection]]];
 }
@@ -67,9 +65,8 @@
 - (void) onClear: (id) sender
 {
   //Play menu selection sound
-  //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
-
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
   [[GameCenterHub sharedInstance] clearMatches];
 }
 

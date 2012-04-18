@@ -43,9 +43,8 @@
 - (void) onHardTimeSelection: (id) sender
 {
   //Play menu selection sound
-  //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
-
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
   if (![GameCenterHub sharedInstance].gameCenterAvailable) 
   {
     [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to view the leaderboard"]; 
@@ -58,9 +57,8 @@
 - (void) onHardMoves: (id) sender
 {
   //Play menu selection sound
-  //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
-
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
   if (![GameCenterHub sharedInstance].gameCenterAvailable)
   {
     [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to view any leaderboard"]; 
@@ -72,9 +70,8 @@
 - (void) goBack: (id) sender
 {
     //Play menu selection sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
-
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
 }
 

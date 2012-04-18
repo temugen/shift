@@ -21,7 +21,8 @@
         boardCenter = ccp(screenSize.width / 2, screenSize.height / 2);
         cellSize = platformCellSize;
         
-        [[SoundPlayer sharedInstance]playBackground:@BGM_GAME];
+        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_GAME];
         
         BackgroundLayer *background = [[BackgroundLayer alloc] init];
         [self addChild:background z:-1];

@@ -51,8 +51,8 @@
 -(void) goBack:(id)sender
 {
     //Play menu selection sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance] playSound:@SFX_MENU]; 
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 

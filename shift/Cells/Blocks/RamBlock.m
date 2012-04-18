@@ -9,6 +9,7 @@
 #import "RamBlock.h"
 #import "BoardLayer.h"
 #import "DestructiveBlock.h"
+
 @implementation RamBlock
 
 -(id) initWithName:(NSString *)blockName
@@ -25,8 +26,8 @@
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force
 {
     //Play ram collide sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_RAM];
-    [[SoundPlayer sharedInstance]playSound:@SFX_RAM];
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_RAM];
+    
     //Only remove the key if it collided with a DestructiveBlock
     if([cell isKindOfClass:[DestructiveBlock class]])
     {

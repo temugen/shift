@@ -41,9 +41,8 @@
 -(void) onReset:(id)sender
 {
     //Play menu selection sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
-
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ResetButtonPressed" object:self];
     [self onPlay:self];
 }
@@ -51,12 +50,10 @@
 -(void) onPlay:(id)sender
 {
     //Play menu selection sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
     
     //Resume the background music
-    if ([SoundPlayer sharedInstance]->enable==true)
-        [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
+    [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
     
     [self removeFromParentAndCleanup:YES];
 }
@@ -64,9 +61,8 @@
 -(void) onMainMenu:(id)sender
 {
     //Play menu selection sound
-    //[[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[SoundPlayer sharedInstance]playSound:@SFX_MENU];
-
+    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+    
     [self goBack:self];
 }
 
