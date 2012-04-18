@@ -177,6 +177,7 @@
 		FAC8909D150C49EE000F816C /* GKAchievementViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC89097150C49EE000F816C /* GKAchievementViewController-LandscapeOnly.m */; };
 		FAC8909E150C49EE000F816C /* GKLeaderboardViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC89099150C49EE000F816C /* GKLeaderboardViewController-LandscapeOnly.m */; };
 		FAC8909F150C49EE000F816C /* GKMatchMakerViewController-LandscapeOnly.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC8909B150C49EE000F816C /* GKMatchMakerViewController-LandscapeOnly.m */; };
+		FAED92B2153F84E6003A8828 /* MultiplayerGameMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = FAED92B1153F84E6003A8828 /* MultiplayerGameMenu.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -884,6 +885,8 @@
 		FAC89099150C49EE000F816C /* GKLeaderboardViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GKLeaderboardViewController-LandscapeOnly.m"; path = "shift/Game Center/GKLeaderboardViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
 		FAC8909A150C49EE000F816C /* GKMatchMakerViewController-LandscapeOnly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GKMatchMakerViewController-LandscapeOnly.h"; path = "shift/Game Center/GKMatchMakerViewController-LandscapeOnly.h"; sourceTree = "<group>"; };
 		FAC8909B150C49EE000F816C /* GKMatchMakerViewController-LandscapeOnly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GKMatchMakerViewController-LandscapeOnly.m"; path = "shift/Game Center/GKMatchMakerViewController-LandscapeOnly.m"; sourceTree = "<group>"; };
+		FAED92B0153F84E6003A8828 /* MultiplayerGameMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiplayerGameMenu.h; path = Menus/MultiplayerGameMenu.h; sourceTree = "<group>"; };
+		FAED92B1153F84E6003A8828 /* MultiplayerGameMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MultiplayerGameMenu.m; path = Menus/MultiplayerGameMenu.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1362,6 +1365,8 @@
 		988E795914EDD1D500DFB957 /* Menus */ = {
 			isa = PBXGroup;
 			children = (
+				FAED92B0153F84E6003A8828 /* MultiplayerGameMenu.h */,
+				FAED92B1153F84E6003A8828 /* MultiplayerGameMenu.m */,
 				985399A014F18CE600713F65 /* MainMenu.h */,
 				985399AF14F1905500713F65 /* MainMenu.m */,
 				9853999D14F18CE600713F65 /* AchievementsMenu.h */,
@@ -2187,6 +2192,7 @@
 				829BF364153F747400A2FF71 /* CCLabelTTFStroked.m in Sources */,
 				829BF365153F747400A2FF71 /* CCScrollLayer.m in Sources */,
 				829BF368153F7FE700A2FF71 /* ButtonList.m in Sources */,
+				FAED92B2153F84E6003A8828 /* MultiplayerGameMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "MultiplayerGameMenu.h"
 #import "MultiplayerGame.h"
 #import "GameCenterHub.h"
 
@@ -16,11 +17,35 @@
 +(MultiplayerGame*) gameWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*)match;
 {
   MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithNumberOfRows:rows columns:columns match:match];
-  NSDictionary* boardlayout = [newGame.board serialize];
-  NSData* boardData = [NSKeyedArchiver archivedDataWithRootObject:boardlayout];
+  NSDictionary* boardLayout = [newGame.board serialize];
+  NSData* boardData = [NSKeyedArchiver archivedDataWithRootObject:boardLayout];
   [[GameCenterHub sharedInstance] sendTurn:self data:boardData];
   return newGame;
 }
+
++(MultiplayerGame*) gameWithMatchData:(GKTurnBasedMatch*)match;
+{
+  if (match.matchData != nil) 
+  {
+    MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithMatchData:match];
+    return newGame;
+  }
+  return nil;
+}
+
+-(id) initWithMatchData:(GKTurnBasedMatch*) match
+{
+  if ((self = [super init])) 
+  {
+    NSDictionary* boardLayout = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
+    board = [[BoardLayer alloc] initWithDictionary:boardLayout cellSize:cellSize];
+    board.position = boardCenter;
+    myMatch = match;
+    [self addChild:board];
+  }
+  return self;
+}
+
 
 -(id) initWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*) match
 {
@@ -54,6 +79,12 @@
   NSString* stringdata = @"Testing send";
   NSData* data = [stringdata dataUsingEncoding:NSUTF8StringEncoding];
   [[GameCenterHub sharedInstance] sendTurn:self data:data];
+}
+
+-(void) onPauseButtonPressed:(NSNotification *)notification
+{
+  MultiplayerGameMenu *menu = [[MultiplayerGameMenu alloc] init];
+  [super onPauseButtonPressed:notification menu:menu];
 }
 
 @end

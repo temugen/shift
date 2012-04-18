@@ -12,6 +12,7 @@
 #import "GKAchievementNotification/GKAchievementHandler.h"
 #import "DifficultyMenu.h"
 #import "MainMenu.h"
+#import "MultiplayerGame.h"
 
 @implementation GameCenterHub
 
@@ -21,6 +22,7 @@
 @synthesize gameCenterAvailable;
 @synthesize currentMatch;
 @synthesize unsentScores;
+
 
 static GameCenterHub* sharedHelper = nil;
 
@@ -364,7 +366,7 @@ static GameCenterHub* sharedHelper = nil;
             NSLog(@"%@", error);
           }]; 
        }
-     }];  
+     }];
   }
 }
 
@@ -377,11 +379,13 @@ static GameCenterHub* sharedHelper = nil;
 // Show current match board
 -(void) layoutMatch:(GKTurnBasedMatch*)match
 {
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match]]];
+
   // TO STOP MOVEMENTS, Board.isTouchEnabled
   // TODO:  Implement method, show current match board
 }
 
-// 
+ 
 -(void) takeTurn:(GKTurnBasedMatch*)match 
 {
   // TODO:  Implement method
@@ -425,7 +429,7 @@ static GameCenterHub* sharedHelper = nil;
  */
 
 // Called when user selects a match from the list of matches in GameCenter
-- (void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)myMatch 
+-(void) turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)myMatch 
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
   self.currentMatch = myMatch;
