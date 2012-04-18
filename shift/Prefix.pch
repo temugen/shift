@@ -13,5 +13,6 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "CCLabelTTFStroked.h"
+#import "CCScrollLayer.h"
 #import "GameConfig.h"
 #endif

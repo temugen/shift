@@ -72,10 +72,11 @@
 		8270386714DB057A008D7240 /* shiftAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8270386614DB057A008D7240 /* shiftAppDelegate.m */; };
 		827A11B9153350BB001BF50B /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = 827A11B6153350BA001BF50B /* Tutorial.m */; };
 		827A11BA153350BB001BF50B /* TutorialLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 827A11B8153350BA001BF50B /* TutorialLayer.m */; };
-		827A12C9153688BF001BF50B /* CCLabelTTFStroked.m in Sources */ = {isa = PBXBuildFile; fileRef = 827A12C8153688BF001BF50B /* CCLabelTTFStroked.m */; };
 		8294476F151311B0003F727A /* block_connector.png in Resources */ = {isa = PBXBuildFile; fileRef = 8294476E151311B0003F727A /* block_connector.png */; };
 		82944771151312A5003F727A /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = 82944770151312A5003F727A /* block.png */; };
 		82944773151312AF003F727A /* goal.png in Resources */ = {isa = PBXBuildFile; fileRef = 82944772151312AF003F727A /* goal.png */; };
+		829BF364153F747400A2FF71 /* CCLabelTTFStroked.m in Sources */ = {isa = PBXBuildFile; fileRef = 829BF361153F747400A2FF71 /* CCLabelTTFStroked.m */; };
+		829BF365153F747400A2FF71 /* CCScrollLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 829BF363153F747400A2FF71 /* CCScrollLayer.m */; };
 		82A9D7D315313C7A00D05BAA /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7CF15313C7A00D05BAA /* title.png */; };
 		82A9D7D415313C7A00D05BAA /* title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7D015313C7A00D05BAA /* title@2x.png */; };
 		82A9D7D515313C7A00D05BAA /* title@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D7D115313C7A00D05BAA /* title@2x~ipad.png */; };
@@ -143,7 +144,6 @@
 		985A8D52150E6659005E771A /* libCocosDenshion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8243E93015081AC1003DEBAA /* libCocosDenshion.a */; };
 		98657FDC14F412EF00584BD1 /* KeyBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FD914F412EE00584BD1 /* KeyBlock.m */; };
 		98657FDD14F412EF00584BD1 /* LockBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 98657FDB14F412EE00584BD1 /* LockBlock.m */; };
-		987EEBFB152A71040010CE38 /* CCScrollLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 987EEBFA152A71040010CE38 /* CCScrollLayer.m */; };
 		987EED9215326A280010CE38 /* 9.plist in Resources */ = {isa = PBXBuildFile; fileRef = 987EED8E15326A280010CE38 /* 9.plist */; };
 		987EED9415326A280010CE38 /* 10.plist in Resources */ = {isa = PBXBuildFile; fileRef = 987EED9015326A280010CE38 /* 10.plist */; };
 		987EED9515326A280010CE38 /* 8.plist in Resources */ = {isa = PBXBuildFile; fileRef = 987EED9115326A280010CE38 /* 8.plist */; };
@@ -752,11 +752,13 @@
 		827A11B6153350BA001BF50B /* Tutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tutorial.m; sourceTree = "<group>"; };
 		827A11B7153350BA001BF50B /* TutorialLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialLayer.h; sourceTree = "<group>"; };
 		827A11B8153350BA001BF50B /* TutorialLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialLayer.m; sourceTree = "<group>"; };
-		827A12C7153688BF001BF50B /* CCLabelTTFStroked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLabelTTFStroked.h; sourceTree = "<group>"; };
-		827A12C8153688BF001BF50B /* CCLabelTTFStroked.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLabelTTFStroked.m; sourceTree = "<group>"; };
 		8294476E151311B0003F727A /* block_connector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block_connector.png; path = Resources/Effects/block_connector.png; sourceTree = "<group>"; };
 		82944770151312A5003F727A /* block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block.png; path = Resources/Cells/Blocks/block.png; sourceTree = "<group>"; };
 		82944772151312AF003F727A /* goal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goal.png; path = Resources/Cells/Goals/goal.png; sourceTree = "<group>"; };
+		829BF360153F747400A2FF71 /* CCLabelTTFStroked.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCLabelTTFStroked.h; path = Cocos2DExt/CCLabelTTFStroked.h; sourceTree = "<group>"; };
+		829BF361153F747400A2FF71 /* CCLabelTTFStroked.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCLabelTTFStroked.m; path = Cocos2DExt/CCLabelTTFStroked.m; sourceTree = "<group>"; };
+		829BF362153F747400A2FF71 /* CCScrollLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCScrollLayer.h; path = Cocos2DExt/CCScrollLayer.h; sourceTree = "<group>"; };
+		829BF363153F747400A2FF71 /* CCScrollLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCScrollLayer.m; path = Cocos2DExt/CCScrollLayer.m; sourceTree = "<group>"; };
 		82A9D7CF15313C7A00D05BAA /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = title.png; path = Resources/Title/title.png; sourceTree = "<group>"; };
 		82A9D7D015313C7A00D05BAA /* title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "title@2x.png"; path = "Resources/Title/title@2x.png"; sourceTree = "<group>"; };
 		82A9D7D115313C7A00D05BAA /* title@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "title@2x~ipad.png"; path = "Resources/Title/title@2x~ipad.png"; sourceTree = "<group>"; };
@@ -834,8 +836,6 @@
 		98657FD914F412EE00584BD1 /* KeyBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyBlock.m; path = Cells/Blocks/KeyBlock.m; sourceTree = "<group>"; };
 		98657FDA14F412EE00584BD1 /* LockBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LockBlock.h; path = Cells/Blocks/LockBlock.h; sourceTree = "<group>"; };
 		98657FDB14F412EE00584BD1 /* LockBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LockBlock.m; path = Cells/Blocks/LockBlock.m; sourceTree = "<group>"; };
-		987EEBF9152A71040010CE38 /* CCScrollLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCScrollLayer.h; path = Menus/CCScrollLayer.h; sourceTree = "<group>"; };
-		987EEBFA152A71040010CE38 /* CCScrollLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCScrollLayer.m; path = Menus/CCScrollLayer.m; sourceTree = "<group>"; };
 		987EED8E15326A280010CE38 /* 9.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 9.plist; path = Resources/Levels/9.plist; sourceTree = "<group>"; };
 		987EED9015326A280010CE38 /* 10.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 10.plist; path = Resources/Levels/10.plist; sourceTree = "<group>"; };
 		987EED9115326A280010CE38 /* 8.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = 8.plist; path = Resources/Levels/8.plist; sourceTree = "<group>"; };
@@ -1276,8 +1276,7 @@
 				827A11B6153350BA001BF50B /* Tutorial.m */,
 				827A11B7153350BA001BF50B /* TutorialLayer.h */,
 				827A11B8153350BA001BF50B /* TutorialLayer.m */,
-				827A12C7153688BF001BF50B /* CCLabelTTFStroked.h */,
-				827A12C8153688BF001BF50B /* CCLabelTTFStroked.m */,
+				829BF35F153F744600A2FF71 /* Cocos2DExt */,
 				FAD50AD914F98B8F0008CF7C /* Game Center */,
 				82470D2614F1BF6700F60A7C /* Cells */,
 				988E795914EDD1D500DFB957 /* Menus */,
@@ -1319,6 +1318,17 @@
 				8270384914DB044A008D7240 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		829BF35F153F744600A2FF71 /* Cocos2DExt */ = {
+			isa = PBXGroup;
+			children = (
+				829BF360153F747400A2FF71 /* CCLabelTTFStroked.h */,
+				829BF361153F747400A2FF71 /* CCLabelTTFStroked.m */,
+				829BF362153F747400A2FF71 /* CCScrollLayer.h */,
+				829BF363153F747400A2FF71 /* CCScrollLayer.m */,
+			);
+			name = Cocos2DExt;
 			sourceTree = "<group>";
 		};
 		82A9D7CE15313C5100D05BAA /* Title */ = {
@@ -1364,8 +1374,6 @@
 				985399A814F18CE600713F65 /* SinglePlayerMenu.m */,
 				820109A4151F8C9600DA8ECB /* InGameMenu.h */,
 				820109A5151F8C9600DA8ECB /* InGameMenu.m */,
-				987EEBF9152A71040010CE38 /* CCScrollLayer.h */,
-				987EEBFA152A71040010CE38 /* CCScrollLayer.m */,
 				9635BFFB152FEB790091081B /* TitleLayer.h */,
 				9635BFFC152FEB790091081B /* TitleLayer.m */,
 				987EEF28153386660010CE38 /* RoundedRectangle.h */,
@@ -2161,14 +2169,14 @@
 				FA7D41041522325B009234BF /* GKAchievementNotification.m in Sources */,
 				82389468152802C7006B30DD /* ColorPalette.m in Sources */,
 				FA851229152A2FCE0046A9DF /* MultiplayerGame.m in Sources */,
-				987EEBFB152A71040010CE38 /* CCScrollLayer.m in Sources */,
 				9635BFFD152FEB790091081B /* TitleLayer.m in Sources */,
 				827A11B9153350BB001BF50B /* Tutorial.m in Sources */,
 				827A11BA153350BB001BF50B /* TutorialLayer.m in Sources */,
 				987EEF2A153386660010CE38 /* RoundedRectangle.m in Sources */,
 				985386E815364FE800E85869 /* SinglePlayerGameMenu.m in Sources */,
 				985386EB1536503400E85869 /* QuickplayGameMenu.m in Sources */,
-				827A12C9153688BF001BF50B /* CCLabelTTFStroked.m in Sources */,
+				829BF364153F747400A2FF71 /* CCLabelTTFStroked.m in Sources */,
+				829BF365153F747400A2FF71 /* CCScrollLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
