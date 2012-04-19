@@ -22,6 +22,7 @@
     BOOL destructible;
     NSString *name;
     Tutorial *tutorial;
+    volatile BoardLayer *board;
 }
 
 @property(nonatomic, assign) int row, column;
@@ -29,6 +30,7 @@
 @property(nonatomic, assign) BOOL comparable, movable;
 @property(nonatomic, copy) NSString *name;
 @property(nonatomic, retain) Tutorial *tutorial;
+@property(nonatomic, readonly, assign) volatile BoardLayer *board;
 
 -(id) initWithFilename:(NSString *)filename;
 
@@ -38,6 +40,8 @@
 -(CGSize) scaleWithFactors:(CGPoint)factors;
 
 -(void) completeTutorial;
+
+-(volatile BoardLayer *) board;
 
 //Override if you want to handle events
 -(BOOL) onCompareWithCell:(CellSprite *)cell;

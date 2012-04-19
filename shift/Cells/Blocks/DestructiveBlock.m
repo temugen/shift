@@ -57,11 +57,10 @@
 
 -(void) destroyBlock
 {
-    BoardLayer *board = (BoardLayer *)self.parent;
-    board.isTouchEnabled = NO;
+    self.board.isTouchEnabled = NO;
     //[board snapMovingBlocks];
-    [board removeBlock: self];
-    board.isTouchEnabled = YES;
+    [self.board removeBlock: self];
+    self.board.isTouchEnabled = YES;
     
 }
 

@@ -67,6 +67,12 @@
     }
 }
 
+-(volatile BoardLayer *) board
+{
+    board = (volatile BoardLayer *)self.parent;
+    return board;
+}
+
 -(BOOL) onCompareWithCell:(CellSprite *)cell
 {
     return NO;

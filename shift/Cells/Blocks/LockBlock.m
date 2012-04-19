@@ -86,7 +86,6 @@
 
 -(BOOL) setKeyAtX:(int)x y:(int)y
 {
-    BoardLayer *board = (BoardLayer *)self.parent;
     //Make sure new position is not out of bounds, and there is not already a block there.
     if(![board isOutOfBoundsAtX:x y:y] && [board blockAtX:x y:y] == nil)
     {

@@ -34,8 +34,7 @@
 
 -(void) removeKey
 {
-    BoardLayer *board = (BoardLayer *)self.parent;
-    [board removeBlock: self];
+    [self.board removeBlock: self];
 }
 
 @end
