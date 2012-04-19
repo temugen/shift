@@ -84,7 +84,7 @@
 -(void) dealloc
 {
     for (CCNode *node in self.children) {
-        NSDictionary *userData = (__bridge_transfer NSDictionary *)node.userData;
+        CFRelease(node.userData);
     }
 }
 
