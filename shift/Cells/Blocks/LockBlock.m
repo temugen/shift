@@ -14,8 +14,11 @@
 
 -(id) initWithName:(NSString *)blockName
 {
-    NSString *filename = [NSString stringWithFormat:@"%@_lock.png", blockName];
-    if ((self = [super initWithFilename:filename])) {
+    if ((self = [super initWithName:blockName])) {
+        overlay = [CCSprite spriteWithTexture:[[CCTextureCache sharedTextureCache] addImage:@"block_lock.png"]];
+        overlay.position = ccp(self.contentSize.width / 2, self.contentSize.height / 2);
+        [self addChild:overlay];
+        
         comparable = YES;
         movable = NO;
         name = blockName;
@@ -37,8 +40,7 @@
     //Play unlock sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_UNLOCK];
     
-    NSString *filename = [NSString stringWithFormat:@"%@_key.png",name];
-    [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
+    overlay.texture = [[CCTextureCache sharedTextureCache] addImage:@"block_unlock.png"];
     self.movable = YES;
 }
 
@@ -53,8 +55,7 @@
             //Play lock sound
             [[SimpleAudioEngine sharedEngine] playEffect:@SFX_LOCK];
             
-            NSString *filename = [NSString stringWithFormat:@"%@_lock.png",name];
-            [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
+            overlay.texture = [[CCTextureCache sharedTextureCache] addImage:@"block_lock.png"];
             self.movable = NO;
         }
     }
@@ -74,12 +75,12 @@
         [self setKeyAtX:row-1 y:column+1]) {
         
         //We created a key
-        return true;
+        return YES;
     }
     else
     { 
         //We couldn't create a key
-        return false;
+        return NO;
     }
 }
 
@@ -89,14 +90,13 @@
     //Make sure new position is not out of bounds, and there is not already a block there.
     if(![board isOutOfBoundsAtX:x y:y] && [board blockAtX:x y:y] == nil)
     {
-        GoalSprite *sampleGoal = [GoalSprite goalWithName:@"red"];
-        CGPoint scalingFactors = [sampleGoal resize:board.cellSize];
         BlockSprite *block = [KeyBlock blockWithName:@"key"];
-        [block scaleWithFactors:scalingFactors];
+        block.scaleX = self.scaleX;
+        block.scaleY = self.scaleY;
         [board addBlock:block x:x y:y];
-        return true;
+        return YES;
     }
-    return false;
+    return NO;
 }
 
 @end

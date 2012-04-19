@@ -28,6 +28,7 @@ NSInteger highestLevel;
         {
             highestLevel = 1;
         }   
+        highestLevel = 20;
         
         NSMutableArray * pages = [NSMutableArray arrayWithCapacity:NUM_LEVELS];
         CGSize screenSize = [CCDirector sharedDirector].winSize;
