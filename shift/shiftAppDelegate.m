@@ -133,10 +133,6 @@
     [CCFileUtils setiPadSuffix:@"~ipad"];
     [CCFileUtils setiPhoneRetinaDisplaySuffix:@"@2x"];
     [CCFileUtils setiPadRetinaDisplaySuffix:@"@2x~ipad"];
-	
-    //Set platform variables
-    platformPadding = 10;
-    platformFontSize = 3 * platformPadding;
 
     //Set cell size for platform
     CGSize screenSize = [director winSize];
@@ -144,6 +140,12 @@
     float sampleSize = CGRectGetWidth([sampleGoal boundingBox]);
     float requestedCellSize = MIN(sampleSize, (screenSize.height - platformPadding * 2) / kDifficultyHard);
     platformCellSize = CGSizeMake(requestedCellSize, requestedCellSize);
+    
+    //Set platform variables
+    platformPadding = 10;
+    platformFontSize = 3 * platformPadding;
+    platformMinCollisionForce = platformCellSize.width;
+    platformDirectionThreshold = 4;
     
 	// Run the intro Scene
 	[[CCDirector sharedDirector] runWithScene: [MainMenu scene]];

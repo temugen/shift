@@ -56,11 +56,11 @@ typedef enum Difficulty {
 //Scene transition time
 #define kSceneTransitionTime 0.3f
 
-#define kMinCollisionForce 30.0
-
 CGSize platformCellSize;
 float platformPadding;
 float platformFontSize;
+float platformMinCollisionForce;
+float platformDirectionThreshold;
 
 #endif // __GAME_CONFIG_H
 
