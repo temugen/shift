@@ -33,7 +33,7 @@
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_MENU];
         
-        ButtonList *buttons = [[ButtonList alloc] init];
+        ButtonList *buttons = [ButtonList buttonList];
         [buttons addButtonWithDescription:@"Quickplay" target:self selector:@selector(onQuickplay:)
                              iconFilename:@"quickplay.png" colorString:@"green"];
         [buttons addButtonWithDescription:@"Single Player" target:self selector:@selector(onSinglePlayer:)
@@ -62,7 +62,7 @@
 {
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu sceneWithMode:QUICKPLAY]]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu scene]]];
 }
 
 - (void) onSinglePlayer: (id) sender

@@ -12,11 +12,7 @@
 
 @interface LeaderboardMenu : Menu
 {
-  gamemode mode;
 }
-
--(id) initWithMode:(gamemode)gameSelection;
-+(id) sceneWithMode:(gamemode) gameSelection;
 
 @end
 

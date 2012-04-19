@@ -14,11 +14,9 @@
 @implementation LeaderboardMenu
 
 
-- (id) initWithMode:(gamemode)gameSelection
+- (id) init
 {
     if ((self=[super init])) {
-        mode = gameSelection;
-        
         // Menu Items
         CCMenuItemFont* hardTime = [CCMenuItemFont itemFromString:@"Hard Times" target:self selector: @selector(onHardTimeSelection:)];
         CCMenuItemFont* hardMoves = [CCMenuItemFont itemFromString:@"Hard Moves" target:self selector: @selector(onHardMoves:)];
@@ -32,12 +30,6 @@
         [self addBackButton];
     }
     return self;
-}
-
-+ (id) sceneWithMode:(gamemode) gameSelection 
-{
-    LeaderboardMenu* menu = [[LeaderboardMenu alloc] initWithMode:gameSelection];
-    return [Menu sceneWithMenu:menu]; 
 }
 
 - (void) onHardTimeSelection: (id) sender

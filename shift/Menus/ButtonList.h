@@ -15,6 +15,8 @@
 
 -(id) init;
 
++(id) buttonList;
+
 -(void) addNode:(CCNode *)node target:(id)target selector:(SEL)selector;
 -(void) addButtonWithDescription:(NSString *)text target:(id)target selector:(SEL)selector;
 -(void) addButtonWithDescription:(NSString *)text target:(id)target selector:(SEL)selector iconFilename:(NSString *)filename colorString:(NSString *)color;

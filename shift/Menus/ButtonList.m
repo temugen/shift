@@ -11,6 +11,11 @@
 
 @implementation ButtonList
 
++(id) buttonList
+{
+    return [[ButtonList alloc] init];
+}
+
 -(id) init
 {
     if ((self = [super init])) {
@@ -62,7 +67,8 @@
 -(void) addButtonWithDescription:(NSString *)text target:(id)target selector:(SEL)selector;
 {
     CCLabelTTF *label = [CCLabelTTF labelWithString:text fontName:@"Copperplate-Light" fontSize:platformFontSize];
-    [label addStrokeWithSize:5 color:ccBLACK];
+    label.color = ccBLACK;
+    [label addStrokeWithSize:1  color:ccWHITE];
     [self addNode:label target:target selector:selector];
     [self reformat];
 }

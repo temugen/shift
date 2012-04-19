@@ -55,12 +55,6 @@ typedef enum Difficulty {
     kDifficultyHard = 7
 } Difficulty;
 
-typedef enum gamemode {
-    QUICKPLAY,
-    SINGLE,
-    MULTIPLAYER
-} gamemode;
-
 //NOTE: if you change this value, you must change the way the levels are displayed in SinglePlayerMenu.m to correspond with
 //the number of levels. Look for the line [menu alignItemsInColumns ....
 #define NUM_LEVELS 20
