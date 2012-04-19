@@ -74,6 +74,7 @@ typedef enum gamemode {
 
 CGSize platformCellSize;
 float platformPadding;
+float platformFontSize;
 
 #endif // __GAME_CONFIG_H
 

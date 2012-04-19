@@ -18,6 +18,7 @@
 #import "BlockSprite.h"
 #import "ColorPalette.h"
 #import "RoundedRectangle.h"
+#import "ButtonList.h"
 
 #define TEXT_BLOCK_SIZE 35
 #define TITLE_BORDER_SIZE 50
@@ -32,40 +33,25 @@
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_MENU];
         
-        //Set up menu items
-        CCMenuItemImage *quickplay = [CCMenuItemImage itemFromNormalImage:@"quickplay.png"
-                                                           selectedImage:@"quickplay.png" target:self selector: @selector(onQuickplay:)];
-        quickplay.color = [[ColorPalette sharedPalette] colorWithName:@"green" fromPalette:@"_app"];
-        CCMenuItemImage *single = [CCMenuItemImage itemFromNormalImage:@"singleplayer.png"
-                                                        selectedImage:@"singleplayer.png" target:self selector: @selector(onSinglePlayer:)];
-        single.color = [[ColorPalette sharedPalette] colorWithName:@"orange" fromPalette:@"_app"];
-        CCMenuItemImage *multi = [CCMenuItemImage itemFromNormalImage:@"multiplayer.png"
-                                                       selectedImage:@"multiplayer.png" target:self selector: @selector(onMultiplayer:)];
-        multi.color = [[ColorPalette sharedPalette] colorWithName:@"purple" fromPalette:@"_app"];
-        CCMenuItemImage *achievements = [CCMenuItemImage itemFromNormalImage:@"achievements.png"
-                                                              selectedImage:@"achievements.png" target:self selector: @selector(onAchievements:)];
-        achievements.color = [[ColorPalette sharedPalette] colorWithName:@"gold"fromPalette:@"_app"];
-        CCMenuItemImage *options = [CCMenuItemImage itemFromNormalImage:@"options.png"
-                                                         selectedImage:@"options.png" target:self selector: @selector(onOptions:)];
-        options.color = [[ColorPalette sharedPalette] colorWithName:@"silver" fromPalette:@"_app"];
-        
-        menu = [CCMenu menuWithItems: quickplay, single, multi, achievements, options, nil];
-        [menu alignItemsVertically];
+        ButtonList *buttons = [[ButtonList alloc] init];
+        [buttons addButtonWithDescription:@"Quickplay" target:self selector:@selector(onQuickplay:)
+                             iconFilename:@"quickplay.png" colorString:@"green"];
+        [buttons addButtonWithDescription:@"Single Player" target:self selector:@selector(onSinglePlayer:)
+                             iconFilename:@"singleplayer.png" colorString:@"orange"];
+        [buttons addButtonWithDescription:@"Multiplayer" target:self selector:@selector(onMultiplayer:)
+                             iconFilename:@"multiplayer.png" colorString:@"purple"];
+        [buttons addButtonWithDescription:@"Achievements" target:self selector:@selector(onAchievements:)
+                             iconFilename:@"achievements.png" colorString:@"gold"];
+        [buttons addButtonWithDescription:@"Options" target:self selector:@selector(onOptions:)
+                             iconFilename:@"options.png" colorString:@"silver"];
+        [self addChild:buttons];
         
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
         TitleLayer *title = [[TitleLayer alloc] init];
-        title.position = ccp(menu.position.x, screenSize.height - title.contentSize.height / 2 - platformPadding);
+        title.position = ccp(screenSize.width / 2, screenSize.height - title.contentSize.height / 2 - platformPadding);
         [self addChild:title];
         
-        float barWidth = title.contentSize.width;
-        float barHeight = options.contentSize.height * 6;
-        barWidth += platformPadding * 2;
-        RoundedRectangle *bar = [[RoundedRectangle alloc] initWithWidth:barWidth height:barHeight pressed:NO];
-        bar.position = ccp(menu.position.x, CGRectGetMinY(title.boundingBox) / 2);
-        [self addChild:bar z:-1];
-        
-        menu.position = ccp(menu.position.x, bar.position.y);
-        [self addChild: menu];
+        buttons.position = ccp(title.position.x, CGRectGetMinY(title.boundingBox) / 2);
     }
     return self;
 }

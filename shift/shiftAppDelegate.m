@@ -134,7 +134,9 @@
     [CCFileUtils setiPhoneRetinaDisplaySuffix:@"@2x"];
     [CCFileUtils setiPadRetinaDisplaySuffix:@"@2x~ipad"];
 	
+    //Set platform variables
     platformPadding = 10;
+    platformFontSize = 4 * platformPadding;
 
     //Set cell size for platform
     CGSize screenSize = [director winSize];
