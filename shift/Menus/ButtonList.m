@@ -33,10 +33,9 @@
         child.contentSize = CGSizeMake(self.contentSize.width, buttonHeight);
         child.position = ccp(child.contentSize.width / 2,
                              self.contentSize.height - ((buttonHeight + platformPadding) * i + buttonHeight / 2 + platformPadding / 2));
-        //Only 1 grandchild
-        for (CCNode *grandchild in child.children) {
-            grandchild.position = ccp(platformPadding + grandchild.contentSize.width / 2, buttonHeight / 2);
-        }
+        
+        CCNode *grandchild = [child.children objectAtIndex:0];
+        grandchild.position = ccp(platformPadding + grandchild.contentSize.width / 2, buttonHeight / 2);
         
         RoundedRectangle *bg = [[RoundedRectangle alloc] initWithWidth:self.contentSize.width height:buttonHeight pressed:NO];
         bg.position = ccp(child.contentSize.width / 2, child.contentSize.height / 2);
@@ -106,6 +105,7 @@
             NSDictionary *userData = (__bridge NSDictionary *)node.userData;
             SEL selector;
             [[userData objectForKey:@"selector"] getValue:&selector];
+            
             [[userData objectForKey:@"target"] performSelector:selector withObject:self];
         }
     }

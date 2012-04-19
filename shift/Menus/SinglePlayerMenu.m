@@ -118,7 +118,7 @@ NSInteger highestLevel;
     if(levelNum != LOCKED && levelNum<=highestLevel)
     {
         SinglePlayerGame *game = [SinglePlayerGame gameWithLevel:levelNum];
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:kSceneTransitionTime scene:game]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:game]];
     }
 }
 

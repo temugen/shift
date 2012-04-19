@@ -41,7 +41,7 @@ static QuickPlayGame *lastGame = nil;
                                                   cellSize:cellSize];
         board.position = boardCenter;
         [self addChild:board];
-        [self animatePopulation];
+        [self hideBlocks];
         
         lastGame = self;
         
@@ -52,6 +52,23 @@ static QuickPlayGame *lastGame = nil;
     }
     
     return self;
+}
+
+-(void) hideBlocks
+{
+    for (int x = 0; x < columnCount; x++) 
+    {
+        for (int y = 0; y < rowCount; y++) 
+        {
+            BlockSprite *origBlock = [board blockAtX:x y:y];
+            origBlock.visible = NO;
+        }
+    }
+}
+
+-(void) onEnterTransitionDidFinish
+{
+    [self animatePopulation];
 }
 
 -(void) onGameStart
@@ -109,7 +126,6 @@ static QuickPlayGame *lastGame = nil;
             
             if (origBlock != nil) 
             {
-                origBlock.visible = NO;
                 id actionMove = [CCMoveTo actionWithDuration:1.5 position:[board convertToWorldSpace:origBlock.position]];
                 
                 BlockSprite *block = [origBlock copy];
