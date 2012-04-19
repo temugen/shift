@@ -3,7 +3,7 @@
 //  shift
 //
 //  Created by Alex Chesebro on 2/20/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 __Oh_Shift__. All rights reserved.
 //
 
 #import <GameKit/GameKit.h>
@@ -92,7 +92,7 @@ static GameCenterHub* sharedHelper = nil;
   };
 
   // Authenticate local player and setup GKEventHandlerDelegate
-  if(![GKLocalPlayer localPlayer].authenticated)
+  if(![GKLocalPlayer localPlayer].isAuthenticated)
   {
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:setGKEventHandlerDelegate];
     [self getPlayerFriends];
@@ -125,7 +125,7 @@ static GameCenterHub* sharedHelper = nil;
 {
   GKLocalPlayer* me = [GKLocalPlayer localPlayer];
   
-  if (me.authenticated)
+  if (me.isAuthenticated)
   {
     [me loadFriendsWithCompletionHandler:^(NSArray* friends, NSError* error) 
     {
@@ -203,7 +203,7 @@ static GameCenterHub* sharedHelper = nil;
   NSString* filePath = [documentsDirectory stringByAppendingPathComponent:@"local_achievements"];  
   achievementDict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];  
   
-  if (!gameCenterAvailable) return;
+  if (![GKLocalPlayer localPlayer].isAuthenticated) return;
   
   [GKAchievement loadAchievementsWithCompletionHandler:^(NSArray* achievements, NSError* error) 
   {
@@ -288,8 +288,8 @@ static GameCenterHub* sharedHelper = nil;
 
 -(void) showLeaderboard:(NSString*) category
 {
-  if (!gameCenterAvailable) 
-    [self noGameCenterNotification:@"Leaderboards are not available without Game Center"];
+  if (!gameCenterAvailable || ![GKLocalPlayer localPlayer].isAuthenticated) 
+    [self noGameCenterNotification:@"Leaderboards are not available without being logged into Game Center"];
   
   GKLeaderboardViewController* leaderboardVc = [[GKLeaderboardViewController alloc] init];
   if (leaderboardVc != nil)
@@ -309,16 +309,19 @@ static GameCenterHub* sharedHelper = nil;
 
 -(void) submitScore:(int64_t)score category:(NSString *)category
 {
-  if (!gameCenterAvailable) 
+  if (!gameCenterAvailable || ![GKLocalPlayer localPlayer].isAuthenticated) 
   {
       // Process unsent scores
   }
-  GKScore* myScore = [[GKScore alloc] init];
-  myScore.value = score;
-  [myScore reportScoreWithCompletionHandler:^(NSError* error)
-   {
-     NSLog(@"submitScore error: %@", error.description);
-   }];
+  else 
+  {
+    GKScore* myScore = [[GKScore alloc] init];
+    myScore.value = score;
+    [myScore reportScoreWithCompletionHandler:^(NSError* error)
+     {
+       NSLog(@"submitScore error: %@", error.description);
+     }];  
+  }
 }
 
 -(void) saveUnsentScores
@@ -336,7 +339,7 @@ static GameCenterHub* sharedHelper = nil;
 
 -(void) findMatch
 {
-  if (!gameCenterAvailable) 
+  if (!gameCenterAvailable || ![GKLocalPlayer localPlayer].isAuthenticated)
     [self noGameCenterNotification:@"Matchmaking features are only available with Game Center"];
   
   matchStarted = NO;
@@ -351,6 +354,7 @@ static GameCenterHub* sharedHelper = nil;
   
   [rootViewController presentModalViewController:matchmakerVc animated:YES];
 }
+
 
 -(void) clearMatches
 {
@@ -370,11 +374,13 @@ static GameCenterHub* sharedHelper = nil;
   }
 }
 
+
 -(void) enterNewGame:(GKTurnBasedMatch*)match 
 {
   NSLog(@"Entering a new game");
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu sceneWithMatch:match]]];
 }
+
 
 // Show current match board
 -(void) layoutMatch:(GKTurnBasedMatch*)match
@@ -388,33 +394,35 @@ static GameCenterHub* sharedHelper = nil;
  
 -(void) takeTurn:(GKTurnBasedMatch*)match 
 {
-  // TODO:  Implement method
+  
 }
+
 
 // Sends data to the other player and ends your turn
 -(IBAction)sendTurn:(id)sender data:(NSData*)data
 {
   GKTurnBasedMatch* match =  self.currentMatch;
   NSUInteger currentIndex = [currentMatch.participants indexOfObject:match.currentParticipant];
-  GKTurnBasedParticipant* nextParticipant = [match.participants objectAtIndex:((currentIndex + 1) % [currentMatch.participants count ])];
+  GKTurnBasedParticipant* nextParticipant = [match.participants objectAtIndex:((currentIndex + 1) % [currentMatch.participants count])];
   [currentMatch endTurnWithNextParticipant:nextParticipant 
                                  matchData:data 
                          completionHandler:^(NSError *error) 
   {
     if (error) 
     {
-      NSLog(@"%@", error);
+      NSLog(@"SendDataError: %@", error);
     }
   }];
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
+
 // End of game has been received from the other player
 -(void) recieveEndGame:(GKTurnBasedMatch*)match
 {
   [self layoutMatch:match];
-  // TODO:  Implement method
 }
+
 
 // Gives player a notice when turns have changed and it is there turn
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match
@@ -434,11 +442,12 @@ static GameCenterHub* sharedHelper = nil;
   [rootViewController dismissModalViewControllerAnimated:YES];
   self.currentMatch = myMatch;
   GKTurnBasedParticipant* firstParticipant = [myMatch.participants objectAtIndex:0];
-  if (firstParticipant.lastTurnDate) 
+  
+  if (firstParticipant.lastTurnDate)
   {
     if ([myMatch.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) 
     {
-      [self takeTurn:myMatch];
+      [self layoutMatch:myMatch];
     } 
     else 
     {

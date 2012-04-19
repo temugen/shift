@@ -3,7 +3,7 @@
 //  shift
 //
 //  Created by Alex Chesebro on 4/2/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 __Oh_Shift__. All rights reserved.
 //
 
 #import "MultiplayerGameMenu.h"
@@ -23,19 +23,24 @@
   return newGame;
 }
 
+
 +(MultiplayerGame*) gameWithMatchData:(GKTurnBasedMatch*)match;
 {
-  if (match.matchData != nil) 
+  if (match.matchData != nil)
   {
     MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithMatchData:match];
+    NSDictionary* boardLayout = [newGame.board serialize];
+    NSData* boardData = [NSKeyedArchiver archivedDataWithRootObject:boardLayout];
+    [[GameCenterHub sharedInstance] sendTurn:self data:boardData];
     return newGame;
   }
   return nil;
 }
 
+
 -(id) initWithMatchData:(GKTurnBasedMatch*) match
 {
-  if ((self = [super init])) 
+  if ((self = [super init]))
   {
     NSDictionary* boardLayout = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
     board = [[BoardLayer alloc] initWithDictionary:boardLayout cellSize:cellSize];
@@ -75,6 +80,7 @@
 -(void) onGameEnd
 {
   [super onGameEnd];
+  
   NSLog(@"Current match has ended!");
   NSString* stringdata = @"Testing send";
   NSData* data = [stringdata dataUsingEncoding:NSUTF8StringEncoding];
