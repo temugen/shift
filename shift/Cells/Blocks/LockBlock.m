@@ -65,14 +65,14 @@
 -(BOOL) dropKey
 {
     //Attempt to set key at one of the adjacent 8 cells
-    if ([self setKeyAtX:row y:column-1] ||
-        [self setKeyAtX:row+1 y:column] ||
-        [self setKeyAtX:row y:column+1] ||
-        [self setKeyAtX:row-1 y:column] ||
-        [self setKeyAtX:row+1 y:column-1] ||
-        [self setKeyAtX:row+1 y:column+1] ||
-        [self setKeyAtX:row-1 y:column-1] ||
-        [self setKeyAtX:row-1 y:column+1]) {
+    if ([self setKeyAtX:column-1 y:row] ||
+        [self setKeyAtX:column y:row+1] ||
+        [self setKeyAtX:column+1 y:row] ||
+        [self setKeyAtX:column y:row-1] ||
+        [self setKeyAtX:column-1 y:row+1] ||
+        [self setKeyAtX:column+1 y:row+1] ||
+        [self setKeyAtX:column-1 y:row-1] ||
+        [self setKeyAtX:column+1 y:row-1]) {
         
         //We created a key
         return YES;
@@ -87,12 +87,10 @@
 -(BOOL) setKeyAtX:(int)x y:(int)y
 {
     //Make sure new position is not out of bounds, and there is not already a block there.
-    if(![board isOutOfBoundsAtX:x y:y] && [board blockAtX:x y:y] == nil)
+    if(![self.board isOutOfBoundsAtX:x y:y] && [self.board blockAtX:x y:y] == nil)
     {
         BlockSprite *block = [KeyBlock blockWithName:@"key"];
-        block.scaleX = self.scaleX;
-        block.scaleY = self.scaleY;
-        [board addBlock:block x:x y:y];
+        [self.board addBlock:block x:x y:y];
         return YES;
     }
     return NO;

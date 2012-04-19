@@ -144,6 +144,7 @@
             break;
         }
         else if (block != nil && block.movable) {
+            block.blockTrain = self;
             [blocks addObject:block];
         }
     }
@@ -289,6 +290,7 @@
         
         [board moveBlock:block x:column y:row];
         [block onSnap];
+        block.blockTrain = nil;
     }
     
     if (hasMoved) {

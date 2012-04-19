@@ -15,6 +15,7 @@
 @synthesize comparable, movable;
 @synthesize name;
 @synthesize tutorial;
+@synthesize blockTrain;
 
 -(id) initWithFilename:(NSString *)filename
 {
@@ -67,9 +68,9 @@
     }
 }
 
--(volatile BoardLayer *) board
+-(BoardLayer *) board
 {
-    board = (volatile BoardLayer *)self.parent;
+    board = (BoardLayer *)self.parent;
     return board;
 }
 

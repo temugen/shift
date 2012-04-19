@@ -9,6 +9,7 @@
 #import "Tutorial.h"
 
 @class BoardLayer;
+@class BlockTrain;
 
 @interface CellSprite : CCSprite <NSCopying>
 {
@@ -22,7 +23,8 @@
     BOOL destructible;
     NSString *name;
     Tutorial *tutorial;
-    volatile BoardLayer *board;
+    BoardLayer *board;
+    BlockTrain *blockTrain;
 }
 
 @property(nonatomic, assign) int row, column;
@@ -30,7 +32,8 @@
 @property(nonatomic, assign) BOOL comparable, movable;
 @property(nonatomic, copy) NSString *name;
 @property(nonatomic, retain) Tutorial *tutorial;
-@property(nonatomic, readonly, assign) volatile BoardLayer *board;
+@property(nonatomic, readonly, assign) BoardLayer *board;
+@property(nonatomic, retain) BlockTrain *blockTrain;
 
 -(id) initWithFilename:(NSString *)filename;
 
@@ -41,7 +44,7 @@
 
 -(void) completeTutorial;
 
--(volatile BoardLayer *) board;
+-(BoardLayer *) board;
 
 //Override if you want to handle events
 -(BOOL) onCompareWithCell:(CellSprite *)cell;
