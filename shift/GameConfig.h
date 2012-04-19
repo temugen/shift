@@ -41,14 +41,6 @@
 #error(unknown architecture)
 #endif
 
-
-//Describes the current movement occurring on a block train
-typedef enum Movement {
-    kMovementColumn,
-    kMovementRow,
-    kMovementNone
-} Movement;
-
 typedef enum Difficulty {
     kDifficultyEasy = 3,
     kDifficultyMedium = 5,

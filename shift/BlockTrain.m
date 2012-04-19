@@ -269,6 +269,8 @@
 
 -(void) snap
 {
+    movement = kMovementSnapped;
+    
     //There is nothing to snap
     if ([blocks count] == 0) {
         return;

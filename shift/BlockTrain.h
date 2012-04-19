@@ -8,6 +8,14 @@
 
 #import "BlockSprite.h"
 
+//Describes the current movement occurring on a block train
+typedef enum Movement {
+    kMovementColumn,
+    kMovementRow,
+    kMovementNone,
+    kMovementSnapped
+} Movement;
+
 @interface BlockTrain : NSObject
 {
     CGPoint initialLocation, currentLocation;
