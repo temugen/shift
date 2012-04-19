@@ -136,7 +136,7 @@
 	
     //Set platform variables
     platformPadding = 10;
-    platformFontSize = 4 * platformPadding;
+    platformFontSize = 3 * platformPadding;
 
     //Set cell size for platform
     CGSize screenSize = [director winSize];

@@ -30,30 +30,42 @@
         
         [child removeChildByTag:10 cleanup:YES];
         
-        float yDiff = buttonHeight - child.contentSize.height;
         child.contentSize = CGSizeMake(self.contentSize.width, buttonHeight);
         child.position = ccp(child.contentSize.width / 2,
-                             self.contentSize.height - ((buttonHeight + platformPadding / 2) * i + buttonHeight / 2));
+                             self.contentSize.height - ((buttonHeight + platformPadding) * i + buttonHeight / 2 + platformPadding / 2));
+        //Only 1 grandchild
         for (CCNode *grandchild in child.children) {
-            grandchild.position = ccp(grandchild.position.x, grandchild.position.y + yDiff);
+            grandchild.position = ccp(platformPadding + grandchild.contentSize.width / 2, buttonHeight / 2);
         }
         
         RoundedRectangle *bg = [[RoundedRectangle alloc] initWithWidth:self.contentSize.width height:buttonHeight pressed:NO];
-        bg.position = ccp(bg.contentSize.width / 2, bg.contentSize.height / 2);
+        bg.position = ccp(child.contentSize.width / 2, child.contentSize.height / 2);
         [child addChild:bg z:-1 tag:10];
     }
 }
 
 -(void) addNode:(CCNode *)node target:(id)target selector:(SEL)selector
 {
+    buttonHeight = MAX(buttonHeight, node.contentSize.height);
+    self.contentSize = CGSizeMake(MAX(self.contentSize.width, node.contentSize.width + 2 * platformPadding),
+                                  (buttonHeight + platformPadding) * ([self.children count] + 1));
     
+    CCLayer *button = [CCLayer node];
+    button.isRelativeAnchorPoint = YES;
+    button.userData = (__bridge_retained void *)[NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [NSValue value:&selector withObjCType:@encode(SEL)], @"selector",
+                                                 target, @"target", nil];
+    [button addChild:node];
+    
+    [self addChild:button];
 }
 
 -(void) addButtonWithDescription:(NSString *)text target:(id)target selector:(SEL)selector;
 {
     CCLabelTTF *label = [CCLabelTTF labelWithString:text fontName:@"Copperplate-Light" fontSize:platformFontSize];
     [label addStrokeWithSize:5 color:ccBLACK];
-    [self addChild:label];
+    [self addNode:label target:target selector:selector];
+    [self reformat];
 }
 
 -(void) addButtonWithDescription:(NSString *)text target:(id)target selector:(SEL)selector iconFilename:(NSString *)filename colorString:(NSString *)color
@@ -63,27 +75,19 @@
     
     CCLabelTTF *label = [CCLabelTTF labelWithString:text fontName:@"Copperplate-Light" fontSize:platformFontSize];
     label.color = ccBLACK;
-    [label addStrokeWithSize:1 color:ccWHITE];
+    [label addStrokeWithSize:1  color:ccWHITE];
     
-    CCLayer *button = [CCLayer node];
-    button.isRelativeAnchorPoint = YES;
-    button.contentSize = CGSizeMake(label.contentSize.width + 3 * platformPadding + sprite.contentSize.width,
+    CCLayer *node = [CCLayer node];
+    node.isRelativeAnchorPoint = YES;
+    node.contentSize = CGSizeMake(sprite.contentSize.width + platformPadding + label.contentSize.width,
                                     MAX(label.contentSize.height, sprite.contentSize.height));
-    self.contentSize = CGSizeMake(MAX(self.contentSize.width, button.contentSize.width),
-                                  self.contentSize.height + button.contentSize.height + platformPadding / 2);
     
-    sprite.position = ccp(platformPadding + sprite.contentSize.width / 2, button.contentSize.height / 2);
-    [button addChild:sprite];
-    label.position = ccp(CGRectGetMaxX(sprite.boundingBox) + platformPadding + label.contentSize.width / 2, button.contentSize.height / 2);
-    [button addChild:label];
-    button.userData = (__bridge_retained void *)[NSDictionary dictionaryWithObjectsAndKeys:
-                                                 [NSValue value:&selector withObjCType:@encode(SEL)], @"selector",
-                                                 target, @"target", nil];
+    sprite.position = ccp(sprite.contentSize.width / 2, node.contentSize.height / 2);
+    [node addChild:sprite];
+    label.position = ccp(CGRectGetMaxX(sprite.boundingBox) + platformPadding + label.contentSize.width / 2, node.contentSize.height / 2);
+    [node addChild:label];
     
-    [self addChild:button];
-    
-    buttonHeight = MAX(buttonHeight, button.contentSize.height);
-    
+    [self addNode:node target:target selector:selector];
     [self reformat];
 }
 
