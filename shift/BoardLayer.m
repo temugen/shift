@@ -44,7 +44,23 @@
 
 +(BoardLayer *) boardWithFilename:(NSString *)filename cellSize:(CGSize)size
 {
-    return [[BoardLayer alloc] initWithFilename:filename cellSize:size];
+  //Find the path to the file
+  NSString *extension = [filename pathExtension];
+  NSString *name = [filename stringByDeletingPathExtension];
+  NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:extension];
+  
+  //Open the file and put its contents into a dictionary
+  NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
+  
+  //Get the board attributes
+  NSDictionary *board = [plist valueForKey:@"board"];
+  
+  return [[BoardLayer alloc] initWithDictionary:board cellSize:size];
+}
+
++(BoardLayer *) boardWithDictionary:(NSDictionary*)dict cellSize:(CGSize)size
+{  
+  return [[BoardLayer alloc] initWithDictionary:dict cellSize:size];
 }
 
 -(id) initWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size
@@ -113,18 +129,8 @@
     return self;
 }
 
--(id) initWithFilename:(NSString *)filename cellSize:(CGSize)size
+-(id) initWithDictionary:(NSDictionary*)board cellSize:(CGSize)size
 {
-    //Find the path to the file
-    NSString *extension = [filename pathExtension];
-    NSString *name = [filename stringByDeletingPathExtension];
-    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:extension];
-    
-    //Open the file and put its contents into a dictionary
-    NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
-    
-    //Get the board attributes
-    NSDictionary *board = [plist valueForKey:@"board"];
     int rows = [[board objectForKey:@"rows"] intValue], columns = [[board valueForKey:@"columns"] intValue];
                    
     if ((self = [self initWithNumberOfColumns:columns rows:rows cellSize:size])) {        
