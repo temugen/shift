@@ -103,6 +103,12 @@
     }
 }
 
+-(void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    NSSet *set = [NSSet setWithObject:touch];
+    [self ccTouchesEnded:set withEvent:event];
+}
+
 -(void) ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     CGPoint location = [self convertTouchToNodeSpace:[touches anyObject]];

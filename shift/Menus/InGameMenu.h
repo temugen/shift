@@ -7,9 +7,10 @@
 //
 
 #import "Menu.h"
+#import "ButtonList.h"
 
 @interface InGameMenu : Menu
 {
-    CCMenu* menu;
+    ButtonList *buttons;
 }
 @end

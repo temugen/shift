@@ -116,6 +116,8 @@ static QuickPlayGame *lastGame = nil;
 
 -(void) animatePopulation
 {
+    [self hideBlocks];
+    
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
     
     for (int x = 0; x < columnCount; x++) 
