@@ -44,6 +44,11 @@
     }
 }
 
+-(void) addNode:(CCNode *)node target:(id)target selector:(SEL)selector
+{
+    
+}
+
 -(void) addButtonWithDescription:(NSString *)text target:(id)target selector:(SEL)selector;
 {
     CCLabelTTF *label = [CCLabelTTF labelWithString:text fontName:@"Copperplate-Light" fontSize:platformFontSize];
@@ -57,7 +62,8 @@
     sprite.color = [[ColorPalette sharedPalette] colorWithName:color fromPalette:@"_app"];
     
     CCLabelTTF *label = [CCLabelTTF labelWithString:text fontName:@"Copperplate-Light" fontSize:platformFontSize];
-    [label addStrokeWithSize:2 color:ccBLACK];
+    label.color = ccBLACK;
+    [label addStrokeWithSize:1 color:ccWHITE];
     
     CCLayer *button = [CCLayer node];
     button.isRelativeAnchorPoint = YES;
