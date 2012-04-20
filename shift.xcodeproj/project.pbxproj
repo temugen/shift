@@ -43,6 +43,7 @@
 		82470D3914F1C7DB00F60A7C /* 2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82470D3814F1C7DB00F60A7C /* 2.plist */; };
 		82470D3C14F1CC8B00F60A7C /* QuickPlayGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */; };
 		82470D6B14F5E25A00F60A7C /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82470D6A14F5E25A00F60A7C /* test.plist */; };
+		8259FDB81542277200B99B36 /* LevelPack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8259FDB71542277200B99B36 /* LevelPack.m */; };
 		8268C192152B5C9700CC730D /* shift_bg_game.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C188152B5C9700CC730D /* shift_bg_game.mp3 */; };
 		8268C193152B5C9700CC730D /* shift_bg_menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C189152B5C9700CC730D /* shift_bg_menu.mp3 */; };
 		8268C194152B5C9700CC730D /* shift_destruct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C18A152B5C9700CC730D /* shift_destruct.mp3 */; };
@@ -710,6 +711,8 @@
 		82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickPlayGame.h; sourceTree = "<group>"; };
 		82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickPlayGame.m; sourceTree = "<group>"; };
 		82470D6A14F5E25A00F60A7C /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = test.plist; path = Resources/Levels/test.plist; sourceTree = "<group>"; };
+		8259FDB61542277200B99B36 /* LevelPack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelPack.h; sourceTree = "<group>"; };
+		8259FDB71542277200B99B36 /* LevelPack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelPack.m; sourceTree = "<group>"; };
 		8268C188152B5C9700CC730D /* shift_bg_game.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_bg_game.mp3; path = shift/Resources/Sounds/shift_bg_game.mp3; sourceTree = SOURCE_ROOT; };
 		8268C189152B5C9700CC730D /* shift_bg_menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_bg_menu.mp3; path = shift/Resources/Sounds/shift_bg_menu.mp3; sourceTree = SOURCE_ROOT; };
 		8268C18A152B5C9700CC730D /* shift_destruct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_destruct.mp3; path = shift/Resources/Sounds/shift_destruct.mp3; sourceTree = SOURCE_ROOT; };
@@ -1250,6 +1253,8 @@
 				8270385414DB044A008D7240 /* GameConfig.h */,
 				8235A42D150556E70058C21F /* GameScene.h */,
 				8235A42E150556E80058C21F /* GameScene.m */,
+				8259FDB61542277200B99B36 /* LevelPack.h */,
+				8259FDB71542277200B99B36 /* LevelPack.m */,
 				FA851227152A2FCD0046A9DF /* MultiplayerGame.h */,
 				FA851228152A2FCE0046A9DF /* MultiplayerGame.m */,
 				82470D3A14F1CC8A00F60A7C /* QuickPlayGame.h */,
@@ -2167,6 +2172,7 @@
 				829BF368153F7FE700A2FF71 /* ButtonList.m in Sources */,
 				FAED92B2153F84E6003A8828 /* MultiplayerGameMenu.m in Sources */,
 				829BF3F1153FE2E400A2FF71 /* MultiplayerTypeMenu.m in Sources */,
+				8259FDB81542277200B99B36 /* LevelPack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
