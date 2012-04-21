@@ -121,6 +121,7 @@
 		82A9D8171531676900D05BAA /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D8131531676900D05BAA /* back@2x.png */; };
 		82A9D8181531676900D05BAA /* back@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D8141531676900D05BAA /* back@2x~ipad.png */; };
 		82A9D8191531676900D05BAA /* back~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82A9D8151531676900D05BAA /* back~ipad.png */; };
+		82B4B2B81543601300B1467F /* crack1.png in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B2B71543601300B1467F /* crack1.png */; };
 		9635BFFD152FEB790091081B /* TitleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635BFFC152FEB790091081B /* TitleLayer.m */; };
 		9852660314F6DAE900353F61 /* lock_tutorial.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9852660214F6DAE900353F61 /* lock_tutorial.plist */; };
 		9852F3BE153F81920049CA8F /* pinwheel.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9852F3BD153F81920049CA8F /* pinwheel.plist */; };
@@ -804,6 +805,7 @@
 		82A9D8131531676900D05BAA /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		82A9D8141531676900D05BAA /* back@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x~ipad.png"; sourceTree = "<group>"; };
 		82A9D8151531676900D05BAA /* back~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back~ipad.png"; sourceTree = "<group>"; };
+		82B4B2B71543601300B1467F /* crack1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crack1.png; path = Resources/Cells/Blocks/crack1.png; sourceTree = "<group>"; };
 		9635BFFB152FEB790091081B /* TitleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleLayer.h; path = Menus/TitleLayer.h; sourceTree = "<group>"; };
 		9635BFFC152FEB790091081B /* TitleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleLayer.m; path = Menus/TitleLayer.m; sourceTree = "<group>"; };
 		9852660214F6DAE900353F61 /* lock_tutorial.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = lock_tutorial.plist; path = Resources/Levels/lock_tutorial.plist; sourceTree = "<group>"; };
@@ -1138,6 +1140,7 @@
 		82470D0614F1BE7700F60A7C /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				82B4B2B71543601300B1467F /* crack1.png */,
 				829BF3F415407FB400A2FF71 /* block_unlock.png */,
 				829BF3F215407FAE00A2FF71 /* block_lock.png */,
 				829BF3F615408ECC00A2FF71 /* block_key.png */,
@@ -2092,6 +2095,7 @@
 				829BF3F515407FB400A2FF71 /* block_unlock.png in Resources */,
 				829BF3F715408ECC00A2FF71 /* block_key.png in Resources */,
 				8259FDBA154251B000B99B36 /* levels.plist in Resources */,
+				82B4B2B81543601300B1467F /* crack1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
