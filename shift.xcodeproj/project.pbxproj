@@ -44,6 +44,7 @@
 		82470D3C14F1CC8B00F60A7C /* QuickPlayGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 82470D3B14F1CC8B00F60A7C /* QuickPlayGame.m */; };
 		82470D6B14F5E25A00F60A7C /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82470D6A14F5E25A00F60A7C /* test.plist */; };
 		8259FDB81542277200B99B36 /* LevelPack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8259FDB71542277200B99B36 /* LevelPack.m */; };
+		8259FDBA154251B000B99B36 /* levels.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8259FDB9154251B000B99B36 /* levels.plist */; };
 		8268C192152B5C9700CC730D /* shift_bg_game.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C188152B5C9700CC730D /* shift_bg_game.mp3 */; };
 		8268C193152B5C9700CC730D /* shift_bg_menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C189152B5C9700CC730D /* shift_bg_menu.mp3 */; };
 		8268C194152B5C9700CC730D /* shift_destruct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8268C18A152B5C9700CC730D /* shift_destruct.mp3 */; };
@@ -713,6 +714,7 @@
 		82470D6A14F5E25A00F60A7C /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = test.plist; path = Resources/Levels/test.plist; sourceTree = "<group>"; };
 		8259FDB61542277200B99B36 /* LevelPack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelPack.h; sourceTree = "<group>"; };
 		8259FDB71542277200B99B36 /* LevelPack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelPack.m; sourceTree = "<group>"; };
+		8259FDB9154251B000B99B36 /* levels.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = levels.plist; path = Resources/levels.plist; sourceTree = "<group>"; };
 		8268C188152B5C9700CC730D /* shift_bg_game.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_bg_game.mp3; path = shift/Resources/Sounds/shift_bg_game.mp3; sourceTree = SOURCE_ROOT; };
 		8268C189152B5C9700CC730D /* shift_bg_menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_bg_menu.mp3; path = shift/Resources/Sounds/shift_bg_menu.mp3; sourceTree = SOURCE_ROOT; };
 		8268C18A152B5C9700CC730D /* shift_destruct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = shift_destruct.mp3; path = shift/Resources/Sounds/shift_destruct.mp3; sourceTree = SOURCE_ROOT; };
@@ -1283,6 +1285,7 @@
 			isa = PBXGroup;
 			children = (
 				82A9D7E81531502500D05BAA /* colors.plist */,
+				8259FDB9154251B000B99B36 /* levels.plist */,
 				8270370C14DB0448008D7240 /* iTunesArtwork */,
 				8270370B14DB0448008D7240 /* Info.plist */,
 				827036FD14DB0448008D7240 /* fps_images.png */,
@@ -2088,6 +2091,7 @@
 				829BF3F315407FAE00A2FF71 /* block_lock.png in Resources */,
 				829BF3F515407FB400A2FF71 /* block_unlock.png in Resources */,
 				829BF3F715408ECC00A2FF71 /* block_key.png in Resources */,
+				8259FDBA154251B000B99B36 /* levels.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
