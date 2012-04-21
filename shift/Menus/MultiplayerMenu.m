@@ -10,6 +10,7 @@
 #import "MainMenu.h"
 #import "GameCenterHub.h"
 #import "LeaderboardMenu.h"
+#import "ButtonList.h"
 
 @implementation MultiplayerMenu
 
@@ -17,39 +18,37 @@
 -(id) init
 {
     if ((self=[super init])) {
-        
-        //Set up menu items
-        CCMenuItemFont *play = [CCMenuItemFont itemFromString:@"Find Opponent" target:self selector: @selector(onOppSelection:)];
-        CCMenuItemFont *leaderboard= [CCMenuItemFont itemFromString:@"Leaderboard" target:self selector: @selector(onLeaderboard:)];
-        CCMenuItemFont *matchclear= [CCMenuItemFont itemFromString:@"Clear Matches" target:self selector: @selector(onClear:)];
       
-        //Add items to menu
-        CCMenu *menu = [CCMenu menuWithItems: play, leaderboard, matchclear, nil];
-        
-        [menu alignItemsVertically];
-        
-        [self addChild: menu];        
-        [self addBackButton];
+      CGSize screenSize = [[CCDirector sharedDirector] winSize];
+      ButtonList* buttons = [ButtonList buttonList];
+      
+      [buttons addButtonWithDescription:@"Matches" target:self selector: @selector(onMatchSelect:)];
+      [buttons addButtonWithDescription:@"Leaderboards" target:self selector: @selector(onLeaderboardSelect:)];
+      [buttons addButtonWithDescription:@"Clear Matches" target:self selector: @selector(onClearSelect:)];
+      buttons.position = ccp(screenSize.width / 2, screenSize.height / 2);
+      [self addChild:buttons];
+      [self addBackButton];
+      
     }
     return self;
 }
 
 /* Callback functions for menu items */
 
-- (void) onOppSelection: (id) sender
+- (void) onMatchSelect: (id) sender
 {
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
-  if (![GameCenterHub sharedInstance].gameCenterAvailable)
+  if (![GameCenterHub sharedHub].gameCenterAvailable)
   {
-    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game center is required to use matchmaking"];
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game center is required to use matchmaking"];
     return;
   }
-  [[GameCenterHub sharedInstance] findMatch];
+  [[GameCenterHub sharedHub] findMatch];
 }
 
-- (void) onLeaderboard: (id) sender
+- (void) onLeaderboardSelect: (id) sender
 {
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
@@ -58,12 +57,12 @@
 }
 
 
-- (void) onClear: (id) sender
+- (void) onClearSelect: (id) sender
 {
   //Play menu selection sound
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
-  [[GameCenterHub sharedInstance] clearMatches];
+  [[GameCenterHub sharedHub] clearMatches];
 }
 
 @end

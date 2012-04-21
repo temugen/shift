@@ -20,31 +20,25 @@
 @synthesize notificationCenter;
 @synthesize rootViewController;
 @synthesize gameCenterAvailable;
+@synthesize userAuthenticated;
 @synthesize currentMatch;
 @synthesize unsentScores;
 
 
-static GameCenterHub* sharedHelper = nil;
 
 
-+(GameCenterHub*) sharedInstance
++(GameCenterHub*) sharedHub
 {
-  if (!sharedHelper) 
-  {
-    sharedHelper = [[self alloc] init];
-  }
-  return sharedHelper;
-}
+  static GameCenterHub* sharedHub = nil;
 
-+(id) alloc
-{
+  if (sharedHub != nil)
+    return sharedHub;
+  
   @synchronized(self)
   {
-    NSAssert(sharedHelper == nil, @"Attempted to alloc second GCHub");
-    sharedHelper = [super alloc];
-    return sharedHelper;
+    sharedHub = [[GameCenterHub alloc] init];
   }
-  return nil;
+  return sharedHub;
 }
 
 -(id) init
@@ -60,20 +54,14 @@ static GameCenterHub* sharedHelper = nil;
     if (gameCenterAvailable)
     {
       notificationCenter = [NSNotificationCenter defaultCenter];
-      [notificationCenter addObserver:self selector:@selector(authenticationChanged) 
+      [notificationCenter addObserver:self 
+                             selector:@selector(authenticationChanged) 
                                  name:GKPlayerAuthenticationDidChangeNotificationName 
                                object:nil];
     }
   }
   return self;
 }
-
--(void) dealloc
-{
-  sharedHelper = nil;
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 
 /*
  ********** User Account Functions **********
@@ -82,7 +70,8 @@ static GameCenterHub* sharedHelper = nil;
 -(void) authenticateLocalPlayer
 {
   [self loadAchievements];
-  if (!gameCenterAvailable) return;
+  if (!gameCenterAvailable) 
+    return;
 
   // Setup event handler
   void (^setGKEventHandlerDelegate)(NSError *) = ^ (NSError* error)
@@ -105,6 +94,7 @@ static GameCenterHub* sharedHelper = nil;
   }
 }
 
+
 -(void) authenticationChanged 
 {
   [self loadAchievements];
@@ -120,6 +110,7 @@ static GameCenterHub* sharedHelper = nil;
     userAuthenticated = NO;
   }
 }
+
 
 -(void) getPlayerFriends
 {
@@ -288,8 +279,8 @@ static GameCenterHub* sharedHelper = nil;
 
 -(void) showLeaderboard:(NSString*) category
 {
-  if (!gameCenterAvailable || ![GKLocalPlayer localPlayer].isAuthenticated) 
-    [self noGameCenterNotification:@"Leaderboards are not available without being logged into Game Center"];
+  if (!gameCenterAvailable || !userAuthenticated) 
+    [self displayGameCenterNotification:@"Leaderboards are not available without being logged into Game Center"];
   
   GKLeaderboardViewController* leaderboardVc = [[GKLeaderboardViewController alloc] init];
   if (leaderboardVc != nil)
@@ -340,7 +331,7 @@ static GameCenterHub* sharedHelper = nil;
 -(void) findMatch
 {
   if (!gameCenterAvailable || ![GKLocalPlayer localPlayer].isAuthenticated)
-    [self noGameCenterNotification:@"Matchmaking features are only available with Game Center"];
+    [self displayGameCenterNotification:@"Matchmaking features are only available with Game Center"];
   
   matchStarted = NO;
   [rootViewController dismissModalViewControllerAnimated:NO];
@@ -385,10 +376,22 @@ static GameCenterHub* sharedHelper = nil;
 // Show current match board
 -(void) layoutMatch:(GKTurnBasedMatch*)match
 {
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match]]];
-
+  if (match.status != GKTurnBasedMatchStatusMatching)
+  {
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match]]];
+  }
+  else
+  {
+    [self waitForAnotherPlayer:match];
+  }
   // TO STOP MOVEMENTS, Board.isTouchEnabled
   // TODO:  Implement method, show current match board
+}
+
+
+-(void) waitForAnotherPlayer:(GKTurnBasedMatch *)match
+{
+  NSLog(@"Waiting for another player");
 }
 
  
@@ -439,6 +442,7 @@ static GameCenterHub* sharedHelper = nil;
 // Called when user selects a match from the list of matches in GameCenter
 -(void) turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)myMatch 
 {
+  NSLog(@"didFindMatch");
   [rootViewController dismissModalViewControllerAnimated:YES];
   self.currentMatch = myMatch;
   GKTurnBasedParticipant* firstParticipant = [myMatch.participants objectAtIndex:0];
@@ -456,20 +460,23 @@ static GameCenterHub* sharedHelper = nil;
   } 
   else 
   {
-    [self enterNewGame:myMatch];
+    [self waitForAnotherPlayer:myMatch];
   }
 }
+
+
 
 // Called when user hits cancel button
 -(void)turnBasedMatchmakerViewControllerWasCancelled:(GKTurnBasedMatchmakerViewController *)viewController 
 {
+  NSLog(@"viewControllerWasCanceled");
   [rootViewController dismissModalViewControllerAnimated:YES];
-  NSLog(@"has cancelled");
 }
 
 // Called when there is an error (ex:  connection loss)
 -(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFailWithError:(NSError *)error 
 {
+  NSLog(@"didFailWithError");
   [rootViewController dismissModalViewControllerAnimated:YES];
   NSLog(@"Error finding match: %@", error.localizedDescription);
 }
@@ -477,6 +484,7 @@ static GameCenterHub* sharedHelper = nil;
 // Called when a player removes a match, or just quits a match
 -(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController playerQuitForMatch:(GKTurnBasedMatch *)myMatch 
 {
+  NSLog(@"playerQuitForMatch");
   NSUInteger currentIndex = [myMatch.participants indexOfObject:myMatch.currentParticipant];
   GKTurnBasedParticipant* part;
   
@@ -564,9 +572,9 @@ static GameCenterHub* sharedHelper = nil;
   return (localPlayerClassAvailable && osVersionSupported);
 }
 
--(void) noGameCenterNotification:(NSString*) message
+-(void) displayGameCenterNotification:(NSString*) message
 {
-  [[[UIAlertView alloc] initWithTitle:@"GameCenter Error" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+  [[[UIAlertView alloc] initWithTitle:@"GameCenter" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
 }
 
 @end

@@ -90,7 +90,7 @@ static QuickPlayGame *lastGame = nil;
 //      [[GameCenterHub sharedInstance] submitScore:elapsedTime category:@"medium_time"];
       break;
     case kDifficultyHard:
-      [[GameCenterHub sharedInstance] submitScore:elapsedTime category:@"hard_time"];
+      [[GameCenterHub sharedHub] submitScore:elapsedTime category:@"hard_time"];
       break;
   }
 }

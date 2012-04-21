@@ -155,8 +155,8 @@
 	// Run the intro Scene
 	[[CCDirector sharedDirector] runWithScene: [MainMenu scene]];
   
-    [[GameCenterHub sharedInstance] authenticateLocalPlayer];
-    [GameCenterHub sharedInstance].rootViewController = viewController;
+    [[GameCenterHub sharedHub] authenticateLocalPlayer];
+    [GameCenterHub sharedHub].rootViewController = viewController;
 }
 
 
