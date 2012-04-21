@@ -14,12 +14,7 @@
 -(id) init
 {
     if ((self = [super init])) {        
-        
-        CCMenuItemFont *levelSelect = [CCMenuItemFont itemFromString:@"Level Select" target:self selector: @selector(onLevelSelect:)];
-        
-        [menu addChild:levelSelect];
-        
-        [menu alignItemsVertically];
+        [buttons addButtonWithDescription:@"Level Select" target:self selector: @selector(onLevelSelect:)];
     }
     
     return self;
@@ -27,9 +22,6 @@
 
 -(void) onLevelSelect:(id)sender
 {
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    
     [[CCDirector sharedDirector] runWithScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerMenu scene]]];
 }
 

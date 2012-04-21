@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>default</key>
+	<array>
+		<string>stationary_tutorial</string>
+		<string>dice_five</string>
+		<string>fishing</string>
+		<string>rotation_tutorial</string>
+		<string>ring_around_the_rosey</string>
+		<string>stationary_x</string>
+		<string>purple_bee</string>
+		<string>great_america</string>
+		<string>four_square</string>
+		<string>square_dance</string>
+		<string>boxing_ring</string>
+		<string>triquetra</string>
+		<string>flat_pair</string>
+		<string>pinwheel</string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string></string>
+		<string>wildcard_tutorial</string>
+		<string>lock_tutorial</string>
+	</array>
+</dict>
+</plist>

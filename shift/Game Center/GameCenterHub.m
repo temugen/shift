@@ -10,7 +10,7 @@
 #import "GameCenterHub.h"
 #import "cocos2d.h"
 #import "GKAchievementNotification/GKAchievementHandler.h"
-#import "DifficultyMenu.h"
+#import "MultiplayerTypeMenu.h"
 #import "MainMenu.h"
 #import "MultiplayerGame.h"
 
@@ -378,7 +378,7 @@ static GameCenterHub* sharedHelper = nil;
 -(void) enterNewGame:(GKTurnBasedMatch*)match 
 {
   NSLog(@"Entering a new game");
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu sceneWithMatch:match]]];
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerTypeMenu sceneWithMatch:match]]];
 }
 
 

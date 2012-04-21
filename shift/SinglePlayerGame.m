@@ -11,6 +11,7 @@
 #import "GameCenterHub.h"
 #import "TutorialLayer.h"
 #import "SinglePlayerGameMenu.h"
+#import "LevelPack.h"
 
 @implementation SinglePlayerGame
 
@@ -34,8 +35,8 @@ static SinglePlayerGame *lastGame = nil;
         TutorialLayer *tutorials = [[TutorialLayer alloc] init];
         [self addChild:tutorials];
         
-        board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
-                                     cellSize:cellSize];
+        board = [BoardLayer boardWithDictionary:[[[LevelPack sharedPack] levelWithNumber:currentLevel] objectForKey:@"board"]
+                                       cellSize:cellSize];
         board.position = boardCenter;
         [self addChild:board];
         
@@ -65,8 +66,12 @@ static SinglePlayerGame *lastGame = nil;
 
 +(CCSprite *)previewForLevel:(int)level
 {
-    BoardLayer *board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", level]\
-                                 cellSize:CGSizeMake(20, 20)];
+    if ([[LevelPack sharedPack] levelNameWithNumber:level] == nil) {
+        return [CCSprite node];
+    }
+
+    BoardLayer *board = [BoardLayer boardWithDictionary:[[[LevelPack sharedPack] levelWithNumber:level] objectForKey:@"board"]
+                                               cellSize:CGSizeMake(20, 20)];
     return [board screenshot];
 }
 
@@ -92,8 +97,8 @@ static SinglePlayerGame *lastGame = nil;
     }
     else
     {
-        board = [BoardLayer boardWithFilename:[NSString stringWithFormat:@"%d.plist", currentLevel]
-                                 cellSize:cellSize];
+        board = [BoardLayer boardWithDictionary:[[[LevelPack sharedPack] levelWithNumber:currentLevel] objectForKey:@"board"]
+                                       cellSize:cellSize];
         board.position = boardCenter;
         [self addChild:board];
     }

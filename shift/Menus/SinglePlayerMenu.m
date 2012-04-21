@@ -28,6 +28,7 @@ NSInteger highestLevel;
         {
             highestLevel = 1;
         }   
+        highestLevel = 20;
         
         NSMutableArray * pages = [NSMutableArray arrayWithCapacity:NUM_LEVELS];
         CGSize screenSize = [CCDirector sharedDirector].winSize;
@@ -118,7 +119,7 @@ NSInteger highestLevel;
     if(levelNum != LOCKED && levelNum<=highestLevel)
     {
         SinglePlayerGame *game = [SinglePlayerGame gameWithLevel:levelNum];
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:kSceneTransitionTime scene:game]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:game]];
     }
 }
 

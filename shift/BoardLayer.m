@@ -483,7 +483,12 @@
         
         BlockTrain *train = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
         if (train != nil) {
-            [train moveTo:location];
+            if (train.movement == kMovementSnapped) {
+                [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
+            }
+            else {
+                [train moveTo:location];
+            }
         }
     }
 }

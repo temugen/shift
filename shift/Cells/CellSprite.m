@@ -15,6 +15,7 @@
 @synthesize comparable, movable;
 @synthesize name;
 @synthesize tutorial;
+@synthesize blockTrain;
 
 -(id) initWithFilename:(NSString *)filename
 {
@@ -65,6 +66,12 @@
         [tutorial complete];
         tutorial = nil;
     }
+}
+
+-(BoardLayer *) board
+{
+    board = (BoardLayer *)self.parent;
+    return board;
 }
 
 -(BOOL) onCompareWithCell:(CellSprite *)cell

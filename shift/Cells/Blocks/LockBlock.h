@@ -10,6 +10,7 @@
 
 @interface LockBlock : BlockSprite
 {
+    CCSprite *overlay;
 }
 
 -(id) initWithName:(NSString *)blockName;

@@ -41,25 +41,11 @@
 #error(unknown architecture)
 #endif
 
-
-//Describes the current movement occurring on a block train
-typedef enum Movement {
-    kMovementColumn,
-    kMovementRow,
-    kMovementNone
-} Movement;
-
 typedef enum Difficulty {
     kDifficultyEasy = 3,
     kDifficultyMedium = 5,
     kDifficultyHard = 7
 } Difficulty;
-
-typedef enum gamemode {
-    QUICKPLAY,
-    SINGLE,
-    MULTIPLAYER
-} gamemode;
 
 //NOTE: if you change this value, you must change the way the levels are displayed in SinglePlayerMenu.m to correspond with
 //the number of levels. Look for the line [menu alignItemsInColumns ....
@@ -70,10 +56,11 @@ typedef enum gamemode {
 //Scene transition time
 #define kSceneTransitionTime 0.3f
 
-#define kMinCollisionForce 30.0
-
 CGSize platformCellSize;
 float platformPadding;
+float platformFontSize;
+float platformMinCollisionForce;
+float platformDirectionThreshold;
 
 #endif // __GAME_CONFIG_H
 

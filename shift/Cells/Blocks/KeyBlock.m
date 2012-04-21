@@ -9,13 +9,13 @@
 #import "KeyBlock.h"
 #import "LockBlock.h"
 #import "BoardLayer.h"
+#import "BlockTrain.h"
 
 @implementation KeyBlock
 
 -(id) initWithName:(NSString *)blockName
 {
-    NSString *filename = [NSString stringWithFormat:@"key.png"];
-    if ((self = [super initWithFilename:filename])) {
+    if ((self = [super initWithFilename:@"block_key.png"])) {
         comparable = NO;
         movable = YES;
         name = blockName;
@@ -28,6 +28,7 @@
     //Only remove the key if it collided with a LockBlock
     if([cell isKindOfClass:[LockBlock class]])
     {
+        [self.blockTrain snap];
         [self removeKey];
     }
     return NO;
@@ -35,8 +36,7 @@
 
 -(void) removeKey
 {
-    BoardLayer *board = (BoardLayer *)self.parent;
-    [board removeBlock: self];
+    [self.board removeBlock: self];
 }
 
 @end

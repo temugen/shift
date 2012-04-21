@@ -8,7 +8,6 @@
 
 #import "MultiplayerMenu.h"
 #import "MainMenu.h"
-#import "DifficultyMenu.h"
 #import "GameCenterHub.h"
 #import "LeaderboardMenu.h"
 
@@ -23,8 +22,6 @@
         CCMenuItemFont *play = [CCMenuItemFont itemFromString:@"Find Opponent" target:self selector: @selector(onOppSelection:)];
         CCMenuItemFont *leaderboard= [CCMenuItemFont itemFromString:@"Leaderboard" target:self selector: @selector(onLeaderboard:)];
         CCMenuItemFont *matchclear= [CCMenuItemFont itemFromString:@"Clear Matches" target:self selector: @selector(onClear:)];
-
-        [play setTag:MULTIPLAYER];
       
         //Add items to menu
         CCMenu *menu = [CCMenu menuWithItems: play, leaderboard, matchclear, nil];
@@ -57,8 +54,7 @@
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
     
-    gamemode selection = [sender tag];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu sceneWithMode:selection]]];
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu scene]]];
 }
 
 

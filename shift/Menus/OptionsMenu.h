@@ -10,5 +10,9 @@
 #import "Menu.h"
 
 @interface OptionsMenu : Menu
-
+{
+    CCMenuItem *_plusItem; 
+    CCMenuItem *_minusItem;
+}
+-(void)addSoundButton;
 @end

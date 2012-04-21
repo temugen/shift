@@ -6,8 +6,19 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "RoundedRectangle.h"
 
-@interface ButtonList : NSObject
+@interface ButtonList : CCLayer
+{
+    float buttonHeight;
+}
+
+-(id) init;
+
++(id) buttonList;
+
+-(void) addNode:(CCNode *)node target:(id)target selector:(SEL)selector;
+-(void) addButtonWithDescription:(NSString *)text target:(id)target selector:(SEL)selector;
+-(void) addButtonWithDescription:(NSString *)text target:(id)target selector:(SEL)selector iconFilename:(NSString *)filename colorString:(NSString *)color;
 
 @end

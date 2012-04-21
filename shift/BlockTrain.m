@@ -9,8 +9,6 @@
 #import "BlockTrain.h"
 #import "BoardLayer.h"
 
-#define kDirectionThreshold 3
-
 @interface BlockTrain()
 
 /* Private Functions */
@@ -55,7 +53,7 @@
             dx = location.x - initialLocation.x;
             dy = location.y - initialLocation.y;
             
-            if (ABS(dx - dy) < kDirectionThreshold)
+            if (ABS(dx - dy) < platformDirectionThreshold)
                 break;
             
             if (ABS(dx) > ABS(dy))
@@ -144,6 +142,7 @@
             break;
         }
         else if (block != nil && block.movable) {
+            block.blockTrain = self;
             [blocks addObject:block];
         }
     }
@@ -230,7 +229,7 @@
         [block onCollideWithCell:immovable force:ABS(distance)];
         
         //Only show smoke if there is a forceful collision
-        if (ABS(distance) > kMinCollisionForce) {
+        if (ABS(distance) > platformMinCollisionForce) {
             CCParticleGalaxy *debris  = [[CCParticleGalaxy alloc] initWithTotalParticles:10];
             [debris setEmitterMode:kCCParticleModeRadius];
             debris.texture = [[CCTextureCache sharedTextureCache] addImage:@"debris.png"];
@@ -268,6 +267,8 @@
 
 -(void) snap
 {
+    movement = kMovementSnapped;
+    
     //There is nothing to snap
     if ([blocks count] == 0) {
         return;
@@ -289,6 +290,7 @@
         
         [board moveBlock:block x:column y:row];
         [block onSnap];
+        block.blockTrain = nil;
     }
     
     if (hasMoved) {
