@@ -60,43 +60,49 @@
 
 - (void) onQuickplay: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu scene]]];
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu scene]]];
 }
 
 - (void) onSinglePlayer: (id) sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerMenu scene]]];
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerMenu scene]]];
 }
 
 - (void) onMultiplayer: (id) sender
 {
-  if ([GameCenterHub sharedHub].gameCenterAvailable && [GameCenterHub sharedHub].userAuthenticated) 
-  { 
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
-  }
-  else
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"GameCenter is required to use any of the multiplayer features"];
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    return;
   }
+  
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
 }
 
 - (void) onOptions: (id) sender
 {
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[OptionsMenu scene]]];
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[OptionsMenu scene]]];
 }
 
 - (void) onAchievements: (id) sender
 {
-  if ([GameCenterHub sharedHub].gameCenterAvailable && [GameCenterHub sharedHub].userAuthenticated)
-  { 
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[AchievementsMenu scene]]];
-  }
-  else
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game Center is required to view your achievements"];
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    return;
   }
+  
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[AchievementsMenu scene]]];
 }
 
 @end

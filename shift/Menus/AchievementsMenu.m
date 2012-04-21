@@ -35,26 +35,27 @@
 
 - (void) onView: (id) sender
 {
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game Center is required to view your achievements"]; 
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
     return;
   }
+  
   [[GameCenterHub sharedHub] showAchievements];
 }
 
 - (void) onReset: (id) sender
 {
-  //Play menu selection sound
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game Center is required to use any of the achievement features"]; 
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
     return;
-  }   
+  }
+  
   [[GameCenterHub sharedHub] resetAchievements];
   [[GameCenterHub sharedHub] saveAchievements];
 }
