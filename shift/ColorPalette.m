@@ -8,13 +8,6 @@
 
 #import "ColorPalette.h"
 
-@interface ColorPalette()
-
-/* Private Functions */
--(id) initWithFile:(NSString *)filename;
-
-@end
-
 @implementation ColorPalette
 
 @synthesize paletteNames;
