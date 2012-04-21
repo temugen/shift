@@ -35,22 +35,16 @@
 
 - (void) onHardTimeSelection: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   [[GameCenterHub sharedHub] showLeaderboard:@"hard_time"];
 }
 
 - (void) onHardMoves: (id) sender
-{
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
+{  
   [[GameCenterHub sharedHub] showLeaderboard:@"hard_moves"];
 }
 
 - (void) goBack: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
 }
 

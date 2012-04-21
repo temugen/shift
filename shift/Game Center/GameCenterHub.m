@@ -41,6 +41,7 @@
   return sharedHub;
 }
 
+
 // Default initialization method for GameCenterHub
 //
 -(id) init
@@ -64,6 +65,7 @@
   }
   return self;
 }
+
 
 /*
  ********** User Account Functions **********
@@ -98,6 +100,7 @@
   }
 }
 
+
 // Handles any events where a players authentication changes
 //
 -(void) authenticationChanged 
@@ -115,6 +118,7 @@
     userAuthenticated = NO;
   }
 }
+
 
 // Retreives the local player's friends
 //
@@ -138,6 +142,7 @@
     }];
   }
 }
+
 
 // Processes GKPlayer data into a form that the GCHub can utilize
 //
@@ -173,12 +178,14 @@
   [rootViewController presentModalViewController: friendRequestVc animated: YES];
 }
 
+
 // Callback method for the FriendRequestViewController for when the view controller is closed
 //
 -(void)friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController*)viewController
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
 }
+
 
 
 /*
@@ -203,12 +210,14 @@
   }
 }
 
+
 // Callback method for the GKAchievementViewController for when the view controller is closed 
 //
 -(void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController 
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
 }
+
 
 // Loads local cache of achievements and also the GameCenter's cache of achievements.
 // Handles any differences between the two and updates both copies
@@ -244,6 +253,7 @@
   }];
 }
 
+
 // Test for an existing achievement identifier in the achievement dictionary
 // if not found, then allocates a spot for it
 //
@@ -260,12 +270,14 @@
   return achievement;
 }
 
+
 // Wrapper method for when an achievement is completed by the player.
 // 
 -(void) achievementCompleted:(NSString *)title message:(NSString*) msg
 {
   [[GKAchievementHandler defaultHandler] notifyAchievementTitle:title andMessage:msg];
 }
+
 
 // Sends data to Game Center about the achievement's completetion progress
 //
@@ -282,6 +294,7 @@
   }];
   [self saveAchievements];
 }
+
 
 // Resets all achievements to 0% progress for the local player
 //
@@ -304,6 +317,7 @@
   }];
 }
 
+
 // Writes all of the achievement dictionary cache to file for localized cache of achievements
 //
 - (void) saveAchievements
@@ -313,6 +327,7 @@
   NSString *achievementPath = [documentsDirectory stringByAppendingPathComponent:@"local_achievements"];
   [NSKeyedArchiver archiveRootObject:achievementDict toFile:achievementPath];
 }
+
 
 
 /*
@@ -340,12 +355,14 @@
   }
 }
 
+
 // Callback method for the ViewController for when it closes
 //
 -(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
 }
+
 
 // Submits a player score to Game Center to be displayed on the leaderboard
 // If Game Center is not available or connection is lost, then the score is written
@@ -368,6 +385,7 @@
   }
 }
 
+
 // Writes the unsent scores to file
 //
 -(void) saveUnsentScores
@@ -377,6 +395,7 @@
   NSString* scorePath = [documentsDirectory stringByAppendingPathComponent:@"unsent_scores"];
   [NSKeyedArchiver archiveRootObject:unsentScores toFile:scorePath];
 }
+
 
 
 /*
@@ -404,6 +423,7 @@
   
   [rootViewController presentModalViewController:matchmakerVc animated:YES];
 }
+
 
 // Clears the GKTurnBasedMatchmaker of all matches, no matter what the status is
 //
@@ -506,6 +526,7 @@
 }
 
 
+
 /**
  ********** TurnBasedMatch Functions **********
  */
@@ -549,9 +570,10 @@
   [rootViewController dismissModalViewControllerAnimated:YES];
 }
 
+
 // Called when there is an error in the GKTurnBasedMatchmakerViewController
 // EX:  Connection lost
-//
+//	
 -(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController 
                         didFailWithError:(NSError *)error 
 {
@@ -559,6 +581,7 @@
   [rootViewController dismissModalViewControllerAnimated:YES];
   NSLog(@"Error finding match: %@", error.localizedDescription);
 }
+
 
 // Called when a player removes or just quits a match
 //
@@ -581,6 +604,7 @@
                                   matchData:myMatch.matchData 
                           completionHandler:nil];
 }
+
 
 
 /**
@@ -651,6 +675,7 @@
 }
 
 
+
 /*
  ********** Helper Functions **********
  */
@@ -665,6 +690,7 @@
   BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
   return (localPlayerClassAvailable && osVersionSupported);
 }
+
 
 // Displays a notification to the player
 //

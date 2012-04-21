@@ -15,5 +15,6 @@
 
 -(void) takeHit:(int) damage;
 -(void) destroyBlock;
+-(void) crack;
 
 @end

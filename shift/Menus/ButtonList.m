@@ -118,6 +118,7 @@
             SEL selector;
             [[userData objectForKey:@"selector"] getValue:&selector];
             
+            [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
             [[userData objectForKey:@"target"] performSelector:selector withObject:self];
         }
     }

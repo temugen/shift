@@ -35,16 +35,12 @@
 
 - (void) onView: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   [[GameCenterHub sharedHub] showAchievements];
 }
 
 
 - (void) onReset: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   [[GameCenterHub sharedHub] resetAchievements];
   [[GameCenterHub sharedHub] saveAchievements];
 }
