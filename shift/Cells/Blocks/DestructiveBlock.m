@@ -51,7 +51,7 @@
     int randomY = arc4random() % (int)self.contentSize.height;
     crack.position = ccp(randomX, randomY);
     int degrees = arc4random() % 360;
-    crack.rotation = degrees * M_PI / 180;
+    crack.rotation = degrees;
     [crack visit];
     [cracked end];
     
