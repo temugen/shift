@@ -385,10 +385,22 @@ static GameCenterHub* sharedHelper = nil;
 // Show current match board
 -(void) layoutMatch:(GKTurnBasedMatch*)match
 {
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match]]];
-
+  if (match.status != GKTurnBasedMatchStatusMatching)
+  {
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match]]];
+  }
+  else
+  {
+    [self waitForAnotherPlayer:match];
+  }
   // TO STOP MOVEMENTS, Board.isTouchEnabled
   // TODO:  Implement method, show current match board
+}
+
+
+-(void) waitForAnotherPlayer:(GKTurnBasedMatch *)match
+{
+  NSLog(@"Waiting for another player");
 }
 
  
@@ -439,6 +451,7 @@ static GameCenterHub* sharedHelper = nil;
 // Called when user selects a match from the list of matches in GameCenter
 -(void) turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)myMatch 
 {
+  NSLog(@"didFindMatch");
   [rootViewController dismissModalViewControllerAnimated:YES];
   self.currentMatch = myMatch;
   GKTurnBasedParticipant* firstParticipant = [myMatch.participants objectAtIndex:0];
@@ -456,20 +469,23 @@ static GameCenterHub* sharedHelper = nil;
   } 
   else 
   {
-    [self enterNewGame:myMatch];
+    [self waitForAnotherPlayer:myMatch];
   }
 }
+
+
 
 // Called when user hits cancel button
 -(void)turnBasedMatchmakerViewControllerWasCancelled:(GKTurnBasedMatchmakerViewController *)viewController 
 {
+  NSLog(@"viewControllerWasCanceled");
   [rootViewController dismissModalViewControllerAnimated:YES];
-  NSLog(@"has cancelled");
 }
 
 // Called when there is an error (ex:  connection loss)
 -(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFailWithError:(NSError *)error 
 {
+  NSLog(@"didFailWithError");
   [rootViewController dismissModalViewControllerAnimated:YES];
   NSLog(@"Error finding match: %@", error.localizedDescription);
 }
@@ -477,6 +493,7 @@ static GameCenterHub* sharedHelper = nil;
 // Called when a player removes a match, or just quits a match
 -(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController playerQuitForMatch:(GKTurnBasedMatch *)myMatch 
 {
+  NSLog(@"playerQuitForMatch");
   NSUInteger currentIndex = [myMatch.participants indexOfObject:myMatch.currentParticipant];
   GKTurnBasedParticipant* part;
   

@@ -19,22 +19,19 @@
   MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithNumberOfRows:rows columns:columns match:match];
   NSDictionary* boardLayout = [newGame.board serialize];
   NSData* boardData = [NSKeyedArchiver archivedDataWithRootObject:boardLayout];
-  [[GameCenterHub sharedInstance] sendTurn:self data:boardData];
+  [[GameCenterHub sharedInstance] sendTurn:@"Sending Board!" data:boardData];
+  
   return newGame;
 }
 
 
 +(MultiplayerGame*) gameWithMatchData:(GKTurnBasedMatch*)match;
 {
-  if (match.matchData != nil)
-  {
-    MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithMatchData:match];
-    NSDictionary* boardLayout = [newGame.board serialize];
-    NSData* boardData = [NSKeyedArchiver archivedDataWithRootObject:boardLayout];
-    [[GameCenterHub sharedInstance] sendTurn:self data:boardData];
-    return newGame;
-  }
-  return nil;
+  MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithMatchData:match];
+  NSDictionary* boardLayout = [newGame.board serialize];
+  NSData* boardData = [NSKeyedArchiver archivedDataWithRootObject:boardLayout];
+  [[GameCenterHub sharedInstance] sendTurn:self data:boardData];
+  return newGame;
 }
 
 

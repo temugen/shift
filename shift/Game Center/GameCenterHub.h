@@ -63,10 +63,11 @@
 -(void) findMatch;
 -(void) clearMatches;
 -(void) enterNewGame:(GKTurnBasedMatch*) match;
+-(void) waitForAnotherPlayer:(GKTurnBasedMatch*) match;
 -(void) layoutMatch:(GKTurnBasedMatch*) match;
--(void) takeTurn:(GKTurnBasedMatch*) match;
 -(void) recieveEndGame:(GKTurnBasedMatch*) match;
 -(void) sendNotice:(NSString*) notice forMatch:(GKTurnBasedMatch*) match;
 -(IBAction) sendTurn:(id)sender data:(NSData*)data;
+
 
 @end
