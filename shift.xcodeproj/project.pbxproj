@@ -1173,10 +1173,10 @@
 		82470D2714F1BF6F00F60A7C /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
-				A323368D1520E36900119D91 /* RamBlock.h */,
-				A323368E1520E37600119D91 /* RamBlock.m */,
 				82470D2F14F1C03000F60A7C /* BlockSprite.h */,
 				82470D3014F1C03000F60A7C /* BlockSprite.m */,
+				A323368D1520E36900119D91 /* RamBlock.h */,
+				A323368E1520E37600119D91 /* RamBlock.m */,
 				A33E61AD14F5D1360024A2EC /* DestructiveBlock.h */,
 				A33E61AE14F5D1360024A2EC /* DestructiveBlock.m */,
 				A33E61AF14F5D1370024A2EC /* StationaryBlock.h */,
