@@ -28,17 +28,7 @@
     //Play ram collide sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_RAM];
     
-    //Only remove the key if it collided with a DestructiveBlock
-    if([cell isKindOfClass:[DestructiveBlock class]])
-    {
-        [self removeKey];
-    }
     return NO;
-}
-
--(void) removeKey
-{
-    [self.board removeBlock: self];
 }
 
 @end

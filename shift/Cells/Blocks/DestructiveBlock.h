@@ -13,10 +13,7 @@
     
 }
 
--(id) initWithName:(NSString *)blockName;
-
 -(void) decreaseHealthBy:(int) damage;
--(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force;
 -(void) destroyBlock;
 
 @end

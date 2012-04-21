@@ -12,8 +12,4 @@
 {
 }
 
--(id) initWithName:(NSString *)blockName;
-
--(BOOL)onDoubleTap;
-
 @end

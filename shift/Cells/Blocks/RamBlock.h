@@ -10,9 +10,4 @@
 
 @interface RamBlock : BlockSprite
 
--(id) initWithName:(NSString *)blockName;
-
--(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force;
--(void) removeKey;
-
 @end

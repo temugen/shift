@@ -52,16 +52,13 @@
         
         [self destroyBlock];
     }
+    
     return NO;
 }
 
 -(void) destroyBlock
 {
-    self.board.isTouchEnabled = NO;
-    //[board snapMovingBlocks];
     [self.board removeBlock: self];
-    self.board.isTouchEnabled = YES;
-    
 }
 
 

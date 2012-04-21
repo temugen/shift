@@ -12,6 +12,4 @@
 {
 }
 
--(id) initWithName:(NSString *)blockName;
-
 @end
