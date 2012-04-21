@@ -23,13 +23,9 @@
     return self;
 }
 
--(BOOL) onDoubleTap
+-(BOOL) onCompareWithCell:(CellSprite *)cell
 {
-    NSString *randomColorName = [[ColorPalette sharedPalette] randomColorName];
-    NSString *filename = [NSString stringWithFormat:@"block_%@.png", randomColorName];
-    [self setTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
-    [self setName:randomColorName];
-    return NO;
+    return YES;
 }
 
 @end
