@@ -7,12 +7,12 @@
 //
 
 #import <GameKit/GameKit.h>
-#import "GameCenterHub.h"
-#import "cocos2d.h"
 #import "GKAchievementNotification/GKAchievementHandler.h"
 #import "MultiplayerTypeMenu.h"
-#import "MainMenu.h"
 #import "MultiplayerGame.h"
+#import "GameCenterHub.h"
+#import "MainMenu.h"
+#import "cocos2d.h"
 
 @implementation GameCenterHub
 
@@ -25,6 +25,8 @@
 @synthesize unsentScores;
 
 
+// Singleton accessor method for the GameCenterHub
+//
 +(GameCenterHub*) sharedHub
 {
   static GameCenterHub* sharedHub = nil;
@@ -39,6 +41,8 @@
   return sharedHub;
 }
 
+// Default initialization method for GameCenterHub
+//
 -(id) init
 {
   if ((self = [super init]))
@@ -65,6 +69,8 @@
  ********** User Account Functions **********
  */
 
+// Authenticates the local player with Game Center
+//
 -(void) authenticateLocalPlayer
 {
   [self loadAchievements];
@@ -92,7 +98,8 @@
   }
 }
 
-
+// Handles any events where a players authentication changes
+//
 -(void) authenticationChanged 
 {
   [self loadAchievements];
@@ -109,7 +116,8 @@
   }
 }
 
-
+// Retreives the local player's friends
+//
 -(void) getPlayerFriends
 {
   GKLocalPlayer* me = [GKLocalPlayer localPlayer];
@@ -131,6 +139,8 @@
   }
 }
 
+// Processes GKPlayer data into a form that the GCHub can utilize
+//
 -(void) loadPlayerData:(NSArray*) identifiers
 {
   NSLog(@"You have this many friends: %@", [identifiers count]); 
@@ -148,6 +158,9 @@
    }];
 }
 
+
+// Allows a player to invite a new person to be their friend.
+//
 -(void) inviteFriends: (NSArray*) identifiers
 {
   GKFriendRequestComposeViewController* friendRequestVc = [[GKFriendRequestComposeViewController alloc] init];
@@ -160,6 +173,8 @@
   [rootViewController presentModalViewController: friendRequestVc animated: YES];
 }
 
+// Callback method for the FriendRequestViewController for when the view controller is closed
+//
 -(void)friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController*)viewController
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
@@ -170,6 +185,8 @@
  ********** Achievement Functions **********
  */
 
+// Displays the GKAchievementViewController on the screen
+//
 -(void) showAchievements
 {
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
@@ -186,11 +203,16 @@
   }
 }
 
+// Callback method for the GKAchievementViewController for when the view controller is closed 
+//
 -(void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController 
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
 }
 
+// Loads local cache of achievements and also the GameCenter's cache of achievements.
+// Handles any differences between the two and updates both copies
+//
 -(void) loadAchievements
 {  
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -222,7 +244,9 @@
   }];
 }
 
-//Tests for existing identifier, if not then allocs it
+// Test for an existing achievement identifier in the achievement dictionary
+// if not found, then allocates a spot for it
+//
 -(GKAchievement*) addOrFindIdentifier:(NSString*)identifier
 {
   GKAchievement* achievement = [achievementDict objectForKey:identifier];
@@ -236,11 +260,15 @@
   return achievement;
 }
 
+// Wrapper method for when an achievement is completed by the player.
+// 
 -(void) achievementCompleted:(NSString *)title message:(NSString*) msg
 {
   [[GKAchievementHandler defaultHandler] notifyAchievementTitle:title andMessage:msg];
 }
 
+// Sends data to Game Center about the achievement's completetion progress
+//
 -(void) reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent
 {
   GKAchievement* achievement = [self addOrFindIdentifier:identifier];
@@ -255,6 +283,8 @@
   [self saveAchievements];
 }
 
+// Resets all achievements to 0% progress for the local player
+//
 - (void) resetAchievements
 {
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
@@ -274,6 +304,8 @@
   }];
 }
 
+// Writes all of the achievement dictionary cache to file for localized cache of achievements
+//
 - (void) saveAchievements
 {
   NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -287,6 +319,8 @@
  ********** Leaderboard Functions **********
  */
 
+// Displays the GKLeaderboardViewController on the main screen
+//
 -(void) showLeaderboard:(NSString*) category
 {
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
@@ -306,11 +340,17 @@
   }
 }
 
+// Callback method for the ViewController for when it closes
+//
 -(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
 }
 
+// Submits a player score to Game Center to be displayed on the leaderboard
+// If Game Center is not available or connection is lost, then the score is written
+// to file to be sent later
+//
 -(void) submitScore:(int64_t)score category:(NSString *)category
 {
   if (!gameCenterAvailable || ![GKLocalPlayer localPlayer].isAuthenticated) 
@@ -328,6 +368,8 @@
   }
 }
 
+// Writes the unsent scores to file
+//
 -(void) saveUnsentScores
 {
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -341,7 +383,7 @@
  ********** Matchmaking functions **********
  */
 
-// 
+// Displays the GKTurnBasedMatchmaker on the main screen 
 -(void) showMatchmaker
 {
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
@@ -363,7 +405,8 @@
   [rootViewController presentModalViewController:matchmakerVc animated:YES];
 }
 
-
+// Clears the GKTurnBasedMatchmaker of all matches, no matter what the status is
+//
 -(void) clearMatches
 {
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
@@ -389,6 +432,8 @@
 }
 
 
+// Called when a player enters a new game
+//
 -(void) enterNewGame:(GKTurnBasedMatch*)match 
 {
   NSLog(@"Entering a new game");
@@ -396,7 +441,8 @@
 }
 
 
-// Show current match board
+// Displays the board of the match
+//
 -(void) layoutMatch:(GKTurnBasedMatch*)match
 {
   if (match.status != GKTurnBasedMatchStatusMatching)
@@ -412,16 +458,18 @@
 }
 
 
+// Notifies the player that they need to wait for another player and goes back to the matchmaker screen
+//
 -(void) waitForAnotherPlayer:(GKTurnBasedMatch *)match
 {
   [self displayGameCenterNotification:@"Waiting for another player to join the match"];
+  [self showMatchmaker];
   NSLog(@"Waiting for another player");
 }
 
- 
-
 
 // Sends data to the other player and ends your turn
+//
 -(IBAction)sendTurn:(id)sender data:(NSData*)data
 {
   GKTurnBasedMatch* match =  self.currentMatch;
@@ -440,14 +488,17 @@
 }
 
 
-// End of game has been received from the other player
+// End of game has been received from the other player so the game
+// needs to display the end game results
+//
 -(void) displayResults:(GKTurnBasedMatch*)match
 {
   
 }
 
 
-// Gives player a notice when turns have changed and it is there turn
+// Gives player a notice when turns have changed and it is their turn
+//
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match
 {
   UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"Your turn in another game" message:notice delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
@@ -459,7 +510,8 @@
  ********** TurnBasedMatch Functions **********
  */
 
-// Called when user selects a match from the list of matches in GameCenter
+// Called when user selects a match from the list of matches in GKMatchmakerViewController
+//
 -(void) turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)myMatch 
 {
   NSLog(@"didFindMatch");
@@ -489,15 +541,17 @@
 }
 
 
-
-// Called when user hits cancel button
+// Called when user hits cancel button in the GKTurnBasedMatchmakerViewController
+//
 -(void)turnBasedMatchmakerViewControllerWasCancelled:(GKTurnBasedMatchmakerViewController *)viewController 
 {
   NSLog(@"viewControllerWasCanceled");
   [rootViewController dismissModalViewControllerAnimated:YES];
 }
 
-// Called when there is an error (ex:  connection loss)
+// Called when there is an error in the GKTurnBasedMatchmakerViewController
+// EX:  Connection lost
+//
 -(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController 
                         didFailWithError:(NSError *)error 
 {
@@ -506,7 +560,8 @@
   NSLog(@"Error finding match: %@", error.localizedDescription);
 }
 
-// Called when a player removes a match, or just quits a match
+// Called when a player removes or just quits a match
+//
 -(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController playerQuitForMatch:(GKTurnBasedMatch *)myMatch 
 {
   NSLog(@"playerQuitForMatch");
@@ -532,6 +587,8 @@
  ********** Event Handler Functions **********
  */
 
+// Handles any invitations received from GameCenter for match requests
+//
 -(void)handleInviteFromGameCenter:(NSArray *)playersToInvite 
 {
   [rootViewController dismissModalViewControllerAnimated:YES];
@@ -546,6 +603,9 @@
   [rootViewController presentModalViewController:viewController animated:YES];
 }
 
+
+// Handles any Turn changed events from Game Center
+//
 -(void)handleTurnEventForMatch:(GKTurnBasedMatch*)myMatch 
 {
     NSLog(@"Turn has happened");
@@ -555,12 +615,13 @@
       {
         // Current game, your turn
         self.currentMatch = myMatch;
+        [self sendNotice:@"It's your turn for another match" forMatch:myMatch];
       } 
       else 
       {
         // Current game, not your turn
         self.currentMatch = myMatch;
-        [self layoutMatch:myMatch];
+        [self sendNotice:@"It's your turn for another match" forMatch:myMatch];
       }
     } 
     else 
@@ -573,12 +634,15 @@
     }
 }
 
+
+// Handles the match end event from Game Center 
+//
 -(void)handleMatchEnded:(GKTurnBasedMatch*)myMatch 
 {
   NSLog(@"This game is over");
   if ([myMatch.matchID isEqualToString:currentMatch.matchID]) 
   {
-    [self recieveEndGame:myMatch];
+    [self displayResults:myMatch];
   } 
   else 
   {
@@ -591,6 +655,8 @@
  ********** Helper Functions **********
  */
 
+// Checks to see if the iOS version is sufficient and GameCenter is present
+//
 -(BOOL) isGameCenterAvailable
 {
   BOOL localPlayerClassAvailable = (NSClassFromString(@"GKLocalPlayer")) != nil;
@@ -600,7 +666,8 @@
   return (localPlayerClassAvailable && osVersionSupported);
 }
 
-
+// Displays a notification to the player
+//
 -(void) displayGameCenterNotification:(NSString*) message
 {
   [[[UIAlertView alloc] initWithTitle:@"GameCenter" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];

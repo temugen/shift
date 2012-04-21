@@ -39,15 +39,12 @@
 -(void) authenticateLocalPlayer;
 -(BOOL) isGameCenterAvailable;
 -(void) authenticationChanged;
--(void) getPlayerFriends;
--(void) loadPlayerData:(NSArray*) identifiers;
 -(void) inviteFriends:(NSArray*) identifiers;
 -(void) displayGameCenterNotification:(NSString*) message;
 
 // Achievements functions
 -(void) showAchievements;
 -(void) loadAchievements;
--(void) achievementViewControllerDidFinish:(GKAchievementViewController*) viewController;	  	
 -(void) reportAchievementIdentifier:(NSString*) identifier percentComplete:(float) percent;
 -(GKAchievement*) addOrFindIdentifier:(NSString*) identifier;
 -(void) achievementCompleted:(NSString*) title message:(NSString*) msg;
@@ -62,13 +59,7 @@
 // Matchmaking functions
 -(void) showMatchmaker;
 -(void) clearMatches;
--(void) enterNewGame:(GKTurnBasedMatch*) match;
--(void) waitForAnotherPlayer:(GKTurnBasedMatch*) match;
--(void) layoutMatch:(GKTurnBasedMatch*) match;
--(void) recieveEndGame:(GKTurnBasedMatch*) match;
-
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*) match;
 -(IBAction) sendTurn:(id)sender data:(NSData*)data;
-
 
 @end

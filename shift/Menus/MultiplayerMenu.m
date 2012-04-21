@@ -39,7 +39,7 @@
 {
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
-  [[GameCenterHub sharedHub] findMatch];
+  [[GameCenterHub sharedHub] showMatchmaker];
 }
 
 - (void) onLeaderboardSelect: (id) sender
