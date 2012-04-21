@@ -172,6 +172,12 @@
 
 -(void) showAchievements
 {
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  {
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    return;
+  }
+  
   GKAchievementViewController* achievements = [[GKAchievementViewController alloc] init];
   if (achievements != nil)
   {
@@ -186,7 +192,7 @@
 }
 
 -(void) loadAchievements
-{      
+{  
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString* documentsDirectory = [paths objectAtIndex:0];
   NSString* filePath = [documentsDirectory stringByAppendingPathComponent:@"local_achievements"];  
@@ -251,6 +257,12 @@
 
 - (void) resetAchievements
 {
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  {
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    return;
+  }
+  
   // TODO:  Confirm reset
   achievementDict = [[NSMutableDictionary alloc] init];
   [GKAchievement resetAchievementsWithCompletionHandler:^(NSError *error)
@@ -277,9 +289,12 @@
 
 -(void) showLeaderboard:(NSString*) category
 {
-  if (!gameCenterAvailable || !userAuthenticated) 
-    [self displayGameCenterNotification:@"Leaderboards are not available without being logged into Game Center"];
-  
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  {
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    return;
+  }
+    
   GKLeaderboardViewController* leaderboardVc = [[GKLeaderboardViewController alloc] init];
   if (leaderboardVc != nil)
   {
@@ -326,10 +341,14 @@
  ********** Matchmaking functions **********
  */
 
--(void) findMatch
+// 
+-(void) showMatchmaker
 {
-  if (!gameCenterAvailable || ![GKLocalPlayer localPlayer].isAuthenticated)
-    [self displayGameCenterNotification:@"Matchmaking features are only available with Game Center"];
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  {
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    return;
+  }
   
   matchStarted = NO;
   [rootViewController dismissModalViewControllerAnimated:NO];
@@ -347,6 +366,12 @@
 
 -(void) clearMatches
 {
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  {
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    return;
+  }
+  
   if ([GKLocalPlayer localPlayer].authenticated)
   {
     [GKTurnBasedMatch loadMatchesWithCompletionHandler:^(NSArray *matches, NSError *error)

@@ -60,13 +60,14 @@
 -(void) saveUnsentScores;
 
 // Matchmaking functions
--(void) findMatch;
+-(void) showMatchmaker;
 -(void) clearMatches;
 -(void) enterNewGame:(GKTurnBasedMatch*) match;
 -(void) waitForAnotherPlayer:(GKTurnBasedMatch*) match;
 -(void) layoutMatch:(GKTurnBasedMatch*) match;
 -(void) recieveEndGame:(GKTurnBasedMatch*) match;
--(void) sendNotice:(NSString*) notice forMatch:(GKTurnBasedMatch*) match;
+
+-(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*) match;
 -(IBAction) sendTurn:(id)sender data:(NSData*)data;
 
 

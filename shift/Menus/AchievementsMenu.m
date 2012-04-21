@@ -37,24 +37,13 @@
 {
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
-  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
-  {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
-    return;
-  }
-  
   [[GameCenterHub sharedHub] showAchievements];
 }
+
 
 - (void) onReset: (id) sender
 {
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
-  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
-  {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
-    return;
-  }
   
   [[GameCenterHub sharedHub] resetAchievements];
   [[GameCenterHub sharedHub] saveAchievements];
