@@ -35,8 +35,6 @@
 
 - (void) onHardTimeSelection: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
     [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
@@ -49,8 +47,6 @@
 
 - (void) onHardMoves: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
     [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
@@ -62,8 +58,6 @@
 
 - (void) goBack: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
 }
 

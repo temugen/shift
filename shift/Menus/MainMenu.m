@@ -60,22 +60,16 @@
 
 - (void) onQuickplay: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[DifficultyMenu scene]]];
 }
 
 - (void) onSinglePlayer: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[SinglePlayerMenu scene]]];
 }
 
 - (void) onMultiplayer: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
     [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
@@ -87,15 +81,11 @@
 
 - (void) onOptions: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[OptionsMenu scene]]];
 }
 
 - (void) onAchievements: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
     [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];

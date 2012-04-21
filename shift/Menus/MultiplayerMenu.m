@@ -37,8 +37,6 @@
 
 - (void) onMatchSelect: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
     [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
@@ -50,8 +48,6 @@
 
 - (void) onLeaderboardSelect: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
     [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
@@ -64,8 +60,6 @@
 
 - (void) onClearSelect: (id) sender
 {
-  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
     [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
