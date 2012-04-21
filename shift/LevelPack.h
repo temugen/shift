@@ -26,7 +26,10 @@
 
 -(void) setPack:(NSString *)packName;
 -(NSString *) levelNameWithNumber:(int)num;
+-(NSString *) levelNameWithNumber:(int)num fromPack:(NSString *)packName;
 -(NSDictionary *) levelWithNumber:(int)num;
+-(NSDictionary *) levelWithNumber:(int)num fromPack:(NSString *)packName;
 -(NSDictionary *) levelWithName:(NSString *)name;
+-(NSDictionary *) levelWithName:(NSString *)name fromPack:(NSString *)packName;
 
 @end

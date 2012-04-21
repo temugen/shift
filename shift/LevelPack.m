@@ -53,14 +53,41 @@
     return [levels objectAtIndex:num];
 }
 
+-(NSString *) levelNameWithNumber:(int)num fromPack:(NSString *)packName
+{
+    NSString *previousPack = currentPack;
+    [self setPack:packName];
+    NSString *levelName = [self levelNameWithNumber:num];
+    [self setPack:previousPack];
+    return levelName;
+}
+
 -(NSDictionary *) levelWithNumber:(int)num
 {
     return [self levelWithName:[self levelNameWithNumber:num]];
 }
 
+-(NSDictionary *) levelWithNumber:(int)num fromPack:(NSString *)packName
+{
+    NSString *previousPack = currentPack;
+    [self setPack:packName];
+    NSDictionary *level = [self levelWithNumber:num];
+    [self setPack:previousPack];
+    return level;
+}
+
 -(NSDictionary *) levelWithName:(NSString *)name
 {
     return [NSDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"%@.plist", name]];
+}
+
+-(NSDictionary *) levelWithName:(NSString *)name fromPack:(NSString *)packName
+{
+    NSString *previousPack = currentPack;
+    [self setPack:packName];
+    NSDictionary *level = [self levelWithName:name];
+    [self setPack:previousPack];
+    return level;
 }
 
 @end
