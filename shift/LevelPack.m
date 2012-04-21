@@ -11,6 +11,8 @@
 @implementation LevelPack
 
 @synthesize packNames;
+@synthesize levels;
+@synthesize numLevels;
 
 +(LevelPack *) sharedPack
 {
@@ -46,11 +48,12 @@
 -(void) setPack:(NSString *)packName
 {
     levels = [packs objectForKey:packName];
+    numLevels = [levels count];
 }
 
 -(NSString *) levelNameWithNumber:(int)num
 {
-    return [levels objectAtIndex:num];
+    return [levels objectAtIndex:num - 1];
 }
 
 -(NSString *) levelNameWithNumber:(int)num fromPack:(NSString *)packName
@@ -78,7 +81,9 @@
 
 -(NSDictionary *) levelWithName:(NSString *)name
 {
-    return [NSDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"%@.plist", name]];
+    NSString *extension = @"plist";
+    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:extension];
+    return [NSDictionary dictionaryWithContentsOfFile:path];
 }
 
 -(NSDictionary *) levelWithName:(NSString *)name fromPack:(NSString *)packName

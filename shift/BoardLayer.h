@@ -31,7 +31,6 @@
 @property(readwrite, assign) int moveCount;
 
 +(BoardLayer *) randomBoardWithNumberOfColumns:(int)columns rows:(int)rows cellSize:(CGSize)size;
-+(BoardLayer *) boardWithFilename:(NSString *)filename cellSize:(CGSize)size; 
 +(BoardLayer *) boardWithDictionary:(NSDictionary*)dict cellSize:(CGSize)size;
 
 -(id) initWithDictionary:(NSDictionary*)board cellSize:(CGSize)size;
