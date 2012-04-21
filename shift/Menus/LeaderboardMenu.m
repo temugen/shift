@@ -35,37 +35,36 @@
 
 - (void) onHardTimeSelection: (id) sender
 {
-  //Play menu selection sound
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
-  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated) 
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game Center is required to view the leaderboard"]; 
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
     return;
   }
+  
   
   [[GameCenterHub sharedHub] showLeaderboard:@"hard_time"];
 }
 
 - (void) onHardMoves: (id) sender
 {
-  //Play menu selection sound
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
   if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game Center is required to view any leaderboard"]; 
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
     return;
   }
+  
   [[GameCenterHub sharedHub] showLeaderboard:@"hard_moves"];
 }
 
 - (void) goBack: (id) sender
 {
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
     
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
 }
 
 

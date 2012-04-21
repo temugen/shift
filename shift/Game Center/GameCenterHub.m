@@ -25,8 +25,6 @@
 @synthesize unsentScores;
 
 
-
-
 +(GameCenterHub*) sharedHub
 {
   static GameCenterHub* sharedHub = nil;
@@ -391,14 +389,11 @@
 
 -(void) waitForAnotherPlayer:(GKTurnBasedMatch *)match
 {
+  [self displayGameCenterNotification:@"Waiting for another player to join the match"];
   NSLog(@"Waiting for another player");
 }
 
  
--(void) takeTurn:(GKTurnBasedMatch*)match 
-{
-  
-}
 
 
 // Sends data to the other player and ends your turn
@@ -421,9 +416,9 @@
 
 
 // End of game has been received from the other player
--(void) recieveEndGame:(GKTurnBasedMatch*)match
+-(void) displayResults:(GKTurnBasedMatch*)match
 {
-  [self layoutMatch:match];
+  
 }
 
 
@@ -447,17 +442,21 @@
   self.currentMatch = myMatch;
   GKTurnBasedParticipant* firstParticipant = [myMatch.participants objectAtIndex:0];
   
+  // Someone has had a turn already
   if (firstParticipant.lastTurnDate)
   {
+    // Your turn
     if ([myMatch.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) 
     {
       [self layoutMatch:myMatch];
     } 
+    // Other person's turn
     else 
     {
       [self layoutMatch:myMatch];
     }     
   } 
+  // Nobody is in the game yet
   else 
   {
     [self waitForAnotherPlayer:myMatch];
@@ -474,7 +473,8 @@
 }
 
 // Called when there is an error (ex:  connection loss)
--(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFailWithError:(NSError *)error 
+-(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController 
+                        didFailWithError:(NSError *)error 
 {
   NSLog(@"didFailWithError");
   [rootViewController dismissModalViewControllerAnimated:YES];
@@ -496,8 +496,12 @@
     } 
   }
   NSLog(@"playerquitforMatch, %@, %@", myMatch, myMatch.currentParticipant);
-  [myMatch participantQuitInTurnWithOutcome: GKTurnBasedMatchOutcomeQuit nextParticipant:part matchData:myMatch.matchData completionHandler:nil];
+  [myMatch participantQuitInTurnWithOutcome: GKTurnBasedMatchOutcomeQuit 
+                            nextParticipant:part 
+                                  matchData:myMatch.matchData 
+                          completionHandler:nil];
 }
+
 
 /**
  ********** Event Handler Functions **********
@@ -526,7 +530,6 @@
       {
         // Current game, your turn
         self.currentMatch = myMatch;
-        [self takeTurn:myMatch];
       } 
       else 
       {
@@ -571,6 +574,7 @@
   BOOL osVersionSupported = ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending);
   return (localPlayerClassAvailable && osVersionSupported);
 }
+
 
 -(void) displayGameCenterNotification:(NSString*) message
 {

@@ -37,30 +37,40 @@
 
 - (void) onMatchSelect: (id) sender
 {
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
-  if (![GameCenterHub sharedHub].gameCenterAvailable)
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game center is required to use matchmaking"];
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
     return;
   }
+  
   [[GameCenterHub sharedHub] findMatch];
 }
 
 - (void) onLeaderboardSelect: (id) sender
 {
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-    
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu scene]]];
+  [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  {
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    return;
+  }
+  
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu scene]]];
 }
 
 
 - (void) onClearSelect: (id) sender
 {
-  //Play menu selection sound
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+  
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  {
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    return;
+  }
   
   [[GameCenterHub sharedHub] clearMatches];
 }
