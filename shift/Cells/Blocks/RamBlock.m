@@ -25,10 +25,13 @@
 
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force
 {
-    //Play ram collide sound
+    if (force < platformMinCollisionForce) {
+        return NO;
+    }
+    
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_RAM];
     
-    return NO;
+    return YES;
 }
 
 @end

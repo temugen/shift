@@ -13,7 +13,7 @@
     
 }
 
--(void) decreaseHealthBy:(int) damage;
+-(void) takeHit:(int) damage;
 -(void) destroyBlock;
 
 @end

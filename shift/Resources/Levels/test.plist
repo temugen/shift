@@ -5,9 +5,9 @@
 	<key>board</key>
 	<dict>
 		<key>columns</key>
-		<integer>3</integer>
+		<integer>5</integer>
 		<key>rows</key>
-		<integer>3</integer>
+		<integer>5</integer>
 		<key>cells</key>
 		<array>
 			<dict>
@@ -16,9 +16,9 @@
 				<key>name</key>
 				<string>green</string>
 				<key>row</key>
-				<integer>2</integer>
+				<integer>4</integer>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>4</integer>
 			</dict>
 			<dict>
 				<key>class</key>
@@ -26,15 +26,15 @@
 				<key>name</key>
 				<string>yellow</string>
 				<key>row</key>
-				<integer>1</integer>
+				<integer>3</integer>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>3</integer>
 			</dict>
 			<dict>
 				<key>class</key>
 				<string>RamBlock</string>
 				<key>name</key>
-				<string>yellow</string>
+				<string>ram</string>
 				<key>row</key>
 				<integer>0</integer>
 				<key>column</key>
