@@ -196,9 +196,9 @@
 //
 -(void) showAchievements
 {
-  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  if (!gameCenterAvailable || !userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    [self displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
     return;
   }
   
@@ -229,7 +229,8 @@
   NSString* filePath = [documentsDirectory stringByAppendingPathComponent:@"local_achievements"];  
   achievementDict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];  
   
-  if (![GKLocalPlayer localPlayer].isAuthenticated) return;
+  if (!gameCenterAvailable || !userAuthenticated) 
+    return;
   
   [GKAchievement loadAchievementsWithCompletionHandler:^(NSArray* achievements, NSError* error) 
   {
@@ -283,8 +284,16 @@
 //
 -(void) reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent
 {
+  // Update local achievement first
   GKAchievement* achievement = [self addOrFindIdentifier:identifier];
   achievement.percentComplete = percent;
+  [self saveAchievements];
+
+  if (!gameCenterAvailable || !userAuthenticated)
+  {
+    return;
+  }
+  
   [achievement reportAchievementWithCompletionHandler:^(NSError* error)
   {
     if (error != nil)
@@ -292,7 +301,6 @@
       NSLog(@"reportAchievementID error: %@", error.description);
     }
   }];
-  [self saveAchievements];
 }
 
 
@@ -300,9 +308,9 @@
 //
 - (void) resetAchievements
 {
-  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  if (!gameCenterAvailable || !userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    [self displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
     return;
   }
   
@@ -338,9 +346,9 @@
 //
 -(void) showLeaderboard:(NSString*) category
 {
-  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  if (!gameCenterAvailable || !userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    [self displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
     return;
   }
     
@@ -370,7 +378,7 @@
 //
 -(void) submitScore:(int64_t)score category:(NSString *)category
 {
-  if (!gameCenterAvailable || ![GKLocalPlayer localPlayer].isAuthenticated) 
+  if (!gameCenterAvailable || !userAuthenticated) 
   {
       // Process unsent scores
   }
@@ -405,9 +413,9 @@
 // Displays the GKTurnBasedMatchmaker on the main screen 
 -(void) showMatchmaker
 {
-  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  if (!gameCenterAvailable || !userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    [self displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
     return;
   }
   
@@ -429,9 +437,9 @@
 //
 -(void) clearMatches
 {
-  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+  if (!gameCenterAvailable || !userAuthenticated)
   {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    [self displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
     return;
   }
   
