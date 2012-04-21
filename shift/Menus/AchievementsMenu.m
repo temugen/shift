@@ -8,23 +8,24 @@
 
 #import "AchievementsMenu.h"
 #import "GameCenterHub.h"
+#import "ButtonList.h"
 
 @implementation AchievementsMenu
 
 -(id) init
 {
     if ((self = [super init])) {
-        CCMenuItemFont* earned = [CCMenuItemFont itemFromString:@"Earned Achievements" target:self selector: @selector(onEarned:)];
-        CCMenuItemFont* available = [CCMenuItemFont itemFromString:@"Available Achievements" target:self selector: @selector(onAvailable:)];
-        CCMenuItemFont* reset = [CCMenuItemFont itemFromString:@"Reset Achievements" target:self selector: @selector(onReset:)];
-        
-        //Add items to menu
-        CCMenu *menu = [CCMenu menuWithItems: earned, available, reset, nil];
-        
-        [menu alignItemsVertically];
-        [self addChild:menu];
-        
-        [self addBackButton];
+      
+      CGSize screenSize = [[CCDirector sharedDirector] winSize];
+      ButtonList* buttons = [ButtonList buttonList];
+      
+      [buttons addButtonWithDescription:@"View Achievements" target:self selector: @selector(onView:)];
+      [buttons addButtonWithDescription:@"Reset Achievements" target:self selector: @selector(onReset:)];
+      
+      buttons.position = ccp(screenSize.width / 2, screenSize.height / 2);
+      [self addChild:buttons];
+      [self addBackButton];
+      
     }
     return self;
 }
@@ -32,23 +33,16 @@
 
 // Callback functions for achievements menu
 
-- (void) onEarned: (id) sender
+- (void) onView: (id) sender
 {
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  if (![GameCenterHub sharedInstance].gameCenterAvailable)
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
-    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to view your achievements"]; 
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game Center is required to view your achievements"]; 
     return;
   }
-  [[GameCenterHub sharedInstance] showAchievements];
-}
-
-- (void) onAvailable: (id) sender
-{
-    //Play menu selection sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
-  if (![GameCenterHub sharedInstance].gameCenterAvailable) return;
+  [[GameCenterHub sharedHub] showAchievements];
 }
 
 - (void) onReset: (id) sender
@@ -56,13 +50,13 @@
   //Play menu selection sound
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
-  if (![GameCenterHub sharedInstance].gameCenterAvailable)
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
-    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to use any of the achievement features"]; 
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game Center is required to use any of the achievement features"]; 
     return;
   }   
-  [[GameCenterHub sharedInstance] resetAchievements];
-  [[GameCenterHub sharedInstance] saveAchievements];
+  [[GameCenterHub sharedHub] resetAchievements];
+  [[GameCenterHub sharedHub] saveAchievements];
 }
 
 @end

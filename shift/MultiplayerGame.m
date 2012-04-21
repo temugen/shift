@@ -19,7 +19,7 @@
   MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithNumberOfRows:rows columns:columns match:match];
   NSDictionary* boardLayout = [newGame.board serialize];
   NSData* boardData = [NSKeyedArchiver archivedDataWithRootObject:boardLayout];
-  [[GameCenterHub sharedInstance] sendTurn:@"Sending Board!" data:boardData];
+  [[GameCenterHub sharedHub] sendTurn:@"Sending Board!" data:boardData];
   
   return newGame;
 }
@@ -30,7 +30,7 @@
   MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithMatchData:match];
   NSDictionary* boardLayout = [newGame.board serialize];
   NSData* boardData = [NSKeyedArchiver archivedDataWithRootObject:boardLayout];
-  [[GameCenterHub sharedInstance] sendTurn:self data:boardData];
+  [[GameCenterHub sharedHub] sendTurn:self data:boardData];
   return newGame;
 }
 
@@ -81,7 +81,7 @@
   NSLog(@"Current match has ended!");
   NSString* stringdata = @"Testing send";
   NSData* data = [stringdata dataUsingEncoding:NSUTF8StringEncoding];
-  [[GameCenterHub sharedInstance] sendTurn:self data:data];
+  [[GameCenterHub sharedHub] sendTurn:self data:data];
 }
 
 -(void) onPauseButtonPressed:(NSNotification *)notification

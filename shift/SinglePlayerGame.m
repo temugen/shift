@@ -56,11 +56,11 @@ static SinglePlayerGame *lastGame = nil;
 {
   [super onGameEnd];
   
-  GKAchievement* achievement = [[GameCenterHub sharedInstance] addOrFindIdentifier:@"beat_game"];
+  GKAchievement* achievement = [[GameCenterHub sharedHub] addOrFindIdentifier:@"beat_game"];
   if (![achievement isCompleted]) 
   {
-    [[GameCenterHub sharedInstance] reportAchievementIdentifier:@"beat_game" percentComplete:100.0];
-    [[GameCenterHub sharedInstance] achievementCompleted:@"Oh Shift! Conqueror" message:@"Successfully completed a level of Oh Shift!"];
+    [[GameCenterHub sharedHub] reportAchievementIdentifier:@"beat_game" percentComplete:100.0];
+    [[GameCenterHub sharedHub] achievementCompleted:@"Oh Shift! Conqueror" message:@"Successfully completed a level of Oh Shift!"];
   }
 }
 

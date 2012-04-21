@@ -10,6 +10,7 @@
 #import "GameCenterHub.h"
 #import "MultiplayerMenu.h"
 #import "MainMenu.h"
+#import "buttonList.h"
 
 @implementation LeaderboardMenu
 
@@ -17,17 +18,17 @@
 - (id) init
 {
     if ((self=[super init])) {
-        // Menu Items
-        CCMenuItemFont* hardTime = [CCMenuItemFont itemFromString:@"Hard Times" target:self selector: @selector(onHardTimeSelection:)];
-        CCMenuItemFont* hardMoves = [CCMenuItemFont itemFromString:@"Hard Moves" target:self selector: @selector(onHardMoves:)];
-        
-        // Set items
-        CCMenu *menu = [CCMenu menuWithItems: hardTime, hardMoves, nil];
-        
-        [menu alignItemsVertically];
-        
-        [self addChild: menu]; 
-        [self addBackButton];
+      
+      CGSize screenSize = [[CCDirector sharedDirector] winSize];
+      ButtonList* buttons = [ButtonList buttonList];
+      
+      [buttons addButtonWithDescription:@"Hard Times" target:self selector:@selector(onHardTimeSelection:)];
+      [buttons addButtonWithDescription:@"Hard Moves" target:self selector:@selector(onHardMoves:)];
+      
+      buttons.position = ccp(screenSize.width / 2, screenSize.height / 2);
+      [self addChild:buttons];
+      [self addBackButton];
+      
     }
     return self;
 }
@@ -37,13 +38,13 @@
   //Play menu selection sound
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
-  if (![GameCenterHub sharedInstance].gameCenterAvailable) 
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated) 
   {
-    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to view the leaderboard"]; 
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game Center is required to view the leaderboard"]; 
     return;
   }
   
-  [[GameCenterHub sharedInstance] showLeaderboard:@"hard_time"];
+  [[GameCenterHub sharedHub] showLeaderboard:@"hard_time"];
 }
 
 - (void) onHardMoves: (id) sender
@@ -51,12 +52,12 @@
   //Play menu selection sound
   [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
   
-  if (![GameCenterHub sharedInstance].gameCenterAvailable)
+  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
   {
-    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to view any leaderboard"]; 
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game Center is required to view any leaderboard"]; 
     return;
   }
-  [[GameCenterHub sharedInstance] showLeaderboard:@"hard_moves"];
+  [[GameCenterHub sharedHub] showLeaderboard:@"hard_moves"];
 }
 
 - (void) goBack: (id) sender

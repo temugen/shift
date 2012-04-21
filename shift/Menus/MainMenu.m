@@ -70,14 +70,14 @@
 
 - (void) onMultiplayer: (id) sender
 {
-    if ([GameCenterHub sharedInstance].gameCenterAvailable) 
-    { 
-        [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
-    }
-    else
-    {
-      [[GameCenterHub sharedInstance] noGameCenterNotification:@"GameCenter is required to use any of the multiplayer features"];
-    }
+  if ([GameCenterHub sharedHub].gameCenterAvailable && [GameCenterHub sharedHub].userAuthenticated) 
+  { 
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerMenu scene]]];
+  }
+  else
+  {
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"GameCenter is required to use any of the multiplayer features"];
+  }
 }
 
 - (void) onOptions: (id) sender
@@ -89,13 +89,13 @@
 
 - (void) onAchievements: (id) sender
 {
-  if ([GameCenterHub sharedInstance].gameCenterAvailable)
+  if ([GameCenterHub sharedHub].gameCenterAvailable && [GameCenterHub sharedHub].userAuthenticated)
   { 
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[AchievementsMenu scene]]];
   }
   else
   {
-    [[GameCenterHub sharedInstance] noGameCenterNotification:@"Game Center is required to view your achievements"];
+    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Game Center is required to view your achievements"];
   }
 }
 

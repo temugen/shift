@@ -27,12 +27,12 @@
 @property (strong) NSMutableDictionary* unsentScores;
 @property (nonatomic, weak, readonly) NSNotificationCenter* notificationCenter;
 @property (assign, readonly) BOOL gameCenterAvailable;
+@property (assign, readonly) BOOL userAuthenticated;
 @property (strong) RootViewController* rootViewController;
 @property (strong) GKTurnBasedMatch* currentMatch;
 
 // Initialization functions
-+(GameCenterHub*)sharedInstance;
-+(id) alloc;
++(GameCenterHub*)sharedHub;
 -(id) init;
 
 // Authentication functions
@@ -42,7 +42,7 @@
 -(void) getPlayerFriends;
 -(void) loadPlayerData:(NSArray*) identifiers;
 -(void) inviteFriends:(NSArray*) identifiers;
--(void) noGameCenterNotification:(NSString*) message;
+-(void) displayGameCenterNotification:(NSString*) message;
 
 // Achievements functions
 -(void) showAchievements;
