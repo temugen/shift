@@ -33,7 +33,6 @@
 
 // Initialization functions
 +(GameCenterHub*)sharedHub;
--(id) init;
 
 // Authentication functions
 -(void) authenticateLocalPlayer;

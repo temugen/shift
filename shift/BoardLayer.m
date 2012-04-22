@@ -502,7 +502,10 @@
             [[SimpleAudioEngine sharedEngine] playEffect:@"train_snap.m4a"];
             [train snap];
             [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
-            [self isComplete];
+            if ([self isComplete])
+            {
+              [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
+            }
         }
     }
 }
@@ -523,8 +526,6 @@
             }
         }
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
     
     return YES;
 }

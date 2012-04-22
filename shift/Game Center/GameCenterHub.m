@@ -14,6 +14,33 @@
 #import "MainMenu.h"
 #import "cocos2d.h"
 
+@interface GameCenterHub()
+
+/* Private Functions */
+-(id) init;
+-(void) getPlayerFriends;
+-(void) loadPlayerData:(NSArray*) identifiers;
+-(void) enterNewGame:(GKTurnBasedMatch*)match;
+-(void) layoutMatch:(GKTurnBasedMatch*)match;
+-(void) displayResults:(GKTurnBasedMatch*)match;
+-(NSData*) initializeMatchStartDataWithPlayer:(GKTurnBasedParticipant*)player andBoard:(NSDictionary*)board;
+
+-(void) friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController*)viewController;
+-(void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController;
+-(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController*)viewController;
+-(void) turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController*)viewController didFindMatch:(GKTurnBasedMatch*)myMatch; 
+-(void) turnBasedMatchmakerViewControllerWasCancelled:(GKTurnBasedMatchmakerViewController*)viewController; 
+-(void) turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController*)viewController 
+                        didFailWithError:(NSError *)error; 
+-(void) turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController*)viewController playerQuitForMatch:(GKTurnBasedMatch*)myMatch; 
+
+-(void)handleInviteFromGameCenter:(NSArray*)playersToInvite; 
+-(void)handleTurnEventForMatch:(GKTurnBasedMatch*)myMatch; 
+-(void)handleMatchEnded:(GKTurnBasedMatch*)myMatch; 
+
+@end
+
+
 @implementation GameCenterHub
 
 @synthesize achievementDict;
@@ -537,18 +564,19 @@
 -(NSData*) initializeMatchStartDataWithPlayer:(GKTurnBasedParticipant*)player andBoard:(NSDictionary*)board
 {
   NSDictionary* p1data = [NSDictionary dictionaryWithObjectsAndKeys:
-                          player.playerID, @"id", 
-                          [NSNumber numberWithInteger:0], @"moves", 
+                          [GKLocalPlayer localPlayer].playerID, @"id", 
+                          [NSNumber numberWithInt:0], @"moves", 
                           [[NSDate alloc]init], @"time",
                           board, @"board",
                           nil];
   NSDictionary* p2data = [NSDictionary dictionaryWithObjectsAndKeys:
                           @"", @"id",  
                           [[NSDate alloc ]init], @"time",
-                          [NSNumber numberWithInteger:0], @"moves",
+                          [NSNumber numberWithInt:0], @"moves",
                           board, @"board",
                           nil];
   NSDictionary* startData = [NSDictionary dictionaryWithObjectsAndKeys:
+                          [NSNumber numberWithInt:0], @"state",
                           p1data, @"player1",
                           p2data, @"player2",
                           nil];

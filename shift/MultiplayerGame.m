@@ -9,6 +9,7 @@
 #import "MultiplayerGameMenu.h"
 #import "MultiplayerGame.h"
 #import "GameCenterHub.h"
+#import <GameKit/GameKit.h>
 
 @implementation MultiplayerGame
 
@@ -36,26 +37,30 @@
   if ((self = [super init]))
   {
     NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
-    
+    NSString* playerid = [GKLocalPlayer localPlayer].playerID;
     NSDictionary* playerBoard;
-    // FIXME:  Get real player id
-    NSString* playerid = @"FIXME";
-    
-    NSLog(@"MatchData:  %@", matchInfo);
+    int currMoveCount;
     
     if ([[matchInfo objectForKey:@"player1"] objectForKey:@"id"] == playerid)
     {
       playerBoard = [[matchInfo objectForKey:@"player1"] objectForKey:@"board"];
+      currMoveCount = [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue];
     }
     else
     {
       playerBoard = [[matchInfo objectForKey:@"player2"] objectForKey:@"board"];
+      currMoveCount = [[[matchInfo objectForKey:@"player2"] objectForKey:@"moves"] intValue];
     }
-    
-    NSLog(@"Board: %@", playerBoard);
     
     board = [[BoardLayer alloc] initWithDictionary:[playerBoard objectForKey:@"board"] cellSize:cellSize];
     board.position = boardCenter;
+    
+    if ([board isComplete])
+    {
+      board.isTouchEnabled = NO;
+      board.moveCount = currMoveCount;
+    }
+    
     myMatch = match;
     [self addChild:board];
   }
@@ -90,7 +95,6 @@
 -(void) onGameEnd
 {
   [super onGameEnd];
-  
   // TODO:   Only if it is your turn
   [self updateAndSendMatchData];
 }
@@ -103,17 +107,19 @@
   
   NSDictionary* endMatchDict;
   // FIXME:  Get real playerid
-  NSString* me = @"FIXME";
+  NSString* me = [GKLocalPlayer localPlayer].playerID;
+  int state = [[matchInfo objectForKey:@"state"] intValue];
   
   if (player1 == me)
   {
     NSDictionary* newp1 = [NSDictionary dictionaryWithObjectsAndKeys:
                    me, @"id",
-                   [NSNumber numberWithInteger:board.moveCount], @"moves",
+                   [NSNumber numberWithInt:board.moveCount], @"moves",
                    [board serialize], @"board",
                    [NSDate dateWithTimeInterval:elapsedTime sinceDate:startTime], @"time",
                    nil];
     endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                   [NSNumber numberWithInt:state + 1], @"state",
                    newp1, @"player1",
                    [matchInfo objectForKey:@"player2"], @"player2",
                    nil];
@@ -122,11 +128,12 @@
   {
     NSDictionary* newp2 = [NSDictionary dictionaryWithObjectsAndKeys:
                    me, @"id",
-                   [NSNumber numberWithInteger:board.moveCount], @"moves",
+                   [NSNumber numberWithInt:board.moveCount], @"moves",
                    [board serialize], @"board",
                    [NSDate dateWithTimeInterval:elapsedTime sinceDate:startTime], @"time",
                    nil];
     endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                   [NSNumber numberWithInt:state + 1], @"state",
                    [matchInfo objectForKey:@"player1"], @"player1",
                    newp2, @"player2",
                    nil];
