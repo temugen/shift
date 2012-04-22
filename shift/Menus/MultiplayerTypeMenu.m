@@ -22,6 +22,7 @@
         [buttons addButtonWithDescription:@"Easy" target:self selector:@selector(onEasy:)];
         [buttons addButtonWithDescription:@"Medium" target:self selector:@selector(onMedium:)];
         [buttons addButtonWithDescription:@"Hard" target:self selector:@selector(onHard:)];
+    
         buttons.position = ccp(screenSize.width / 2, screenSize.height / 2);
         [self addChild:buttons];
     }

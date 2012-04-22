@@ -61,5 +61,6 @@
 -(void) clearMatches;
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*) match;
 -(IBAction) sendTurn:(id)sender data:(NSData*)data;
+-(void) sendStartBoard:(NSDictionary*)board andMatch:(GKTurnBasedMatch*)match;
 
 @end

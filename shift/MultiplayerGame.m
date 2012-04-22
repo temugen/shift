@@ -18,19 +18,15 @@
 {
   MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithNumberOfRows:rows columns:columns match:match];
   NSDictionary* boardLayout = [newGame.board serialize];
-  NSData* boardData = [NSKeyedArchiver archivedDataWithRootObject:boardLayout];
-  [[GameCenterHub sharedHub] sendTurn:@"Sending Board!" data:boardData];
+  [[GameCenterHub sharedHub]sendStartBoard:boardLayout andMatch:match];
   
   return newGame;
 }
 
 
-+(MultiplayerGame*) gameWithMatchData:(GKTurnBasedMatch*)match;
++(MultiplayerGame*) gameWithMatchData:(GKTurnBasedMatch*)match
 {
   MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithMatchData:match];
-  NSDictionary* boardLayout = [newGame.board serialize];
-  NSData* boardData = [NSKeyedArchiver archivedDataWithRootObject:boardLayout];
-  [[GameCenterHub sharedHub] sendTurn:self data:boardData];
   return newGame;
 }
 
@@ -39,8 +35,8 @@
 {
   if ((self = [super init]))
   {
-    NSDictionary* boardLayout = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
-    board = [[BoardLayer alloc] initWithDictionary:boardLayout cellSize:cellSize];
+    NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
+    board = [[BoardLayer alloc] initWithDictionary:[matchInfo objectForKey:@"board"] cellSize:cellSize];
     board.position = boardCenter;
     myMatch = match;
     [self addChild:board];
@@ -78,11 +74,54 @@
 {
   [super onGameEnd];
   
-  NSLog(@"Current match has ended!");
-  NSString* stringdata = @"Testing send";
-  NSData* data = [stringdata dataUsingEncoding:NSUTF8StringEncoding];
-  [[GameCenterHub sharedHub] sendTurn:self data:data];
+  // TODO:   Only if it is your turn
+  [self updateAndSendMatchData];
 }
+
+
+-(void) updateAndSendMatchData
+{
+  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
+  NSString* player1 = [[matchInfo objectForKey:@"player1"] objectForKey:@"id"];
+  
+  NSDictionary* endMatchDict;
+  // FIXME:  Get real playerid
+  NSString* me = @"NEED TO SAVE!";
+  
+  if (player1 == me)
+  {
+    NSDictionary* newp1 = [NSDictionary dictionaryWithObjectsAndKeys:
+                   me, @"id",
+                   elapsedTime, @"time",
+                   board.moveCount, @"moves",
+                   nil];
+    endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                   newp1, @"player1",
+                   [matchInfo objectForKey:@"player2"], @"player2",
+                   [matchInfo objectForKey:@"board"], @"board",
+                   nil];
+  }
+  else
+  {
+    NSDictionary* newp2 = [NSDictionary dictionaryWithObjectsAndKeys:
+                   me, @"id",
+                   elapsedTime, @"time",
+                   board.moveCount, @"moves",
+                   nil];
+    endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                   [matchInfo objectForKey:@"player1"], @"player1",
+                   newp2, @"player2",
+                   [matchInfo objectForKey:@"board"], @"board",
+                   nil];
+  }
+  
+  NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endMatchDict];
+  
+  [[GameCenterHub sharedHub] sendTurn:self data:endData]; 
+  NSLog(@"Current match has ended!");
+
+}
+
 
 -(void) onPauseButtonPressed:(NSNotification *)notification
 {

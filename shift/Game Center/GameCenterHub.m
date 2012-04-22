@@ -464,7 +464,6 @@
 //
 -(void) enterNewGame:(GKTurnBasedMatch*)match 
 {
-  NSLog(@"Entering a new game");
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerTypeMenu sceneWithMatch:match]]];
 }
 
@@ -491,8 +490,6 @@
 -(void) waitForAnotherPlayer:(GKTurnBasedMatch *)match
 {
   [self displayGameCenterNotification:@"Waiting for another player to join the match"];
-  [self showMatchmaker];
-  NSLog(@"Waiting for another player");
 }
 
 
@@ -525,6 +522,48 @@
 }
 
 
+// Sends the starting board and basic information required for a match to begin
+//
+-(void) sendStartBoard:(NSDictionary*)board andMatch:(GKTurnBasedMatch*)match
+{
+  NSLog(@"Sending start data");
+  currentMatch = match;
+  GKTurnBasedParticipant* player1 = [match.participants objectAtIndex:0];
+  [currentMatch endTurnWithNextParticipant:currentMatch.currentParticipant 
+                                 matchData:[self initializeMatchStartDataWithPlayer:player1 andBoard:board]
+                         completionHandler:^(NSError *error) 
+   {
+     if (error) 
+     {
+       NSLog(@"SendDataError: %@", error);
+     }
+   }];
+}
+
+
+// Initializes the starting match data
+//
+-(NSData*) initializeMatchStartDataWithPlayer:(GKTurnBasedParticipant*)player andBoard:(NSDictionary*)board
+{
+  NSDictionary* p1data = [NSDictionary dictionaryWithObjectsAndKeys:
+                          player.playerID, @"id", 
+                          nil, @"time", 
+                          nil, @"moves", 
+                          nil];
+  NSDictionary* p2data = [NSDictionary dictionaryWithObjectsAndKeys:
+                          nil, @"id", 
+                          nil, @"time", 
+                          nil, @"moves", 
+                          nil];
+  NSDictionary* startData = [NSDictionary dictionaryWithObjectsAndKeys:
+                          p1data, @"player1",
+                          p2data, @"player2",
+                          board, @"board",
+                          nil];
+  return [NSKeyedArchiver archivedDataWithRootObject:startData];
+}
+
+
 // Gives player a notice when turns have changed and it is their turn
 //
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match
@@ -543,7 +582,6 @@
 //
 -(void) turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController didFindMatch:(GKTurnBasedMatch *)myMatch 
 {
-  NSLog(@"didFindMatch");
   [rootViewController dismissModalViewControllerAnimated:YES];
   self.currentMatch = myMatch;
   GKTurnBasedParticipant* firstParticipant = [myMatch.participants objectAtIndex:0];
@@ -554,18 +592,21 @@
     // Your turn
     if ([myMatch.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) 
     {
+      NSLog(@"didFindMatch: My turn");
       [self layoutMatch:myMatch];
     } 
     // Other person's turn
     else 
     {
+      NSLog(@"didFindMatch: Not my turn");
       [self layoutMatch:myMatch];
     }     
   } 
   // Nobody is in the game yet
   else 
   {
-    [self waitForAnotherPlayer:myMatch];
+    NSLog(@"didFindMatch: Starting new game");
+    [self enterNewGame:myMatch];
   }
 }
 
