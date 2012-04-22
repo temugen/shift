@@ -36,7 +36,25 @@
   if ((self = [super init]))
   {
     NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
-    board = [[BoardLayer alloc] initWithDictionary:[[matchInfo objectForKey:@"board"] objectForKey:@"board"] cellSize:cellSize];
+    
+    NSLog(@"MATCHINFO: %@", matchInfo);
+    
+    NSDictionary* playerBoard;
+    // FIXME:  Get real player id
+    NSString* myID = @"FIXME";
+    
+    if ([[matchInfo objectForKey:@"player1"] objectForKey:@"id"] == myID)
+    {
+      playerBoard = [[matchInfo objectForKey:@"player1"] objectForKey:@"board"];
+    }
+    else
+    {
+      playerBoard = [[matchInfo objectForKey:@"player2"] objectForKey:@"board"];
+    }
+    
+    NSLog(@"%@", playerBoard);
+    
+    board = [[BoardLayer alloc] initWithDictionary:[playerBoard objectForKey:@"board"] cellSize:cellSize];
     board.position = boardCenter;
     myMatch = match;
     [self addChild:board];
@@ -66,7 +84,6 @@
 
 -(void) onGameStart
 {
-  //Your stuff here
   [super onGameStart];
 }
 
@@ -86,7 +103,7 @@
   
   NSDictionary* endMatchDict;
   // FIXME:  Get real playerid
-  NSString* me = @"NEED TO SAVE!";
+  NSString* me = @"FIXME";
   
   if (player1 == me)
   {
@@ -94,11 +111,12 @@
                    me, @"id",
                    elapsedTime, @"time",
                    board.moveCount, @"moves",
+                   true, @"complete",
+                   [board serialize], @"board",
                    nil];
     endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
                    newp1, @"player1",
                    [matchInfo objectForKey:@"player2"], @"player2",
-                   [matchInfo objectForKey:@"board"], @"board",
                    nil];
   }
   else
@@ -107,11 +125,12 @@
                    me, @"id",
                    elapsedTime, @"time",
                    board.moveCount, @"moves",
+                   true, @"complete",
+                   [board serialize], @"board",
                    nil];
     endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
                    [matchInfo objectForKey:@"player1"], @"player1",
                    newp2, @"player2",
-                   [matchInfo objectForKey:@"board"], @"board",
                    nil];
   }
   

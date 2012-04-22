@@ -472,16 +472,7 @@
 //
 -(void) layoutMatch:(GKTurnBasedMatch*)match
 {
-//  if (match.status != GKTurnBasedMatchStatusMatching)
-  {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match]]];
-  }
-/*  else
-  {
-    [self waitForAnotherPlayer:match];
-  }
-*/  // TO STOP MOVEMENTS, Board.isTouchEnabled
-  // TODO:  Implement method, show current match board
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match]]];
 }
 
 
@@ -547,18 +538,19 @@
 {
   NSDictionary* p1data = [NSDictionary dictionaryWithObjectsAndKeys:
                           player.playerID, @"id", 
-                          nil, @"time", 
-                          nil, @"moves", 
+                          [NSNumber numberWithInteger:0], @"time", 
+                          [NSNumber numberWithInteger:0], @"moves",
+                          board, @"board",
                           nil];
   NSDictionary* p2data = [NSDictionary dictionaryWithObjectsAndKeys:
-                          nil, @"id", 
-                          nil, @"time", 
-                          nil, @"moves", 
+                          @"", @"id", 
+                          [NSNumber numberWithInteger:0], @"time", 
+                          [NSNumber numberWithInteger:0], @"moves",
+                          board, @"board",
                           nil];
   NSDictionary* startData = [NSDictionary dictionaryWithObjectsAndKeys:
                           p1data, @"player1",
                           p2data, @"player2",
-                          board, @"board",
                           nil];
   return [NSKeyedArchiver archivedDataWithRootObject:startData];
 }
