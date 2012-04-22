@@ -538,13 +538,13 @@
 {
   NSDictionary* p1data = [NSDictionary dictionaryWithObjectsAndKeys:
                           player.playerID, @"id", 
-                          [NSNumber numberWithInteger:0], @"time", 
-                          [NSNumber numberWithInteger:0], @"moves",
+                          [NSNumber numberWithInteger:0], @"moves", 
+                          [[NSDate alloc]init], @"time",
                           board, @"board",
                           nil];
   NSDictionary* p2data = [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"", @"id", 
-                          [NSNumber numberWithInteger:0], @"time", 
+                          @"", @"id",  
+                          [[NSDate alloc ]init], @"time",
                           [NSNumber numberWithInteger:0], @"moves",
                           board, @"board",
                           nil];

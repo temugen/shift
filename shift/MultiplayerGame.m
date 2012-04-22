@@ -37,13 +37,13 @@
   {
     NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
     
-    NSLog(@"MATCHINFO: %@", matchInfo);
-    
     NSDictionary* playerBoard;
     // FIXME:  Get real player id
-    NSString* myID = @"FIXME";
+    NSString* playerid = @"FIXME";
     
-    if ([[matchInfo objectForKey:@"player1"] objectForKey:@"id"] == myID)
+    NSLog(@"MatchData:  %@", matchInfo);
+    
+    if ([[matchInfo objectForKey:@"player1"] objectForKey:@"id"] == playerid)
     {
       playerBoard = [[matchInfo objectForKey:@"player1"] objectForKey:@"board"];
     }
@@ -52,7 +52,7 @@
       playerBoard = [[matchInfo objectForKey:@"player2"] objectForKey:@"board"];
     }
     
-    NSLog(@"%@", playerBoard);
+    NSLog(@"Board: %@", playerBoard);
     
     board = [[BoardLayer alloc] initWithDictionary:[playerBoard objectForKey:@"board"] cellSize:cellSize];
     board.position = boardCenter;
@@ -109,10 +109,9 @@
   {
     NSDictionary* newp1 = [NSDictionary dictionaryWithObjectsAndKeys:
                    me, @"id",
-                   elapsedTime, @"time",
-                   board.moveCount, @"moves",
-                   true, @"complete",
+                   [NSNumber numberWithInteger:board.moveCount], @"moves",
                    [board serialize], @"board",
+                   [NSDate dateWithTimeInterval:elapsedTime sinceDate:startTime], @"time",
                    nil];
     endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
                    newp1, @"player1",
@@ -123,10 +122,9 @@
   {
     NSDictionary* newp2 = [NSDictionary dictionaryWithObjectsAndKeys:
                    me, @"id",
-                   elapsedTime, @"time",
-                   board.moveCount, @"moves",
-                   true, @"complete",
+                   [NSNumber numberWithInteger:board.moveCount], @"moves",
                    [board serialize], @"board",
+                   [NSDate dateWithTimeInterval:elapsedTime sinceDate:startTime], @"time",
                    nil];
     endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
                    [matchInfo objectForKey:@"player1"], @"player1",

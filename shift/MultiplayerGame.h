@@ -14,6 +14,7 @@
 @interface MultiplayerGame : GameScene
 {
   int rowCount, columnCount;
+  NSString* myID;
   GKTurnBasedMatch* myMatch;
 }
 
