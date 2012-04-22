@@ -466,7 +466,7 @@
         }
         
         //Play block grab sound
-        [[SimpleAudioEngine sharedEngine] playEffect:@SFX_GRAB];
+        [[SimpleAudioEngine sharedEngine] playEffect:@"train_pickup.m4a"];
         
         if (block == nil || block.movable) {
             BlockTrain *train = [BlockTrain trainFromBoard:self atPoint:location];
@@ -499,7 +499,7 @@
         BlockTrain *train = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
         if (train != nil) {
             //Play block drop sound
-            [[SimpleAudioEngine sharedEngine] playEffect:@SFX_DROP];
+            [[SimpleAudioEngine sharedEngine] playEffect:@"train_snap.m4a"];
             [train snap];
             [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
             [self isComplete];
