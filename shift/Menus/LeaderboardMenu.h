@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Menu.h"
-#import "cocos2d.h"
 
 @interface LeaderboardMenu : Menu
 {

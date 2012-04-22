@@ -44,9 +44,12 @@
         [self createGradientWithInvert:NO];
     }
     
-    static int counter = 0;
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    self = [CCSprite spriteWithCGImage:image.CGImage key:[NSString stringWithFormat:@"image%d", counter++]];
+    self = [CCSprite spriteWithCGImage:image.CGImage key:[NSString stringWithFormat:@"rect_%fx%f", width, height]];
+    
+    CGPathRelease(boxPath);
+    CGContextRelease(context);
+    
     return self;
 }
 
@@ -74,6 +77,9 @@
     }
     
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
+    
+    CGColorSpaceRelease(space);
+    CGGradientRelease(gradient);
 }
 
 @end
