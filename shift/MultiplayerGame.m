@@ -36,7 +36,7 @@
   if ((self = [super init]))
   {
     NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
-    board = [[BoardLayer alloc] initWithDictionary:[matchInfo objectForKey:@"board"] cellSize:cellSize];
+    board = [[BoardLayer alloc] initWithDictionary:[[matchInfo objectForKey:@"board"] objectForKey:@"board"] cellSize:cellSize];
     board.position = boardCenter;
     myMatch = match;
     [self addChild:board];

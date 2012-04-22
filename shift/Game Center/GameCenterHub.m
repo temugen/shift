@@ -472,15 +472,15 @@
 //
 -(void) layoutMatch:(GKTurnBasedMatch*)match
 {
-  if (match.status != GKTurnBasedMatchStatusMatching)
+//  if (match.status != GKTurnBasedMatchStatusMatching)
   {
     [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match]]];
   }
-  else
+/*  else
   {
     [self waitForAnotherPlayer:match];
   }
-  // TO STOP MOVEMENTS, Board.isTouchEnabled
+*/  // TO STOP MOVEMENTS, Board.isTouchEnabled
   // TODO:  Implement method, show current match board
 }
 
