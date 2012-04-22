@@ -22,7 +22,7 @@
         cellSize = platformCellSize;
         
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-        //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_GAME];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_GAME];
         
         BackgroundLayer *background = [[BackgroundLayer alloc] init];
         [self addChild:background z:-1];
