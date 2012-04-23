@@ -38,11 +38,11 @@
   if ((self = [super init]))
   {
     NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
-    NSString* playerid = [GKLocalPlayer localPlayer].playerID;
+    NSString* me = [GKLocalPlayer localPlayer].playerID;
     NSDictionary* playerBoard;
     int currMoveCount;
     
-    if ([[matchInfo objectForKey:@"player1"] objectForKey:@"id"] == playerid)
+    if ([[matchInfo objectForKey:@"player1"] objectForKey:@"id"] == me)
     {
       playerBoard = [[matchInfo objectForKey:@"player1"] objectForKey:@"board"];
       currMoveCount = [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue];
@@ -107,11 +107,12 @@
   }
   else
   {
-    NSLog(@"Nacho turn so writing crap");
+    NSLog(@"Nacho turn so writing results to file");
     [self saveResults];
     board.isTouchEnabled = NO;
   }
-  // REMOVE WHEN WE HAVE A RESULTS SCREEEN!
+  
+  // TODO:  Display results
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 

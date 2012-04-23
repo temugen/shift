@@ -574,6 +574,7 @@
   return [NSKeyedArchiver archivedDataWithRootObject:startData];
 }
 
+
 // Formats match information to be sent as match data
 //
 -(NSDictionary*) formatMatchDataWithBoard:(NSDictionary*)board moves:(int)moveCount time:(double)time andID:(NSString*)pid
@@ -592,7 +593,7 @@
 //
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match
 {
-  UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"Your turn in another game" message:notice delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+  UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"Oh Shift!" message:notice delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
   [av show];
 }
 
@@ -643,7 +644,7 @@
 //
 -(void)turnBasedMatchmakerViewControllerWasCancelled:(GKTurnBasedMatchmakerViewController *)viewController 
 {
-  NSLog(@"viewControllerWasCanceled");
+  NSLog(@"TBMVC: viewControllerWasCanceled");
   [rootViewController dismissModalViewControllerAnimated:YES];
 }
 
@@ -654,7 +655,7 @@
 -(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController 
                         didFailWithError:(NSError *)error 
 {
-  NSLog(@"didFailWithError");
+  NSLog(@"TBMVC: didFailWithError");
   [rootViewController dismissModalViewControllerAnimated:YES];
   NSLog(@"Error finding match: %@", error.localizedDescription);
 }
@@ -664,7 +665,6 @@
 //
 -(void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController playerQuitForMatch:(GKTurnBasedMatch *)myMatch 
 {
-  NSLog(@"playerQuitForMatch");
   NSUInteger currentIndex = [myMatch.participants indexOfObject:myMatch.currentParticipant];
   GKTurnBasedParticipant* part;
   
@@ -675,7 +675,7 @@
       break;
     } 
   }
-  NSLog(@"playerquitforMatch, %@, %@", myMatch, myMatch.currentParticipant);
+  NSLog(@"TBMVC: playerquitforMatch, %@, %@", myMatch, myMatch.currentParticipant);
   [myMatch participantQuitInTurnWithOutcome: GKTurnBasedMatchOutcomeQuit 
                             nextParticipant:part 
                                   matchData:myMatch.matchData 
