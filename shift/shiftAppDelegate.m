@@ -101,7 +101,7 @@
 		CCLOG(@"Retina Display Not supported");
     
     // Preload the background music (reduces startup time for background music)
-    SimpleAudioEngine *sae = [SimpleAudioEngine sharedEngine];
+   /* SimpleAudioEngine *sae = [SimpleAudioEngine sharedEngine];
     if (sae != nil) 
     {
         [sae preloadBackgroundMusic:@BGM_MENU];
@@ -109,7 +109,7 @@
         {
             sae.backgroundMusicVolume = 0.5f;
         }
-    }
+    }*/
 	
 	//
 	// VERY IMPORTANT:

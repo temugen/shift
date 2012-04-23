@@ -30,8 +30,8 @@
 {
     if( (self=[super init] )) {
         //Play background music
-        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_MENU];
+        //[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@BGM_MENU];
         
         ButtonList *buttons = [ButtonList buttonList];
         [buttons addButtonWithDescription:@"Quickplay" target:self selector:@selector(onQuickplay:)
