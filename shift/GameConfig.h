@@ -47,8 +47,8 @@ typedef enum Difficulty {
     kDifficultyHard = 7
 } Difficulty;
 
-//NOTE: if you change this value, you must change the way the levels are displayed in SinglePlayerMenu.m to correspond with
-//the number of levels. Look for the line [menu alignItemsInColumns ....
+#define SFX_MENU "shift_menu.mp3"
+
 #define NUM_LEVELS 20
 
 #define len(array) (sizeof((array))/sizeof(typeof((array[0]))))

@@ -7,16 +7,15 @@
 //
 
 #import "Menu.h"
-
-#define SPRITES_PER_PAGE 4
-#define PADDING 40
-#define LOCKED -1
-#define LEVEL_TEXTURE -1
+#import "CCScrollLayer.h"
+#import "RoundedRectangle.h"
 
 @interface SinglePlayerMenu : Menu
 {
+    CCScrollLayer* scroller;
+    CCSprite* highlightedSprite;
 }
 
-+(void)levelSelect:(int)levelNum;
+-(void)loadLevel:(int) levelNum;
 
 @end
