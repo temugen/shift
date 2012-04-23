@@ -9,6 +9,13 @@
 #import <GameKit/GameKit.h>
 #import "OhShiftMatchData.h"
 
+@interface OhShiftMatchData()
+
+-(id) initWithDictionary:(NSDictionary*)dict;
+
+@end
+
+
 @implementation OhShiftMatchData
 
 @synthesize p1moves;
@@ -20,28 +27,39 @@
 @synthesize p1data;
 @synthesize p2data;
 
--(void) initWithMatch:(GKTurnBasedMatch*)match
+
+-(id) initWithMatch:(GKTurnBasedMatch*)match
 {
-  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
-  p1time = [[[matchInfo objectForKey:@"player1"] objectForKey:@"time"] doubleValue];
-  p1moves = [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue];
-  p1board = [[matchInfo objectForKey:@"player1"] objectForKey:@"board"];
-  p2time = [[[matchInfo objectForKey:@"player2"] objectForKey:@"time"] doubleValue];
-  p2moves = [[[matchInfo objectForKey:@"player2"] objectForKey:@"moves"] intValue];
-  p2board = [[matchInfo objectForKey:@"player2"] objectForKey:@"board"];
-  
-  [self updatePlayerOneData];
-  [self updatePlayerTwoData];
+  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
+  return [self initWithDictionary:matchInfo];
 }
 
 
--(void) initFromFile:(NSString*)filename
+-(id) initFromFile:(NSString*)filename
 {
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString* documentsDirectory = [paths objectAtIndex:0];
   NSString* matchPath = [documentsDirectory stringByAppendingPathComponent:filename];
-  NSDictionary* results = [NSKeyedUnarchiver unarchiveObjectWithFile:matchPath];
+  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:matchPath];
+  return [self initWithDictionary:matchInfo];
+}
 
+
+-(id) initWithDictionary:(NSDictionary*)dict
+{
+  if ((self = [super init]))
+  {
+    p1time = [[[dict objectForKey:@"player1"] objectForKey:@"time"] doubleValue];
+    p1moves = [[[dict objectForKey:@"player1"] objectForKey:@"moves"] intValue];
+    p1board = [[dict objectForKey:@"player1"] objectForKey:@"board"];
+    p2time = [[[dict objectForKey:@"player2"] objectForKey:@"time"] doubleValue];
+    p2moves = [[[dict objectForKey:@"player2"] objectForKey:@"moves"] intValue];
+    p2board = [[dict objectForKey:@"player2"] objectForKey:@"board"];
+    
+    [self updatePlayerOneData];
+    [self updatePlayerTwoData];  
+  }
+  return self;  
 }
 
 
@@ -64,6 +82,7 @@
   [self updatePlayerTwoData];
 }
 
+
 -(void) updatePlayerOneData
 {
   p1data = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -73,6 +92,7 @@
             nil];  
 }
 
+
 -(void) updatePlayerTwoData
 {
   p2data = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -81,6 +101,7 @@
             p2board, @"board",
             nil];  
 }
+
 
 -(NSData*) getDataForGameCenter
 {
@@ -97,7 +118,13 @@
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString* documentsDirectory = [paths objectAtIndex:0];
   NSString* matchPath = [documentsDirectory stringByAppendingPathComponent:filename];
-  [NSKeyedArchiver archiveRootObject:matchResults toFile:matchPath];
+  
+  NSDictionary* matchInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                             p1data, @"player1",
+                             p2data, @"player2",
+                             nil];  
+  
+  [NSKeyedArchiver archiveRootObject:matchInfo toFile:matchPath];
 }
 
 

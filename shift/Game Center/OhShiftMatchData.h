@@ -12,14 +12,18 @@
 {
   int p1moves, p2moves;
   double p1time, p2time;
-  NSDictionary* p1board, p2board;
-  NSDictionary* p1data, p2data;
+  NSDictionary* p1board;
+  NSDictionary* p2board;
+  NSDictionary* p1data;
+  NSDictionary* p2data;
 }
 
 @property (assign, readonly) int p1moves, p2moves;
 @property (assign, readonly) double p1time, p2time;
-@property (assign, strong) NSDictionary* p1board, p2board;
-@property (assign, strong) NSDictionary* p1data, p2data;
+@property (strong) NSDictionary* p1board;
+@property (strong) NSDictionary* p2board;
+@property (strong) NSDictionary* p1data;
+@property (strong) NSDictionary* p2data;
 
 -(id) initWithMatch:(GKTurnBasedMatch*)match;
 -(id) initFromFile:(NSString*)filename;
