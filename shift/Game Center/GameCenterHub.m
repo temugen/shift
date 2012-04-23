@@ -23,7 +23,7 @@
 -(void) enterNewGame:(GKTurnBasedMatch*)match;
 -(void) layoutMatch:(GKTurnBasedMatch*)match andIsMyTurn:(BOOL)turn;
 -(void) displayResults:(GKTurnBasedMatch*)match;
--(NSData*) initializeMatchStartDataWithPlayer:(GKTurnBasedParticipant*)player andBoard:(NSDictionary*)board;
+-(NSData*) initializeMatchStartDataWithBoard:(NSDictionary*)board;
 
 -(void) friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController*)viewController;
 -(void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController;
@@ -537,11 +537,15 @@
 // End of game has been received from the other player so the game
 // needs to display the end game results
 //
--(void) displayResults:(GKTurnBasedMatch*)match
+-(void) displayResults:(GKTurnBasedMatch*)myMatch
 {
+  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
+  NSLog(@"player1: moves - %d, time - %f", [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player1"] objectForKey:@"time"] doubleValue]);
+  NSLog(@"player2: moves - %d, time - %f", [[[matchInfo objectForKey:@"player2"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player2"] objectForKey:@"time"] doubleValue]);
   NSLog(@"Displaying results!");
   // Probably going to need a display results with match, then unarchive the matchdata to get all 
   // of the required information
+  
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
@@ -552,9 +556,8 @@
 {
   NSLog(@"Sending start data");
   currentMatch = match;
-  GKTurnBasedParticipant* player1 = [match.participants objectAtIndex:0];
   [currentMatch endTurnWithNextParticipant:currentMatch.currentParticipant 
-                                 matchData:[self initializeMatchStartDataWithPlayer:player1 andBoard:board]
+                                 matchData:[self initializeMatchStartDataWithBoard:board]
                          completionHandler:^(NSError *error) 
    {
      if (error) 
@@ -567,9 +570,9 @@
 
 // Initializes the starting match data
 //
--(NSData*) initializeMatchStartDataWithPlayer:(GKTurnBasedParticipant*)player andBoard:(NSDictionary*)board
+-(NSData*) initializeMatchStartDataWithBoard:(NSDictionary*)board
 {
-  NSString* pid = player.playerID;
+  NSString* pid = [GKLocalPlayer localPlayer].playerID;
   NSDictionary* startData = [NSDictionary dictionaryWithObjectsAndKeys:
             [GameCenterHub formatMatchDataWithBoard:board moves:0 time:0 andID:pid], @"player1",
             [GameCenterHub formatMatchDataWithBoard:board moves:0 time:0 andID:@""], @"player2",
@@ -608,6 +611,17 @@
                            nil];
   NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endDict];
   [myMatch endMatchInTurnWithMatchData:endData completionHandler:^(NSError *error) 
+   {
+     if (error) 
+     {
+       NSLog(@"SendEndMatchError: %@", error);
+     }
+   }];
+}
+
+-(void) sendResultsForMatch:(GKTurnBasedMatch*)myMatch withData:(NSData*)data
+{
+  [myMatch endMatchInTurnWithMatchData:data completionHandler:^(NSError *error) 
    {
      if (error) 
      {

@@ -62,5 +62,7 @@
 -(IBAction) sendTurn:(id)sender data:(NSData*)data;
 -(void) sendStartBoard:(NSDictionary*)board andMatch:(GKTurnBasedMatch*)match;
 +(NSDictionary*) formatMatchDataWithBoard:(NSDictionary*)board moves:(int)moveCount time:(double)time andID:(NSString*)pid;
+-(void) sendResultsForMatch:(GKTurnBasedMatch*)myMatch withData:(NSData*)data;
+
 
 @end

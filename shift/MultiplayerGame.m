@@ -39,10 +39,11 @@
   {
     NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
     NSString* me = [GKLocalPlayer localPlayer].playerID;
+    NSString* player1 = [[matchInfo objectForKey:@"player1"] objectForKey:@"id"];
     NSDictionary* playerBoard;
     int currMoveCount;
     
-    if ([[matchInfo objectForKey:@"player1"] objectForKey:@"id"] == me)
+    if ([me isEqualToString:player1])
     {
       playerBoard = [[matchInfo objectForKey:@"player1"] objectForKey:@"board"];
       currMoveCount = [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue];
@@ -130,7 +131,7 @@
   NSString* me = [GKLocalPlayer localPlayer].playerID;
   NSDictionary* endMatchDict;
   
-  if (player1 == me)
+  if ([me isEqualToString:player1])
   {
     NSDictionary* p1 = [GameCenterHub formatMatchDataWithBoard:[board serialize] 
                                                          moves:board.moveCount 
@@ -140,6 +141,8 @@
                    p1, @"player1",
                    [matchInfo objectForKey:@"player2"], @"player2",
                    nil];
+    NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endMatchDict];
+    [[GameCenterHub sharedHub] sendTurn:self data:endData];
   }
   else
   {
@@ -151,10 +154,9 @@
                    [matchInfo objectForKey:@"player1"], @"player1",
                    p2, @"player2",
                    nil];
-  }
-  
-  NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endMatchDict];
-  [[GameCenterHub sharedHub] sendTurn:self data:endData];
+    NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endMatchDict];
+    [[GameCenterHub sharedHub] sendResultsForMatch:myMatch withData:endData];
+  }  
 }
 
 
