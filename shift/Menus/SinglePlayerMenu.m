@@ -8,9 +8,12 @@
 
 #import "SinglePlayerMenu.h"
 #import "SinglePlayerGame.h"
-#import "CCScrollLayer.h"
 #import "MainMenu.h"
-#import "RoundedRectangle.h"
+
+#define SPRITES_PER_PAGE 4
+#define PADDING 40
+#define LOCKED -1
+#define LEVEL_TEXTURE -1
 
 NSInteger highestLevel;
 
@@ -21,6 +24,8 @@ NSInteger highestLevel;
 {
     if( (self=[super init] )) {
         
+        highlightedSprite = nil;
+        
         //Retrieve highest completed level by user (set to 0 if user defaults are not saved)
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         highestLevel = [defaults integerForKey:@"highestLevel"];
@@ -28,16 +33,16 @@ NSInteger highestLevel;
         {
             highestLevel = 1;
         }   
-        highestLevel = 20;
-        
+
         NSMutableArray * pages = [NSMutableArray arrayWithCapacity:NUM_LEVELS];
+        NSMutableArray * levels = [NSMutableArray arrayWithCapacity:NUM_LEVELS];
         CGSize screenSize = [CCDirector sharedDirector].winSize;
         int spriteWidth = screenSize.width/8;
         
         CCLayer *page = [[CCLayer alloc] init];
         BOOL prev;
         CGPoint position,prevPos;
-                
+        
         for (int i=1;i<=NUM_LEVELS;i++)
         {
             //Determine position of sprite. If there is already a level on the page, position this one next to it.
@@ -58,6 +63,7 @@ NSInteger highestLevel;
             rectSprite.position = position;
             [rectSprite setTag:i];
             [page addChild:rectSprite z:-1];
+            [levels addObject:rectSprite];
             
             prevPos = position;
             
@@ -75,9 +81,9 @@ NSInteger highestLevel;
             }
             else 
             {
-                CCSprite *lockSprite = [CCSprite spriteWithFile:@"blue_lock.png"];
+                CCSprite *lockSprite = [CCSprite spriteWithFile:@"block_lock.png"];
                 [lockSprite setTag:LOCKED];
-                lockSprite.scaleX = spriteWidth/lockSprite.contentSize.width;
+                lockSprite.scaleX = rectSprite.contentSize.width/lockSprite.contentSize.width;
                 lockSprite.position = position;
                 
                 [page addChild:lockSprite];            
@@ -99,7 +105,7 @@ NSInteger highestLevel;
             [pages addObject:page];
         }
         
-        CCScrollLayer *scroller = [[CCScrollLayer alloc] initWithLayers:pages widthOffset: 0];
+        scroller = [[CCScrollLayer alloc] initWithLayers:pages widthOffset: 0];
         
         //Set display page to page containing highest level completed by user
         //Make highestLevel 0-based for this calculation.
@@ -114,12 +120,60 @@ NSInteger highestLevel;
     return self;
 }
 
-+(void) levelSelect: (int) levelNum
-{    
+-(void) loadLevel:(int) levelNum
+{
     if(levelNum != LOCKED && levelNum<=highestLevel)
     {
         SinglePlayerGame *game = [SinglePlayerGame gameWithLevel:levelNum];
         [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:game]];
+    }
+}
+
+- (void)onEnter
+{
+	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:NO];
+	[super onEnter];
+}
+
+-(void) onExit
+{
+    [[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
+}
+
+-(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CGPoint touchPoint = [touch locationInView:[touch view]];
+	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
+    
+    CCLayer* currPage = [scroller getCurrentPage];
+    
+    for(CCSprite* curr in [currPage children])
+    {
+        if(CGRectContainsPoint([curr boundingBox], touchPoint) && [curr tag] > 0)
+        {          
+            highlightedSprite = curr;
+            curr.flipY = YES;
+        }
+    }
+    return YES;
+}
+
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CGPoint touchPoint = [touch locationInView:[touch view]];
+	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
+        
+    if(highlightedSprite)
+    {
+        highlightedSprite.flipY = NO;
+        if(touch.tapCount == 1)
+        {
+            if(CGRectContainsPoint([highlightedSprite boundingBox], touchPoint))
+            {
+                [self loadLevel:[highlightedSprite tag]];
+            }
+        }
+        highlightedSprite = nil;
     }
 }
 
