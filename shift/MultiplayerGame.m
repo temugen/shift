@@ -39,10 +39,11 @@
   {
     NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
     NSString* me = [GKLocalPlayer localPlayer].playerID;
+    NSString* player1 = [[matchInfo objectForKey:@"player1"] objectForKey:@"id"];
     NSDictionary* playerBoard;
     int currMoveCount;
     
-    if ([[matchInfo objectForKey:@"player1"] objectForKey:@"id"] == me)
+    if ([me isEqualToString:player1])
     {
       playerBoard = [[matchInfo objectForKey:@"player1"] objectForKey:@"board"];
       currMoveCount = [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue];
@@ -109,13 +110,11 @@
   
   if (myTurn)
   {
-    NSLog(@"Sending results becuz it's my turn");
     [self updateAndSendMatchData];
     board.isTouchEnabled = NO;
   }
   else
   {
-    NSLog(@"Nacho turn so writing results to file");
     [self saveResults];
     board.isTouchEnabled = NO;
   }
@@ -132,7 +131,7 @@
   NSString* me = [GKLocalPlayer localPlayer].playerID;
   NSDictionary* endMatchDict;
   
-  if (player1 == me)
+  if ([me isEqualToString:player1])
   {
     NSDictionary* p1 = [GameCenterHub formatMatchDataWithBoard:[board serialize] 
                                                          moves:board.moveCount 
@@ -142,6 +141,8 @@
                    p1, @"player1",
                    [matchInfo objectForKey:@"player2"], @"player2",
                    nil];
+    NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endMatchDict];
+    [[GameCenterHub sharedHub] sendTurn:self data:endData];
   }
   else
   {
@@ -153,16 +154,16 @@
                    [matchInfo objectForKey:@"player1"], @"player1",
                    p2, @"player2",
                    nil];
-  }
-  
-  NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endMatchDict];
-  [[GameCenterHub sharedHub] sendTurn:self data:endData];
+    NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endMatchDict];
+    [[GameCenterHub sharedHub] sendResultsForMatch:myMatch withData:endData];
+  }  
 }
 
 
 -(void) saveResults
 {
   NSDictionary* matchResults = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [board serialize], @"board",
                                [NSNumber numberWithInt:board.moveCount], @"moves",
                                [NSNumber numberWithDouble:elapsedTime], @"time",
                                nil];
@@ -173,7 +174,7 @@
 }
 
 
--(void) onPauseButtonPressed:(NSNotification *)notification
+-(void) onPauseButtonPressed:(NSNotification*)notification
 {
   MultiplayerGameMenu *menu = [[MultiplayerGameMenu alloc] init];
   [super onPauseButtonPressed:notification menu:menu];
