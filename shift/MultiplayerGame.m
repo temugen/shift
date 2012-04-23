@@ -109,13 +109,11 @@
   
   if (myTurn)
   {
-    NSLog(@"Sending results becuz it's my turn");
     [self updateAndSendMatchData];
     board.isTouchEnabled = NO;
   }
   else
   {
-    NSLog(@"Nacho turn so writing results to file");
     [self saveResults];
     board.isTouchEnabled = NO;
   }
@@ -163,6 +161,7 @@
 -(void) saveResults
 {
   NSDictionary* matchResults = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [board serialize], @"board",
                                [NSNumber numberWithInt:board.moveCount], @"moves",
                                [NSNumber numberWithDouble:elapsedTime], @"time",
                                nil];
@@ -173,7 +172,7 @@
 }
 
 
--(void) onPauseButtonPressed:(NSNotification *)notification
+-(void) onPauseButtonPressed:(NSNotification*)notification
 {
   MultiplayerGameMenu *menu = [[MultiplayerGameMenu alloc] init];
   [super onPauseButtonPressed:notification menu:menu];

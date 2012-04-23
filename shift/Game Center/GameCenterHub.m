@@ -592,6 +592,31 @@
 }
 
 
+// Sends the final results and ends the match
+//
+-(void) sendResultsForMatch:(GKTurnBasedMatch*)myMatch
+{
+  NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString* documentsDirectory = [paths objectAtIndex:0];
+  NSString* scorePath = [documentsDirectory stringByAppendingPathComponent:myMatch.matchID];
+  NSDictionary* results = [NSKeyedUnarchiver unarchiveObjectWithFile:scorePath];
+  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
+  
+  NSDictionary* endDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                           [matchInfo objectForKey:@"player1"], @"player1",
+                           results, @"player2",
+                           nil];
+  NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endDict];
+  [myMatch endMatchInTurnWithMatchData:endData completionHandler:^(NSError *error) 
+   {
+     if (error) 
+     {
+       NSLog(@"SendEndMatchError: %@", error);
+     }
+   }];
+}
+
+
 // Gives player a notice when turns have changed and it is their turn
 //
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match
@@ -618,27 +643,27 @@
   if (myMatch.status == GKTurnBasedMatchStatusEnded)
   {
     [self displayResults:myMatch];
-    return;
   }
-  
-  // Else check for turn status
-  if (firstParticipant.lastTurnDate)
+  else
   {
-    if ([myMatch.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) 
+    if (firstParticipant.lastTurnDate)
     {
-      NSLog(@"didFindMatch: My turn");
-      [self layoutMatch:myMatch andIsMyTurn:YES];
+      if ([myMatch.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) 
+      {
+        NSLog(@"didFindMatch: My turn");
+        [self layoutMatch:myMatch andIsMyTurn:YES];
+      } 
+      else 
+      {
+        NSLog(@"didFindMatch: Not my turn");
+        [self layoutMatch:myMatch andIsMyTurn:NO];
+      }     
     } 
     else 
     {
-      NSLog(@"didFindMatch: Not my turn");
-      [self layoutMatch:myMatch andIsMyTurn:NO];
-    }     
-  } 
-  else 
-  {
-    NSLog(@"didFindMatch: New Game");
-    [self enterNewGame:myMatch];
+      NSLog(@"didFindMatch: New Game");
+      [self enterNewGame:myMatch];
+    }
   }
 }
 
@@ -721,10 +746,6 @@
   }
 }
 
--(void) sendResultsForMatch:(GKTurnBasedMatch*)myMatch
-{
-  
-}
 
 // Handles the match end event from Game Center 
 //

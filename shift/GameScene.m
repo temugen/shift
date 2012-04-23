@@ -89,7 +89,6 @@
 {
   [self onGameEnd];
   [self onNextGame];
-//  [self onGameStart];
 }
 
 -(void) onResetButtonPressed:(NSNotification *)notification
