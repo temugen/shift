@@ -21,7 +21,7 @@
 -(void) getPlayerFriends;
 -(void) loadPlayerData:(NSArray*) identifiers;
 -(void) enterNewGame:(GKTurnBasedMatch*)match;
--(void) layoutMatch:(GKTurnBasedMatch*)match;
+-(void) layoutMatch:(GKTurnBasedMatch*)match andIsMyTurn:(BOOL)turn;
 -(void) displayResults:(GKTurnBasedMatch*)match;
 -(NSData*) initializeMatchStartDataWithPlayer:(GKTurnBasedParticipant*)player andBoard:(NSDictionary*)board;
 
@@ -487,6 +487,17 @@
 }
 
 
+// Tests to see if results for this match exist
+//
+-(BOOL) matchResultsExist:(NSString*)matchName
+{
+  NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString* documentsPath = [paths objectAtIndex:0];
+  NSString* foofile = [documentsPath stringByAppendingPathComponent:matchName];
+  return [[NSFileManager defaultManager] fileExistsAtPath:foofile];
+}
+
+
 // Called when a player enters a new game
 //
 -(void) enterNewGame:(GKTurnBasedMatch*)match 
@@ -497,17 +508,9 @@
 
 // Displays the board of the match
 //
--(void) layoutMatch:(GKTurnBasedMatch*)match
+-(void) layoutMatch:(GKTurnBasedMatch*)match andIsMyTurn:(BOOL)turn
 {
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match]]];
-}
-
-
-// Notifies the player that they need to wait for another player and goes back to the matchmaker screen
-//
--(void) waitForAnotherPlayer:(GKTurnBasedMatch *)match
-{
-  [self displayGameCenterNotification:@"Waiting for another player to join the match"];
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match andIsMyTurn:turn]]];
 }
 
 
@@ -515,6 +518,7 @@
 //
 -(IBAction)sendTurn:(id)sender data:(NSData*)data
 {
+  NSLog(@"Sending turn data");
   GKTurnBasedMatch* match =  self.currentMatch;
   NSUInteger currentIndex = [currentMatch.participants indexOfObject:match.currentParticipant];
   GKTurnBasedParticipant* nextParticipant = [match.participants objectAtIndex:((currentIndex + 1) % [currentMatch.participants count])];
@@ -527,7 +531,6 @@
       NSLog(@"SendDataError: %@", error);
     }
   }];
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
 
@@ -536,7 +539,8 @@
 //
 -(void) displayResults:(GKTurnBasedMatch*)match
 {
-  
+  NSLog(@"Displaying results!");
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
 
@@ -563,24 +567,24 @@
 //
 -(NSData*) initializeMatchStartDataWithPlayer:(GKTurnBasedParticipant*)player andBoard:(NSDictionary*)board
 {
-  NSDictionary* p1data = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [GKLocalPlayer localPlayer].playerID, @"id", 
-                          [NSNumber numberWithInt:0], @"moves", 
-                          [[NSDate alloc]init], @"time",
-                          board, @"board",
-                          nil];
-  NSDictionary* p2data = [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"", @"id",  
-                          [[NSDate alloc ]init], @"time",
-                          [NSNumber numberWithInt:0], @"moves",
-                          board, @"board",
-                          nil];
   NSDictionary* startData = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSNumber numberWithInt:0], @"state",
-                          p1data, @"player1",
-                          p2data, @"player2",
-                          nil];
+              [self formatMatchDataWithBoard:board moves:0 time:0 andID:player.playerID], @"player1",
+              [self formatMatchDataWithBoard:board moves:0 time:0 andID:@""], @"player2",
+              nil];
   return [NSKeyedArchiver archivedDataWithRootObject:startData];
+}
+
+// Formats match information to be sent as match data
+//
+-(NSDictionary*) formatMatchDataWithBoard:(NSDictionary*)board moves:(int)moveCount time:(double)time andID:(NSString*)pid
+{
+  NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                          pid, @"id",  
+                          [NSNumber numberWithDouble:time], @"time",
+                          [NSNumber numberWithInt:moveCount], @"moves",
+                          board, @"board",
+                          nil];
+  return dictionary;
 }
 
 
@@ -605,27 +609,31 @@
   [rootViewController dismissModalViewControllerAnimated:YES];
   self.currentMatch = myMatch;
   GKTurnBasedParticipant* firstParticipant = [myMatch.participants objectAtIndex:0];
+
+  // If match is done
+  if (myMatch.status == GKTurnBasedMatchStatusEnded)
+  {
+    [self displayResults:myMatch];
+    return;
+  }
   
-  // Someone has had a turn already
+  // Else check for turn status
   if (firstParticipant.lastTurnDate)
   {
-    // Your turn
     if ([myMatch.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) 
     {
       NSLog(@"didFindMatch: My turn");
-      [self layoutMatch:myMatch];
+      [self layoutMatch:myMatch andIsMyTurn:YES];
     } 
-    // Other person's turn
     else 
     {
       NSLog(@"didFindMatch: Not my turn");
-      [self layoutMatch:myMatch];
+      [self layoutMatch:myMatch andIsMyTurn:NO];
     }     
   } 
-  // Nobody is in the game yet
   else 
   {
-    NSLog(@"didFindMatch: Starting new game");
+    NSLog(@"didFindMatch: New Game");
     [self enterNewGame:myMatch];
   }
 }
@@ -701,32 +709,19 @@
 //
 -(void)handleTurnEventForMatch:(GKTurnBasedMatch*)myMatch 
 {
-    NSLog(@"Turn has happened");
-    if ([myMatch.matchID isEqualToString:currentMatch.matchID]) 
-    {
-      if ([myMatch.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) 
-      {
-        // Current game, your turn
-        self.currentMatch = myMatch;
-        [self sendNotice:@"It's your turn for another match" forMatch:myMatch];
-      } 
-      else 
-      {
-        // Current game, not your turn
-        self.currentMatch = myMatch;
-        [self sendNotice:@"It's your turn for another match" forMatch:myMatch];
-      }
-    } 
-    else 
-    {
-      if ([myMatch.currentParticipant.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID]) 
-      {
-        // Other game, your turn
-        [self sendNotice:@"It's your turn for another match" forMatch:myMatch];
-      } 
-    }
+  NSLog(@"Turn has happened");
+  self.currentMatch = myMatch;
+  if ([self matchResultsExist:myMatch.matchID])
+  {
+    [self sendResultsForMatch:myMatch];
+    [self sendNotice:@"A match has been completed!" forMatch:myMatch];
+  }
 }
 
+-(void) sendResultsForMatch:(GKTurnBasedMatch*)myMatch
+{
+  
+}
 
 // Handles the match end event from Game Center 
 //
@@ -735,11 +730,12 @@
   NSLog(@"This game is over");
   if ([myMatch.matchID isEqualToString:currentMatch.matchID]) 
   {
+    [self sendNotice:@"Your current match has ended" forMatch:myMatch];
     [self displayResults:myMatch];
   } 
   else 
   {
-    [self sendNotice:@"A different game has ended" forMatch:myMatch];
+    [self sendNotice:@"A different match has ended" forMatch:myMatch];
   }
 }
 

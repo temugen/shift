@@ -14,16 +14,18 @@
 @interface MultiplayerGame : GameScene
 {
   int rowCount, columnCount;
+  BOOL myTurn;
   NSString* myID;
   GKTurnBasedMatch* myMatch;
 }
 
 +(MultiplayerGame*) gameWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*) match;
-+(MultiplayerGame*) gameWithMatchData:(GKTurnBasedMatch*) match;
++(MultiplayerGame*) gameWithMatchData:(GKTurnBasedMatch*) match andIsMyTurn:(BOOL)mine;
 -(id) initWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*) match;
--(id) initWithMatchData:(GKTurnBasedMatch*) match;
+-(id) initWithMatchData:(GKTurnBasedMatch*) match andIsMyTurn:(BOOL)mine;
 -(void) onPauseButtonPressed:(NSNotification *)notification;
 
 @property (strong, atomic) GKTurnBasedMatch* myMatch;
+@property (assign) BOOL myTurn;
 
 @end

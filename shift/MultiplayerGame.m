@@ -6,33 +6,34 @@
 //  Copyright (c) 2012 __Oh_Shift__. All rights reserved.
 //
 
+#import <GameKit/GameKit.h>
 #import "MultiplayerGameMenu.h"
 #import "MultiplayerGame.h"
 #import "GameCenterHub.h"
-#import <GameKit/GameKit.h>
+#import "MainMenu.h"
 
 @implementation MultiplayerGame
 
 @synthesize myMatch;
+@synthesize myTurn;
 
 +(MultiplayerGame*) gameWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*)match;
 {
   MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithNumberOfRows:rows columns:columns match:match];
   NSDictionary* boardLayout = [newGame.board serialize];
   [[GameCenterHub sharedHub]sendStartBoard:boardLayout andMatch:match];
-  
   return newGame;
 }
 
 
-+(MultiplayerGame*) gameWithMatchData:(GKTurnBasedMatch*)match
++(MultiplayerGame*) gameWithMatchData:(GKTurnBasedMatch*)match andIsMyTurn:(BOOL)mine
 {
-  MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithMatchData:match];
+  MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithMatchData:match andIsMyTurn:mine];
   return newGame;
 }
 
 
--(id) initWithMatchData:(GKTurnBasedMatch*) match
+-(id) initWithMatchData:(GKTurnBasedMatch*)match andIsMyTurn:(BOOL)mine
 {
   if ((self = [super init]))
   {
@@ -61,6 +62,7 @@
       board.moveCount = currMoveCount;
     }
     
+    myTurn = mine;
     myMatch = match;
     [self addChild:board];
   }
@@ -81,6 +83,7 @@
                                               cellSize:cellSize];
     board.position = boardCenter;
     myMatch = match;
+    myTurn = YES;
     [self addChild:board];
   }
   return self;
@@ -95,8 +98,21 @@
 -(void) onGameEnd
 {
   [super onGameEnd];
-  // TODO:   Only if it is your turn
-  [self updateAndSendMatchData];
+  
+  if (myTurn)
+  {
+    NSLog(@"Sending results becuz it's my turn");
+    [self updateAndSendMatchData];
+    board.isTouchEnabled = NO;
+  }
+  else
+  {
+    NSLog(@"Nacho turn so writing crap");
+    [self saveResults];
+    board.isTouchEnabled = NO;
+  }
+  // REMOVE WHEN WE HAVE A RESULTS SCREEEN!
+  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
 
@@ -104,46 +120,47 @@
 {
   NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
   NSString* player1 = [[matchInfo objectForKey:@"player1"] objectForKey:@"id"];
-  
-  NSDictionary* endMatchDict;
-  // FIXME:  Get real playerid
   NSString* me = [GKLocalPlayer localPlayer].playerID;
-  int state = [[matchInfo objectForKey:@"state"] intValue];
+  NSDictionary* endMatchDict;
   
   if (player1 == me)
   {
-    NSDictionary* newp1 = [NSDictionary dictionaryWithObjectsAndKeys:
-                   me, @"id",
-                   [NSNumber numberWithInt:board.moveCount], @"moves",
-                   [board serialize], @"board",
-                   [NSDate dateWithTimeInterval:elapsedTime sinceDate:startTime], @"time",
-                   nil];
+    NSDictionary* p1 = [[GameCenterHub sharedHub] formatMatchDataWithBoard:[board serialize] 
+                                                                    moves:board.moveCount 
+                                                                     time:elapsedTime 
+                                                                    andID:me];
     endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                   [NSNumber numberWithInt:state + 1], @"state",
-                   newp1, @"player1",
+                   p1, @"player1",
                    [matchInfo objectForKey:@"player2"], @"player2",
                    nil];
   }
   else
   {
-    NSDictionary* newp2 = [NSDictionary dictionaryWithObjectsAndKeys:
-                   me, @"id",
-                   [NSNumber numberWithInt:board.moveCount], @"moves",
-                   [board serialize], @"board",
-                   [NSDate dateWithTimeInterval:elapsedTime sinceDate:startTime], @"time",
-                   nil];
+    NSDictionary* p2 = [[GameCenterHub sharedHub] formatMatchDataWithBoard:[board serialize] 
+                                                                    moves:board.moveCount 
+                                                                     time:elapsedTime 
+                                                                    andID:me];
     endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                   [NSNumber numberWithInt:state + 1], @"state",
                    [matchInfo objectForKey:@"player1"], @"player1",
-                   newp2, @"player2",
+                   p2, @"player2",
                    nil];
   }
   
   NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endMatchDict];
-  
-  [[GameCenterHub sharedHub] sendTurn:self data:endData]; 
-  NSLog(@"Current match has ended!");
+  [[GameCenterHub sharedHub] sendTurn:self data:endData];
+}
 
+
+-(void) saveResults
+{
+  NSDictionary* matchResults = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [NSNumber numberWithInt:board.moveCount], @"moves",
+                                [NSNumber numberWithDouble:elapsedTime], @"time",
+                                nil];
+  NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+  NSString* documentsDirectory = [paths objectAtIndex:0];
+  NSString* scorePath = [documentsDirectory stringByAppendingPathComponent:myMatch.matchID];
+  [NSKeyedArchiver archiveRootObject:matchResults toFile:scorePath];
 }
 
 
