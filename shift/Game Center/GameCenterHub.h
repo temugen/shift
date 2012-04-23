@@ -10,7 +10,7 @@
 #import <GameKit/GameKit.h>
 #import "RootViewController.h"
 
-@interface GameCenterHub : NSObject <GKLeaderboardViewControllerDelegate, GKFriendRequestComposeViewControllerDelegate, GKAchievementViewControllerDelegate, GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate>
+@interface GameCenterHub : NSObject <GKLeaderboardViewControllerDelegate, GKAchievementViewControllerDelegate, GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate>
 { 
   RootViewController* rootViewController;
   BOOL gameCenterAvailable;
@@ -38,7 +38,6 @@
 -(void) authenticateLocalPlayer;
 -(BOOL) isGameCenterAvailable;
 -(void) authenticationChanged;
--(void) inviteFriends:(NSArray*) identifiers;
 -(void) displayGameCenterNotification:(NSString*) message;
 
 // Achievements functions

@@ -11,6 +11,7 @@
 #import "MultiplayerTypeMenu.h"
 #import "MultiplayerGame.h"
 #import "GameCenterHub.h"
+#import "OhShiftMatchData.h"
 #import "MainMenu.h"
 #import "cocos2d.h"
 
@@ -18,14 +19,11 @@
 
 /* Private Functions */
 -(id) init;
--(void) getPlayerFriends;
--(void) loadPlayerData:(NSArray*) identifiers;
 -(void) enterNewGame:(GKTurnBasedMatch*)match;
 -(void) layoutMatch:(GKTurnBasedMatch*)match andIsMyTurn:(BOOL)turn;
 -(void) displayResults:(GKTurnBasedMatch*)match;
 -(NSData*) initializeMatchStartDataWithBoard:(NSDictionary*)board;
 
--(void) friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController*)viewController;
 -(void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController;
 -(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController*)viewController;
 -(void) turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController*)viewController didFindMatch:(GKTurnBasedMatch*)myMatch; 
@@ -119,7 +117,6 @@
   if(![GKLocalPlayer localPlayer].isAuthenticated)
   {
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:setGKEventHandlerDelegate];
-    [self getPlayerFriends];
     NSLog(@"Authenticated user");
   }
   else
@@ -139,80 +136,12 @@
   {
     NSLog(@"Auth changed; player authenticated.");
     userAuthenticated = YES;
-    [self loadAchievements];
   }
   else if (![GKLocalPlayer localPlayer].isAuthenticated && userAuthenticated)
   {
     NSLog(@"Auth changed; player not authenticated.");
     userAuthenticated = NO;
   }
-}
-
-
-// Retreives the local player's friends
-//
--(void) getPlayerFriends
-{
-  GKLocalPlayer* me = [GKLocalPlayer localPlayer];
-  
-  if (me.isAuthenticated)
-  {
-    [me loadFriendsWithCompletionHandler:^(NSArray* friends, NSError* error) 
-    {
-      if (error != nil)
-      {
-        NSLog(@"getPlayerFriendsError: %@", error.description);
-        return;
-      }
-      if (![friends count])
-      {
-        [self loadPlayerData:friends];
-      }
-    }];
-  }
-}
-
-
-// Processes GKPlayer data into a form that the GCHub can utilize
-//
--(void) loadPlayerData:(NSArray*) identifiers
-{
-  NSLog(@"You have this many friends: %@", [identifiers count]); 
-  [GKPlayer loadPlayersForIdentifiers:identifiers 
-                withCompletionHandler:^(NSArray* players, NSError* error) 
-   {
-     if (error != nil)
-     {
-       NSLog(@"loadPlayerData error: %@", error.description);
-     }
-     if (players != nil)
-     {
-       // TODO: Process the array of GKPlayer objects.
-     }
-   }];
-}
-
-
-// Allows a player to invite a new person to be their friend.
-//
--(void) inviteFriends: (NSArray*) identifiers
-{
-  GKFriendRequestComposeViewController* friendRequestVc = [[GKFriendRequestComposeViewController alloc] init];
-  friendRequestVc.composeViewDelegate = self;
-  if (identifiers)
-  {
-    [friendRequestVc addRecipientsWithPlayerIDs: identifiers];
-  }
-  
-  [rootViewController presentModalViewController: friendRequestVc animated: YES];
-}
-
-
-// Callback method for the FriendRequestViewController for when the view controller is closed
-//
--(void)friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController*)viewController
-{
-  [rootViewController dismissModalViewControllerAnimated:YES];
 }
 
 
@@ -319,9 +248,7 @@
   [self saveAchievements];
 
   if (!gameCenterAvailable || !userAuthenticated)
-  {
     return;
-  }
   
   [achievement reportAchievementWithCompletionHandler:^(NSError* error)
   {
@@ -336,15 +263,16 @@
 // Resets all achievements to 0% progress for the local player
 //
 - (void) resetAchievements
-{
+{  
+  // TODO:  Confirm reset
+  achievementDict = [[NSMutableDictionary alloc] init];
+
   if (!gameCenterAvailable || !userAuthenticated)
   {
     [self displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
     return;
   }
-  
-  // TODO:  Confirm reset
-  achievementDict = [[NSMutableDictionary alloc] init];
+
   [GKAchievement resetAchievementsWithCompletionHandler:^(NSError *error)
   {
      if (error != nil) 
@@ -605,70 +533,6 @@
 }
 
 
-// Sends the final results and ends the match
-//
--(void) sendResultsForMatch:(GKTurnBasedMatch*)myMatch
-{
-  NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString* documentsDirectory = [paths objectAtIndex:0];
-  NSString* scorePath = [documentsDirectory stringByAppendingPathComponent:myMatch.matchID];
-  NSDictionary* results = [NSKeyedUnarchiver unarchiveObjectWithFile:scorePath];
-  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
-  
-  NSDictionary* endDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                           [matchInfo objectForKey:@"player1"], @"player1",
-                           results, @"player2",
-                           nil];
-  NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endDict];
-  
-  double p1time = [[[endDict objectForKey:@"player1"] objectForKey:@"time"] doubleValue];
-  double p2time = [[[endDict objectForKey:@"player2"] objectForKey:@"time"] doubleValue];
-  NSString* player1 = [[endDict objectForKey:@"player1"] objectForKey:@"id"];
-  NSString* player2 = [[endDict objectForKey:@"player2"] objectForKey:@"id"];
-  
-  if (p1time < p2time)
-  {
-    myMatch = [self setOutcomeForMatch:myMatch andWinnerID:player1];
-  }
-  else
-  {
-    myMatch = [self setOutcomeForMatch:myMatch andWinnerID:player2];
-  }
-  
-  [myMatch endMatchInTurnWithMatchData:endData completionHandler:^(NSError *error) 
-   {
-     if (error) 
-     {
-       NSLog(@"Data: %@", endData);
-       NSLog(@"Match: %@", myMatch);
-       NSLog(@"SendEndMatchError: %@", error);
-     }
-   }];
-}
-
-
-// Sets all of the participant's outcomes for the match before ending
-//
--(GKTurnBasedMatch*) setOutcomeForMatch:(GKTurnBasedMatch*)myMatch andWinnerID:(NSString*)winner
-{
-  for (GKTurnBasedParticipant* participant in myMatch.participants)
-  {
-    if ([participant.playerID isEqualToString:winner])
-    {
-      participant.matchOutcome = GKTurnBasedMatchOutcomeWon;
-    }
-    else
-    {
-      if (participant.matchOutcome != GKTurnBasedMatchOutcomeQuit)
-      {
-        participant.matchOutcome = GKTurnBasedMatchOutcomeLost;
-      }
-    }
-  }
-  
-  return myMatch;
-}
-
 
 // Sends the reuslts for a match when ended on immediately
 //
@@ -700,6 +564,29 @@
      
      [self displayResults:myMatch]; 
    }];
+}
+
+
+// Sets all of the participant's outcomes for the match before ending
+//
+-(GKTurnBasedMatch*) setOutcomeForMatch:(GKTurnBasedMatch*)myMatch andWinnerID:(NSString*)winner
+{
+  for (GKTurnBasedParticipant* participant in myMatch.participants)
+  {
+    if ([participant.playerID isEqualToString:winner])
+    {
+      participant.matchOutcome = GKTurnBasedMatchOutcomeWon;
+    }
+    else
+    {
+      if (participant.matchOutcome != GKTurnBasedMatchOutcomeQuit)
+      {
+        participant.matchOutcome = GKTurnBasedMatchOutcomeLost;
+      }
+    }
+  }
+  
+  return myMatch;
 }
 
 
@@ -827,7 +714,19 @@
   self.currentMatch = myMatch;
   if ([self matchResultsExist:myMatch.matchID])
   {
-    [self sendResultsForMatch:myMatch];
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* documentsDirectory = [paths objectAtIndex:0];
+    NSString* scorePath = [documentsDirectory stringByAppendingPathComponent:myMatch.matchID];
+    NSDictionary* results = [NSKeyedUnarchiver unarchiveObjectWithFile:scorePath];
+    NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
+    
+    NSDictionary* endDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [matchInfo objectForKey:@"player1"], @"player1",
+                             results, @"player2",
+                             nil];
+    NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endDict];
+    
+    [self sendResultsForMatch:myMatch withData:endData];
     [self sendNotice:@"A match has been completed!" forMatch:myMatch];
   }
 }
