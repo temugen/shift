@@ -126,10 +126,10 @@
   
   if (player1 == me)
   {
-    NSDictionary* p1 = [[GameCenterHub sharedHub] formatMatchDataWithBoard:[board serialize] 
-                                                                    moves:board.moveCount 
-                                                                     time:elapsedTime 
-                                                                    andID:me];
+    NSDictionary* p1 = [GameCenterHub formatMatchDataWithBoard:[board serialize] 
+                                                         moves:board.moveCount 
+                                                          time:elapsedTime
+                                                         andID:me];
     endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
                    p1, @"player1",
                    [matchInfo objectForKey:@"player2"], @"player2",
@@ -137,10 +137,10 @@
   }
   else
   {
-    NSDictionary* p2 = [[GameCenterHub sharedHub] formatMatchDataWithBoard:[board serialize] 
-                                                                    moves:board.moveCount 
-                                                                     time:elapsedTime 
-                                                                    andID:me];
+    NSDictionary* p2 = [GameCenterHub formatMatchDataWithBoard:[board serialize] 
+                                                         moves:board.moveCount 
+                                                          time:elapsedTime 
+                                                         andID:me];
     endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
                    [matchInfo objectForKey:@"player1"], @"player1",
                    p2, @"player2",

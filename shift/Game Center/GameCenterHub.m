@@ -568,16 +568,16 @@
 -(NSData*) initializeMatchStartDataWithPlayer:(GKTurnBasedParticipant*)player andBoard:(NSDictionary*)board
 {
   NSDictionary* startData = [NSDictionary dictionaryWithObjectsAndKeys:
-              [self formatMatchDataWithBoard:board moves:0 time:0 andID:player.playerID], @"player1",
-              [self formatMatchDataWithBoard:board moves:0 time:0 andID:@""], @"player2",
-              nil];
+            [GameCenterHub formatMatchDataWithBoard:board moves:0 time:0 andID:player.playerID], @"player1",
+            [GameCenterHub formatMatchDataWithBoard:board moves:0 time:0 andID:@""], @"player2",
+            nil];
   return [NSKeyedArchiver archivedDataWithRootObject:startData];
 }
 
 
 // Formats match information to be sent as match data
 //
--(NSDictionary*) formatMatchDataWithBoard:(NSDictionary*)board moves:(int)moveCount time:(double)time andID:(NSString*)pid
++(NSDictionary*) formatMatchDataWithBoard:(NSDictionary*)board moves:(int)moveCount time:(double)time andID:(NSString*)pid
 {
   NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                           pid, @"id",  

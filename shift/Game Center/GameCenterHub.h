@@ -61,6 +61,6 @@
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*) match;
 -(IBAction) sendTurn:(id)sender data:(NSData*)data;
 -(void) sendStartBoard:(NSDictionary*)board andMatch:(GKTurnBasedMatch*)match;
--(NSDictionary*) formatMatchDataWithBoard:(NSDictionary*)board moves:(int)moveCount time:(double)time andID:(NSString*)pid;
++(NSDictionary*) formatMatchDataWithBoard:(NSDictionary*)board moves:(int)moveCount time:(double)time andID:(NSString*)pid;
 
 @end
