@@ -33,6 +33,8 @@
 -(void) turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController*)viewController 
                         didFailWithError:(NSError *)error; 
 -(void) turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController*)viewController playerQuitForMatch:(GKTurnBasedMatch*)myMatch; 
+-(GKTurnBasedMatch*) setOutcomeForMatch:(GKTurnBasedMatch*)myMatch andWinnerID:(NSString*)winner;
+
 
 -(void)handleInviteFromGameCenter:(NSArray*)playersToInvite; 
 -(void)handleTurnEventForMatch:(GKTurnBasedMatch*)myMatch; 
@@ -540,12 +542,20 @@
 -(void) displayResults:(GKTurnBasedMatch*)myMatch
 {
   NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
-  NSLog(@"player1: moves - %d, time - %f", [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player1"] objectForKey:@"time"] doubleValue]);
-  NSLog(@"player2: moves - %d, time - %f", [[[matchInfo objectForKey:@"player2"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player2"] objectForKey:@"time"] doubleValue]);
-  NSLog(@"Displaying results!");
+  NSLog(@"====== Results ======");
+  if ([[[matchInfo objectForKey:@"player1"] objectForKey:@"id"] isEqualToString:[GKLocalPlayer localPlayer].playerID])
+  {
+    NSLog(@"You: moves - %d, time - %f", [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player1"] objectForKey:@"time"] doubleValue]);
+    NSLog(@"Other Player: moves - %d, time - %f", [[[matchInfo objectForKey:@"player2"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player2"] objectForKey:@"time"] doubleValue]);
+  }
+  else
+  {
+    NSLog(@"Other player: moves - %d, time - %f", [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player1"] objectForKey:@"time"] doubleValue]);
+    NSLog(@"You: moves - %d, time - %f", [[[matchInfo objectForKey:@"player2"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player2"] objectForKey:@"time"] doubleValue]);
+  }
+  
   // Probably going to need a display results with match, then unarchive the matchdata to get all 
   // of the required information
-  
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
@@ -610,23 +620,85 @@
                            results, @"player2",
                            nil];
   NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endDict];
+  
+  double p1time = [[[endDict objectForKey:@"player1"] objectForKey:@"time"] doubleValue];
+  double p2time = [[[endDict objectForKey:@"player2"] objectForKey:@"time"] doubleValue];
+  NSString* player1 = [[endDict objectForKey:@"player1"] objectForKey:@"id"];
+  NSString* player2 = [[endDict objectForKey:@"player2"] objectForKey:@"id"];
+  
+  if (p1time < p2time)
+  {
+    myMatch = [self setOutcomeForMatch:myMatch andWinnerID:player1];
+  }
+  else
+  {
+    myMatch = [self setOutcomeForMatch:myMatch andWinnerID:player2];
+  }
+  
   [myMatch endMatchInTurnWithMatchData:endData completionHandler:^(NSError *error) 
    {
      if (error) 
      {
+       NSLog(@"Data: %@", endData);
+       NSLog(@"Match: %@", myMatch);
        NSLog(@"SendEndMatchError: %@", error);
      }
    }];
 }
 
+
+// Sets all of the participant's outcomes for the match before ending
+//
+-(GKTurnBasedMatch*) setOutcomeForMatch:(GKTurnBasedMatch*)myMatch andWinnerID:(NSString*)winner
+{
+  for (GKTurnBasedParticipant* participant in myMatch.participants)
+  {
+    if ([participant.playerID isEqualToString:winner])
+    {
+      participant.matchOutcome = GKTurnBasedMatchOutcomeWon;
+    }
+    else
+    {
+      if (participant.matchOutcome != GKTurnBasedMatchOutcomeQuit)
+      {
+        participant.matchOutcome = GKTurnBasedMatchOutcomeLost;
+      }
+    }
+  }
+  
+  return myMatch;
+}
+
+
+// Sends the reuslts for a match when ended on immediately
+//
 -(void) sendResultsForMatch:(GKTurnBasedMatch*)myMatch withData:(NSData*)data
 {
+  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
+  double p1time = [[[matchInfo objectForKey:@"player1"] objectForKey:@"time"] doubleValue];
+  double p2time = [[[matchInfo objectForKey:@"player2"] objectForKey:@"time"] doubleValue];
+  NSString* player1 = [[matchInfo objectForKey:@"player1"] objectForKey:@"id"];
+  NSString* player2 = [[matchInfo objectForKey:@"player2"] objectForKey:@"id"];
+  
+  if (p1time < p2time)
+  {
+    myMatch = [self setOutcomeForMatch:myMatch andWinnerID:player1];
+  }
+  else
+  {
+    myMatch = [self setOutcomeForMatch:myMatch andWinnerID:player2];
+  }
+
   [myMatch endMatchInTurnWithMatchData:data completionHandler:^(NSError *error) 
    {
      if (error) 
      {
+       NSLog(@"Data: %@", data);
+       NSLog(@"Match: %@", myMatch);
        NSLog(@"SendEndMatchError: %@", error);
      }
+     
+     [self displayResults:myMatch]; 
    }];
 }
 
