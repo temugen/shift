@@ -45,8 +45,8 @@
                                                      name:@"PauseButtonPressed"
                                                    object:nil];
     }
-    
-    return self;
+  [self onGameStart];
+  return self;
 }
 
 -(NSTimeInterval) getElapsedTime
@@ -70,8 +70,10 @@
 
 -(void) onGameEnd
 {
-    inGame = NO;
-    elapsedTime = [startTime timeIntervalSinceNow];
+  inGame = NO;
+  elapsedTime = -[startTime timeIntervalSinceNow];
+  NSLog(@"Time taken: %f", elapsedTime);
+  NSLog(@"Moves taken: %d", board.moveCount);
 }
 
 -(void) onPause
@@ -85,9 +87,9 @@
 
 -(void) onBoardComplete:(NSNotification *)notification
 {
-    [self onGameEnd];
-    [self onNextGame];
-    [self onGameStart];
+  [self onGameEnd];
+  [self onNextGame];
+//  [self onGameStart];
 }
 
 -(void) onResetButtonPressed:(NSNotification *)notification

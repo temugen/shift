@@ -540,6 +540,8 @@
 -(void) displayResults:(GKTurnBasedMatch*)match
 {
   NSLog(@"Displaying results!");
+  // Probably going to need a display results with match, then unarchive the matchdata to get all 
+  // of the required information
   [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
@@ -567,8 +569,9 @@
 //
 -(NSData*) initializeMatchStartDataWithPlayer:(GKTurnBasedParticipant*)player andBoard:(NSDictionary*)board
 {
+  NSString* pid = player.playerID;
   NSDictionary* startData = [NSDictionary dictionaryWithObjectsAndKeys:
-            [GameCenterHub formatMatchDataWithBoard:board moves:0 time:0 andID:player.playerID], @"player1",
+            [GameCenterHub formatMatchDataWithBoard:board moves:0 time:0 andID:pid], @"player1",
             [GameCenterHub formatMatchDataWithBoard:board moves:0 time:0 andID:@""], @"player2",
             nil];
   return [NSKeyedArchiver archivedDataWithRootObject:startData];

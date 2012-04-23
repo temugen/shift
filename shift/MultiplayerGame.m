@@ -81,6 +81,13 @@
     board = [BoardLayer randomBoardWithNumberOfColumns:columnCount
                                                   rows:rowCount
                                               cellSize:cellSize];
+    while ([board isComplete])
+    {
+      board = [BoardLayer randomBoardWithNumberOfColumns:columnCount
+                                                    rows:rowCount
+                                                cellSize:cellSize];
+    }
+    
     board.position = boardCenter;
     myMatch = match;
     myTurn = YES;
@@ -94,6 +101,7 @@
 {
   [super onGameStart];
 }
+
 
 -(void) onGameEnd
 {
@@ -155,9 +163,9 @@
 -(void) saveResults
 {
   NSDictionary* matchResults = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSNumber numberWithInt:board.moveCount], @"moves",
-                                [NSNumber numberWithDouble:elapsedTime], @"time",
-                                nil];
+                               [NSNumber numberWithInt:board.moveCount], @"moves",
+                               [NSNumber numberWithDouble:elapsedTime], @"time",
+                               nil];
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString* documentsDirectory = [paths objectAtIndex:0];
   NSString* scorePath = [documentsDirectory stringByAppendingPathComponent:myMatch.matchID];
