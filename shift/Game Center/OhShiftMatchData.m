@@ -3,7 +3,7 @@
 //  shift
 //
 //  Created by Alex Chesebro on 4/23/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 __Oh_Shift!__. All rights reserved.
 //
 
 #import <GameKit/GameKit.h>
@@ -18,6 +18,8 @@
 
 @implementation OhShiftMatchData
 
+@synthesize p1id;
+@synthesize p2id;
 @synthesize p1moves;
 @synthesize p2moves;
 @synthesize p1time;
@@ -28,20 +30,46 @@
 @synthesize p2data;
 
 
--(id) initWithMatch:(GKTurnBasedMatch*)match
+-(id) initWithPlayerOneID:(NSString*)pid andBoard:(NSDictionary*)board
 {
-  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
+  if ((self = [super init]))
+  {
+    p1time = 0.0;
+    p1moves = 0;
+    p1board = board;
+    p2time = 0.0;
+    p2moves = 0;
+    p2board = board;
+    p1id = pid;
+    p2id = @"";
+    
+    [self updatePlayerOneData];
+    [self updatePlayerTwoData];  
+  }
+  return self;
+}
+
+
+-(id) initWithData:(NSData*)data
+{
+  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:data];
   return [self initWithDictionary:matchInfo];
 }
 
 
--(id) initFromFile:(NSString*)filename
+-(id) initFromFile:(NSString*)filename andData:(NSData*)data
 {
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString* documentsDirectory = [paths objectAtIndex:0];
   NSString* matchPath = [documentsDirectory stringByAppendingPathComponent:filename];
   NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:matchPath];
-  return [self initWithDictionary:matchInfo];
+  OhShiftMatchData* oldData = [[OhShiftMatchData alloc] initWithData:data];
+  
+  [oldData updatePlayerTwoWithBoard:[matchInfo objectForKey:@"board"]
+                             pid:[matchInfo objectForKey:@"id"] 
+                           moves:[[matchInfo objectForKey:@"moves"] intValue] 
+                    andTimeTaken:[[matchInfo objectForKey:@"time"] doubleValue]];
+   return oldData;
 }
 
 
@@ -55,6 +83,8 @@
     p2time = [[[dict objectForKey:@"player2"] objectForKey:@"time"] doubleValue];
     p2moves = [[[dict objectForKey:@"player2"] objectForKey:@"moves"] intValue];
     p2board = [[dict objectForKey:@"player2"] objectForKey:@"board"];
+    p1id = [[dict objectForKey:@"player1"] objectForKey:@"id"];
+    p2id = [[dict objectForKey:@"player2"] objectForKey:@"id"];
     
     [self updatePlayerOneData];
     [self updatePlayerTwoData];  
@@ -63,21 +93,23 @@
 }
 
 
--(void) updatePlayerOneWithBoard:(NSDictionary*)board moves:(int)moves andTimeTaken:(double)time
+-(void) updatePlayerOneWithBoard:(NSDictionary*)board pid:(NSString*)pid moves:(int)moves andTimeTaken:(double)time
 {
   p1time = time;
   p1moves = moves;
   p1board = board;
+  p1id = pid;
   
   [self updatePlayerOneData];
 }
 
 
--(void) updatePlayerTwoWithBoard:(NSDictionary*)board moves:(int)moves andTimeTaken:(double)time
+-(void) updatePlayerTwoWithBoard:(NSDictionary*)board pid:(NSString*)pid moves:(int)moves andTimeTaken:(double)time
 {
   p2time = time;
   p2moves = moves;
   p2board = board;
+  p2id = pid;
   
   [self updatePlayerTwoData];
 }
@@ -86,6 +118,7 @@
 -(void) updatePlayerOneData
 {
   p1data = [NSDictionary dictionaryWithObjectsAndKeys:
+            p1id, @"id",
             [NSNumber numberWithInt:p1moves], @"moves",
             [NSNumber numberWithDouble:p1time], @"time",
             p1board, @"board",
@@ -96,6 +129,7 @@
 -(void) updatePlayerTwoData
 {
   p2data = [NSDictionary dictionaryWithObjectsAndKeys:
+            p2id, @"id",
             [NSNumber numberWithInt:p2moves], @"moves",
             [NSNumber numberWithDouble:p2time], @"time",
             p2board, @"board",

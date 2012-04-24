@@ -469,17 +469,17 @@
 //
 -(void) displayResults:(GKTurnBasedMatch*)myMatch
 {
-  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
+  OhShiftMatchData* match = [[OhShiftMatchData alloc] initWithData:myMatch.matchData];
   NSLog(@"====== Results ======");
-  if ([[[matchInfo objectForKey:@"player1"] objectForKey:@"id"] isEqualToString:[GKLocalPlayer localPlayer].playerID])
+  if ([match.p1id isEqualToString:[GKLocalPlayer localPlayer].playerID])
   {
-    NSLog(@"You: moves - %d, time - %f", [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player1"] objectForKey:@"time"] doubleValue]);
-    NSLog(@"Other Player: moves - %d, time - %f", [[[matchInfo objectForKey:@"player2"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player2"] objectForKey:@"time"] doubleValue]);
+    NSLog(@"You: moves - %d, time - %f", match.p1moves, match.p1time);
+    NSLog(@"Other Player: moves - %d, time - %f", match.p2moves, match.p2time);
   }
   else
   {
-    NSLog(@"Other player: moves - %d, time - %f", [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player1"] objectForKey:@"time"] doubleValue]);
-    NSLog(@"You: moves - %d, time - %f", [[[matchInfo objectForKey:@"player2"] objectForKey:@"moves"] intValue],[[[matchInfo objectForKey:@"player2"] objectForKey:@"time"] doubleValue]);
+    NSLog(@"You: moves - %d, time - %f", match.p2moves, match.p2time);
+    NSLog(@"Other Player: moves - %d, time - %f", match.p1moves, match.p1time);
   }
   
   // Probably going to need a display results with match, then unarchive the matchdata to get all 
@@ -511,11 +511,8 @@
 -(NSData*) initializeMatchStartDataWithBoard:(NSDictionary*)board
 {
   NSString* pid = [GKLocalPlayer localPlayer].playerID;
-  NSDictionary* startData = [NSDictionary dictionaryWithObjectsAndKeys:
-            [GameCenterHub formatMatchDataWithBoard:board moves:0 time:0 andID:pid], @"player1",
-            [GameCenterHub formatMatchDataWithBoard:board moves:0 time:0 andID:@""], @"player2",
-            nil];
-  return [NSKeyedArchiver archivedDataWithRootObject:startData];
+  OhShiftMatchData* matchInfo = [[OhShiftMatchData alloc] initWithPlayerOneID:pid andBoard:board];
+  return [matchInfo getDataForGameCenter];
 }
 
 
@@ -538,27 +535,21 @@
 //
 -(void) sendResultsForMatch:(GKTurnBasedMatch*)myMatch withData:(NSData*)data
 {
-  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
-  double p1time = [[[matchInfo objectForKey:@"player1"] objectForKey:@"time"] doubleValue];
-  double p2time = [[[matchInfo objectForKey:@"player2"] objectForKey:@"time"] doubleValue];
-  NSString* player1 = [[matchInfo objectForKey:@"player1"] objectForKey:@"id"];
-  NSString* player2 = [[matchInfo objectForKey:@"player2"] objectForKey:@"id"];
+  OhShiftMatchData* matchInfo = [[OhShiftMatchData alloc] initWithData:data];
   
-  if (p1time < p2time)
+  if (matchInfo.p1time < matchInfo.p2time)
   {
-    myMatch = [self setOutcomeForMatch:myMatch andWinnerID:player1];
+    [self setOutcomeForMatch:myMatch andWinnerID:matchInfo.p1id];
   }
   else
   {
-    myMatch = [self setOutcomeForMatch:myMatch andWinnerID:player2];
+    [self setOutcomeForMatch:myMatch andWinnerID:matchInfo.p2id];
   }
 
   [myMatch endMatchInTurnWithMatchData:data completionHandler:^(NSError *error) 
    {
      if (error) 
      {
-       NSLog(@"Data: %@", data);
-       NSLog(@"Match: %@", myMatch);
        NSLog(@"SendEndMatchError: %@", error);
      }
      
@@ -658,7 +649,6 @@
 {
   NSLog(@"TBMVC: didFailWithError");
   [rootViewController dismissModalViewControllerAnimated:YES];
-  NSLog(@"Error finding match: %@", error.localizedDescription);
 }
 
 
@@ -714,19 +704,9 @@
   self.currentMatch = myMatch;
   if ([self matchResultsExist:myMatch.matchID])
   {
-    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* documentsDirectory = [paths objectAtIndex:0];
-    NSString* scorePath = [documentsDirectory stringByAppendingPathComponent:myMatch.matchID];
-    NSDictionary* results = [NSKeyedUnarchiver unarchiveObjectWithFile:scorePath];
-    NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
-    
-    NSDictionary* endDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [matchInfo objectForKey:@"player1"], @"player1",
-                             results, @"player2",
-                             nil];
-    NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endDict];
-    
-    [self sendResultsForMatch:myMatch withData:endData];
+    OhShiftMatchData* updatedData = [[OhShiftMatchData alloc] initFromFile:myMatch.matchID 
+                                                                   andData:myMatch.matchData];
+    [self sendResultsForMatch:myMatch withData:[updatedData getDataForGameCenter]];
     [self sendNotice:@"A match has been completed!" forMatch:myMatch];
   }
 }
