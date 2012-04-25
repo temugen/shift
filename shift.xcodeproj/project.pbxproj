@@ -126,6 +126,10 @@
 		82B4B2C81543D3D300B1467F /* train_snap.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B2C61543D3D300B1467F /* train_snap.m4a */; };
 		82B4B3D61547C4F000B1467F /* ram_blocker.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B3D51547C4F000B1467F /* ram_blocker.plist */; };
 		82B4B3D81547D0E300B1467F /* rotate_bottleneck.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B3D71547D0E300B1467F /* rotate_bottleneck.plist */; };
+		82B4B3DD1548AFEC00B1467F /* mute.png in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B3D91548AFEC00B1467F /* mute.png */; };
+		82B4B3DE1548AFEC00B1467F /* mute@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B3DA1548AFEC00B1467F /* mute@2x.png */; };
+		82B4B3DF1548AFEC00B1467F /* mute@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B3DB1548AFEC00B1467F /* mute@2x~ipad.png */; };
+		82B4B3E01548AFEC00B1467F /* mute~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B3DC1548AFEC00B1467F /* mute~ipad.png */; };
 		9635BFFD152FEB790091081B /* TitleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635BFFC152FEB790091081B /* TitleLayer.m */; };
 		9852660314F6DAE900353F61 /* lock_tutorial.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9852660214F6DAE900353F61 /* lock_tutorial.plist */; };
 		9852F3BE153F81920049CA8F /* pinwheel.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9852F3BD153F81920049CA8F /* pinwheel.plist */; };
@@ -815,6 +819,10 @@
 		82B4B2C61543D3D300B1467F /* train_snap.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = train_snap.m4a; path = shift/Resources/Sounds/train_snap.m4a; sourceTree = SOURCE_ROOT; };
 		82B4B3D51547C4F000B1467F /* ram_blocker.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ram_blocker.plist; path = Resources/Levels/ram_blocker.plist; sourceTree = "<group>"; };
 		82B4B3D71547D0E300B1467F /* rotate_bottleneck.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = rotate_bottleneck.plist; path = Resources/Levels/rotate_bottleneck.plist; sourceTree = "<group>"; };
+		82B4B3D91548AFEC00B1467F /* mute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mute.png; sourceTree = "<group>"; };
+		82B4B3DA1548AFEC00B1467F /* mute@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mute@2x.png"; sourceTree = "<group>"; };
+		82B4B3DB1548AFEC00B1467F /* mute@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mute@2x~ipad.png"; sourceTree = "<group>"; };
+		82B4B3DC1548AFEC00B1467F /* mute~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mute~ipad.png"; sourceTree = "<group>"; };
 		9635BFFB152FEB790091081B /* TitleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleLayer.h; path = Menus/TitleLayer.h; sourceTree = "<group>"; };
 		9635BFFC152FEB790091081B /* TitleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleLayer.m; path = Menus/TitleLayer.m; sourceTree = "<group>"; };
 		9852660214F6DAE900353F61 /* lock_tutorial.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = lock_tutorial.plist; path = Resources/Levels/lock_tutorial.plist; sourceTree = "<group>"; };
@@ -951,6 +959,10 @@
 				82A9D803153160F400D05BAA /* achievements@2x.png */,
 				82A9D804153160F400D05BAA /* achievements@2x~ipad.png */,
 				82A9D805153160F400D05BAA /* achievements~ipad.png */,
+				82B4B3D91548AFEC00B1467F /* mute.png */,
+				82B4B3DA1548AFEC00B1467F /* mute@2x.png */,
+				82B4B3DB1548AFEC00B1467F /* mute@2x~ipad.png */,
+				82B4B3DC1548AFEC00B1467F /* mute~ipad.png */,
 				82A9D80A153164DD00D05BAA /* options.png */,
 				82A9D80B153164DD00D05BAA /* options@2x.png */,
 				82A9D80C153164DD00D05BAA /* options@2x~ipad.png */,
@@ -2117,6 +2129,10 @@
 				82B4B2C81543D3D300B1467F /* train_snap.m4a in Resources */,
 				82B4B3D61547C4F000B1467F /* ram_blocker.plist in Resources */,
 				82B4B3D81547D0E300B1467F /* rotate_bottleneck.plist in Resources */,
+				82B4B3DD1548AFEC00B1467F /* mute.png in Resources */,
+				82B4B3DE1548AFEC00B1467F /* mute@2x.png in Resources */,
+				82B4B3DF1548AFEC00B1467F /* mute@2x~ipad.png in Resources */,
+				82B4B3E01548AFEC00B1467F /* mute~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
