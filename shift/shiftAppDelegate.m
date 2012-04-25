@@ -99,17 +99,6 @@
 	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
 	if( ! [director enableRetinaDisplay:YES] )
 		CCLOG(@"Retina Display Not supported");
-    
-    // Preload the background music (reduces startup time for background music)
-   /* SimpleAudioEngine *sae = [SimpleAudioEngine sharedEngine];
-    if (sae != nil) 
-    {
-        [sae preloadBackgroundMusic:@BGM_MENU];
-        if (sae.willPlayBackgroundMusic)
-        {
-            sae.backgroundMusicVolume = 0.5f;
-        }
-    }*/
 	
 	//
 	// VERY IMPORTANT:
@@ -149,6 +138,8 @@
     [CCFileUtils setiPadSuffix:@"~ipad"];
     [CCFileUtils setiPhoneRetinaDisplaySuffix:@"@2x"];
     [CCFileUtils setiPadRetinaDisplaySuffix:@"@2x~ipad"];
+    
+    [[CDAudioManager sharedManager] setMode:kAMM_FxOnly];
     
     [self initPlatformVariables];
     

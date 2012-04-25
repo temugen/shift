@@ -12,29 +12,9 @@
 		<array>
 			<dict>
 				<key>class</key>
-				<string>KeyBlock</string>
+				<string>StationaryBlock</string>
 				<key>name</key>
-				<string>key</string>
-				<key>row</key>
-				<integer>0</integer>
-				<key>column</key>
-				<integer>0</integer>
-            </dict>
-            <dict>
-				<key>class</key>
-				<string>WildcardBlock</string>
-				<key>name</key>
-				<string>key</string>
-				<key>row</key>
-				<integer>1</integer>
-				<key>column</key>
-				<integer>1</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>GoalSprite</string>
-				<key>name</key>
-				<string>blue</string>
+				<string>stationary</string>
 				<key>row</key>
 				<integer>0</integer>
 				<key>column</key>
@@ -42,171 +22,81 @@
 			</dict>
 			<dict>
 				<key>class</key>
-				<string>GoalSprite</string>
+				<string>LockBlock</string>
 				<key>name</key>
 				<string>orange</string>
 				<key>row</key>
 				<integer>0</integer>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>2</integer>
 			</dict>
 			<dict>
 				<key>class</key>
-				<string>GoalSprite</string>
+				<string>LockBlock</string>
 				<key>name</key>
 				<string>red</string>
 				<key>row</key>
 				<integer>0</integer>
 				<key>column</key>
 				<integer>4</integer>
-            </dict>
-            <dict>
+			</dict>
+			<dict>
 				<key>class</key>
-				<string>BlockSprite</string>
+				<string>StationaryBlock</string>
+				<key>name</key>
+				<string>stationary</string>
+				<key>row</key>
+				<integer>0</integer>
+				<key>column</key>
+				<integer>6</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>StationaryBlock</string>
+				<key>name</key>
+				<string>stationary</string>
+				<key>row</key>
+				<integer>1</integer>
+				<key>column</key>
+				<integer>1</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>GoalSprite</string>
 				<key>name</key>
 				<string>green</string>
 				<key>row</key>
-				<integer>0</integer>
-				<key>column</key>
-				<integer>4</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>StationaryBlock</string>
-				<key>name</key>
-				<string>stationary</string>
-				<key>row</key>
-				<integer>0</integer>
-				<key>column</key>
-				<integer>5</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>BlockSprite</string>
-				<key>name</key>
-				<string>blue</string>
-				<key>row</key>
-				<integer>0</integer>
-				<key>column</key>
-				<integer>6</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>GoalSprite</string>
-				<key>name</key>
-				<string>orange</string>
-				<key>row</key>
 				<integer>1</integer>
 				<key>column</key>
-				<integer>0</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>GoalSprite</string>
-				<key>name</key>
-				<string>blue</string>
-				<key>row</key>
-				<integer>1</integer>
-				<key>column</key>
-				<integer>1</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>RotationBlock</string>
-				<key>name</key>
-				<string>rotate</string>
-				<key>row</key>
-				<integer>1</integer>
-				<key>column</key>
-				<integer>4</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>StationaryBlock</string>
-				<key>name</key>
-				<string>stationary</string>
-				<key>row</key>
-				<integer>1</integer>
-				<key>column</key>
-				<integer>5</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>StationaryBlock</string>
-				<key>name</key>
-				<string>stationary</string>
-				<key>row</key>
-				<integer>2</integer>
-				<key>column</key>
 				<integer>3</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>StationaryBlock</string>
-				<key>name</key>
-				<string>stationary</string>
-				<key>row</key>
-				<integer>2</integer>
-				<key>column</key>
-				<integer>4</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>StationaryBlock</string>
-				<key>name</key>
-				<string>stationary</string>
-				<key>row</key>
-				<integer>3</integer>
-				<key>column</key>
-				<integer>2</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>StationaryBlock</string>
-				<key>name</key>
-				<string>stationary</string>
-				<key>row</key>
-				<integer>3</integer>
-				<key>column</key>
-				<integer>3</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>BlockSprite</string>
-				<key>name</key>
-				<string>blue</string>
-				<key>row</key>
-				<integer>3</integer>
-				<key>column</key>
-				<integer>4</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>BlockSprite</string>
-				<key>name</key>
-				<string>orange</string>
-				<key>row</key>
-				<integer>3</integer>
-				<key>column</key>
-				<integer>6</integer>
-			</dict>
-			<dict>
+            </dict>
+            <dict>
 				<key>class</key>
 				<string>RamBlock</string>
 				<key>name</key>
 				<string>ram</string>
 				<key>row</key>
-				<integer>4</integer>
-				<key>column</key>
 				<integer>0</integer>
+				<key>column</key>
+				<integer>3</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>StationaryBlock</string>
+				<key>name</key>
+				<string>stationary</string>
+				<key>row</key>
+				<integer>1</integer>
+				<key>column</key>
+				<integer>5</integer>
 			</dict>
 			<dict>
 				<key>class</key>
 				<string>GoalSprite</string>
 				<key>name</key>
-				<string>red</string>
+				<string>blue</string>
 				<key>row</key>
-				<integer>4</integer>
+				<integer>2</integer>
 				<key>column</key>
 				<integer>0</integer>
 			</dict>
@@ -216,9 +106,69 @@
 				<key>name</key>
 				<string>stationary</string>
 				<key>row</key>
+				<integer>2</integer>
+				<key>column</key>
+				<integer>2</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>StationaryBlock</string>
+				<key>name</key>
+				<string>stationary</string>
+				<key>row</key>
+				<integer>2</integer>
+				<key>column</key>
 				<integer>4</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>LockBlock</string>
+				<key>name</key>
+				<string>purple</string>
+				<key>row</key>
+				<integer>2</integer>
+				<key>column</key>
+				<integer>6</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>LockBlock</string>
+				<key>name</key>
+				<string>yellow</string>
+				<key>row</key>
+				<integer>3</integer>
 				<key>column</key>
 				<integer>1</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>KeyBlock</string>
+				<key>name</key>
+				<string>key</string>
+				<key>row</key>
+				<integer>3</integer>
+				<key>column</key>
+				<integer>3</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>GoalSprite</string>
+				<key>name</key>
+				<string>yellow</string>
+				<key>row</key>
+				<integer>3</integer>
+				<key>column</key>
+				<integer>5</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>GoalSprite</string>
+				<key>name</key>
+				<string>purple</string>
+				<key>row</key>
+				<integer>4</integer>
+				<key>column</key>
+				<integer>0</integer>
 			</dict>
 			<dict>
 				<key>class</key>
@@ -232,43 +182,23 @@
 			</dict>
 			<dict>
 				<key>class</key>
-				<string>BlockSprite</string>
+				<string>StationaryBlock</string>
 				<key>name</key>
-				<string>orange</string>
+				<string>stationary</string>
 				<key>row</key>
 				<integer>4</integer>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>4</integer>
 			</dict>
 			<dict>
 				<key>class</key>
 				<string>LockBlock</string>
-				<key>name</key>
-				<string>red</string>
-				<key>row</key>
-				<integer>4</integer>
-				<key>column</key>
-				<integer>4</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>BlockSprite</string>
 				<key>name</key>
 				<string>blue</string>
 				<key>row</key>
 				<integer>4</integer>
 				<key>column</key>
 				<integer>6</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>StationaryBlock</string>
-				<key>name</key>
-				<string>stationary</string>
-				<key>row</key>
-				<integer>5</integer>
-				<key>column</key>
-				<integer>0</integer>
 			</dict>
 			<dict>
 				<key>class</key>
@@ -282,9 +212,19 @@
 			</dict>
 			<dict>
 				<key>class</key>
-				<string>DestructiveBlock</string>
+				<string>LockBlock</string>
 				<key>name</key>
-				<string>purple</string>
+				<string>green</string>
+				<key>row</key>
+				<integer>5</integer>
+				<key>column</key>
+				<integer>3</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>StationaryBlock</string>
+				<key>name</key>
+				<string>stationary</string>
 				<key>row</key>
 				<integer>5</integer>
 				<key>column</key>
@@ -294,17 +234,7 @@
 				<key>class</key>
 				<string>DestructiveBlock</string>
 				<key>name</key>
-				<string>purple</string>
-				<key>row</key>
-				<integer>5</integer>
-				<key>column</key>
-				<integer>6</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>BlockSprite</string>
-				<key>name</key>
-				<string>blue</string>
+				<string>stationary</string>
 				<key>row</key>
 				<integer>6</integer>
 				<key>column</key>
@@ -312,17 +242,17 @@
 			</dict>
 			<dict>
 				<key>class</key>
-				<string>BlockSprite</string>
+				<string>GoalSprite</string>
 				<key>name</key>
-				<string>blue</string>
+				<string>red</string>
 				<key>row</key>
 				<integer>6</integer>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>2</integer>
 			</dict>
 			<dict>
 				<key>class</key>
-				<string>BlockSprite</string>
+				<string>GoalSprite</string>
 				<key>name</key>
 				<string>orange</string>
 				<key>row</key>
@@ -332,29 +262,9 @@
 			</dict>
 			<dict>
 				<key>class</key>
-				<string>DestructiveBlock</string>
+				<string>StationaryBlock</string>
 				<key>name</key>
-				<string>purple</string>
-				<key>row</key>
-				<integer>6</integer>
-				<key>column</key>
-				<integer>5</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>LockBlock</string>
-				<key>name</key>
-				<string>red</string>
-				<key>row</key>
-				<integer>6</integer>
-				<key>column</key>
-				<integer>6</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>GoalSprite</string>
-				<key>name</key>
-				<string>green</string>
+				<string>stationary</string>
 				<key>row</key>
 				<integer>6</integer>
 				<key>column</key>

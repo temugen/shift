@@ -11,8 +11,8 @@
 
 @interface OptionsMenu : Menu
 {
-    CCMenuItem *_plusItem; 
-    CCMenuItem *_minusItem;
+    CCScrollLayer* scroller;
+    CCSprite* highlightedSprite;
 }
--(void)addSoundButton;
+
 @end

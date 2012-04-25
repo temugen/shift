@@ -8,6 +8,7 @@
 
 #import "OptionsMenu.h"
 #import "SinglePlayerGame.h"
+#import "ColorPalette.h"
 
 @implementation OptionsMenu
 
@@ -21,27 +22,72 @@
     return self;
 }
 
--(void)soundSwitch:(id)sender
+-(void)toggleMute:(id)sender
 {
-    if ([[SimpleAudioEngine sharedEngine] mute]) {
-        // This will unmute the sound
-        [[SimpleAudioEngine sharedEngine] setMute:0];
-    }
-    else {
-        //This will mute the sound
-        [[SimpleAudioEngine sharedEngine] setMute:1];
+    [SimpleAudioEngine sharedEngine].mute = ![SimpleAudioEngine sharedEngine].mute;
+    if (![SimpleAudioEngine sharedEngine].mute) {
+        [[SimpleAudioEngine sharedEngine] playEffect:SFX_MENU];
     }
 }
--(void)addSoundButton{
 
-    _plusItem = [CCMenuItemImage itemFromNormalImage:@"Icon.png" 
-                                    selectedImage:@"Icon.png" target:nil selector:nil];
-    _minusItem = [CCMenuItemImage itemFromNormalImage:@"Icon.png" 
-                                     selectedImage:@"Icon.png" target:nil selector:nil];
+-(void)addSoundButton
+{
+    CCMenuItem *playing = [CCMenuItemImage itemFromNormalImage:@"mute.png" 
+                                    selectedImage:@"mute.png" target:nil selector:nil];
+    
+    CCMenuItem *muted = [CCMenuItemImage itemFromNormalImage:@"mute.png" 
+                                     selectedImage:@"mute.png" target:nil selector:nil];
+    CCLabelTTF *redX = [CCLabelTTF labelWithString:@"X" fontName:@"Helvetica" fontSize:muted.contentSize.height];
+    redX.position = ccp(muted.contentSize.width / 2, muted.contentSize.height / 2);
+    redX.color = [[ColorPalette sharedPalette] colorWithName:@"red" fromPalette:@"_app"];
+    [muted addChild:redX];
+    
     CCMenuItemToggle *toggleItem = [CCMenuItemToggle itemWithTarget:self 
-                                                           selector:@selector(soundSwitch:) items:_plusItem, _minusItem, nil];
+                                                           selector:@selector(toggleMute:) items:playing, muted, nil];
     CCMenu *toggleMenu = [CCMenu menuWithItems:toggleItem, nil];
-    toggleMenu.position = ccp(60, 120);
+    toggleMenu.position = ccp(platformPadding + playing.contentSize.width / 2, platformPadding + playing.contentSize.height / 2);
     [self addChild:toggleMenu];
 }
+
+-(void) addBlockColors
+{
+    //CCScrollLayer *scroll = [CCScrollLayer alloc] initWithLayers:<#(NSArray *)#> widthOffset:<#(int)#>];
+}
+
+-(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CGPoint touchPoint = [touch locationInView:[touch view]];
+	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
+    
+    CCLayer* currPage = [scroller getCurrentPage];
+    
+    for(CCSprite* curr in [currPage children])
+    {
+        if(CGRectContainsPoint([curr boundingBox], touchPoint) && [curr tag] > 0)
+        {          
+            highlightedSprite = curr;
+            curr.flipY = YES;
+        }
+    }
+    return YES;
+}
+
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CGPoint touchPoint = [touch locationInView:[touch view]];
+	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
+    
+    if(highlightedSprite)
+    {
+        highlightedSprite.flipY = NO;
+        if(touch.tapCount == 1)
+        {
+            if(CGRectContainsPoint([highlightedSprite boundingBox], touchPoint))
+            {
+            }
+        }
+        highlightedSprite = nil;
+    }
+}
+
 @end

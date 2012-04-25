@@ -76,7 +76,7 @@
 
 -(void) addButtonWithDescription:(NSString *)text target:(id)target selector:(SEL)selector iconFilename:(NSString *)filename colorString:(NSString *)color
 {
-    CCSprite *sprite = [CCSprite spriteWithTexture:[[CCTextureCache sharedTextureCache] addImage:filename]];
+    CCSprite *sprite = [CCSprite spriteWithFile:filename];
     sprite.color = [[ColorPalette sharedPalette] colorWithName:color fromPalette:@"_app"];
     
     CCLabelTTF *label = [CCLabelTTF labelWithString:text fontName:@"Copperplate-Light" fontSize:platformFontSize];
@@ -119,7 +119,7 @@
             SEL selector;
             [[userData objectForKey:@"selector"] getValue:&selector];
             
-            [[SimpleAudioEngine sharedEngine] playEffect:[NSString stringWithCString:SFX_MENU]];
+            [[SimpleAudioEngine sharedEngine] playEffect:SFX_MENU];
             [[userData objectForKey:@"target"] performSelector:selector withObject:self];
         }
     }

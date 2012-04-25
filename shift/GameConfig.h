@@ -47,9 +47,7 @@ typedef enum Difficulty {
     kDifficultyHard = 7
 } Difficulty;
 
-#define SFX_MENU "shift_menu.mp3"
-
-#define NUM_LEVELS 20
+#define SFX_MENU @"shift_menu.mp3"
 
 #define len(array) (sizeof((array))/sizeof(typeof((array[0]))))
 

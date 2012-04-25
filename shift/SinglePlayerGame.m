@@ -91,7 +91,7 @@ static SinglePlayerGame *lastGame = nil;
     }
 
     //If user completed all levels, return to Main Menu (for now). Maybe display some congratulatory message? Fireworks?
-    if(currentLevel > NUM_LEVELS)
+    if(currentLevel > [[LevelPack sharedPack] numLevels])
     {
         [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
     }

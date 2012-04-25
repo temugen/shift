@@ -18,7 +18,7 @@
 {
     if ((self = [super init])) {
         message = msg;
-        cell = tutorialCell;
+        cell = [tutorialCell copy];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"NewTutorial" object:self];
     }
     return self;

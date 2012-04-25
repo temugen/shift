@@ -15,7 +15,7 @@
 -(id) initWithName:(NSString *)blockName
 {
     if ((self = [super initWithName:blockName])) {
-        overlay = [CCSprite spriteWithTexture:[[CCTextureCache sharedTextureCache] addImage:@"block_lock.png"]];
+        overlay = [CCSprite spriteWithFile:@"block_lock.png"];
         overlay.position = ccp(self.contentSize.width / 2, self.contentSize.height / 2);
         [self addChild:overlay];
         
@@ -28,7 +28,7 @@
 
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force
 {
-    if([cell.name isEqualToString:@"key"])
+    if([cell isKindOfClass:[KeyBlock class]])
     {
         [self unlock];
     }

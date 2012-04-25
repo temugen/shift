@@ -17,8 +17,7 @@
     if ((self = [super init])) {
         self.isTouchEnabled = YES;
         
-        CCTexture2D *pauseButtonTexture = [[CCTextureCache sharedTextureCache] addImage:@"pause.png"];
-        pauseButton = [CCSprite spriteWithTexture:pauseButtonTexture];
+        pauseButton = [CCSprite spriteWithFile:@"pause.png"];
         self.isRelativeAnchorPoint = YES;
         self.contentSize = pauseButton.contentSize;
         pauseButton.position = ccp(self.contentSize.width / 2, self.contentSize.height / 2);
@@ -34,6 +33,7 @@
         CGPoint location = [self convertTouchToNodeSpace:touch];
         
         if (CGRectContainsPoint([pauseButton boundingBox], location)) {
+            [[SimpleAudioEngine sharedEngine] playEffect:SFX_MENU];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PauseButtonPressed" object:self];
         }
     }

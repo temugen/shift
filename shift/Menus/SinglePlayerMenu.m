@@ -9,6 +9,7 @@
 #import "SinglePlayerMenu.h"
 #import "SinglePlayerGame.h"
 #import "MainMenu.h"
+#import "LevelPack.h"
 
 #define SPRITES_PER_PAGE 4
 #define PADDING 40
@@ -34,8 +35,9 @@ NSInteger highestLevel;
             highestLevel = 1;
         }   
 
-        NSMutableArray * pages = [NSMutableArray arrayWithCapacity:NUM_LEVELS];
-        NSMutableArray * levels = [NSMutableArray arrayWithCapacity:NUM_LEVELS];
+        int numLevels = [[LevelPack sharedPack] numLevels];
+        NSMutableArray * pages = [NSMutableArray arrayWithCapacity:numLevels];
+        NSMutableArray * levels = [NSMutableArray arrayWithCapacity:numLevels];
         CGSize screenSize = [CCDirector sharedDirector].winSize;
         int spriteWidth = screenSize.width/8;
         
@@ -43,7 +45,7 @@ NSInteger highestLevel;
         BOOL prev;
         CGPoint position,prevPos;
         
-        for (int i=1;i<=NUM_LEVELS;i++)
+        for (int i=1;i<=numLevels;i++)
         {
             //Determine position of sprite. If there is already a level on the page, position this one next to it.
             if(prev)

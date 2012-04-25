@@ -19,8 +19,7 @@
 
 -(id) initWithFilename:(NSString *)filename
 {
-    CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:filename];
-    if ((self = [super initWithTexture:texture])) {
+    if ((self = [super initWithFile:filename])) {
         textureFilename = [filename copy];
         comparable = YES;
         movable = YES;

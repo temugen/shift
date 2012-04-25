@@ -4,6 +4,7 @@
 <dict>
 	<key>default</key>
 	<array>
+		<string></string>
 		<string>stationary_tutorial</string>
 		<string>dice_five</string>
 		<string>fishing</string>
@@ -18,12 +19,11 @@
 		<string>triquetra</string>
 		<string>flat_pair</string>
 		<string>pinwheel</string>
-		<string>test</string>
-		<string></string>
-		<string></string>
-		<string></string>
+		<string>ram_blocker</string>
+		<string>rotate_bottleneck</string>
 		<string>wildcard_tutorial</string>
 		<string>lock_tutorial</string>
+		<string>test</string>
 	</array>
 </dict>
 </plist>
