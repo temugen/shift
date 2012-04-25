@@ -48,4 +48,46 @@
     toggleMenu.position = ccp(platformPadding + playing.contentSize.width / 2, platformPadding + playing.contentSize.height / 2);
     [self addChild:toggleMenu];
 }
+
+-(void) addBlockColors
+{
+    //CCScrollLayer *scroll = [CCScrollLayer alloc] initWithLayers:<#(NSArray *)#> widthOffset:<#(int)#>];
+}
+
+-(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CGPoint touchPoint = [touch locationInView:[touch view]];
+	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
+    
+    CCLayer* currPage = [scroller getCurrentPage];
+    
+    for(CCSprite* curr in [currPage children])
+    {
+        if(CGRectContainsPoint([curr boundingBox], touchPoint) && [curr tag] > 0)
+        {          
+            highlightedSprite = curr;
+            curr.flipY = YES;
+        }
+    }
+    return YES;
+}
+
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    CGPoint touchPoint = [touch locationInView:[touch view]];
+	touchPoint = [[CCDirector sharedDirector] convertToGL:touchPoint];
+    
+    if(highlightedSprite)
+    {
+        highlightedSprite.flipY = NO;
+        if(touch.tapCount == 1)
+        {
+            if(CGRectContainsPoint([highlightedSprite boundingBox], touchPoint))
+            {
+            }
+        }
+        highlightedSprite = nil;
+    }
+}
+
 @end

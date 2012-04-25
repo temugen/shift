@@ -11,6 +11,8 @@
 
 @interface OptionsMenu : Menu
 {
+    CCScrollLayer* scroller;
+    CCSprite* highlightedSprite;
 }
 
 @end

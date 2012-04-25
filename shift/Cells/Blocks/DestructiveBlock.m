@@ -8,6 +8,7 @@
 
 #import "DestructiveBlock.h"
 #import "BoardLayer.h"
+#import "RamBlock.h"
 
 @implementation DestructiveBlock
 
@@ -25,7 +26,7 @@
 
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force
 {
-    if(![cell.name isEqualToString:@"ram"] || force < platformMinCollisionForce)
+    if(![cell isKindOfClass:[RamBlock class]] || force < platformMinCollisionForce)
     {
         return NO;
     }
@@ -45,7 +46,7 @@
     current.position = ccp(current.contentSize.width / 2, current.contentSize.height / 2);
     [current visit];
     
-    CCSprite *crack = [CCSprite spriteWithTexture:[[CCTextureCache sharedTextureCache] addImage:@"crack1.png"]];
+    CCSprite *crack = [CCSprite spriteWithFile:@"crack1.png"];
     crack.blendFunc = (ccBlendFunc){GL_ZERO, GL_ONE_MINUS_SRC_ALPHA};
     int randomX = arc4random() % (int)self.contentSize.width;
     int randomY = arc4random() % (int)self.contentSize.height;
