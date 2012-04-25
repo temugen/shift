@@ -20,6 +20,20 @@
     return self;
 }
 
+-(id) copyWithZone:(NSZone *)zone
+{
+    BlockSprite *cell = [[[self class] alloc] initWithName:self.name];
+    [cell resize:[self boundingBox].size];
+    cell.column = column;
+    cell.row = row;
+    cell.health = health;
+    cell.comparable = comparable;
+    cell.movable = movable;
+    cell.tutorial = tutorial;
+    cell.color = self.color;
+    return cell;
+}
+
 +(id) blockWithName:(NSString *)name
 {
     return [[[self class] alloc] initWithName:name];
