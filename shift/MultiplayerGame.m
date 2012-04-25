@@ -9,6 +9,7 @@
 #import <GameKit/GameKit.h>
 #import "MultiplayerGameMenu.h"
 #import "MultiplayerGame.h"
+#import "OhShiftMatchData.h"
 #import "GameCenterHub.h"
 #import "MainMenu.h"
 
@@ -37,21 +38,21 @@
 {
   if ((self = [super init]))
   {
-    NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:match.matchData];
+    OhShiftMatchData* matchInfo = [[OhShiftMatchData alloc] initWithData:match.matchData];
     NSString* me = [GKLocalPlayer localPlayer].playerID;
-    NSString* player1 = [[matchInfo objectForKey:@"player1"] objectForKey:@"id"];
+    NSString* player1 = matchInfo.p1id;
     NSDictionary* playerBoard;
     int currMoveCount;
     
     if ([me isEqualToString:player1])
     {
-      playerBoard = [[matchInfo objectForKey:@"player1"] objectForKey:@"board"];
-      currMoveCount = [[[matchInfo objectForKey:@"player1"] objectForKey:@"moves"] intValue];
+      playerBoard = matchInfo.p1board;
+      currMoveCount = matchInfo.p1moves;
     }
     else
     {
-      playerBoard = [[matchInfo objectForKey:@"player2"] objectForKey:@"board"];
-      currMoveCount = [[[matchInfo objectForKey:@"player2"] objectForKey:@"moves"] intValue];
+      playerBoard = matchInfo.p2board;
+      currMoveCount = matchInfo.p2moves;
     }
     
     board = [[BoardLayer alloc] initWithDictionary:[playerBoard objectForKey:@"board"] cellSize:cellSize];
@@ -82,12 +83,6 @@
     board = [BoardLayer randomBoardWithNumberOfColumns:columnCount
                                                   rows:rowCount
                                               cellSize:cellSize];
-    while ([board isComplete])
-    {
-      board = [BoardLayer randomBoardWithNumberOfColumns:columnCount
-                                                    rows:rowCount
-                                                cellSize:cellSize];
-    }
     
     board.position = boardCenter;
     myMatch = match;
@@ -126,37 +121,26 @@
 
 -(void) updateAndSendMatchData
 {
-  NSDictionary* matchInfo = [NSKeyedUnarchiver unarchiveObjectWithData:myMatch.matchData];
-  NSString* player1 = [[matchInfo objectForKey:@"player1"] objectForKey:@"id"];
+  OhShiftMatchData* matchInfo = [[OhShiftMatchData alloc] initWithData:myMatch.matchData];
+  NSString* player1 = matchInfo.p1id;
   NSString* me = [GKLocalPlayer localPlayer].playerID;
-  NSDictionary* endMatchDict;
   
   if ([me isEqualToString:player1])
   {
-    NSDictionary* p1 = [GameCenterHub formatMatchDataWithBoard:[board serialize] 
-                                                         moves:board.moveCount 
-                                                          time:elapsedTime
-                                                         andID:me];
-    endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                   p1, @"player1",
-                   [matchInfo objectForKey:@"player2"], @"player2",
-                   nil];
-    NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endMatchDict];
-    [[GameCenterHub sharedHub] sendTurn:self data:endData];
+    [matchInfo updatePlayerOneWithBoard:[board serialize] 
+                                    pid:me 
+                                  moves:board.moveCount 
+                           andTimeTaken:elapsedTime];
+    [[GameCenterHub sharedHub] sendTurn:self data:[matchInfo getDataForGameCenter]];
   }
   else
   {
-    NSDictionary* p2 = [GameCenterHub formatMatchDataWithBoard:[board serialize] 
-                                                         moves:board.moveCount 
-                                                          time:elapsedTime 
-                                                         andID:me];
-    endMatchDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                   [matchInfo objectForKey:@"player1"], @"player1",
-                   p2, @"player2",
-                   nil];
-    NSData* endData = [NSKeyedArchiver archivedDataWithRootObject:endMatchDict];
-    [[GameCenterHub sharedHub] sendResultsForMatch:myMatch withData:endData];
-  }  
+    [matchInfo updatePlayerTwoWithBoard:[board serialize] 
+                                    pid:me 
+                                  moves:board.moveCount 
+                           andTimeTaken:elapsedTime];
+    [[GameCenterHub sharedHub] sendResultsForMatch:myMatch withData:[matchInfo getDataForGameCenter]];
+  } 
 }
 
 
@@ -164,6 +148,7 @@
 {
   NSDictionary* matchResults = [NSDictionary dictionaryWithObjectsAndKeys:
                                [board serialize], @"board",
+                               [GKLocalPlayer localPlayer].playerID, @"id",
                                [NSNumber numberWithInt:board.moveCount], @"moves",
                                [NSNumber numberWithDouble:elapsedTime], @"time",
                                nil];
