@@ -34,6 +34,7 @@ NSInteger highestLevel;
         {
             highestLevel = 1;
         }   
+        highestLevel = 20;
 
         int numLevels = [[LevelPack sharedPack] numLevels];
         NSMutableArray * pages = [NSMutableArray arrayWithCapacity:numLevels];
@@ -140,6 +141,7 @@ NSInteger highestLevel;
 -(void) onExit
 {
     [[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
+    [super onExit];
 }
 
 -(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event

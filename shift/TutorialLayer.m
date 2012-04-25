@@ -34,6 +34,7 @@
 -(void) onExit
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super onExit];
 }
 
 -(void)displayNext
