@@ -83,12 +83,6 @@
     board = [BoardLayer randomBoardWithNumberOfColumns:columnCount
                                                   rows:rowCount
                                               cellSize:cellSize];
-    while ([board isComplete])
-    {
-      board = [BoardLayer randomBoardWithNumberOfColumns:columnCount
-                                                    rows:rowCount
-                                                cellSize:cellSize];
-    }
     
     board.position = boardCenter;
     myMatch = match;
@@ -137,15 +131,16 @@
                                     pid:me 
                                   moves:board.moveCount 
                            andTimeTaken:elapsedTime];
-    }
+    [[GameCenterHub sharedHub] sendTurn:self data:[matchInfo getDataForGameCenter]];
+  }
   else
   {
     [matchInfo updatePlayerTwoWithBoard:[board serialize] 
                                     pid:me 
                                   moves:board.moveCount 
                            andTimeTaken:elapsedTime];
+    [[GameCenterHub sharedHub] sendResultsForMatch:myMatch withData:[matchInfo getDataForGameCenter]];
   } 
-  [[GameCenterHub sharedHub] sendTurn:self data:[matchInfo getDataForGameCenter]];
 }
 
 

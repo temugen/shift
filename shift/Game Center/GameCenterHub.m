@@ -516,20 +516,6 @@
 }
 
 
-// Formats match information to be sent as match data
-//
-+(NSDictionary*) formatMatchDataWithBoard:(NSDictionary*)board moves:(int)moveCount time:(double)time andID:(NSString*)pid
-{
-  NSDictionary* dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                          pid, @"id",  
-                          [NSNumber numberWithDouble:time], @"time",
-                          [NSNumber numberWithInt:moveCount], @"moves",
-                          board, @"board",
-                          nil];
-  return dictionary;
-}
-
-
 
 // Sends the reuslts for a match when ended on immediately
 //
