@@ -49,8 +49,6 @@ typedef enum Difficulty {
 
 #define SFX_MENU "shift_menu.mp3"
 
-#define NUM_LEVELS 20
-
 #define len(array) (sizeof((array))/sizeof(typeof((array[0]))))
 
 //Scene transition time

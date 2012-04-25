@@ -48,12 +48,12 @@
 -(void) setPack:(NSString *)packName
 {
     levels = [packs objectForKey:packName];
-    numLevels = [levels count];
+    numLevels = [levels count] - 1;
 }
 
 -(NSString *) levelNameWithNumber:(int)num
 {
-    return [levels objectAtIndex:num - 1];
+    return [levels objectAtIndex:num];
 }
 
 -(NSString *) levelNameWithNumber:(int)num fromPack:(NSString *)packName
