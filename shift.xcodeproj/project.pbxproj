@@ -125,6 +125,7 @@
 		82B4B2C71543D3D300B1467F /* train_pickup.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B2C51543D3D300B1467F /* train_pickup.m4a */; };
 		82B4B2C81543D3D300B1467F /* train_snap.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B2C61543D3D300B1467F /* train_snap.m4a */; };
 		82B4B3D61547C4F000B1467F /* ram_blocker.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B3D51547C4F000B1467F /* ram_blocker.plist */; };
+		82B4B3D81547D0E300B1467F /* rotate_bottleneck.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B3D71547D0E300B1467F /* rotate_bottleneck.plist */; };
 		9635BFFD152FEB790091081B /* TitleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635BFFC152FEB790091081B /* TitleLayer.m */; };
 		9852660314F6DAE900353F61 /* lock_tutorial.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9852660214F6DAE900353F61 /* lock_tutorial.plist */; };
 		9852F3BE153F81920049CA8F /* pinwheel.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9852F3BD153F81920049CA8F /* pinwheel.plist */; };
@@ -813,6 +814,7 @@
 		82B4B2C51543D3D300B1467F /* train_pickup.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = train_pickup.m4a; path = shift/Resources/Sounds/train_pickup.m4a; sourceTree = SOURCE_ROOT; };
 		82B4B2C61543D3D300B1467F /* train_snap.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = train_snap.m4a; path = shift/Resources/Sounds/train_snap.m4a; sourceTree = SOURCE_ROOT; };
 		82B4B3D51547C4F000B1467F /* ram_blocker.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = ram_blocker.plist; path = Resources/Levels/ram_blocker.plist; sourceTree = "<group>"; };
+		82B4B3D71547D0E300B1467F /* rotate_bottleneck.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = rotate_bottleneck.plist; path = Resources/Levels/rotate_bottleneck.plist; sourceTree = "<group>"; };
 		9635BFFB152FEB790091081B /* TitleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleLayer.h; path = Menus/TitleLayer.h; sourceTree = "<group>"; };
 		9635BFFC152FEB790091081B /* TitleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleLayer.m; path = Menus/TitleLayer.m; sourceTree = "<group>"; };
 		9852660214F6DAE900353F61 /* lock_tutorial.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = lock_tutorial.plist; path = Resources/Levels/lock_tutorial.plist; sourceTree = "<group>"; };
@@ -1136,6 +1138,7 @@
 				98C218F014F96BAA002177F9 /* completeBoard.plist */,
 				9852660214F6DAE900353F61 /* lock_tutorial.plist */,
 				82470D6A14F5E25A00F60A7C /* test.plist */,
+				82B4B3D71547D0E300B1467F /* rotate_bottleneck.plist */,
 				82470D3814F1C7DB00F60A7C /* dice_five.plist */,
 				82470D2414F1BF5000F60A7C /* stationary_tutorial.plist */,
 				98E6E6A31520B9E20001D956 /* rotation_tutorial.plist */,
@@ -2113,6 +2116,7 @@
 				82B4B2C71543D3D300B1467F /* train_pickup.m4a in Resources */,
 				82B4B2C81543D3D300B1467F /* train_snap.m4a in Resources */,
 				82B4B3D61547C4F000B1467F /* ram_blocker.plist in Resources */,
+				82B4B3D81547D0E300B1467F /* rotate_bottleneck.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
