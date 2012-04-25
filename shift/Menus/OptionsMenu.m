@@ -26,7 +26,7 @@
 {
     [SimpleAudioEngine sharedEngine].mute = ![SimpleAudioEngine sharedEngine].mute;
     if (![SimpleAudioEngine sharedEngine].mute) {
-        [[SimpleAudioEngine sharedEngine] playEffect:@SFX_MENU];
+        [[SimpleAudioEngine sharedEngine] playEffect:SFX_MENU];
     }
 }
 

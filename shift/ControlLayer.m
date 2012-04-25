@@ -33,6 +33,7 @@
         CGPoint location = [self convertTouchToNodeSpace:touch];
         
         if (CGRectContainsPoint([pauseButton boundingBox], location)) {
+            [[SimpleAudioEngine sharedEngine] playEffect:SFX_MENU];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"PauseButtonPressed" object:self];
         }
     }
