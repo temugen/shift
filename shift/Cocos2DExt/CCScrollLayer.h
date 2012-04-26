@@ -197,6 +197,11 @@
 /** Removes page with given number. Doesn nothing if there's no page for such number. */
 - (void) removePageWithNumber: (int) page;
 
+-(void) setScrollerVisibility:(BOOL) visible;
+
+-(void) setPageVisibility:(int) pageNum visible:(BOOL) visible;
+
+
 #pragma mark Moving/Selecting Pages
 
 /* Moves scrollLayer to page with given number & invokes delegate

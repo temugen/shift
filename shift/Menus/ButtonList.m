@@ -20,7 +20,6 @@
 -(id) init
 {
     if ((self = [super init])) {
-        NSLog(@"ButtonList alloced");
         self.isRelativeAnchorPoint = YES;
         self.contentSize = CGSizeMake(0, 0);
         self.isTouchEnabled = YES;
@@ -108,7 +107,6 @@
 
 -(void) dealloc
 {
-    NSLog(@"ButtonList dealloced");
 }
 
 -(void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
