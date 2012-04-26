@@ -60,7 +60,7 @@
     platformCellSize = CGSizeMake(requestedCellSize, requestedCellSize);
 
     platformFontSize = 3 * platformPadding;
-    platformMinCollisionForce = platformCellSize.width / 2;
+    platformMinCollisionForce = platformCellSize.width / 4;
     platformDirectionThreshold = 4;
 }
 
