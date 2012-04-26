@@ -19,8 +19,8 @@
   GKTurnBasedMatch* myMatch;
 }
 
-+(MultiplayerGame*) gameWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*) match;
-+(MultiplayerGame*) gameWithMatchData:(GKTurnBasedMatch*) match andIsMyTurn:(BOOL)mine;
++(MultiplayerGame*) gameWithDifficulty:(NSString*)difficulty match:(GKTurnBasedMatch*)match;
++(MultiplayerGame*) gameWithMatchData:(GKTurnBasedMatch*)match andIsMyTurn:(BOOL)mine;
 -(id) initWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*) match;
 -(id) initWithMatchData:(GKTurnBasedMatch*) match andIsMyTurn:(BOOL)mine;
 -(void) onPauseButtonPressed:(NSNotification *)notification;

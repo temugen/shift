@@ -18,6 +18,7 @@
   NSDictionary* p2board;
   NSDictionary* p1data;
   NSDictionary* p2data;
+  NSString* difficulty;
 }
 
 @property (assign, readonly) int p1moves, p2moves;
@@ -28,8 +29,9 @@
 @property (strong) NSDictionary* p2data;
 @property (strong) NSString* p1id;
 @property (strong) NSString* p2id;
+@property (strong) NSString* difficulty;
 
--(id) initWithPlayerOneID:(NSString*)pid andBoard:(NSDictionary*)board;
+-(id) initWithPlayerID:(NSString*)pid difficulty:(NSString*)diff andBoard:(NSDictionary*)board;
 -(id) initWithData:(NSData*)data;
 -(id) initFromFile:(NSString*)filename andData:(NSData*)data;
 -(void) updatePlayerOneWithBoard:(NSDictionary*)board pid:(NSString*)pid moves:(int)moves andTimeTaken:(double)time;

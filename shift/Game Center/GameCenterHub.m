@@ -22,7 +22,6 @@
 -(void) enterNewGame:(GKTurnBasedMatch*)match;
 -(void) layoutMatch:(GKTurnBasedMatch*)match andIsMyTurn:(BOOL)turn;
 -(void) displayResults:(GKTurnBasedMatch*)match;
--(NSData*) initializeMatchStartDataWithBoard:(NSDictionary*)board;
 
 -(void) achievementViewControllerDidFinish:(GKAchievementViewController*)viewController;
 -(void) leaderboardViewControllerDidFinish:(GKLeaderboardViewController*)viewController;
@@ -109,7 +108,7 @@
   // Setup event handler
   void (^setGKEventHandlerDelegate)(NSError *) = ^ (NSError* error)
   {
-    GKTurnBasedEventHandler *ev = [GKTurnBasedEventHandler sharedTurnBasedEventHandler];
+    GKTurnBasedEventHandler* ev = [GKTurnBasedEventHandler sharedTurnBasedEventHandler];
     ev.delegate = self;
   };
 
@@ -131,9 +130,16 @@
 //
 -(void) authenticationChanged 
 {
+  void (^setGKEventHandlerDelegate)(NSError *) = ^ (NSError* error)
+  {
+    GKTurnBasedEventHandler* ev = [GKTurnBasedEventHandler sharedTurnBasedEventHandler];
+    ev.delegate = self;
+  };
+
   [self loadAchievements];
   if ([GKLocalPlayer localPlayer].isAuthenticated && !userAuthenticated)
   {
+    [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:setGKEventHandlerDelegate];
     NSLog(@"Auth changed; player authenticated.");
     userAuthenticated = YES;
   }
@@ -448,8 +454,9 @@
 //
 -(IBAction)sendTurn:(id)sender data:(NSData*)data
 {
-  NSLog(@"Sending turn data");
-  GKTurnBasedMatch* match =  self.currentMatch;
+  GKTurnBasedMatch* match = self.currentMatch;
+  OhShiftMatchData* matchInfo = [[OhShiftMatchData alloc] initWithData:data];
+  
   NSUInteger currentIndex = [currentMatch.participants indexOfObject:match.currentParticipant];
   GKTurnBasedParticipant* nextParticipant = [match.participants objectAtIndex:((currentIndex + 1) % [currentMatch.participants count])];
   [currentMatch endTurnWithNextParticipant:nextParticipant 
@@ -461,6 +468,22 @@
       NSLog(@"SendDataError: %@", error);
     }
   }];
+
+  if ([matchInfo.difficulty isEqualToString:@"Easy"])
+  {
+//    [self submitScore:(int64_t)matchInfo.p1moves category:@"easy_moves"];
+//   [self submitScore:(int64_t)matchInfo.p1time category:@"easy_time"]; 
+  }
+  else if ([matchInfo.difficulty isEqualToString:@"Medium"])
+  {
+//    [self submitScore:(int64_t)matchInfo.p1moves category:@"medium_moves"];
+//    [self submitScore:(int64_t)matchInfo.p1time category:@"medium_time"]; 
+  }
+  else
+  {
+    [self submitScore:(int64_t)matchInfo.p1moves category:@"hard_moves"];
+    [self submitScore:(int64_t)matchInfo.p1time category:@"hard_time"]; 
+  }
 }
 
 
@@ -490,12 +513,16 @@
 
 // Sends the starting board and basic information required for a match to begin
 //
--(void) sendStartBoard:(NSDictionary*)board andMatch:(GKTurnBasedMatch*)match
+-(void) sendStartBoard:(NSDictionary*)board match:(GKTurnBasedMatch*)match withDifficulty:(NSString*)difficulty
 {
-  NSLog(@"Sending start data");
-  currentMatch = match;
+  NSString* pid = [GKLocalPlayer localPlayer].playerID;
+  OhShiftMatchData* matchInfo = [[OhShiftMatchData alloc] initWithPlayerID:pid 
+                                                                difficulty:difficulty 
+                                                                  andBoard:board];
+  self.currentMatch = match;
+  
   [currentMatch endTurnWithNextParticipant:currentMatch.currentParticipant 
-                                 matchData:[self initializeMatchStartDataWithBoard:board]
+                                 matchData:[matchInfo getDataForGameCenter]
                          completionHandler:^(NSError *error) 
    {
      if (error) 
@@ -503,16 +530,6 @@
        NSLog(@"SendDataError: %@", error);
      }
    }];
-}
-
-
-// Initializes the starting match data
-//
--(NSData*) initializeMatchStartDataWithBoard:(NSDictionary*)board
-{
-  NSString* pid = [GKLocalPlayer localPlayer].playerID;
-  OhShiftMatchData* matchInfo = [[OhShiftMatchData alloc] initWithPlayerOneID:pid andBoard:board];
-  return [matchInfo getDataForGameCenter];
 }
 
 
@@ -541,6 +558,24 @@
      
      [self displayResults:myMatch]; 
    }];
+
+  
+  if ([matchInfo.difficulty isEqualToString:@"Easy"])
+  {
+    //    [self submitScore:(int64_t)matchInfo.p2moves category:@"easy_moves"];
+    //   [self submitScore:(int64_t)matchInfo.p2time category:@"easy_time"]; 
+  }
+  else if ([matchInfo.difficulty isEqualToString:@"Medium"])
+  {
+    //    [self submitScore:(int64_t)matchInfo.p2moves category:@"medium_moves"];
+    //    [self submitScore:(int64_t)matchInfo.p2time category:@"medium_time"]; 
+  }
+  else
+  {
+    [self submitScore:(int64_t)matchInfo.p2moves category:@"hard_moves"];
+    [self submitScore:(int64_t)matchInfo.p2time category:@"hard_time"]; 
+  }
+
 }
 
 
@@ -571,8 +606,18 @@
 //
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match
 {
-  UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"Oh Shift!" message:notice delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+  UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"Oh Shift!" message:notice delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:@"View Results", nil];
+  self.currentMatch = match;
   [av show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+  NSString* title = [alertView buttonTitleAtIndex:buttonIndex];
+  if([title isEqualToString:@"View results"])
+  {
+    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:self.currentMatch andIsMyTurn:YES]]];
+  }
 }
 
 

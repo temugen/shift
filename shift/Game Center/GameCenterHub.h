@@ -10,14 +10,14 @@
 #import <GameKit/GameKit.h>
 #import "RootViewController.h"
 
-@interface GameCenterHub : NSObject <GKLeaderboardViewControllerDelegate, GKAchievementViewControllerDelegate, GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate>
+@interface GameCenterHub : NSObject <GKLeaderboardViewControllerDelegate, GKAchievementViewControllerDelegate, GKTurnBasedMatchmakerViewControllerDelegate, GKTurnBasedEventHandlerDelegate, UIAlertViewDelegate>
 { 
   RootViewController* rootViewController;
   BOOL gameCenterAvailable;
   BOOL userAuthenticated;  
   NSNotificationCenter* __weak notificationCenter;
   
-  NSMutableDictionary* achievementDict;
+  NSMutableDictionary* achievementDict;	
   NSMutableDictionary* unsentScores;
   GKTurnBasedMatch* currentMatch;
   BOOL matchStarted;
@@ -59,7 +59,7 @@
 -(void) clearMatches;
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*) match;
 -(IBAction) sendTurn:(id)sender data:(NSData*)data;
--(void) sendStartBoard:(NSDictionary*)board andMatch:(GKTurnBasedMatch*)match;
+-(void) sendStartBoard:(NSDictionary*)board match:(GKTurnBasedMatch*)match withDifficulty:(NSString*)difficulty;
 -(void) sendResultsForMatch:(GKTurnBasedMatch*)myMatch withData:(NSData*)data;
 
 
