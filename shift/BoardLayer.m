@@ -447,6 +447,10 @@
 {
 	for(UITouch *touch in touches)
     {
+        if ([blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]] != nil) {
+            [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
+        }
+             
         CGPoint location = [self convertTouchToNodeSpace:touch];
         int row = [self rowAtPoint:location], column = [self columnAtPoint:location];
         

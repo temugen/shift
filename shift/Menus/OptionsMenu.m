@@ -51,7 +51,8 @@
 
 -(void) addBlockColors
 {
-    //CCScrollLayer *scroll = [CCScrollLayer alloc] initWithLayers:<#(NSArray *)#> widthOffset:<#(int)#>];
+    /*NSMutableArray *layers = [[NSMutableArray arrayWithCapacity:[[ColorPalette sharedPalette].paletteNames count]];
+    scroller = [CCScrollLayer alloc] initWithLayers:<#(NSArray *)#> widthOffset:platformPadding * 2];*/
 }
 
 -(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
