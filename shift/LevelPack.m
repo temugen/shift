@@ -13,6 +13,7 @@
 @synthesize packNames;
 @synthesize levels;
 @synthesize numLevels;
+@synthesize currentPack;
 
 +(LevelPack *) sharedPack
 {

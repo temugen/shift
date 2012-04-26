@@ -11,10 +11,10 @@
 @interface LevelPack : NSObject
 {
     NSDictionary *packs;
-    NSString *currentPack;
     
     @public
     NSArray *packNames;
+    NSString *currentPack;
     NSArray *levels;
     int numLevels;
 }
@@ -22,6 +22,7 @@
 @property(readonly) NSArray *packNames;
 @property(readonly) NSArray *levels;
 @property(readonly) int numLevels;
+@property(readonly) NSString *currentPack;
 
 +(LevelPack *) sharedPack;
 
