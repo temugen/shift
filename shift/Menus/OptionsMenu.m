@@ -59,8 +59,6 @@
     NSMutableArray *pages = [NSMutableArray arrayWithCapacity:numPacks];
     NSMutableArray *levels = [NSMutableArray arrayWithCapacity:numPacks];
     
-    NSArray *colorNames = [NSArray arrayWithObjects:@"red", @"orange", @"yellow", @"green", @"blue", @"purple", nil];
-    
     CGSize screenSize = [CCDirector sharedDirector].winSize;
     int spriteWidth = screenSize.width/8;
     
@@ -102,14 +100,14 @@
         prevPos = position;
         
         [[ColorPalette sharedPalette] setPalette:paletteName];
-        int numColors = [colorNames count];
+        int numColors = [[ColorPalette sharedPalette].colorNames count];
         float blockHeight = rectSprite.contentSize.height / numColors - (platformPadding * 2 / numColors);
         CGSize blockSize = CGSizeMake(blockHeight, blockHeight);
         CGPoint blockStartPos = ccp(position.x, position.y - rectSprite.contentSize.height / 2 + platformPadding + blockHeight / 2);
         
         //Create block sprites
         for (int j = 0; j < numColors; j++) {
-            BlockSprite *block = [BlockSprite blockWithName:[colorNames objectAtIndex:j]];
+            BlockSprite *block = [BlockSprite blockWithName:[[ColorPalette sharedPalette].colorNames objectAtIndex:j]];
             [block resize:blockSize];
             block.scaleY = -block.scaleY;
             block.position = ccp(blockStartPos.x, blockStartPos.y + j * blockHeight);

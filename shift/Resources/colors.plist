@@ -137,5 +137,44 @@
 			<integer>93</integer>
 		</array>
 	</dict>
+	<key>orange-green blind</key>
+	<dict>
+		<key>purple</key>
+		<array>
+			<integer>253</integer>
+			<integer>0</integer>
+			<integer>128</integer>
+		</array>
+		<key>yellow</key>
+		<array>
+			<integer>252</integer>
+			<integer>243</integer>
+			<integer>63</integer>
+		</array>
+		<key>orange</key>
+		<array>
+			<integer>133</integer>
+			<integer>255</integer>
+			<integer>254</integer>
+		</array>
+		<key>blue</key>
+		<array>
+			<integer>43</integer>
+			<integer>0</integer>
+			<integer>249</integer>
+		</array>
+		<key>green</key>
+		<array>
+			<integer>6</integer>
+			<integer>253</integer>
+			<integer>58</integer>
+		</array>
+		<key>red</key>
+		<array>
+			<integer>234</integer>
+			<integer>13</integer>
+			<integer>44</integer>
+		</array>
+	</dict>
 </dict>
 </plist>
