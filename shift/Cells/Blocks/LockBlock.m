@@ -30,6 +30,7 @@
 {
     if([cell isKindOfClass:[KeyBlock class]])
     {
+        [self.board removeBlock:(BlockSprite *)cell];
         [self unlock];
     }
     return NO;

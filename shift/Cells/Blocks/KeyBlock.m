@@ -23,14 +23,4 @@
     return self;
 }
 
--(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force
-{
-    //Only remove the key if it collided with a LockBlock
-    if([cell isKindOfClass:[LockBlock class]])
-    {
-        [self.board removeBlock:self];
-    }
-    return NO;
-}
-
 @end
