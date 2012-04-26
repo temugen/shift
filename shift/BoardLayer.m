@@ -402,7 +402,7 @@
 
 -(void) removeBlock:(BlockSprite *)block
 {
-    if (block.blockTrain != nil && block.blockTrain.movement != kMovementSnapped) {
+    if (block.blockTrain != nil) {
         [block.blockTrain snap];
     }
     [self setBlock:nil x:block.column y:block.row];
@@ -451,14 +451,7 @@
         //remove stale touch association
         BlockTrain *currentTrain = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
         if (currentTrain != nil) {
-            if (currentTrain.movement != kMovementSnapped) {
-                [currentTrain snap];
-                if ([self isComplete])
-                {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
-                }
-            }
-            
+            [currentTrain snap];
             [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
         }
              
@@ -514,9 +507,7 @@
         if (train != nil) {
             //Play block drop sound
             [[SimpleAudioEngine sharedEngine] playEffect:@"train_snap.m4a"];
-            if (train.movement != kMovementSnapped) {
-                [train snap];
-            }
+            [train snap];
             [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
             if ([self isComplete])
             {

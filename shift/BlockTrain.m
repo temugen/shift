@@ -267,6 +267,9 @@
 
 -(void) snap
 {
+    if (movement == kMovementSnapped)
+        return;
+    
     movement = kMovementSnapped;
     
     //There is nothing to snap
