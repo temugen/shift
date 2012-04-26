@@ -20,6 +20,7 @@
 -(id) init
 {
     if ((self = [super init])) {
+        NSLog(@"ButtonList alloced");
         self.isRelativeAnchorPoint = YES;
         self.contentSize = CGSizeMake(0, 0);
         self.isTouchEnabled = YES;
@@ -97,11 +98,17 @@
     [self reformat];
 }
 
--(void) dealloc
+-(void) onExit
 {
     for (CCNode *node in self.children) {
         CFRelease(node.userData);
     }
+    [super onExit];
+}
+
+-(void) dealloc
+{
+    NSLog(@"ButtonList dealloced");
 }
 
 -(void) ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event

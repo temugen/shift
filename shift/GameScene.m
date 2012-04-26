@@ -32,18 +32,6 @@
                                 screenSize.height - controls.contentSize.height / 2 - platformPadding);
         [self addChild:controls z:1];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onBoardComplete:)
-                                                     name:@"BoardComplete"
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onResetButtonPressed:)
-                                                     name:@"ResetButtonPressed"
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onPauseButtonPressed:)
-                                                     name:@"PauseButtonPressed"
-                                                   object:nil];
     }
   [self onGameStart];
   return self;
@@ -80,9 +68,27 @@
 {
 }
 
--(void) dealloc
+-(void) onEnter
+{
+    [super onEnter];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onBoardComplete:)
+                                                 name:@"BoardComplete"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onResetButtonPressed:)
+                                                 name:@"ResetButtonPressed"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onPauseButtonPressed:)
+                                                 name:@"PauseButtonPressed"
+                                               object:nil];
+}
+
+-(void) onExit
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super onExit];
 }
 
 -(void) onBoardComplete:(NSNotification *)notification

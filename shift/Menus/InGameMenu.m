@@ -49,11 +49,6 @@
     [self goBack:self];
 }
 
--(void) dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)onEnter
 {
 	[super onEnter];
@@ -62,6 +57,7 @@
 
 - (void)onExit
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[[CCTouchDispatcher sharedDispatcher] removeDelegate:buttons];
 	[super onExit];
 }

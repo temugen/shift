@@ -68,6 +68,7 @@ static QuickPlayGame *lastGame = nil;
 
 -(void) onEnterTransitionDidFinish
 {
+    [super onEnterTransitionDidFinish];
     [self animatePopulation];
 }
 
