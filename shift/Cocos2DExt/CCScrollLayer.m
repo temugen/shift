@@ -312,6 +312,21 @@ enum
 		[self removePage:[layers_ objectAtIndex: page]];
 }
 
+-(void) setScrollerVisibility:(BOOL)visible
+{
+    for(int i=0; i< [layers_ count]; i++)
+    {
+        CCLayer* curr=[layers_ objectAtIndex:i];
+        curr.visible = visible;
+    }
+}
+
+-(void) setPageVisibility:(int)pageNum visible:(BOOL)visible
+{
+    CCLayer* curr=[layers_ objectAtIndex:pageNum];
+    curr.visible = visible;
+}
+
 - (CCLayer*) getCurrentPage
 {
     return [layers_ objectAtIndex:currentScreen_];   

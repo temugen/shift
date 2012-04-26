@@ -109,10 +109,12 @@ NSInteger highestLevel;
         }
         
         scroller = [[CCScrollLayer alloc] initWithLayers:pages widthOffset: 0];
+        [scroller setScrollerVisibility:NO];
         
         //Set display page to page containing highest level completed by user
         //Make highestLevel 0-based for this calculation.
         int pageSelection = (highestLevel-1)/SPRITES_PER_PAGE;
+        [scroller setPageVisibility:pageSelection visible:YES];
         
         [scroller selectPage:pageSelection];
         
@@ -134,14 +136,27 @@ NSInteger highestLevel;
 
 - (void)onEnter
 {
+    [super onEnter];
 	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:NO];
-	[super onEnter];
+}
+
+-(void) onEnterTransitionDidFinish
+{
+    [super onEnterTransitionDidFinish];
+    [scroller setScrollerVisibility:YES];
+
 }
 
 -(void) onExit
 {
     [[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
     [super onExit];
+}
+
+-(void) goBack:(id)sender
+{
+    [scroller setScrollerVisibility:NO];
+    [super goBack:sender]; 
 }
 
 -(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
