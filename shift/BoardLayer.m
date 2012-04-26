@@ -445,7 +445,12 @@
 {
 	for(UITouch *touch in touches)
     {
-        if ([blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]] != nil) {
+        BlockTrain *currentTrain = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
+        if (currentTrain != nil) {
+            if (currentTrain.movement != kMovementSnapped) {
+                [currentTrain snap];
+            }
+            
             [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
         }
              
