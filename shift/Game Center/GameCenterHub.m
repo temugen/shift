@@ -438,7 +438,7 @@
 //
 -(void) enterNewGame:(GKTurnBasedMatch*)match 
 {
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerTypeMenu sceneWithMatch:match]]];
+  [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerTypeMenu sceneWithMatch:match]]];
 }
 
 
@@ -446,7 +446,7 @@
 //
 -(void) layoutMatch:(GKTurnBasedMatch*)match andIsMyTurn:(BOOL)turn
 {
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match andIsMyTurn:turn]]];
+  [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:match andIsMyTurn:turn]]];
 }
 
 
@@ -507,7 +507,7 @@
   
   // Probably going to need a display results with match, then unarchive the matchdata to get all 
   // of the required information
-  [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
+  [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
 
@@ -616,7 +616,7 @@
   NSString* title = [alertView buttonTitleAtIndex:buttonIndex];
   if([title isEqualToString:@"View results"])
   {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:self.currentMatch andIsMyTurn:YES]]];
+    [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:self.currentMatch andIsMyTurn:YES]]];
   }
 }
 

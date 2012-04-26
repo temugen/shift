@@ -22,7 +22,7 @@
 
 -(void) onLevelSelect:(id)sender
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime 
+    [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime 
                                                                                      scene:[SinglePlayerMenu scene]]];
 }
 

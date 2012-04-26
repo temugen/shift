@@ -53,7 +53,7 @@
     //Play menu selection sound
     [[SimpleAudioEngine sharedEngine] playEffect:SFX_MENU];
     
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
+    [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInL transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
 @end

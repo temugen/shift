@@ -43,7 +43,7 @@
 
 -(void) play:(QuickPlayGame *)game
 {
-    [[CCDirector sharedDirector] replaceScene:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:game]];
+    [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:game]];
 }
 
 -(void) onEasy:(id)sender

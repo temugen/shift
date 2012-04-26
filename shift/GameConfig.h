@@ -41,6 +41,24 @@
 #error(unknown architecture)
 #endif
 
+@interface CCDirector(CCDirectorMemoryConscious)
+{
+}
+
+-(void) replaceSceneAndCleanup:(CCScene *)scene;
+@end
+
+@implementation CCDirector(CCDirectorMemoryConscious)
+
+-(void) replaceSceneAndCleanup:(CCScene *)scene
+{
+    [self replaceScene:scene];
+    [[CCTextureCache sharedTextureCache] removeUnusedTextures];
+    [[CCDirector sharedDirector] purgeCachedData];
+}
+
+@end
+
 typedef enum Difficulty {
     kDifficultyEasy = 3,
     kDifficultyMedium = 5,
