@@ -144,7 +144,6 @@ NSInteger highestLevel;
 {
     [super onEnterTransitionDidFinish];
     [scroller setScrollerVisibility:YES];
-
 }
 
 -(void) onExit
@@ -156,6 +155,7 @@ NSInteger highestLevel;
 -(void) goBack:(id)sender
 {
     [scroller setScrollerVisibility:NO];
+    [scroller setPageVisibility:[scroller currentScreen] visible:YES];
     [super goBack:sender]; 
 }
 

@@ -68,8 +68,10 @@
     
     NSString *currentPalette = [ColorPalette sharedPalette].currentPalette;
     
-    int i = 0;
+    int i = 0, paletteIndex = -1;
     for (NSString *paletteName in [ColorPalette sharedPalette].paletteNames) {
+        paletteIndex++;
+        
         //don't display private colors
         if ([paletteName hasPrefix:@"_"]) {
             continue;
@@ -91,6 +93,7 @@
         //Add rounded rectangle
         RoundedRectangle* rectSprite = [[RoundedRectangle alloc] initWithWidth:spriteWidth+20 height:spriteWidth*2 pressed:NO];
         rectSprite.position = position;
+        rectSprite.tag = paletteIndex;
         [page addChild:rectSprite z:-1];
         [levels addObject:rectSprite];
         
@@ -103,11 +106,11 @@
         CGPoint blockStartPos = ccp(position.x, position.y - rectSprite.contentSize.height / 2 + platformPadding + blockHeight / 2);
         
         //Create block sprites
-        for (int i = 0; i < numColors; i++) {
-            BlockSprite *block = [BlockSprite blockWithName:[[ColorPalette sharedPalette].colorNames objectAtIndex:i]];
+        for (int j = 0; j < numColors; j++) {
+            BlockSprite *block = [BlockSprite blockWithName:[[ColorPalette sharedPalette].colorNames objectAtIndex:j]];
             [block resize:blockSize];
             block.scaleY = -block.scaleY;
-            block.position = ccp(blockStartPos.x, blockStartPos.y + i * blockHeight);
+            block.position = ccp(blockStartPos.x, blockStartPos.y + j * blockHeight);
         
             [page addChild:block];
         }
@@ -137,6 +140,31 @@
     [scroller setPageVisibility:0 visible:YES];
     [scroller selectPage:0];
     [self addChild:scroller];
+}
+
+- (void)onEnter
+{
+    [super onEnter];
+	[[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:0 swallowsTouches:NO];
+}
+
+-(void) onEnterTransitionDidFinish
+{
+    [super onEnterTransitionDidFinish];
+    [scroller setScrollerVisibility:YES];
+}
+
+-(void) onExit
+{
+    [[CCTouchDispatcher sharedDispatcher] removeDelegate:self];
+    [super onExit];
+}
+
+-(void) goBack:(id)sender
+{
+    [scroller setScrollerVisibility:NO];
+    [scroller setPageVisibility:[scroller currentScreen] visible:YES];
+    [super goBack:sender]; 
 }
 
 -(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
@@ -169,6 +197,8 @@
         {
             if(CGRectContainsPoint([highlightedSprite boundingBox], touchPoint))
             {
+                NSString *paletteName = [[ColorPalette sharedPalette].paletteNames objectAtIndex:highlightedSprite.tag];
+                [[ColorPalette sharedPalette] setPalette:paletteName];
             }
         }
         highlightedSprite = nil;
