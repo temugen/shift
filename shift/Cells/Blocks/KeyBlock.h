@@ -12,6 +12,4 @@
 {
 }
 
--(void) removeKey;
-
 @end

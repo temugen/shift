@@ -402,6 +402,9 @@
 
 -(void) removeBlock:(BlockSprite *)block
 {
+    if (block.blockTrain != nil) {
+        [block.blockTrain snap];
+    }
     [self setBlock:nil x:block.column y:block.row];
     [self removeChild:block cleanup:YES];
 }

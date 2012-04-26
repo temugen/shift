@@ -28,15 +28,9 @@
     //Only remove the key if it collided with a LockBlock
     if([cell isKindOfClass:[LockBlock class]])
     {
-        [self.blockTrain snap];
-        [self removeKey];
+        [self.board removeBlock:self];
     }
     return NO;
-}
-
--(void) removeKey
-{
-    [self.board removeBlock: self];
 }
 
 @end
