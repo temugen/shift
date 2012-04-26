@@ -10,6 +10,9 @@
 #import "SinglePlayerGame.h"
 #import "ColorPalette.h"
 
+#define SPRITES_PER_PAGE 4
+#define PADDING (platformPadding * 4)
+
 @implementation OptionsMenu
 
 -(id) init
@@ -17,6 +20,7 @@
     if( (self=[super init] )) {
         [self addBackButton];
         [self addSoundButton];
+        [self addBlockColors];
     }
     
     return self;
@@ -51,13 +55,87 @@
 
 -(void) addBlockColors
 {
-    NSMutableArray *layers = [NSMutableArray arrayWithCapacity:[[ColorPalette sharedPalette].paletteNames count]];
+    int numPacks = [[ColorPalette sharedPalette].paletteNames count];
+    NSMutableArray *pages = [NSMutableArray arrayWithCapacity:numPacks];
+    NSMutableArray *levels = [NSMutableArray arrayWithCapacity:numPacks];
+    
+    CGSize screenSize = [CCDirector sharedDirector].winSize;
+    int spriteWidth = screenSize.width/8;
+    
+    CCLayer *page = [[CCLayer alloc] init];
+    BOOL prev;
+    CGPoint position,prevPos;
+    
+    NSString *currentPalette = [ColorPalette sharedPalette].currentPalette;
+    
+    int i = 0;
     for (NSString *paletteName in [ColorPalette sharedPalette].paletteNames) {
-        CCLayer *layer = [[CCLayer alloc] init];
-        [layers addObject:layer];
+        //don't display private colors
+        if ([paletteName hasPrefix:@"_"]) {
+            continue;
+        }
+        
+        i++;
+        
+        //Determine position of sprite. If there is already a level on the page, position this one next to it.
+        if(prev) {
+            position = ccp(prevPos.x+spriteWidth+PADDING,screenSize.height/2);
+        }
+        else {
+            float offsetFactor = SPRITES_PER_PAGE/2.0 - 0.5;
+            float paddingOffset = PADDING*(SPRITES_PER_PAGE-1)/2;
+            position = ccp(screenSize.width/2-(offsetFactor*spriteWidth)-paddingOffset,screenSize.height/2);
+            prev = YES;
+        } 
+        
+        //Add rounded rectangle
+        RoundedRectangle* rectSprite = [[RoundedRectangle alloc] initWithWidth:spriteWidth+20 height:spriteWidth*2 pressed:NO];
+        rectSprite.position = position;
+        [page addChild:rectSprite z:-1];
+        [levels addObject:rectSprite];
+        
+        prevPos = position;
+        
+        [[ColorPalette sharedPalette] setPalette:paletteName];
+        int numColors = [[ColorPalette sharedPalette].colorNames count];
+        float blockHeight = rectSprite.contentSize.height / numColors - (platformPadding * 2 / numColors);
+        CGSize blockSize = CGSizeMake(blockHeight, blockHeight);
+        CGPoint blockStartPos = ccp(position.x, position.y - rectSprite.contentSize.height / 2 + platformPadding + blockHeight / 2);
+        
+        //Create block sprites
+        for (int i = 0; i < numColors; i++) {
+            BlockSprite *block = [BlockSprite blockWithName:[[ColorPalette sharedPalette].colorNames objectAtIndex:i]];
+            [block resize:blockSize];
+            block.scaleY = -block.scaleY;
+            block.position = ccp(blockStartPos.x, blockStartPos.y + i * blockHeight);
+        
+            [page addChild:block];
+        }
+        
+        //If we filled up the page, create a new page
+        if(i%SPRITES_PER_PAGE == 0)
+        {
+            [pages addObject:page];
+            page = [[CCLayer alloc] init];
+            
+            prev = NO;
+        }
     }
     
-    scroller = [[CCScrollLayer alloc] initWithLayers:layers widthOffset:platformPadding * 4];
+    [[ColorPalette sharedPalette] setPalette:currentPalette];
+    
+    //Don't add the page if there's nothing on it.
+    if([[page children] count]>0)
+    {
+        [pages addObject:page];
+    }
+    
+    scroller = [[CCScrollLayer alloc] initWithLayers:pages widthOffset: 0];
+    [scroller setScrollerVisibility:NO];
+    
+    //Set display page to page containing highest level completed by user
+    [scroller setPageVisibility:0 visible:YES];
+    [scroller selectPage:0];
     [self addChild:scroller];
 }
 

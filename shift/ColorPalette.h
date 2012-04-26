@@ -12,13 +12,16 @@
 {
     NSDictionary *palettes;
     NSMutableDictionary *colors;
-    NSString *currentPalette;
     
     @public
     NSArray *paletteNames;
+    NSArray *colorNames;
+    NSString *currentPalette;
 }
 
 @property(readonly) NSArray *paletteNames;
+@property(readonly) NSArray *colorNames;
+@property(readonly) NSString *currentPalette;
 
 +(ColorPalette *) sharedPalette;
 

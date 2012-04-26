@@ -11,6 +11,8 @@
 @implementation ColorPalette
 
 @synthesize paletteNames;
+@synthesize colorNames;
+@synthesize currentPalette;
 
 +(ColorPalette *) sharedPalette
 {
@@ -47,7 +49,7 @@
 {
     NSDictionary *palette = [palettes objectForKey:paletteName];
     colors = [NSMutableDictionary dictionaryWithCapacity:[palette count]];
-    NSArray *colorNames = [palette allKeys];
+    colorNames = [palette allKeys];
     for (NSArray *colorName in colorNames) {
         NSArray *colorValues = [palette objectForKey:colorName];
         ccColor3B color = ccc3([[colorValues objectAtIndex:0] intValue],
@@ -60,7 +62,6 @@
 
 -(NSString *) randomColorName
 {
-    NSArray *colorNames = [colors allKeys];
     int randomIndex = arc4random() % [colors count];
     return [colorNames objectAtIndex:randomIndex];
 }
