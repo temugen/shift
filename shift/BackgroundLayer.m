@@ -83,12 +83,29 @@
     }
 }
 
+-(void) onExit
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super onExit];
+}
+
 -(void) onEnter
 {
+    [super onEnter];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onRecolor:)
+                                                 name:@"ColorChanged"
+                                               object:nil];
     for(BlockSprite *block in blocks) {
         [self createBackgroundBlock:block];
     }
-    [super onEnter];
+}
+
+-(void) onRecolor:(NSNotification *)notification
+{
+    for (BlockSprite *block in blocks) {
+        block.color = [[ColorPalette sharedPalette] randomColor];
+    }
 }
 
 //Callback function called when block is done. Make the block invisible, and then reset it and send it again.

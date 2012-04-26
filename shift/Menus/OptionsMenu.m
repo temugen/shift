@@ -97,6 +97,11 @@
         [page addChild:rectSprite z:-1];
         [levels addObject:rectSprite];
         
+        if ([currentPalette isEqualToString:paletteName]) {
+            currentSelection = rectSprite;
+            currentSelection.flipY = YES;
+        }
+        
         prevPos = position;
         
         [[ColorPalette sharedPalette] setPalette:paletteName];
@@ -199,6 +204,10 @@
             {
                 NSString *paletteName = [[ColorPalette sharedPalette].paletteNames objectAtIndex:highlightedSprite.tag];
                 [[ColorPalette sharedPalette] setPalette:paletteName];
+                currentSelection.flipY = NO;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ColorChanged" object:self];
+                currentSelection = highlightedSprite;
+                currentSelection.flipY = YES;
             }
         }
         highlightedSprite = nil;
