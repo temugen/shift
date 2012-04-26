@@ -12,7 +12,7 @@
 #import "LevelPack.h"
 
 #define SPRITES_PER_PAGE 4
-#define PADDING (platformPadding * 2)
+#define PADDING (platformPadding * 4)
 #define LOCKED -1
 #define LEVEL_TEXTURE -1
 

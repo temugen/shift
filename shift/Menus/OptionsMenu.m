@@ -51,8 +51,14 @@
 
 -(void) addBlockColors
 {
-    /*NSMutableArray *layers = [[NSMutableArray arrayWithCapacity:[[ColorPalette sharedPalette].paletteNames count]];
-    scroller = [CCScrollLayer alloc] initWithLayers:<#(NSArray *)#> widthOffset:platformPadding * 2];*/
+    NSMutableArray *layers = [NSMutableArray arrayWithCapacity:[[ColorPalette sharedPalette].paletteNames count]];
+    for (NSString *paletteName in [ColorPalette sharedPalette].paletteNames) {
+        CCLayer *layer = [[CCLayer alloc] init];
+        [layers addObject:layer];
+    }
+    
+    scroller = [[CCScrollLayer alloc] initWithLayers:layers widthOffset:platformPadding * 4];
+    [self addChild:scroller];
 }
 
 -(BOOL) ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
