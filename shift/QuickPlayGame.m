@@ -43,15 +43,19 @@ static QuickPlayGame *lastGame = nil;
         [self addChild:board];
         [self hideBlocks];
         
-        lastGame = self;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onNewPuzzleButtonPressed:)
-                                                     name:@"NewPuzzle"
-                                                   object:nil];
+        //lastGame = self;
     }
     
     return self;
+}
+
+-(void) onEnter
+{
+    [super onEnter];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onNewPuzzleButtonPressed:)
+                                                 name:@"NewPuzzle"
+                                               object:nil];
 }
 
 -(void) hideBlocks

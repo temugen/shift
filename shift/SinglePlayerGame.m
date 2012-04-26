@@ -40,7 +40,7 @@ static SinglePlayerGame *lastGame = nil;
         board.position = boardCenter;
         [self addChild:board];
         
-        lastGame = self;
+        //lastGame = self;
     }
     return self;
 }
