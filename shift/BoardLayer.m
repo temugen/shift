@@ -392,6 +392,7 @@
 
 -(BlockSprite *) blockAtX:(int)x y:(int)y
 {
+    NSLog(@"%p\n", blocks);
 	return blocks[(y * columnCount) + x];
 }
 
@@ -472,10 +473,9 @@
             [block onTouch];
         }
         
-        //Play block grab sound
-        [[SimpleAudioEngine sharedEngine] playEffect:@"train_pickup.m4a"];
-        
         if (block == nil || block.movable) {
+            [[SimpleAudioEngine sharedEngine] playEffect:@"train_pickup.m4a"];
+            
             BlockTrain *train = [BlockTrain trainFromBoard:self atPoint:location];
             [blockTrains setObject:train
                             forKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
