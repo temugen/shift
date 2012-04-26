@@ -274,9 +274,9 @@
 
 -(CCSprite *) screenshot
 {
-    CGSize screenSize = [[CCDirector sharedDirector] winSize];
-    CCRenderTexture *canvas = [CCRenderTexture renderTextureWithWidth:screenSize.width
-                                                               height:screenSize.height];
+    CCRenderTexture *canvas = [CCRenderTexture renderTextureWithWidth:self.contentSize.width
+                                                               height:self.contentSize.height];
+    canvas.position = self.position;
     
     //Render board on canvas
     [canvas beginWithClear:0 g:0 b:0 a:0];
@@ -297,9 +297,7 @@
     [canvas end];
     
     //Crop out board
-    CCSprite *sprite = [canvas sprite];
-    [sprite setTextureRect:CGRectMake(0, 0, self.contentSize.width, self.contentSize.height)];
-    return sprite;
+    return canvas.sprite;
 }
 
 -(void) draw

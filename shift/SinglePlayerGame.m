@@ -66,12 +66,8 @@ static SinglePlayerGame *lastGame = nil;
 
 +(CCSprite *)previewForLevel:(int)level
 {
-    if ([[LevelPack sharedPack] levelNameWithNumber:level] == nil) {
-        return [CCSprite node];
-    }
-
     BoardLayer *board = [BoardLayer boardWithDictionary:[[[LevelPack sharedPack] levelWithNumber:level] objectForKey:@"board"]
-                                               cellSize:CGSizeMake(20, 20)];
+                                               cellSize:CGSizeMake(10, 10)];
     return [board screenshot];
 }
 
