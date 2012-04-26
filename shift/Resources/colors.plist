@@ -98,5 +98,44 @@
 			<integer>0</integer>
 		</array>
 	</dict>
+	<key>easter</key>
+	<dict>
+		<key>purple</key>
+		<array>
+			<integer>221</integer>
+			<integer>160</integer>
+			<integer>221</integer>
+		</array>
+		<key>yellow</key>
+		<array>
+			<integer>255</integer>
+			<integer>247</integer>
+			<integer>0</integer>
+		</array>
+		<key>orange</key>
+		<array>
+			<integer>255</integer>
+			<integer>160</integer>
+			<integer>122</integer>
+		</array>
+		<key>blue</key>
+		<array>
+			<integer>135</integer>
+			<integer>206</integer>
+			<integer>235</integer>
+		</array>
+		<key>green</key>
+		<array>
+			<integer>189</integer>
+			<integer>252</integer>
+			<integer>201</integer>
+		</array>
+		<key>red</key>
+		<array>
+			<integer>255</integer>
+			<integer>82</integer>
+			<integer>93</integer>
+		</array>
+	</dict>
 </dict>
 </plist>
