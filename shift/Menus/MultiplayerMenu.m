@@ -24,7 +24,7 @@
       
       [buttons addButtonWithDescription:@"Matches" target:self selector: @selector(onMatchSelect:)];
       [buttons addButtonWithDescription:@"Leaderboards" target:self selector: @selector(onLeaderboardSelect:)];
-      [buttons addButtonWithDescription:@"Clear Matches" target:self selector: @selector(onClearSelect:)];
+      //[buttons addButtonWithDescription:@"Clear Matches" target:self selector: @selector(onClearSelect:)];
       buttons.position = ccp(screenSize.width / 2, screenSize.height / 2);
       [self addChild:buttons];
       [self addBackButton];
@@ -42,13 +42,16 @@
 
 - (void) onLeaderboardSelect: (id) sender
 {
-  if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
-  {
-    [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+    if (![GameCenterHub sharedHub].gameCenterAvailable || ![GameCenterHub sharedHub].userAuthenticated)
+    {
+        [[GameCenterHub sharedHub] displayGameCenterNotification:@"Must be logged into GameCenter to use this"];
+        return;
+    }
+    
+    [[GameCenterHub sharedHub] showLeaderboard:nil];
     return;
-  }
-  
-  [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu scene]]];
+    
+    [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[LeaderboardMenu scene]]];
 }
 
 
