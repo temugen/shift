@@ -392,9 +392,6 @@
 
 -(BlockSprite *) blockAtX:(int)x y:(int)y
 {
-    if (x == 4 && y == 3) {
-        NSLog(@"%p", blocks[(y * columnCount) + x]);
-    }
 	return blocks[(y * columnCount) + x];
 }
 
@@ -517,7 +514,9 @@
         if (train != nil) {
             //Play block drop sound
             [[SimpleAudioEngine sharedEngine] playEffect:@"train_snap.m4a"];
-            [train snap];
+            if (train.movement != kMovementSnapped) {
+                [train snap];
+            }
             [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
             if ([self isComplete])
             {

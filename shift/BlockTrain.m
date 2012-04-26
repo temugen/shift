@@ -276,6 +276,9 @@
     
     [board removeChild:ribbon cleanup:YES];
     
+    BlockSprite *firstBlock = [blocks objectAtIndex:0];
+    int firstRow = firstBlock.row, firstColumn = firstBlock.column;
+    
     int row,column;
     NSEnumerator *enumerator = [blocks objectEnumerator];
     for (BlockSprite *block in enumerator) {
@@ -288,8 +291,7 @@
         block.blockTrain = nil;
     }
     
-    BlockSprite *firstBlock = [blocks objectAtIndex:0];
-    if (firstBlock.row != row || firstBlock.column != column) {
+    if (firstBlock.row != firstRow || firstBlock.column != firstColumn) {
         board.moveCount++;
     }
 }
