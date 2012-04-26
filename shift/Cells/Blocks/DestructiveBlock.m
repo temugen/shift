@@ -9,6 +9,7 @@
 #import "DestructiveBlock.h"
 #import "BoardLayer.h"
 #import "RamBlock.h"
+#import "BlockTrain.h"
 
 @implementation DestructiveBlock
 
@@ -16,7 +17,7 @@
 {
     NSString *filename = [NSString stringWithFormat:@"block_destructive.png"];
     if ((self = [super initWithFilename:filename])) {
-        health = platformMinCollisionForce * 15;
+        health = platformMinCollisionForce * 10;
         comparable = NO;
         movable = NO;
         name = blockName;
@@ -31,7 +32,13 @@
         return NO;
     }
     
-    [self takeHit:force];
+    if (![self takeHit:force])
+    {
+        BlockSprite *ram = (BlockSprite *)cell;
+        if (ram.blockTrain != nil) {
+            [ram.blockTrain snap];
+        }
+    }
     
     return YES;
 }
@@ -59,15 +66,17 @@
     self.texture = cracked.sprite.texture;
 }
 
--(void) takeHit:(int)damage
+-(BOOL) takeHit:(int)damage
 {
     health -= damage;
     
     if (health <= 0) {
         [self destroyBlock];
+        return NO;
     }
     else {
         [self crack];
+        return YES;
     }
 }
 

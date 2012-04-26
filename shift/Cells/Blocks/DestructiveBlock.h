@@ -13,7 +13,7 @@
     
 }
 
--(void) takeHit:(int) damage;
+-(BOOL) takeHit:(int) damage;
 -(void) destroyBlock;
 -(void) crack;
 
