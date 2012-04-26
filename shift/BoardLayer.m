@@ -392,6 +392,9 @@
 
 -(BlockSprite *) blockAtX:(int)x y:(int)y
 {
+    if (x == 4 && y == 3) {
+        NSLog(@"%p", blocks[(y * columnCount) + x]);
+    }
 	return blocks[(y * columnCount) + x];
 }
 
