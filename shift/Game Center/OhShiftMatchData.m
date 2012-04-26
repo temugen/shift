@@ -28,9 +28,10 @@
 @synthesize p2board;
 @synthesize p1data;
 @synthesize p2data;
+@synthesize difficulty;
 
 
--(id) initWithPlayerOneID:(NSString*)pid andBoard:(NSDictionary*)board
+-(id) initWithPlayerID:(NSString*)pid difficulty:(NSString*)diff andBoard:(NSDictionary*)board
 {
   if ((self = [super init]))
   {
@@ -42,6 +43,7 @@
     p2board = board;
     p1id = pid;
     p2id = @"";
+    difficulty = diff;
     
     [self updatePlayerOneData];
     [self updatePlayerTwoData];  
@@ -66,9 +68,9 @@
   OhShiftMatchData* oldData = [[OhShiftMatchData alloc] initWithData:data];
   
   [oldData updatePlayerTwoWithBoard:[matchInfo objectForKey:@"board"]
-                             pid:[matchInfo objectForKey:@"id"] 
-                           moves:[[matchInfo objectForKey:@"moves"] intValue] 
-                    andTimeTaken:[[matchInfo objectForKey:@"time"] doubleValue]];
+                                pid:[matchInfo objectForKey:@"id"] 
+                              moves:[[matchInfo objectForKey:@"moves"] intValue] 
+                       andTimeTaken:[[matchInfo objectForKey:@"time"] doubleValue]];
    return oldData;
 }
 
@@ -85,6 +87,7 @@
     p2board = [[dict objectForKey:@"player2"] objectForKey:@"board"];
     p1id = [[dict objectForKey:@"player1"] objectForKey:@"id"];
     p2id = [[dict objectForKey:@"player2"] objectForKey:@"id"];
+    difficulty = [dict objectForKey:@"difficulty"];
     
     [self updatePlayerOneData];
     [self updatePlayerTwoData];  
@@ -142,6 +145,7 @@
   NSDictionary* matchInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                              p1data, @"player1",
                              p2data, @"player2",
+                             difficulty, @"difficulty",
                              nil];
   return [NSKeyedArchiver archivedDataWithRootObject:matchInfo];
 }
@@ -151,14 +155,8 @@
 {
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString* documentsDirectory = [paths objectAtIndex:0];
-  NSString* matchPath = [documentsDirectory stringByAppendingPathComponent:filename];
-  
-  NSDictionary* matchInfo = [NSDictionary dictionaryWithObjectsAndKeys:
-                             p1data, @"player1",
-                             p2data, @"player2",
-                             nil];  
-  
-  [NSKeyedArchiver archiveRootObject:matchInfo toFile:matchPath];
+  NSString* matchPath = [documentsDirectory stringByAppendingPathComponent:filename];  
+  [NSKeyedArchiver archiveRootObject:[self getDataForGameCenter] toFile:matchPath];
 }
 
 

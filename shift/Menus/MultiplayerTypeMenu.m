@@ -17,7 +17,6 @@
 {
     if ((self = [super init])) {
         CGSize screenSize = [[CCDirector sharedDirector] winSize];
-        
         ButtonList *buttons = [ButtonList buttonList];
         [buttons addButtonWithDescription:@"Easy" target:self selector:@selector(onEasy:)];
         [buttons addButtonWithDescription:@"Medium" target:self selector:@selector(onMedium:)];
@@ -53,17 +52,18 @@
 
 -(void) onEasy:(id)sender
 {
-    [self play:[MultiplayerGame gameWithNumberOfRows:kDifficultyEasy columns:kDifficultyEasy match:match]];
+  [self play:[MultiplayerGame gameWithDifficulty:@"Easy" match:match]];
 }
 
 -(void) onMedium:(id)sender
 {
-    [self play:[MultiplayerGame gameWithNumberOfRows:kDifficultyMedium columns:kDifficultyMedium match:match]];
+  [self play:[MultiplayerGame gameWithDifficulty:@"Medium" match:match]];
+
 }
 
 -(void) onHard:(id)sender
 {
-    [self play:[MultiplayerGame gameWithNumberOfRows:kDifficultyHard columns:kDifficultyHard match:match]];
+  [self play:[MultiplayerGame gameWithDifficulty:@"Hard" match:match]];
 }
 
 -(void) onBack:(id)sender

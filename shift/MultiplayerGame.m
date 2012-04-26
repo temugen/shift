@@ -13,16 +13,32 @@
 #import "GameCenterHub.h"
 #import "MainMenu.h"
 
+
+
 @implementation MultiplayerGame
 
 @synthesize myMatch;
 @synthesize myTurn;
 
-+(MultiplayerGame*) gameWithNumberOfRows:(int)rows columns:(int)columns match:(GKTurnBasedMatch*)match;
++(MultiplayerGame*) gameWithDifficulty:(NSString*)difficulty match:(GKTurnBasedMatch*)match;
 {
-  MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithNumberOfRows:rows columns:columns match:match];
+  int boardSize;
+  if ([difficulty isEqualToString:@"Easy"])
+  {
+    boardSize = kDifficultyEasy;
+  }
+  else if ([difficulty isEqualToString:@"Medium"])
+  {
+    boardSize = kDifficultyMedium;  
+  }
+  else
+  {
+    boardSize = kDifficultyHard;
+  }
+  
+  MultiplayerGame* newGame = [[MultiplayerGame alloc] initWithNumberOfRows:boardSize columns:boardSize match:match];
   NSDictionary* boardLayout = [newGame.board serialize];
-  [[GameCenterHub sharedHub]sendStartBoard:boardLayout andMatch:match];
+  [[GameCenterHub sharedHub] sendStartBoard:boardLayout match:match withDifficulty:difficulty];
   return newGame;
 }
 
