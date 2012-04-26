@@ -87,6 +87,7 @@
 -(BOOL) setKeyAtX:(int)x y:(int)y
 {
     //Make sure new position is not out of bounds, and there is not already a block there.
+    NSLog(@"%p\n", self.board);
     if(![self.board isOutOfBoundsAtX:x y:y] && [self.board blockAtX:x y:y] == nil)
     {
         BlockSprite *block = [KeyBlock blockWithName:@"key"];

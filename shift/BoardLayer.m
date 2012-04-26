@@ -373,8 +373,8 @@
     
     //Update the block's location information
     if (block != nil) {
-        block.position = ccp( + x * cellSize.width + cellSize.width / 2,
-                              + y * cellSize.height + cellSize.height / 2);
+        block.position = ccp(x * cellSize.width + cellSize.width / 2,
+                             y * cellSize.height + cellSize.height / 2);
     }
 }
 
@@ -385,14 +385,13 @@
     
     //Update the goal's location information
     if (goal != nil) {
-        goal.position = ccp( + x * cellSize.width + cellSize.width / 2,
-                             + y * cellSize.height + cellSize.height / 2);
+        goal.position = ccp(x * cellSize.width + cellSize.width / 2,
+                            y * cellSize.height + cellSize.height / 2);
     }
 }
 
 -(BlockSprite *) blockAtX:(int)x y:(int)y
 {
-    NSLog(@"%p\n", blocks);
 	return blocks[(y * columnCount) + x];
 }
 
@@ -446,10 +445,15 @@
 {
 	for(UITouch *touch in touches)
     {
+        //remove stale touch association
         BlockTrain *currentTrain = [blockTrains objectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
         if (currentTrain != nil) {
             if (currentTrain.movement != kMovementSnapped) {
                 [currentTrain snap];
+                if ([self isComplete])
+                {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"BoardComplete" object:self];
+                }
             }
             
             [blockTrains removeObjectForKey:[NSNumber numberWithUnsignedLongLong:(unsigned long long)touch]];
