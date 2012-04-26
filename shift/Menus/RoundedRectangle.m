@@ -13,6 +13,11 @@
 
 -(id) initWithWidth:(float)width height:(float)height pressed:(BOOL)pressed
 {
+    CCTexture2D *cache = [[CCTextureCache sharedTextureCache] textureForKey:[NSString stringWithFormat:@"rect_%fx%f", width, height]];
+    if (cache != nil) {
+        return [CCSprite spriteWithTexture:cache];
+    }
+    
     CGSize size = CGSizeMake(width, height);
     CGPoint center = CGPointMake(size.width/2, size.height/2); 
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
