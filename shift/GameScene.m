@@ -52,7 +52,9 @@
 
 -(void) onNextGame
 {
-
+    elapsedTime = 0;
+    startTime = [NSDate date];
+    inGame = YES;
 }
 
 -(void) onGameEnd
