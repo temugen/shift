@@ -60,6 +60,7 @@
     platformCellSize = CGSizeMake(requestedCellSize, requestedCellSize);
 
     platformFontSize = 3 * platformPadding;
+    platformFontName = @"Copperplate-Light";
     platformMinCollisionForce = platformCellSize.width / 4;
     platformDirectionThreshold = 4;
 }

@@ -77,6 +77,7 @@ float platformPadding;
 float platformFontSize;
 float platformMinCollisionForce;
 float platformDirectionThreshold;
+NSString *platformFontName;
 
 #endif // __GAME_CONFIG_H
 

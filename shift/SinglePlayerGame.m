@@ -12,6 +12,7 @@
 #import "TutorialLayer.h"
 #import "SinglePlayerGameMenu.h"
 #import "LevelPack.h"
+#import "NextGameMenu.h"
 
 @implementation SinglePlayerGame
 
@@ -48,6 +49,10 @@ static SinglePlayerGame *lastGame = nil;
 -(void) onGameEnd
 {
   [super onGameEnd];
+    
+    NextGameMenu *nextMenu = [[NextGameMenu alloc] initWithMessage:[NSString stringWithFormat:@"Level %d Complete!", currentLevel]
+                                                              time:self.elapsedTime moves:board.moveCount];
+    [self addChild:nextMenu z:10];
   
   GKAchievement* achievement = [[GameCenterHub sharedHub] addOrFindIdentifier:@"beat_game"];
   if (![achievement isCompleted]) 

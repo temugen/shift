@@ -67,7 +67,7 @@
 
 -(void) addButtonWithDescription:(NSString *)text target:(id)target selector:(SEL)selector;
 {
-    CCLabelTTF *label = [CCLabelTTF labelWithString:text fontName:@"Copperplate-Light" fontSize:platformFontSize];
+    CCLabelTTF *label = [CCLabelTTF labelWithString:text fontName:platformFontName fontSize:platformFontSize];
     label.color = ccBLACK;
     [label addStrokeWithSize:1  color:ccWHITE];
     [self addNode:label target:target selector:selector];
@@ -79,7 +79,7 @@
     CCSprite *sprite = [CCSprite spriteWithFile:filename];
     sprite.color = [[ColorPalette sharedPalette] colorWithName:color fromPalette:@"_app"];
     
-    CCLabelTTF *label = [CCLabelTTF labelWithString:text fontName:@"Copperplate-Light" fontSize:platformFontSize];
+    CCLabelTTF *label = [CCLabelTTF labelWithString:text fontName:platformFontName fontSize:platformFontSize];
     label.color = ccBLACK;
     [label addStrokeWithSize:1  color:ccWHITE];
     

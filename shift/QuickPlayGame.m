@@ -9,6 +9,7 @@
 #import "QuickPlayGame.h"
 #import "GameCenterHub.h"
 #import "QuickplayGameMenu.h"
+#import "NextGameMenu.h"
 
 @interface QuickPlayGame()
 
@@ -79,6 +80,9 @@ static QuickPlayGame *lastGame = nil;
 -(void) onGameEnd
 {
   [super onGameEnd];
+    
+    NextGameMenu *nextMenu = [[NextGameMenu alloc] initWithMessage:@"Board Completed!" time:self.elapsedTime moves:board.moveCount];
+    [self addChild:nextMenu z:10];
   
   //Send score for leaderboard
   switch (rowCount)

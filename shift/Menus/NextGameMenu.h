@@ -6,8 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "ButtonList.h"
 
-@interface NextGameMenu : NSObject
+@interface NextGameMenu : CCLayerColor
+{
+    ButtonList *buttons;
+}
+
+-(id) initWithMessage:(NSString *)msg time:(NSTimeInterval)time moves:(int)moves;
 
 @end

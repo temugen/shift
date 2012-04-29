@@ -59,10 +59,11 @@
 
 -(void) onGameEnd
 {
+    elapsedTime = self.elapsedTime;
     inGame = NO;
     
-  NSLog(@"Time taken: %f", elapsedTime);
-  NSLog(@"Moves taken: %d", board.moveCount);
+    NSLog(@"Time taken: %f", elapsedTime);
+    NSLog(@"Moves taken: %d", board.moveCount);
 }
 
 -(void) onPause
@@ -80,16 +81,16 @@
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
     
     CCLabelTTF *moveCount = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d Moves", board.moveCount]
-                                               fontName:@"Copperplate-Light" fontSize:platformFontSize];
+                                               fontName:platformFontName fontSize:platformFontSize];
     moveCount.color = ccBLACK;
     [moveCount addStrokeWithSize:1 color:ccWHITE];
     moveCount.position = ccp(moveCount.contentSize.width / 2 + platformPadding, screenSize.height - moveCount.contentSize.height / 2 - platformPadding);
     [menu addChild:moveCount];
     
     int minutes = self.elapsedTime / 60;
-    int seconds = round(self.elapsedTime - minutes * 60);
-    CCLabelTTF *time = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d:%02d", minutes, seconds]
-                                          fontName:@"Copperplate-Light" fontSize:platformFontSize];
+    float seconds = self.elapsedTime - (minutes * 60);
+    CCLabelTTF *time = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d:%0.2f", minutes, seconds]
+                                          fontName:platformFontName fontSize:platformFontSize];
     time.color = ccBLACK;
     [time addStrokeWithSize:1 color:ccWHITE];
     time.position = ccp(screenSize.width - time.contentSize.width / 2 - platformPadding, screenSize.height - time.contentSize.height / 2 - platformPadding);
@@ -118,7 +119,7 @@
                                                  name:@"PlayButtonPressed"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onPlayButtonPressed:)
+                                             selector:@selector(onNextGameButtonPressed:)
                                                  name:@"NextGameButtonPressed"
                                                object:nil];
 }
@@ -132,7 +133,6 @@
 -(void) onBoardComplete:(NSNotification *)notification
 {
   [self onGameEnd];
-  [self onNextGame];
 }
 
 -(void) onResetButtonPressed:(NSNotification *)notification
