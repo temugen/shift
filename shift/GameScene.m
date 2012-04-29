@@ -67,6 +67,35 @@
 
 -(void) onPause
 {
+    
+}
+
+-(void) onUnpause
+{
+    
+}
+
+-(void) displayPauseMenu:(InGameMenu *)menu
+{
+    CGSize screenSize = [[CCDirector sharedDirector] winSize];
+    
+    CCLabelTTF *moveCount = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d Moves", board.moveCount]
+                                               fontName:@"Copperplate-Light" fontSize:platformFontSize];
+    moveCount.color = ccBLACK;
+    [moveCount addStrokeWithSize:1 color:ccWHITE];
+    moveCount.position = ccp(moveCount.contentSize.width / 2 + platformPadding, screenSize.height - moveCount.contentSize.height / 2 - platformPadding);
+    [menu addChild:moveCount];
+    
+    int minutes = self.elapsedTime / 60;
+    int seconds = round(self.elapsedTime - minutes * 60);
+    CCLabelTTF *time = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d:%02d", minutes, seconds]
+                                          fontName:@"Copperplate-Light" fontSize:platformFontSize];
+    time.color = ccBLACK;
+    [time addStrokeWithSize:1 color:ccWHITE];
+    time.position = ccp(screenSize.width - time.contentSize.width / 2 - platformPadding, screenSize.height - time.contentSize.height / 2 - platformPadding);
+    [menu addChild:time];
+    
+    [self addChild:menu z:10];
 }
 
 -(void) onEnter
@@ -117,6 +146,7 @@
 {
     startTime = [NSDate date];
     inGame = YES;
+    [self onUnpause];
 }
 
 -(void) onNextGameButtonPressed:(NSNotification *)notification
@@ -124,30 +154,10 @@
     [self onNextGame];
 }
 
--(void) onPauseButtonPressed:(NSNotification *)notification menu:(InGameMenu*)menu
+-(void) onPauseButtonPressed:(NSNotification *)notification
 {
     elapsedTime = self.elapsedTime;
     inGame = NO;
-    
-    CGSize screenSize = [[CCDirector sharedDirector] winSize];
-    
-    CCLabelTTF *moveCount = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d Moves", board.moveCount]
-                                               fontName:@"Copperplate-Light" fontSize:platformFontSize];
-    moveCount.color = ccBLACK;
-    [moveCount addStrokeWithSize:1 color:ccWHITE];
-    moveCount.position = ccp(moveCount.contentSize.width / 2 + platformPadding, screenSize.height - moveCount.contentSize.height / 2 - platformPadding);
-    [menu addChild:moveCount];
-    
-    int minutes = self.elapsedTime / 60;
-    int seconds = round(self.elapsedTime - minutes * 60);
-    CCLabelTTF *time = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d:%02d", minutes, seconds]
-                                          fontName:@"Copperplate-Light" fontSize:platformFontSize];
-    time.color = ccBLACK;
-    [time addStrokeWithSize:1 color:ccWHITE];
-    time.position = ccp(screenSize.width - time.contentSize.width / 2 - platformPadding, screenSize.height - time.contentSize.height / 2 - platformPadding);
-    [menu addChild:time];
-    
-    [self addChild:menu z:10];
     [self onPause];
 }
 

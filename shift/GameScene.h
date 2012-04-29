@@ -30,8 +30,9 @@
 @property BoardLayer* board;
 
 -(void) onPause;
+-(void) onUnpause;
 -(void) onNextGame;
 -(void) onGameEnd;
--(void) onPauseButtonPressed:(NSNotification *)notification menu:(InGameMenu*)menu;
+-(void) displayPauseMenu:(InGameMenu *)menu;
 
 @end

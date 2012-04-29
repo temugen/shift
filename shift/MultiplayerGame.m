@@ -169,10 +169,11 @@
 }
 
 
--(void) onPauseButtonPressed:(NSNotification*)notification
+-(void) onPause
 {
-  MultiplayerGameMenu *menu = [[MultiplayerGameMenu alloc] init];
-  [super onPauseButtonPressed:notification menu:menu];
+    MultiplayerGameMenu *menu = [[MultiplayerGameMenu alloc] init];
+    [self displayPauseMenu:menu];
+    [super onPause];
 }
 
 @end

@@ -17,7 +17,5 @@
 +(QuickPlayGame *) gameWithNumberOfRows:(int)rows columns:(int)columns;
 
 -(id) initWithNumberOfRows:(int)rows columns:(int)columns;
--(void) onGameEnd;
--(void) onPauseButtonPressed:(NSNotification *)notification;
 
 @end

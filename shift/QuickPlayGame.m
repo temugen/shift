@@ -166,10 +166,11 @@ static QuickPlayGame *lastGame = nil;
     } 
 }
 
--(void) onPauseButtonPressed:(NSNotification *)notification
+-(void) onPause
 {
     InGameMenu *menu = [[QuickplayGameMenu alloc] init];
-    [super onPauseButtonPressed:notification menu:menu];
+    [self displayPauseMenu:menu];
+    [super onPause];
 }
 
 -(void) onNewPuzzleButtonPressed:(NSNotification *)notification

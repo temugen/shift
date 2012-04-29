@@ -95,10 +95,11 @@ static SinglePlayerGame *lastGame = nil;
     [super onNextGame];
 }
 
--(void) onPauseButtonPressed:(NSNotification *)notification
+-(void) onPause
 {
     InGameMenu *menu = [[SinglePlayerGameMenu alloc] init];
-    [super onPauseButtonPressed:notification menu:menu];
+    [self displayPauseMenu:menu];
+    [super onPause];
 }
                              
 @end
