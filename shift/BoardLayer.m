@@ -435,6 +435,11 @@
 
 -(void) moveBlock:(BlockSprite *)block x:(int)x y:(int)y
 {
+    if (block == nil) {
+        [self setBlock:nil x:x y:y];
+        return;
+    }
+    
     if ([self blockAtX:block.column y:block.row] == block) {
         [self setBlock:nil x:block.column y:block.row];
     }

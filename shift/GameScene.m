@@ -126,8 +126,8 @@
 
 -(void) onPauseButtonPressed:(NSNotification *)notification menu:(InGameMenu*)menu
 {
-    inGame = NO;
     elapsedTime = self.elapsedTime;
+    inGame = NO;
     
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
     

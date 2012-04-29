@@ -21,6 +21,8 @@
     BOOL valid;
     float sectorAngle;
     int lastShift, currentShift;
+    BlockSprite *sampleBlock;
+    int sampleX, sampleY;
 }
 @end
 
@@ -79,6 +81,9 @@
                 [badIndexes addIndex:i];
             }
             else {
+                sampleBlock = block;
+                sampleX = sampleBlock.column;
+                sampleY = sampleBlock.row;
                 [blocks addObject:block];
             }
         }
@@ -136,6 +141,10 @@
 {
     self.isTouchEnabled = NO;
     board.isTouchEnabled = YES;
+    
+    if (sampleBlock.column != sampleX || sampleBlock.row != sampleY) {
+        board.moveCount++;
+    }
     
     //Remove ourself from the scene
     [board removeChild:self cleanup:YES];

@@ -91,6 +91,8 @@ static SinglePlayerGame *lastGame = nil;
         board.position = boardCenter;
         [self addChild:board];
     }
+    
+    [super onNextGame];
 }
 
 -(void) onPauseButtonPressed:(NSNotification *)notification
