@@ -45,13 +45,6 @@ static SinglePlayerGame *lastGame = nil;
     return self;
 }
 
--(void) onGameStart
-{
-  //Your stuff here
-  
-  [super onGameStart];
-}
-
 -(void) onGameEnd
 {
   [super onGameEnd];

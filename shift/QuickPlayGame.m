@@ -76,11 +76,6 @@ static QuickPlayGame *lastGame = nil;
     [self animatePopulation];
 }
 
--(void) onGameStart
-{
-    [super onGameStart];
-}
-
 -(void) onGameEnd
 {
   [super onGameEnd];

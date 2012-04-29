@@ -109,12 +109,6 @@
 }
 
 
--(void) onGameStart
-{
-  [super onGameStart];
-}
-
-
 -(void) onGameEnd
 {
   [super onGameEnd];
@@ -146,7 +140,7 @@
     [matchInfo updatePlayerOneWithBoard:[board serialize] 
                                     pid:me 
                                   moves:board.moveCount 
-                           andTimeTaken:elapsedTime];
+                           andTimeTaken:self.elapsedTime];
     [[GameCenterHub sharedHub] sendTurn:self data:[matchInfo getDataForGameCenter]];
   }
   else
@@ -154,7 +148,7 @@
     [matchInfo updatePlayerTwoWithBoard:[board serialize] 
                                     pid:me 
                                   moves:board.moveCount 
-                           andTimeTaken:elapsedTime];
+                           andTimeTaken:self.elapsedTime];
     [[GameCenterHub sharedHub] sendResultsForMatch:myMatch withData:[matchInfo getDataForGameCenter]];
   } 
 }
@@ -166,7 +160,7 @@
                                [board serialize], @"board",
                                [GKLocalPlayer localPlayer].playerID, @"id",
                                [NSNumber numberWithInt:board.moveCount], @"moves",
-                               [NSNumber numberWithDouble:elapsedTime], @"time",
+                               [NSNumber numberWithDouble:self.elapsedTime], @"time",
                                nil];
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString* documentsDirectory = [paths objectAtIndex:0];

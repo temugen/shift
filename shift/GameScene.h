@@ -26,12 +26,11 @@
     NSTimeInterval elapsedTime;
 }
 
-@property(readonly) NSTimeInterval elapsedTime;
+@property(readonly, getter = getElapsedTime) NSTimeInterval elapsedTime;
 @property BoardLayer* board;
 
 -(void) onPause;
 -(void) onNextGame;
--(void) onGameStart;
 -(void) onGameEnd;
 -(void) onPauseButtonPressed:(NSNotification *)notification menu:(InGameMenu*)menu;
 

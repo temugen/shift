@@ -23,11 +23,6 @@
         [self addChild:buttons];
         
         [self addChild:[[BackgroundLayer alloc] init] z:-1];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onPlay:)
-                                                     name:@"onPlay"
-                                                   object:nil];
     }
     
     return self;
@@ -41,6 +36,7 @@
 
 -(void) onPlay:(id)sender
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayButtonPressed" object:self];
     [self removeFromParentAndCleanup:YES];
 }
 
