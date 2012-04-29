@@ -88,6 +88,10 @@
                                              selector:@selector(onPlayButtonPressed:)
                                                  name:@"PlayButtonPressed"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onPlayButtonPressed:)
+                                                 name:@"NextGameButtonPressed"
+                                               object:nil];
 }
 
 -(void) onExit
@@ -115,10 +119,15 @@
     inGame = YES;
 }
 
+-(void) onNextGameButtonPressed:(NSNotification *)notification
+{
+    [self onNextGame];
+}
+
 -(void) onPauseButtonPressed:(NSNotification *)notification menu:(InGameMenu*)menu
 {
-    elapsedTime = self.elapsedTime;
     inGame = NO;
+    elapsedTime = self.elapsedTime;
     
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
     
