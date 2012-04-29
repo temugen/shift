@@ -130,6 +130,7 @@
 		82B4B3DE1548AFEC00B1467F /* mute@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B3DA1548AFEC00B1467F /* mute@2x.png */; };
 		82B4B3DF1548AFEC00B1467F /* mute@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B3DB1548AFEC00B1467F /* mute@2x~ipad.png */; };
 		82B4B3E01548AFEC00B1467F /* mute~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 82B4B3DC1548AFEC00B1467F /* mute~ipad.png */; };
+		82B4B469154DCCBF00B1467F /* NextGameMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 82B4B468154DCCBE00B1467F /* NextGameMenu.m */; };
 		9635BFFD152FEB790091081B /* TitleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9635BFFC152FEB790091081B /* TitleLayer.m */; };
 		9852660314F6DAE900353F61 /* lock_tutorial.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9852660214F6DAE900353F61 /* lock_tutorial.plist */; };
 		9852F3BE153F81920049CA8F /* pinwheel.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9852F3BD153F81920049CA8F /* pinwheel.plist */; };
@@ -823,6 +824,8 @@
 		82B4B3DA1548AFEC00B1467F /* mute@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mute@2x.png"; sourceTree = "<group>"; };
 		82B4B3DB1548AFEC00B1467F /* mute@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mute@2x~ipad.png"; sourceTree = "<group>"; };
 		82B4B3DC1548AFEC00B1467F /* mute~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mute~ipad.png"; sourceTree = "<group>"; };
+		82B4B467154DCCBE00B1467F /* NextGameMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NextGameMenu.h; path = Menus/NextGameMenu.h; sourceTree = "<group>"; };
+		82B4B468154DCCBE00B1467F /* NextGameMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NextGameMenu.m; path = Menus/NextGameMenu.m; sourceTree = "<group>"; };
 		9635BFFB152FEB790091081B /* TitleLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleLayer.h; path = Menus/TitleLayer.h; sourceTree = "<group>"; };
 		9635BFFC152FEB790091081B /* TitleLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleLayer.m; path = Menus/TitleLayer.m; sourceTree = "<group>"; };
 		9852660214F6DAE900353F61 /* lock_tutorial.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = lock_tutorial.plist; path = Resources/Levels/lock_tutorial.plist; sourceTree = "<group>"; };
@@ -1414,6 +1417,8 @@
 				985386EA1536503400E85869 /* QuickplayGameMenu.m */,
 				829BF366153F7FE700A2FF71 /* ButtonList.h */,
 				829BF367153F7FE700A2FF71 /* ButtonList.m */,
+				82B4B467154DCCBE00B1467F /* NextGameMenu.h */,
+				82B4B468154DCCBE00B1467F /* NextGameMenu.m */,
 			);
 			name = Menus;
 			sourceTree = "<group>";
@@ -2219,6 +2224,7 @@
 				829BF3F1153FE2E400A2FF71 /* MultiplayerTypeMenu.m in Sources */,
 				8259FDB81542277200B99B36 /* LevelPack.m in Sources */,
 				FA7AD23615460A64002916E5 /* OhShiftMatchData.m in Sources */,
+				82B4B469154DCCBF00B1467F /* NextGameMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
