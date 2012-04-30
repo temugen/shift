@@ -31,11 +31,11 @@
 @property (strong) NSString* p2id, *p2alias;
 @property (strong) NSString* difficulty;
 
--(id) initWithPlayerID:(NSString*)pid difficulty:(NSString*)diff andBoard:(NSDictionary*)board;
+-(id) initWithPlayerID:(NSString*)pid alias:(NSString*)alias difficulty:(NSString*)diff andBoard:(NSDictionary*)board;
 -(id) initWithData:(NSData*)data;
 -(id) initFromFile:(NSString*)filename andData:(NSData*)data;
--(void) updatePlayerOneWithBoard:(NSDictionary*)board pid:(NSString*)pid moves:(int)moves andTimeTaken:(double)time;
--(void) updatePlayerTwoWithBoard:(NSDictionary*)board pid:(NSString*)pid moves:(int)moves andTimeTaken:(double)time;
+-(void) updatePlayerOneWithBoard:(NSDictionary*)board pid:(NSString*)pid alias:(NSString*)alias moves:(int)moves andTimeTaken:(double)time;
+-(void) updatePlayerTwoWithBoard:(NSDictionary*)board pid:(NSString*)pid alias:(NSString*)alias moves:(int)moves andTimeTaken:(double)time;
 -(NSData*) getDataForGameCenter;
 -(void) writeToFile:(NSString*)filename;
 

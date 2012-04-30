@@ -140,11 +140,13 @@
   OhShiftMatchData* matchInfo = [[OhShiftMatchData alloc] initWithData:myMatch.matchData];
   NSString* player1 = matchInfo.p1id;
   NSString* me = [GKLocalPlayer localPlayer].playerID;
+  NSString *alias = [GKLocalPlayer localPlayer].alias;
   
   if ([me isEqualToString:player1])
   {
     [matchInfo updatePlayerOneWithBoard:[board serialize] 
                                     pid:me 
+                                  alias:alias
                                   moves:board.moveCount 
                            andTimeTaken:self.elapsedTime];
     [[GameCenterHub sharedHub] sendTurn:self data:[matchInfo getDataForGameCenter]];
@@ -153,6 +155,7 @@
   {
     [matchInfo updatePlayerTwoWithBoard:[board serialize] 
                                     pid:me 
+                                  alias:alias    
                                   moves:board.moveCount 
                            andTimeTaken:self.elapsedTime];
     [[GameCenterHub sharedHub] sendResultsForMatch:myMatch withData:[matchInfo getDataForGameCenter]];
@@ -165,6 +168,7 @@
   NSDictionary* matchResults = [NSDictionary dictionaryWithObjectsAndKeys:
                                [board serialize], @"board",
                                [GKLocalPlayer localPlayer].playerID, @"id",
+                               [GKLocalPlayer localPlayer].alias, @"alias",
                                [NSNumber numberWithInt:board.moveCount], @"moves",
                                [NSNumber numberWithDouble:self.elapsedTime], @"time",
                                nil];

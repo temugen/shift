@@ -51,7 +51,12 @@
         winLose.position = ccp(screenSize.width / 2, screenSize.height - platformPadding - winLose.contentSize.height / 2);
         
         CCLabelTTF *myNameLabel = [CCLabelTTF labelWithString:myName fontName:platformFontName fontSize:platformFontSize];
+        myNameLabel.color = ccBLACK;
+        [myNameLabel addStrokeWithSize:1 color:ccWHITE];
+        
         CCLabelTTF *partnerNameLabel = [CCLabelTTF labelWithString:partnerName fontName:platformFontName fontSize:platformFontSize];
+        partnerNameLabel.color = ccBLACK;
+        [partnerNameLabel addStrokeWithSize:1 color:ccWHITE];
         
         int myMin = myTime / 60;
         float mySec = myTime - (myMin * 60);

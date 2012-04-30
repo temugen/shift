@@ -519,8 +519,8 @@
 //
 -(void) sendStartBoard:(NSDictionary*)board match:(GKTurnBasedMatch*)match withDifficulty:(NSString*)difficulty
 {
-  NSString* pid = [GKLocalPlayer localPlayer].playerID;
-  OhShiftMatchData* matchInfo = [[OhShiftMatchData alloc] initWithPlayerID:pid 
+  OhShiftMatchData* matchInfo = [[OhShiftMatchData alloc] initWithPlayerID:[GKLocalPlayer localPlayer].playerID
+                                                                     alias:[GKLocalPlayer localPlayer].alias
                                                                 difficulty:difficulty 
                                                                   andBoard:board];
   self.currentMatch = match;

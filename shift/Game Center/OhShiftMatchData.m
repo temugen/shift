@@ -31,7 +31,7 @@
 @synthesize difficulty;
 
 
--(id) initWithPlayerID:(NSString*)pid difficulty:(NSString*)diff andBoard:(NSDictionary*)board
+-(id) initWithPlayerID:(NSString*)pid alias:(NSString*)alias difficulty:(NSString*)diff andBoard:(NSDictionary*)board
 {
   if ((self = [super init]))
   {
@@ -42,8 +42,9 @@
     p2moves = 0;
     p2board = board;
     p1id = pid;
+    p1alias = alias;
     p2id = @"";
-    p1alias = p2alias = @"";
+    p2alias = @"";
     difficulty = diff;
     
     [self updatePlayerOneData];
@@ -69,7 +70,8 @@
   OhShiftMatchData* oldData = [[OhShiftMatchData alloc] initWithData:data];
   
   [oldData updatePlayerTwoWithBoard:[matchInfo objectForKey:@"board"]
-                                pid:[matchInfo objectForKey:@"id"] 
+                                pid:[matchInfo objectForKey:@"id"]
+                              alias:[matchInfo objectForKey:@"alias"]
                               moves:[[matchInfo objectForKey:@"moves"] intValue] 
                        andTimeTaken:[[matchInfo objectForKey:@"time"] doubleValue]];
    return oldData;
@@ -87,7 +89,9 @@
     p2moves = [[[dict objectForKey:@"player2"] objectForKey:@"moves"] intValue];
     p2board = [[dict objectForKey:@"player2"] objectForKey:@"board"];
     p1id = [[dict objectForKey:@"player1"] objectForKey:@"id"];
+    p1alias = [[dict objectForKey:@"player1"] objectForKey:@"alias"];
     p2id = [[dict objectForKey:@"player2"] objectForKey:@"id"];
+    p2alias = [[dict objectForKey:@"player2"] objectForKey:@"alias"];
     difficulty = [dict objectForKey:@"difficulty"];
     
     [self updatePlayerOneData];
@@ -96,44 +100,25 @@
   return self;  
 }
 
--(void) lookupPlayer:(NSString *)pid
-{
-    NSArray *playerIDs = [NSArray arrayWithObjects:pid, nil];
-    
-    [GKPlayer loadPlayersForIdentifiers:playerIDs withCompletionHandler:^(NSArray *players, NSError *error) {
-
-        if (error != nil) {
-            NSLog(@"Error retrieving player info: %@", error.localizedDescription);
-        } else {
-            GKPlayer *player = [players objectAtIndex:0];
-            if ([pid isEqualToString:p1id]) {
-                p1alias = player.alias;
-            }
-            else {
-                p2alias = player.alias;
-            }
-        }
-        
-    }];
-}
-
--(void) updatePlayerOneWithBoard:(NSDictionary*)board pid:(NSString*)pid moves:(int)moves andTimeTaken:(double)time
+-(void) updatePlayerOneWithBoard:(NSDictionary*)board pid:(NSString*)pid alias:(NSString*)alias moves:(int)moves andTimeTaken:(double)time
 {
   p1time = time;
   p1moves = moves;
   p1board = board;
   p1id = pid;
+  p1alias = alias;
   
   [self updatePlayerOneData];
 }
 
 
--(void) updatePlayerTwoWithBoard:(NSDictionary*)board pid:(NSString*)pid moves:(int)moves andTimeTaken:(double)time
+-(void) updatePlayerTwoWithBoard:(NSDictionary*)board pid:(NSString*)pid alias:(NSString*)alias moves:(int)moves andTimeTaken:(double)time
 {
   p2time = time;
   p2moves = moves;
   p2board = board;
   p2id = pid;
+  p2alias = alias;
   
   [self updatePlayerTwoData];
 }
@@ -143,13 +128,11 @@
 {
   p1data = [NSDictionary dictionaryWithObjectsAndKeys:
             p1id, @"id",
+            p1alias, @"alias",
             [NSNumber numberWithInt:p1moves], @"moves",
             [NSNumber numberWithDouble:p1time], @"time",
             p1board, @"board",
             nil]; 
-    
-    if ([p1alias isEqualToString:@""])
-        [self lookupPlayer:p1id];
 }
 
 
@@ -157,13 +140,11 @@
 {
   p2data = [NSDictionary dictionaryWithObjectsAndKeys:
             p2id, @"id",
+            p2alias, @"alias",
             [NSNumber numberWithInt:p2moves], @"moves",
             [NSNumber numberWithDouble:p2time], @"time",
             p2board, @"board",
             nil];  
-    
-    if ([p2alias isEqualToString:@""])
-        [self lookupPlayer:p2id];
 }
 
 
