@@ -225,8 +225,6 @@
     
     //Let blocks know if they collided with each other
     if (immovable != nil && ABS(limitedDistance) < ABS(distance)) {
-        [immovable onCollideWithCell:block force:ABS(distance)];
-        [block onCollideWithCell:immovable force:ABS(distance)];
         
         //Only show smoke if there is a forceful collision
         if (ABS(distance) > platformMinCollisionForce) {
@@ -261,6 +259,9 @@
             debris.endRadius = 15;
             
             [board addChild:debris z:10];
+            
+            [immovable onCollideWithCell:block force:ABS(distance)];
+            [block onCollideWithCell:immovable force:ABS(distance)];
         }
     }
 }
