@@ -86,7 +86,7 @@ NSInteger highestLevel;
                                                                                            rectSprite.contentSize.height - 2 * platformPadding)];
                 [levelSprite setTag:LEVEL_TEXTURE];
                 //levelSprite.scaleX = (spriteWidth - platformPadding * 2) /levelSprite.contentSize.width;
-                levelSprite.flipY = YES;
+                //levelSprite.flipY = YES;
                 levelSprite.position = position;
                 
                 [page addChild:levelSprite];
