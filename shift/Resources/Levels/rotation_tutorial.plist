@@ -11,6 +11,8 @@
             <key>cells</key>
             <array>
                 <dict>
+                    <key>tutorial</key>
+                    <string>This is a rotation block. Place your finger on it, and move it in a circular motion to rotate the adjacent blocks</string>
                     <key>class</key>
                     <string>RotationBlock</string>
                     <key>name</key>

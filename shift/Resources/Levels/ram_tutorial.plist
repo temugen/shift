@@ -21,6 +21,8 @@
 				<integer>1</integer>
 			</dict>
 			<dict>
+                <key>tutorial</key>
+                <string>This is the Ram block. It can be used to destroy the blocks made of brick. Collide the blocks together!</string>
 				<key>class</key>
 				<string>RamBlock</string>
 				<key>name</key>

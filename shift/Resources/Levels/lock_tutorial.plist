@@ -51,6 +51,8 @@
 				<integer>0</integer>
 			</dict>
 			<dict>
+                <key>tutorial</key>
+                <string>Collide the Key block with the Lock block to unlock it. Once it is unlocked, you can double tap it to lock it again and retrieve the key.</string>
 				<key>class</key>
 				<string>KeyBlock</string>
 				<key>name</key>

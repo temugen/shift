@@ -60,19 +60,29 @@
     CellSprite *cell = [tutorial.cell copy];
     [self addChild:cell];
     
-    CCLabelTTF *message = [CCLabelTTF labelWithString:tutorial.message fontName:@"Helvetica" fontSize:20];
-    [self addChild:message];
+    CGFloat textWidth = screenSize.width - platformPadding;
+    CGSize textSize = [tutorial.message sizeWithFont:[UIFont fontWithName:@"Helvetica" size:20.0f]
+                                   constrainedToSize:CGSizeMake(textWidth, CGFLOAT_MAX)
+                                       lineBreakMode:UILineBreakModeWordWrap];
     
+    CCLabelTTF *message = [CCLabelTTF labelWithString:tutorial.message 
+                                           dimensions:textSize
+                                            alignment:UITextAlignmentCenter
+                                             fontName:@"Helvetica" 
+                                             fontSize:20];
+    [self addChild:message];
+
+    CGFloat rectHeight = MAX(CGRectGetHeight(cell.boundingBox), CGRectGetHeight(message.boundingBox)) + (2*platformPadding);
     RoundedRectangle *bg = [[RoundedRectangle alloc] initWithWidth:screenSize.width - platformPadding
-                                                           height:CGRectGetHeight(cell.boundingBox) + (2 * platformPadding)
+                                                           height:rectHeight + (2 * platformPadding)
                                                           pressed:NO];
     [self addChild:bg z:-1];
-    
+        
     bg.position = ccp(screenSize.width / 2, bg.contentSize.height / 2);
     cell.position = ccp(CGRectGetMinX(bg.boundingBox) + platformPadding + CGRectGetWidth(cell.boundingBox) / 2,
-                        CGRectGetMinY(bg.boundingBox) + platformPadding + CGRectGetHeight(cell.boundingBox) / 2);
+                        CGRectGetMidY(bg.boundingBox));
     message.position = ccp(CGRectGetMaxX(cell.boundingBox) + platformPadding + message.contentSize.width / 2,
-                           CGRectGetMinY(bg.boundingBox) + platformPadding + message.contentSize.height / 2);
+                           CGRectGetMidY(bg.boundingBox));
     
     //Should put all of this in a single node to move it at once
     //Slide in to window

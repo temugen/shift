@@ -31,6 +31,8 @@
 				<integer>1</integer>
 			</dict>
 			<dict>
+                <key>tutorial</key>
+                <string>This is a stationary block. It doesn't move, and blocks on either side of it can be moved.</string>
 				<key>class</key>
 				<string>StationaryBlock</string>
 				<key>name</key>

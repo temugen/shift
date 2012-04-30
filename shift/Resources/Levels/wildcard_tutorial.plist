@@ -61,6 +61,8 @@
                     <integer>0</integer>
                 </dict>
                 <dict>
+                    <key>tutorial</key>
+                    <string>This is the Wildcard block. It can be used in place of any color block. It might be helpful in this level...</string>
                     <key>class</key>
                     <string>WildcardBlock</string>
                     <key>name</key>

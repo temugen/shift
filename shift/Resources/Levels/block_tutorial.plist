@@ -11,12 +11,14 @@
 		<key>cells</key>
 		<array>
 			<dict>
+                <key>tutorial</key>
+                <string>Move the red block to the goal. Only whole rows and columns can be moved.</string>
 				<key>class</key>
 				<string>BlockSprite</string>
 				<key>name</key>
 				<string>red</string>
 				<key>row</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>column</key>
 				<integer>0</integer>
 			</dict>
@@ -36,9 +38,19 @@
 				<key>name</key>
 				<string>blue</string>
 				<key>row</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>column</key>
 				<integer>2</integer>
+			</dict>
+            <dict>
+				<key>class</key>
+				<string>BlockSprite</string>
+				<key>name</key>
+				<string>blue</string>
+				<key>row</key>
+				<integer>2</integer>
+				<key>column</key>
+				<integer>0</integer>
 			</dict>
 		</array>
 	</dict>
