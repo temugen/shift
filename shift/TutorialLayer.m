@@ -60,20 +60,22 @@
     CellSprite *cell = [tutorial.cell copy];
     [self addChild:cell];
     
-    CGFloat textWidth = screenSize.width - platformPadding;
-    CGSize textSize = [tutorial.message sizeWithFont:[UIFont fontWithName:@"Helvetica" size:20.0f]
+    CGFloat textWidth = screenSize.width - 5 * platformPadding - CGRectGetWidth(cell.boundingBox);
+    CGSize textSize = [tutorial.message sizeWithFont:[UIFont fontWithName:@"Helvetica" size:platformFontSize * 0.65]
                                    constrainedToSize:CGSizeMake(textWidth, CGFLOAT_MAX)
                                        lineBreakMode:UILineBreakModeWordWrap];
     
     CCLabelTTF *message = [CCLabelTTF labelWithString:tutorial.message 
                                            dimensions:textSize
                                             alignment:UITextAlignmentCenter
-                                             fontName:@"Helvetica" 
-                                             fontSize:20];
+                                             fontName:@"Helvetica"
+                                             fontSize:platformFontSize * 0.65];
+    message.color = ccWHITE;
+    //[message addStrokeWithSize:1 color:ccWHITE];
     [self addChild:message];
 
-    CGFloat rectHeight = MAX(CGRectGetHeight(cell.boundingBox), CGRectGetHeight(message.boundingBox)) + (2*platformPadding);
-    RoundedRectangle *bg = [[RoundedRectangle alloc] initWithWidth:screenSize.width - platformPadding
+    CGFloat rectHeight = MAX(CGRectGetHeight(cell.boundingBox), CGRectGetHeight(message.boundingBox));
+    RoundedRectangle *bg = [[RoundedRectangle alloc] initWithWidth:screenSize.width - (platformPadding * 2)
                                                            height:rectHeight + (2 * platformPadding)
                                                           pressed:NO];
     [self addChild:bg z:-1];
