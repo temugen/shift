@@ -12,7 +12,7 @@
 #import "OhShiftMatchData.h"
 #import "GameCenterHub.h"
 #import "MainMenu.h"
-
+#import "NextGameMenu.h"
 
 
 @implementation MultiplayerGame
@@ -123,9 +123,15 @@
     [self saveResults];
     board.isTouchEnabled = NO;
   }
-  
-  // TODO:  Display results
-  [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
+    
+    NextGameMenu *nextMenu = [[NextGameMenu alloc] initWithMessage:@"Waiting for Opponent..." time:self.elapsedTime moves:board.moveCount];
+    [self addChild:nextMenu z:10];
+}
+
+-(void) onNextGame
+{
+    [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
+    [super onNextGame];
 }
 
 
