@@ -73,10 +73,17 @@ NSInteger highestLevel;
             //Only display level previews for unlocked levels
             if(i<=highestLevel)
             {
+                CCLabelTTF *levelNum = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d", i]
+                                                          fontName:platformFontName fontSize:platformFontSize];
+                levelNum.color = ccWHITE;
+                [levelNum addStrokeWithSize:1 color:ccBLACK];
+                levelNum.position = ccp(position.x, position.y + rectSprite.contentSize.height / 2 - levelNum.contentSize.height / 2);
+                [page addChild:levelNum];
+                
                 //Create level texture
                 CCSprite *levelSprite = [SinglePlayerGame previewForLevel:i];
                 [levelSprite setTag:LEVEL_TEXTURE];
-                levelSprite.scaleX = spriteWidth/levelSprite.contentSize.width;
+                levelSprite.scaleX = (spriteWidth - platformPadding * 2) /levelSprite.contentSize.width;
                 levelSprite.scaleY = -levelSprite.scaleX;
                 levelSprite.position = position;
                 
