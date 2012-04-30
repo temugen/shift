@@ -76,7 +76,7 @@
     
     if ([board isComplete])
     {
-      board.isTouchEnabled = NO;
+      //board.isTouchEnabled = NO;
       board.moveCount = currMoveCount;
     }
     

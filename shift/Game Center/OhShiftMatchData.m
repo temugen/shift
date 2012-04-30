@@ -96,17 +96,22 @@
   return self;  
 }
 
--(void) lookupPlayers
+-(void) lookupPlayer:(NSString *)pid
 {
-    NSArray *playerIDs = [NSArray arrayWithObjects:p1id, p2id, nil];
+    NSArray *playerIDs = [NSArray arrayWithObjects:pid, nil];
     
     [GKPlayer loadPlayersForIdentifiers:playerIDs withCompletionHandler:^(NSArray *players, NSError *error) {
 
         if (error != nil) {
             NSLog(@"Error retrieving player info: %@", error.localizedDescription);
         } else {
-            p1alias = ((GKPlayer *)[players objectAtIndex:0]).alias;
-            p2alias = ((GKPlayer *)[players objectAtIndex:1]).alias;
+            GKPlayer *player = [players objectAtIndex:0];
+            if ([pid isEqualToString:p1id]) {
+                p1alias = player.alias;
+            }
+            else {
+                p2alias = player.alias;
+            }
         }
         
     }];
@@ -129,10 +134,6 @@
   p2moves = moves;
   p2board = board;
   p2id = pid;
-    
-    if ([p1alias isEqualToString:@""]) {
-        [self lookupPlayers];
-    }
   
   [self updatePlayerTwoData];
 }
@@ -145,7 +146,10 @@
             [NSNumber numberWithInt:p1moves], @"moves",
             [NSNumber numberWithDouble:p1time], @"time",
             p1board, @"board",
-            nil];  
+            nil]; 
+    
+    if ([p1alias isEqualToString:@""])
+        [self lookupPlayer:p1id];
 }
 
 
@@ -157,6 +161,9 @@
             [NSNumber numberWithDouble:p2time], @"time",
             p2board, @"board",
             nil];  
+    
+    if ([p2alias isEqualToString:@""])
+        [self lookupPlayer:p2id];
 }
 
 
