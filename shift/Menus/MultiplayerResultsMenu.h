@@ -6,6 +6,14 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-@interface MultiplayerResultsMenu : CCLayerColor
+#import "Menu.h"
+#import "OhShiftMatchData.h"
+
+@interface MultiplayerResultsMenu : Menu
+{
+    
+}
+
+-(id) initWithMatch:(OhShiftMatchData *)match;
 
 @end

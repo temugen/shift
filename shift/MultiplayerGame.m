@@ -124,7 +124,7 @@
     board.isTouchEnabled = NO;
   }
     
-    NextGameMenu *nextMenu = [[NextGameMenu alloc] initWithMessage:@"Waiting for Opponent..." time:self.elapsedTime moves:board.moveCount];
+    NextGameMenu *nextMenu = [[NextGameMenu alloc] initWithMessage:@"Waiting for Opponent" time:self.elapsedTime moves:board.moveCount];
     [self addChild:nextMenu z:10];
 }
 

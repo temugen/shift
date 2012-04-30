@@ -12,8 +12,8 @@
 {
   int p1moves, p2moves;
   double p1time, p2time;
-  NSString* p1id;
-  NSString* p2id;
+  NSString* p1id, *p1alias;
+  NSString* p2id, *p2alias;
   NSDictionary* p1board;
   NSDictionary* p2board;
   NSDictionary* p1data;
@@ -27,8 +27,8 @@
 @property (strong) NSDictionary* p2board;
 @property (strong) NSDictionary* p1data;
 @property (strong) NSDictionary* p2data;
-@property (strong) NSString* p1id;
-@property (strong) NSString* p2id;
+@property (strong) NSString* p1id, *p1alias;
+@property (strong) NSString* p2id, *p2alias;
 @property (strong) NSString* difficulty;
 
 -(id) initWithPlayerID:(NSString*)pid difficulty:(NSString*)diff andBoard:(NSDictionary*)board;

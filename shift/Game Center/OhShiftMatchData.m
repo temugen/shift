@@ -18,8 +18,8 @@
 
 @implementation OhShiftMatchData
 
-@synthesize p1id;
-@synthesize p2id;
+@synthesize p1id, p1alias;
+@synthesize p2id, p2alias;
 @synthesize p1moves;
 @synthesize p2moves;
 @synthesize p1time;
@@ -43,6 +43,7 @@
     p2board = board;
     p1id = pid;
     p2id = @"";
+    p1alias = p2alias = @"";
     difficulty = diff;
     
     [self updatePlayerOneData];
@@ -95,6 +96,21 @@
   return self;  
 }
 
+-(void) lookupPlayers
+{
+    NSArray *playerIDs = [NSArray arrayWithObjects:p1id, p2id, nil];
+    
+    [GKPlayer loadPlayersForIdentifiers:playerIDs withCompletionHandler:^(NSArray *players, NSError *error) {
+
+        if (error != nil) {
+            NSLog(@"Error retrieving player info: %@", error.localizedDescription);
+        } else {
+            p1alias = ((GKPlayer *)[players objectAtIndex:0]).alias;
+            p2alias = ((GKPlayer *)[players objectAtIndex:1]).alias;
+        }
+        
+    }];
+}
 
 -(void) updatePlayerOneWithBoard:(NSDictionary*)board pid:(NSString*)pid moves:(int)moves andTimeTaken:(double)time
 {
@@ -113,6 +129,10 @@
   p2moves = moves;
   p2board = board;
   p2id = pid;
+    
+    if ([p1alias isEqualToString:@""]) {
+        [self lookupPlayers];
+    }
   
   [self updatePlayerTwoData];
 }

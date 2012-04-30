@@ -13,7 +13,7 @@
 #import "GameCenterHub.h"
 #import "OhShiftMatchData.h"
 #import "MainMenu.h"
-#import "cocos2d.h"
+#import "MultiplayerResultsMenu.h"
 
 @interface GameCenterHub()
 
@@ -493,7 +493,11 @@
 -(void) displayResults:(GKTurnBasedMatch*)myMatch
 {
   OhShiftMatchData* match = [[OhShiftMatchData alloc] initWithData:myMatch.matchData];
-  NSLog(@"====== Results ======");
+    
+    MultiplayerResultsMenu *results = [[MultiplayerResultsMenu alloc] initWithMatch:match];
+    [[CCDirector sharedDirector] replaceSceneAndCleanup:[Menu sceneWithMenu:results]];
+    
+  /*NSLog(@"====== Results ======");
   if ([match.p1id isEqualToString:[GKLocalPlayer localPlayer].playerID])
   {
     NSLog(@"You: moves - %d, time - %f", match.p1moves, match.p1time);
@@ -503,11 +507,11 @@
   {
     NSLog(@"You: moves - %d, time - %f", match.p2moves, match.p2time);
     NSLog(@"Other Player: moves - %d, time - %f", match.p1moves, match.p1time);
-  }
+  }*/
   
   // Probably going to need a display results with match, then unarchive the matchdata to get all 
   // of the required information
-  [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
+  //[[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
 }
 
 
@@ -606,7 +610,7 @@
 //
 -(void) sendNotice:(NSString*)notice forMatch:(GKTurnBasedMatch*)match
 {
-  UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"Oh Shift!" message:notice delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:@"View Results", nil];
+  UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"Oh Shift!" message:notice delegate:self cancelButtonTitle:@"Ignore" otherButtonTitles:@"View Results", nil];
   self.currentMatch = match;
   [av show];
 }
@@ -614,9 +618,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
   NSString* title = [alertView buttonTitleAtIndex:buttonIndex];
-  if([title isEqualToString:@"View results"])
+  if([title isEqualToString:@"View Results"])
   {
-    [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MultiplayerGame gameWithMatchData:self.currentMatch andIsMyTurn:YES]]];
+      [self displayResults:self.currentMatch];
   }
 }
 
@@ -737,8 +741,9 @@
   {
     OhShiftMatchData* updatedData = [[OhShiftMatchData alloc] initFromFile:myMatch.matchID 
                                                                    andData:myMatch.matchData];
+      [self displayResults:myMatch];
     [self sendResultsForMatch:myMatch withData:[updatedData getDataForGameCenter]];
-    [self sendNotice:@"A match has been completed!" forMatch:myMatch];
+    //[self sendNotice:@"A match has been completed!" forMatch:myMatch];
   }
 }
 
@@ -747,16 +752,29 @@
 //
 -(void)handleMatchEnded:(GKTurnBasedMatch*)myMatch 
 {
-  NSLog(@"This game is over");
-  if ([myMatch.matchID isEqualToString:currentMatch.matchID]) 
-  {
-    [self sendNotice:@"Your current match has ended" forMatch:myMatch];
+    NSLog(@"This game is over");
+    
+    OhShiftMatchData* match = [[OhShiftMatchData alloc] initWithData:myMatch.matchData];
+    NSString *partnerName;
+    if ([match.p1id isEqualToString:[GKLocalPlayer localPlayer].playerID]) {
+        partnerName = match.p2alias;
+    }
+    else {
+        partnerName = match.p1alias;
+    }
+    
+    /*if ([myMatch.matchID isEqualToString:currentMatch.matchID]) 
+    {
+        [self sendNotice:@"Your current match has ended" forMatch:myMatch];
+        [self displayResults:myMatch];
+    } 
+    else 
+    {
+        [self sendNotice:@"A different match has ended" forMatch:myMatch];
+    }*/
+    
+    [self sendNotice:[NSString stringWithFormat:@"Your game with %@ has ended", partnerName] forMatch:myMatch];
     [self displayResults:myMatch];
-  } 
-  else 
-  {
-    [self sendNotice:@"A different match has ended" forMatch:myMatch];
-  }
 }
 
 
