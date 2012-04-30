@@ -130,7 +130,9 @@
 
 -(void) onNextGame
 {
-    [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
+    [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionFade transitionWithDuration:kSceneTransitionTime
+                                                                                           scene:[MainMenu scene]
+                                                                                       withColor:ccBLACK]];
     [super onNextGame];
 }
 
