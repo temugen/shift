@@ -102,8 +102,6 @@
 
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    //Play rotation sound
-    [[SimpleAudioEngine sharedEngine] playEffect:@SFX_ROTATE];
 	UITouch *touch = [touches anyObject];
 	CGPoint location = [self convertTouchToNodeSpace:touch];
     float dx = location.x - center.x, dy = location.y - center.y;
@@ -123,6 +121,8 @@
     float dangle = angle - startAngle;
     currentShift = ((int)roundf(dangle / sectorAngle) + lastShift) % [blocks count];
     
+    BOOL hasMoved = NO;
+    
     for (int i = 0; i < [blocks count]; i++) {
         BlockSprite *block = [blocks objectAtIndex:i];
         if ([block isEqual:[NSNull null]]) {
@@ -133,7 +133,15 @@
         int x = [[xs objectAtIndex:grabIndex] intValue],
             y = [[ys objectAtIndex:grabIndex] intValue];
         
+        if (block != nil && (block.column != x || block.row != y)) {
+            hasMoved = YES;
+        }
+        
         [board moveBlock:block x:x y:y];
+    }
+    
+    if (hasMoved) {
+        [[SimpleAudioEngine sharedEngine] playEffect:@SFX_ROTATE];
     }
 }
 
