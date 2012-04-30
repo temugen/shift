@@ -495,23 +495,9 @@
   OhShiftMatchData* match = [[OhShiftMatchData alloc] initWithData:myMatch.matchData];
     
     MultiplayerResultsMenu *results = [[MultiplayerResultsMenu alloc] initWithMatch:match];
-    [[CCDirector sharedDirector] replaceSceneAndCleanup:[Menu sceneWithMenu:results]];
-    
-  /*NSLog(@"====== Results ======");
-  if ([match.p1id isEqualToString:[GKLocalPlayer localPlayer].playerID])
-  {
-    NSLog(@"You: moves - %d, time - %f", match.p1moves, match.p1time);
-    NSLog(@"Other Player: moves - %d, time - %f", match.p2moves, match.p2time);
-  }
-  else
-  {
-    NSLog(@"You: moves - %d, time - %f", match.p2moves, match.p2time);
-    NSLog(@"Other Player: moves - %d, time - %f", match.p1moves, match.p1time);
-  }*/
-  
-  // Probably going to need a display results with match, then unarchive the matchdata to get all 
-  // of the required information
-  //[[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionSlideInR transitionWithDuration:kSceneTransitionTime scene:[MainMenu scene]]];
+    [[CCDirector sharedDirector] replaceSceneAndCleanup:[CCTransitionFade transitionWithDuration:kSceneTransitionTime
+                                                                                           scene:[Menu sceneWithMenu:results]
+                                                                                       withColor:ccBLACK]];
 }
 
 
@@ -560,7 +546,7 @@
        NSLog(@"SendEndMatchError: %@", error);
      }
      
-     [self displayResults:myMatch]; 
+     [self handleMatchEnded:myMatch]; 
    }];
 
   
@@ -741,9 +727,9 @@
   {
     OhShiftMatchData* updatedData = [[OhShiftMatchData alloc] initFromFile:myMatch.matchID 
                                                                    andData:myMatch.matchData];
-      [self displayResults:myMatch];
     [self sendResultsForMatch:myMatch withData:[updatedData getDataForGameCenter]];
-    //[self sendNotice:@"A match has been completed!" forMatch:myMatch];
+      
+      [self handleMatchEnded:myMatch];
   }
 }
 
@@ -763,18 +749,7 @@
         partnerName = match.p1alias;
     }
     
-    /*if ([myMatch.matchID isEqualToString:currentMatch.matchID]) 
-    {
-        [self sendNotice:@"Your current match has ended" forMatch:myMatch];
-        [self displayResults:myMatch];
-    } 
-    else 
-    {
-        [self sendNotice:@"A different match has ended" forMatch:myMatch];
-    }*/
-    
     [self sendNotice:[NSString stringWithFormat:@"Your game with %@ has ended", partnerName] forMatch:myMatch];
-    [self displayResults:myMatch];
 }
 
 
