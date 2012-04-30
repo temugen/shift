@@ -10,53 +10,63 @@
 		<integer>3</integer>
 		<key>cells</key>
 		<array>
-            <dict>
-				<key>class</key>
-				<string>GoalSprite</string>
-				<key>name</key>
-				<string>green</string>
-				<key>row</key>
-				<integer>2</integer>
-				<key>column</key>
-				<integer>2</integer>
-			</dict>
 			<dict>
 				<key>class</key>
-				<string>GoalSprite</string>
+				<string>DestructiveBlock</string>
 				<key>name</key>
-				<string>yellow</string>
+				<string>stationary</string>
 				<key>row</key>
 				<integer>0</integer>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>1</integer>
 			</dict>
 			<dict>
 				<key>class</key>
-				<string>LockBlock</string>
+				<string>RamBlock</string>
 				<key>name</key>
-				<string>green</string>
-				<key>row</key>
-				<integer>2</integer>
-				<key>column</key>
-				<integer>0</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>LockBlock</string>
-				<key>name</key>
-				<string>yellow</string>
-				<key>row</key>
-				<integer>0</integer>
-				<key>column</key>
-				<integer>0</integer>
-			</dict>
-			<dict>
-				<key>class</key>
-				<string>KeyBlock</string>
-				<key>name</key>
-				<string>key</string>
+				<string>rotate</string>
 				<key>row</key>
 				<integer>1</integer>
+				<key>column</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>DestructiveBlock</string>
+				<key>name</key>
+				<string>stationary</string>
+				<key>row</key>
+				<integer>1</integer>
+				<key>column</key>
+				<integer>1</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>GoalSprite</string>
+				<key>name</key>
+				<string>blue</string>
+				<key>row</key>
+				<integer>1</integer>
+				<key>column</key>
+				<integer>2</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>BlockSprite</string>
+				<key>name</key>
+				<string>blue</string>
+				<key>row</key>
+				<integer>2</integer>
+				<key>column</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>class</key>
+				<string>DestructiveBlock</string>
+				<key>name</key>
+				<string>stationary</string>
+				<key>row</key>
+				<integer>2</integer>
 				<key>column</key>
 				<integer>1</integer>
 			</dict>

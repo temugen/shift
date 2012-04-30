@@ -5,10 +5,14 @@
 	<key>default</key>
 	<array>
 		<string></string>
+        <string>block_tutorial</string>
 		<string>stationary_tutorial</string>
+        <string>rotation_tutorial</string>
+        <string>wildcard_tutorial</string>
+		<string>lock_tutorial</string>
+        <string>ram_tutorial</string>
 		<string>dice_five</string>
 		<string>fishing</string>
-		<string>rotation_tutorial</string>
 		<string>ring_around_the_rosey</string>
 		<string>stationary_x</string>
 		<string>purple_bee</string>
@@ -21,8 +25,6 @@
 		<string>pinwheel</string>
 		<string>ram_blocker</string>
 		<string>rotate_bottleneck</string>
-		<string>wildcard_tutorial</string>
-		<string>lock_tutorial</string>
 		<string>test</string>
 	</array>
 </dict>
