@@ -141,6 +141,7 @@
     }
     
     if (hasMoved) {
+        [rotationBlock completeTutorial];
         [[SimpleAudioEngine sharedEngine] playEffect:@SFX_ROTATE];
     }
 }
