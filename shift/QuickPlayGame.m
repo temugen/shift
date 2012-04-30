@@ -109,6 +109,8 @@ static QuickPlayGame *lastGame = nil;
     board.position = boardCenter;
     [self addChild:board];
     [self animatePopulation];
+    
+    [super onNextGame];
 }
 
 -(void) onCellPopulated:(BlockSprite *)block
