@@ -65,15 +65,11 @@
 
 -(BOOL) dropKey
 {
-    //Attempt to set key at one of the adjacent 8 cells
+    //Attempt to set key at one of the adjacent 4 cells
     if ([self setKeyAtX:column-1 y:row] ||
         [self setKeyAtX:column y:row+1] ||
         [self setKeyAtX:column+1 y:row] ||
-        [self setKeyAtX:column y:row-1] ||
-        [self setKeyAtX:column-1 y:row+1] ||
-        [self setKeyAtX:column+1 y:row+1] ||
-        [self setKeyAtX:column-1 y:row-1] ||
-        [self setKeyAtX:column+1 y:row-1]) {
+        [self setKeyAtX:column y:row-1]) {
         
         //We created a key
         return YES;
