@@ -139,6 +139,7 @@
 {
     elapsedTime = 0;
     startTime = [NSDate date];
+    board.moveCount = 0;
     [board reset];
 }
 
