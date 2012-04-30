@@ -26,6 +26,8 @@
 
 +(LevelPack *) sharedPack;
 
+-(CCSprite *)previewForLevel:(int)num withMaxResolution:(CGSize)size;
+
 -(id) initWithFile:(NSString *)filename;
 
 -(void) setPack:(NSString *)packName;

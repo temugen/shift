@@ -81,10 +81,12 @@ NSInteger highestLevel;
                 [page addChild:levelNum];
                 
                 //Create level texture
-                CCSprite *levelSprite = [SinglePlayerGame previewForLevel:i];
+                CCSprite *levelSprite = [[LevelPack sharedPack] previewForLevel:i
+                                                              withMaxResolution:CGSizeMake(rectSprite.contentSize.width - 2 * platformPadding,
+                                                                                           rectSprite.contentSize.height - 2 * platformPadding)];
                 [levelSprite setTag:LEVEL_TEXTURE];
-                levelSprite.scaleX = (spriteWidth - platformPadding * 2) /levelSprite.contentSize.width;
-                levelSprite.scaleY = -levelSprite.scaleX;
+                //levelSprite.scaleX = (spriteWidth - platformPadding * 2) /levelSprite.contentSize.width;
+                levelSprite.flipY = YES;
                 levelSprite.position = position;
                 
                 [page addChild:levelSprite];

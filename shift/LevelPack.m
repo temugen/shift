@@ -7,6 +7,7 @@
 //
 
 #import "LevelPack.h"
+#import "BoardLayer.h"
 
 @implementation LevelPack
 
@@ -44,6 +45,20 @@
     }
     
     return self;
+}
+
+-(CCSprite *)previewForLevel:(int)num withMaxResolution:(CGSize)size
+{
+    NSDictionary *level = [self levelWithNumber:num];
+    NSDictionary *board = [level valueForKey:@"board"];
+    int numColumns = [[board valueForKey:@"columns"] intValue], numRows = [[board objectForKey:@"rows"] intValue];
+    
+    float cellHeight = size.height / numRows, cellWidth = size.width / numColumns;
+    float cellSize = MIN(cellHeight, cellWidth);
+    
+    BoardLayer *b = [BoardLayer boardWithDictionary:[[[LevelPack sharedPack] levelWithNumber:num] objectForKey:@"board"]
+                                               cellSize:CGSizeMake(cellSize, cellSize)];
+    return [b screenshot];
 }
 
 -(void) setPack:(NSString *)packName
