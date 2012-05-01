@@ -22,7 +22,8 @@
 -(void) onNewPuzzle:(id)sender
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"NewPuzzle" object:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"onPlay" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PlayButtonPressed" object:self];
+    [self removeFromParentAndCleanup:YES];
 }
 
 @end

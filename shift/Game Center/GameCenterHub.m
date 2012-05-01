@@ -191,7 +191,7 @@
   NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
   NSString* documentsDirectory = [paths objectAtIndex:0];
   NSString* filePath = [documentsDirectory stringByAppendingPathComponent:@"local_achievements"];  
-  achievementDict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];  
+    //achievementDict = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];  
   
   if (!gameCenterAvailable || !userAuthenticated) 
     return;
