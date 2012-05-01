@@ -27,11 +27,11 @@
 
 -(BOOL) onCompareWithCell:(CellSprite *)cell
 {
-    [self completeTutorial];
-    
     if (cell == nil || ![cell.name isEqualToString:name]) {
         return NO;
     }
+    
+    [self completeTutorial];
     
     return YES;
 }

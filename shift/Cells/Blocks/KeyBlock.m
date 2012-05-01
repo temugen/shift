@@ -25,7 +25,9 @@
 
 -(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force
 {
-    [self completeTutorial];
+    if ([cell isMemberOfClass:[LockBlock class]]) {
+        [self completeTutorial];
+    }
     return YES;
 }
 

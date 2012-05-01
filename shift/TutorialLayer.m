@@ -39,6 +39,10 @@
 
 -(void) clearAllMessages
 {
+    if ([tutorials count] <= 0) {
+        return;
+    }
+    
     [self clearCurrentMessage];
     
     [tutorials removeAllObjects];
@@ -56,6 +60,9 @@
         id actionSequence = [CCSequence actions:actionMove, actionRemove, nil];
         [child runAction:actionSequence];
     }
+    
+    [tutorials removeObject:currentTutorial];
+    currentTutorial = nil;
 }
 
 -(void) displayNext
@@ -68,18 +75,17 @@
         return;
     }
          
-    Tutorial *tutorial = [tutorials objectAtIndex:0];
-    [tutorials removeObjectAtIndex:0];
+    currentTutorial = [tutorials objectAtIndex:0];
     
-    CellSprite *cell = [tutorial.cell copy];
+    CellSprite *cell = [currentTutorial.cell copy];
     [self addChild:cell];
     
     CGFloat textWidth = screenSize.width - 5 * platformPadding - CGRectGetWidth(cell.boundingBox);
-    CGSize textSize = [tutorial.message sizeWithFont:[UIFont fontWithName:@"Helvetica" size:platformFontSize * 0.65]
+    CGSize textSize = [currentTutorial.message sizeWithFont:[UIFont fontWithName:@"Helvetica" size:platformFontSize * 0.65]
                                    constrainedToSize:CGSizeMake(textWidth, CGFLOAT_MAX)
                                        lineBreakMode:UILineBreakModeWordWrap];
     
-    CCLabelTTF *message = [CCLabelTTF labelWithString:tutorial.message 
+    CCLabelTTF *message = [CCLabelTTF labelWithString:currentTutorial.message 
                                            dimensions:textSize
                                             alignment:UITextAlignmentCenter
                                              fontName:@"Helvetica"
@@ -103,7 +109,7 @@
     //Should put all of this in a single node to move it at once
     //Slide in to window
     float yDiff = -bg.contentSize.height / 2;
-    for (CCNode *child in self.children) {
+    for (CCNode *child in [NSArray arrayWithObjects:bg, cell, message, nil]) {
         id actionMove = [CCMoveTo actionWithDuration:1.0 position:child.position];
         child.position = ccp(child.position.x, yDiff);
         [child runAction:actionMove];
@@ -124,7 +130,9 @@
 {
     Tutorial *tutorial = [notification object];
     [tutorials removeObject:tutorial];
-    [self displayNext];
+    if ([tutorial isEqual:currentTutorial]) {
+        [self displayNext];
+    }
 }
 
 @end

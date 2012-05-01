@@ -20,7 +20,7 @@
 				<key>column</key>
 				<integer>0</integer>
 			</dict>
-            <dict>
+			<dict>
 				<key>class</key>
 				<string>GoalSprite</string>
 				<key>name</key>
@@ -31,8 +31,8 @@
 				<integer>1</integer>
 			</dict>
 			<dict>
-                <key>tutorial</key>
-                <string>This is a stationary block. It doesn't move, and blocks on either side of it can be moved.</string>
+				<key>tutorial</key>
+				<string>This block doesn&apos;t move, but it splits rows and columns so that blocks on either side can be moved</string>
 				<key>class</key>
 				<string>StationaryBlock</string>
 				<key>name</key>
@@ -42,7 +42,7 @@
 				<key>column</key>
 				<integer>2</integer>
 			</dict>
-            <dict>
+			<dict>
 				<key>class</key>
 				<string>BlockSprite</string>
 				<key>name</key>
@@ -52,7 +52,7 @@
 				<key>column</key>
 				<integer>3</integer>
 			</dict>
-            <dict>
+			<dict>
 				<key>class</key>
 				<string>BlockSprite</string>
 				<key>name</key>
