@@ -12,7 +12,7 @@
 		<array>
 			<dict>
 				<key>tutorial</key>
-				<string>Place and hold your finger on this block, then move it in a circular motion to spin the blocks around it</string>
+				<string>Place and hold your finger on this block, then move it in a circular motion to spin the blocks around it.</string>
 				<key>class</key>
 				<string>RotationBlock</string>
 				<key>name</key>

@@ -32,7 +32,7 @@
 			</dict>
 			<dict>
 				<key>tutorial</key>
-				<string>This block doesn&apos;t move, but it splits rows and columns so that blocks on either side can be moved</string>
+				<string>This block doesn&apos;t move, but it splits rows and columns so that blocks on either side of it may be moved.</string>
 				<key>class</key>
 				<string>StationaryBlock</string>
 				<key>name</key>

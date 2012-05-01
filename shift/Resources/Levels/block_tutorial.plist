@@ -12,7 +12,7 @@
 		<array>
 			<dict>
 				<key>tutorial</key>
-				<string>Move the red block to the goal. Only entire rows or columns can be moved at one time</string>
+				<string>Move the red block to the goal. Only entire rows or columns can be moved at one time.</string>
 				<key>class</key>
 				<string>BlockSprite</string>
 				<key>name</key>
@@ -26,7 +26,7 @@
 				<key>class</key>
 				<string>GoalSprite</string>
 				<key>tutorial</key>
-				<string>This is a goal. All goals must be filled with a block of their color to complete a level</string>
+				<string>This is a goal. All goals must be filled with a block of their color to complete a level.</string>
 				<key>name</key>
 				<string>red</string>
 				<key>row</key>
