@@ -11,4 +11,6 @@
     NSMutableArray *tutorials;
 }
 
+-(void) clearAllMessages;
+
 @end

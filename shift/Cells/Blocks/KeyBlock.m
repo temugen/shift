@@ -23,4 +23,10 @@
     return self;
 }
 
+-(BOOL) onCollideWithCell:(CellSprite *)cell force:(float)force
+{
+    [self completeTutorial];
+    return YES;
+}
+
 @end

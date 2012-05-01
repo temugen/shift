@@ -37,7 +37,14 @@
     [super onExit];
 }
 
--(void)displayNext
+-(void) clearAllMessages
+{
+    [self clearCurrentMessage];
+    
+    [tutorials removeAllObjects];
+}
+
+-(void) clearCurrentMessage
 {
     CGSize screenSize = [[CCDirector sharedDirector] winSize];
     
@@ -49,6 +56,13 @@
         id actionSequence = [CCSequence actions:actionMove, actionRemove, nil];
         [child runAction:actionSequence];
     }
+}
+
+-(void) displayNext
+{
+    [self clearCurrentMessage];
+    
+    CGSize screenSize = [[CCDirector sharedDirector] winSize];
     
     if ([tutorials count] <= 0) {
         return;

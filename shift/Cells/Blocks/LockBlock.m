@@ -53,6 +53,8 @@
         //If a key is able to be added, lock the block
         if([self dropKey])
         {
+            [self completeTutorial];
+            
             //Play lock sound
             [[SimpleAudioEngine sharedEngine] playEffect:@SFX_LOCK];
             

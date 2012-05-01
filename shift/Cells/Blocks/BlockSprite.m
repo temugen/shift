@@ -41,7 +41,9 @@
 
 -(BOOL) onMoveWithDistance:(float)distance vertically:(BOOL)vertically
 {
-    [self completeTutorial];
+    if ([self isMemberOfClass:[BlockSprite class]]) {
+        [self completeTutorial];
+    }
     return NO;
 }
 

@@ -7,10 +7,12 @@
 //
 
 #import "GameScene.h"
+#import "TutorialLayer.h"
 
 @interface SinglePlayerGame : GameScene
 {
     int currentLevel;
+    TutorialLayer *tutorials;
 }
 
 +(SinglePlayerGame *) gameWithLevel:(int)level;

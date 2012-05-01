@@ -9,7 +9,6 @@
 #import "SinglePlayerGame.h"
 #import "MainMenu.h"
 #import "GameCenterHub.h"
-#import "TutorialLayer.h"
 #import "SinglePlayerGameMenu.h"
 #import "LevelPack.h"
 #import "NextGameMenu.h"
@@ -33,7 +32,7 @@ static SinglePlayerGame *lastGame = nil;
     if ((self = [super init])) {
         currentLevel = level;
         
-        TutorialLayer *tutorials = [[TutorialLayer alloc] init];
+        tutorials = [[TutorialLayer alloc] init];
         [self addChild:tutorials];
         
         board = [BoardLayer boardWithDictionary:[[[LevelPack sharedPack] levelWithNumber:currentLevel] objectForKey:@"board"]
@@ -49,6 +48,8 @@ static SinglePlayerGame *lastGame = nil;
 -(void) onGameEnd
 {
   [super onGameEnd];
+    
+    [tutorials clearAllMessages];
     
     NextGameMenu *nextMenu = [[NextGameMenu alloc] initWithMessage:[NSString stringWithFormat:@"Level %d Complete!", currentLevel]
                                                               time:self.elapsedTime moves:board.moveCount];

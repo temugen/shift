@@ -25,6 +25,9 @@
 
 -(BOOL) onCompareWithCell:(CellSprite *)cell
 {
+    if ([cell isKindOfClass:[GoalSprite class]]) {
+        [self completeTutorial];
+    }
     return YES;
 }
 
