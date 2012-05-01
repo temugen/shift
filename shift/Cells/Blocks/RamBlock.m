@@ -31,6 +31,10 @@
     
     [[SimpleAudioEngine sharedEngine] playEffect:@SFX_RAM];
     
+    if ([cell isKindOfClass:[DestructiveBlock class]]) {
+        [self completeTutorial];
+    }
+    
     return YES;
 }
 
